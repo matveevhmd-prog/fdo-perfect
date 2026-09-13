@@ -101,42 +101,7 @@
   },
   {
    "parameters": {
-    "documentId": {
-     "__rl": true,
-     "mode": "id",
-     "value": "12VE9q3UbagZ34nGZAHrj2lFo4b0wmsPx1UxXPWhpxRc"
-    },
-    "sheetName": {
-     "__rl": true,
-     "mode": "name",
-     "value": "Аркуш1"
-    },
-    "options": {
-     "dataLocationOnSheet": {
-      "values": {
-       "rangeDefinition": "detectAutomatically"
-      }
-     }
-    }
-   },
-   "id": "27070377-0e5d-4dc4-8c5f-1878c92242e7",
-   "name": "Read DEMO Flat (Chat)",
-   "type": "n8n-nodes-base.googleSheets",
-   "typeVersion": 4.7,
-   "position": [
-    448,
-    192
-   ],
-   "credentials": {
-    "googleSheetsOAuth2Api": {
-     "id": "ijBsXae1VQfiWISu",
-     "name": "Google Sheets account"
-    }
-   }
-  },
-  {
-   "parameters": {
-    "jsCode": "function toNum(v){\n  if (v === null || v === undefined || v === '' || v === '—') return null;\n  if (typeof v === 'number') return v;\n  var s = String(v).trim();\n  if (s === '—' || s === '') return null;\n  var n = parseFloat(s.replace(/\\s/g,'').replace(',', '.'));\n  return isNaN(n) ? null : n;\n}\nfunction fmtUAH(v){ if (v===null||v===undefined) return '—'; return Math.round(v).toLocaleString('uk-UA') + 'грн'; }\nfunction fmtPct(v){ if (v===null||v===undefined) return '—'; return (v>0?'+':'') + v.toFixed(v===Math.round(v)?0:1).replace('.',',') + '%'; }\nfunction fmtRatio(v){ if (v===null||v===undefined) return '—'; return v.toFixed(2).replace('.', ','); }\n\nconst rows = $input.all().map(function(i){ return i.json; });\nconst projects = [];\nrows.forEach(function(row){\n  var id = String(row['ProjectID'] || '').trim();\n  if (!id) return;\n  var rentForecastRaw = toNum(row['Рентабельність_прогноз_pct']);\n  if (rentForecastRaw === null) return;\n  var etcPlanTotal = [toNum(row['МБР_ETC_план_год']), toNum(row['ЕП_ETC_план_год']), toNum(row['П_ETC_план_год']), toNum(row['Р_ETC_план_год']), toNum(row['АН_ETC_план_год'])]\n    .reduce(function(s,v){ return s + (v||0); }, 0);\n  projects.push({\n    id: id, name: row['Назва'] || id,\n    contract: toNum(row['Контракт']),\n    planHrs: toNum(row['Планові_години']),\n    factHrs: toNum(row['Фактичний_час']),\n    ostHrs: toNum(row['Залишок_часу']),\n    etcHrs: toNum(row['ETC_прогноз_всього_год']),\n    etcPlanTotal: etcPlanTotal,\n    pctVykon: toNum(row['ПроцентВиконання']) !== null ? toNum(row['ПроцентВиконання']) * 100 : null,\n    prybutokPlan: toNum(row['Прибуток_план']),\n    prybutokForecast: toNum(row['Прибуток_прогноз']),\n    rentPlan: toNum(row['Рентабельність_план_pct']) !== null ? toNum(row['Рентабельність_план_pct']) * 100 : null,\n    rentForecast: rentForecastRaw * 100,\n    rawQ: toNum(row[\"Засвоєний_об'єм\"]),\n    rawS: toNum(row['Сума_Актів']),\n    rawP: toNum(row['Отримані_гроші']),\n    cpi: toNum(row['CPI_класичний_EVM'])\n  });\n});\n\nconst lines = projects.map(function(p){\n  var emoji = p.rentForecast < 0 ? '🔴' : (p.rentForecast < 15 ? '🟡' : '🟢');\n  var l1 = emoji + ' <b>' + p.name + '</b> (' + p.id + ')';\n  var l2 = '⏱ Залишок_план:' + (p.planHrs!==null?p.planHrs+'г':'—') + ' Факт_годин:' + (p.factHrs!==null?p.factHrs+'г':'—') + ' Залишок_факт:' + (p.ostHrs!==null?p.ostHrs+'г':'—') + ' Залишок_прогноз:' + (p.etcHrs!==null?Math.round(p.etcHrs*10)/10+'г':'—') + ' (Залишок_план_всього ' + Math.round(p.etcPlanTotal*10)/10 + 'г)';\n  var l3 = '✅ Виконано: ' + (p.pctVykon!==null?(Math.round(p.pctVykon*10)/10)+'%':'—');\n  var l4 = '💰 Прибуток_план→Прибуток_прогноз: ' + fmtUAH(p.prybutokPlan) + ' → ' + fmtUAH(p.prybutokForecast) + '  📈 Рентабельність_план→Рентабельність_прогноз: ' + fmtPct(p.rentPlan) + ' → ' + fmtPct(p.rentForecast);\n  var l5 = '📦 Засвоєно:' + fmtUAH(p.rawQ) + ' Акти:' + fmtUAH(p.rawS) + ' Оплачено:' + fmtUAH(p.rawP) + '  CPI:' + fmtRatio(p.cpi);\n  return [l1,l2,l3,l4,l5].join(String.fromCharCode(10));\n}).join(String.fromCharCode(10,10));\n\nconst text = $('Telegram Trigger').item.json.message?.text || '';\n\nconst system = 'Ти — стратегічний COO-радник власника архітектурного бізнесу (Archi). Відповідаєш українською мовою на рівні операційного директора.' + String.fromCharCode(10) +\n'Дані живі — читаються напряму з DEMO_M0.2_AllProjects_Flat при кожному запиті, ' + projects.length + ' проєктів.' + String.fromCharCode(10,10) +\n'ДАНІ ПО ПРОЄКТАХ:' + String.fromCharCode(10,10) +\nlines + String.fromCharCode(10,10) +\n'НОРМАТИВИ:' + String.fromCharCode(10) +\n'- Рентабельність: норма ~25%.' + String.fromCharCode(10) +\n'- CPI (Cost Performance Index): <0.85 — критична перевитрата; 0.85-1.15 — норма; >1.15 — економія.' + String.fromCharCode(10) +\n'- Розрив обсягів: якщо Засвоєно суттєво більше за Акти або Оплачено — компанія кредитує клієнта власним коштом, це касовий ризик.' + String.fromCharCode(10) +\n'- Розрив залишку: якщо Залишок_прогноз суттєво більший за Залишок_план_всього — темп витрат випереджає план, ризик перевищення бюджету годин.' + String.fromCharCode(10,10) +\n'ГЛОСАРІЙ ПОКАЗНИКІВ (СУВОРО, без винятків):' + String.fromCharCode(10) +\n'Кожен показник має РІВНО ОДНУ базову назву і завжди вживається лише з суфіксами _план / _факт / _прогноз. Заборонено вигадувати нові назви, синоніми чи альтернативні формулювання для існуючих показників — навіть якщо питання користувача сформульоване інакше.' + String.fromCharCode(10) +\n'Дозволені базові назви показників і ЛИШЕ вони:' + String.fromCharCode(10) +\n'- Контракт (сума договору, без план/факт/прогноз)' + String.fromCharCode(10) +\n'- Залишок_план, Залишок_факт, Залишок_прогноз (години; \"Залишок_прогноз\" — це те, що раніше могло називатись ETC чи \"реальний темп\" — використовуй ТІЛЬКИ \"Залишок_прогноз\")' + String.fromCharCode(10) +\n'- Прибуток_план, Прибуток_прогноз' + String.fromCharCode(10) +\n'- Рентабельність_план, Рентабельність_прогноз' + String.fromCharCode(10) +\n'- Засвоєно, Акти, Оплачено (грошові суми, без план/факт/прогноз)' + String.fromCharCode(10) +\n'- CPI (коефіцієнт, без план/факт/прогноз)' + String.fromCharCode(10) +\n'Якщо для відповіді на питання власника не вистачає показника з цього переліку — скажи прямо, що даних немає, НЕ вигадуй нову метрику і НЕ давай їй власну назву.' + String.fromCharCode(10,10) +\n'ПРАВИЛА:' + String.fromCharCode(10) +\n'1. Якщо проекту немає у списку вище — чесно скажи, що він не в перевіреному наборі, НЕ вигадуй дані.' + String.fromCharCode(10) +\n'2. МАКСИМУМ 3 проекти з повним Insight-Impact-Action в одній відповіді (Telegram-повідомлення обмежене 4096 символами — більше фізично не влізе). Якщо запитали конкретні проекти і їх більше 3 — обери 3 найкритичніші з названих (найнижча рентабельність_прогноз). Якщо запит загальний (\\\"що по проєктах\\\") — візьми 3 найкритичніші з усього портфеля, решту згадай одним рядком у Загальному висновку без I-I-A.' + String.fromCharCode(10) +\n'3. Insight/Impact/Action будуй ТІЛЬКИ на основі наведених цифр вище. Якщо для конкретного висновку не вистачає даних — не вигадуй, пропусти цей пункт.' + String.fromCharCode(10) +\n'4. Кожен Insight/Impact/Action — 1-2 речення, стисло. Не більше 700 символів на весь блок одного проєкту.' + String.fromCharCode(10) +\n'5. Це правило застосовується ДО ВСІХ відповідей, не тільки формату Insight-Impact-Action — включно довільні питання типу \\\"скільки ще грошей/часу\\\", \\\"коли здамо\\\" тощо. Терміни з ГЛОСАРІЯ вживай однаково завжди.' + String.fromCharCode(10,10) +\n'ФОРМАТ ВІДПОВІДІ (суворо, тільки HTML-теги <b>/<i>, ніякого Markdown, кольору через емодзі 🔴🟡🟢):' + String.fromCharCode(10) +\n'[emoji] <b>Назва</b> (Номер)' + String.fromCharCode(10) +\n'⏱ Залишок_план:Xг Факт_годин:Yг Залишок_факт:Zг Залишок_прогноз:Wг' + String.fromCharCode(10) +\n'💰 Прибуток_план→Прибуток_прогноз: N → M грн  📈 Рентабельність_план→Рентабельність_прогноз: X% → Y%' + String.fromCharCode(10) +\n'💡 <b>Insight:</b> [коротко, з цифрами]' + String.fromCharCode(10) +\n'⚠️ <b>Impact:</b> [коротко]' + String.fromCharCode(10) +\n'🎯 <b>Action:</b> [1 конкретний крок]' + String.fromCharCode(10,10) +\n'Порожня лінія між проектами. У кінці — окремий рядок <b>Загальний висновок:</b> [1-2 речення по портфелю, включно зі згадкою проєктів, які не увійшли в деталі].';\n\nconst body = JSON.stringify({\n  model: 'claude-sonnet-4-6',\n  max_tokens: 1800,\n  system: system,\n  messages: [{ role: 'user', content: text }]\n});\n\nreturn [{ json: { body: body, chat_id: $('Telegram Trigger').item.json.message.chat.id } }];"
+    "jsCode": "function toNum(v){\n  if (v === null || v === undefined || v === '' || v === '—') return null;\n  if (typeof v === 'number') return v;\n  var s = String(v).trim();\n  if (s === '—' || s === '') return null;\n  var n = parseFloat(s.replace(/\\s/g,'').replace(',', '.'));\n  return isNaN(n) ? null : n;\n}\nfunction fmtUAH(v){ if (v===null||v===undefined) return '—'; return Math.round(v).toLocaleString('uk-UA') + 'грн'; }\nfunction fmtPct(v){ if (v===null||v===undefined) return '—'; return (v>0?'+':'') + v.toFixed(v===Math.round(v)?0:1).replace('.',',') + '%'; }\nfunction fmtRatio(v){ if (v===null||v===undefined) return '—'; return v.toFixed(2).replace('.', ','); }\n\nconst rows = $input.all().map(function(i){ return i.json; });\nconst projects = [];\nrows.forEach(function(row){\n  var id = String(row['project_id'] || '').trim();\n  if (!id) return;\n  var rentForecastPct = toNum(row['profitability_forecast_pct']);\n  if (rentForecastPct === null) return;\n  var etcPlanTotal = toNum(row['hours_remaining']);\n  projects.push({\n    id: id, name: id,\n    contract: toNum(row['contract_amount']),\n    planHrs: toNum(row['planned_hours']),\n    factHrs: toNum(row['actual_hours']),\n    ostHrs: toNum(row['hours_remaining']),\n    etcHrs: toNum(row['etc_forecast_total_hours']),\n    etcPlanTotal: etcPlanTotal,\n    pctVykon: toNum(row['percent_execution']),\n    prybutokPlan: toNum(row['profit_plan']),\n    prybutokForecast: toNum(row['profit_forecast']),\n    rentPlan: toNum(row['profitability_plan_pct']),\n    rentForecast: rentForecastPct,\n    rawQ: toNum(row['earned_value_contract']),\n    rawS: toNum(row['acts_amount']),\n    rawP: toNum(row['money_received']),\n    cpi: toNum(row['cpi_classic_evm'])\n  });\n});\n\nconst lines = projects.map(function(p){\n  var emoji = p.rentForecast < 0 ? '🔴' : (p.rentForecast < 15 ? '🟡' : '🟢');\n  var l1 = emoji + ' <b>' + p.name + '</b> (' + p.id + ')';\n  var l2 = '⏱ Залишок_план:' + (p.planHrs!==null?p.planHrs+'г':'—') + ' Факт_годин:' + (p.factHrs!==null?p.factHrs+'г':'—') + ' Залишок_факт:' + (p.ostHrs!==null?p.ostHrs+'г':'—') + ' Залишок_прогноз:' + (p.etcHrs!==null?Math.round(p.etcHrs*10)/10+'г':'—') + ' (Залишок_план_всього ' + Math.round(p.etcPlanTotal*10)/10 + 'г)';\n  var l3 = '✅ Виконано: ' + (p.pctVykon!==null?(Math.round(p.pctVykon*10)/10)+'%':'—');\n  var l4 = '💰 Прибуток_план→Прибуток_прогноз: ' + fmtUAH(p.prybutokPlan) + ' → ' + fmtUAH(p.prybutokForecast) + '  📈 Рентабельність_план→Рентабельність_прогноз: ' + fmtPct(p.rentPlan) + ' → ' + fmtPct(p.rentForecast);\n  var l5 = '📦 Засвоєно:' + fmtUAH(p.rawQ) + ' Акти:' + fmtUAH(p.rawS) + ' Оплачено:' + fmtUAH(p.rawP) + '  CPI:' + fmtRatio(p.cpi);\n  return [l1,l2,l3,l4,l5].join(String.fromCharCode(10));\n}).join(String.fromCharCode(10,10));\n\nconst text = $('Telegram Trigger').item.json.message?.text || '';\n\nconst system = 'Ти — стратегічний COO-радник власника архітектурного бізнесу (Archi). Відповідаєш українською мовою на рівні операційного директора.' + String.fromCharCode(10) +\n'Дані живі — читаються напряму з Data Total (project_metrics, Postgres) при кожному запиті, ' + projects.length + ' проєктів.' + String.fromCharCode(10,10) +\n'ДАНІ ПО ПРОЄКТАХ:' + String.fromCharCode(10,10) +\nlines + String.fromCharCode(10,10) +\n'НОРМАТИВИ:' + String.fromCharCode(10) +\n'- Рентабельність: норма ~25%.' + String.fromCharCode(10) +\n'- CPI (Cost Performance Index): <0.85 — критична перевитрата; 0.85-1.15 — норма; >1.15 — економія.' + String.fromCharCode(10) +\n'- Розрив обсягів: якщо Засвоєно суттєво більше за Акти або Оплачено — компанія кредитує клієнта власним коштом, це касовий ризик.' + String.fromCharCode(10) +\n'- Розрив залишку: якщо Залишок_прогноз суттєво більший за Залишок_план_всього — темп витрат випереджає план, ризик перевищення бюджету годин.' + String.fromCharCode(10,10) +\n'ГЛОСАРІЙ ПОКАЗНИКІВ (СУВОРО, без винятків):' + String.fromCharCode(10) +\n'Кожен показник має РІВНО ОДНУ базову назву і завжди вживається лише з суфіксами _план / _факт / _прогноз. Заборонено вигадувати нові назви, синоніми чи альтернативні формулювання для існуючих показників — навіть якщо питання користувача сформульоване інакше.' + String.fromCharCode(10) +\n'Дозволені базові назви показників і ЛИШЕ вони:' + String.fromCharCode(10) +\n'- Контракт (сума договору, без план/факт/прогноз)' + String.fromCharCode(10) +\n'- Залишок_план, Залишок_факт, Залишок_прогноз (години; \"Залишок_прогноз\" — це те, що раніше могло називатись ETC чи \"реальний темп\" — використовуй ТІЛЬКИ \"Залишок_прогноз\")' + String.fromCharCode(10) +\n'- Прибуток_план, Прибуток_прогноз' + String.fromCharCode(10) +\n'- Рентабельність_план, Рентабельність_прогноз' + String.fromCharCode(10) +\n'- Засвоєно, Акти, Оплачено (грошові суми, без план/факт/прогноз)' + String.fromCharCode(10) +\n'- CPI (коефіцієнт, без план/факт/прогноз)' + String.fromCharCode(10) +\n'Якщо для відповіді на питання власника не вистачає показника з цього переліку — скажи прямо, що даних немає, НЕ вигадуй нову метрику і НЕ давай їй власну назву.' + String.fromCharCode(10,10) +\n'ПРАВИЛА:' + String.fromCharCode(10) +\n'1. Якщо проекту немає у списку вище — чесно скажи, що він не в перевіреному наборі, НЕ вигадуй дані.' + String.fromCharCode(10) +\n'2. МАКСИМУМ 3 проекти з повним Insight-Impact-Action в одній відповіді (Telegram-повідомлення обмежене 4096 символами — більше фізично не влізе). Якщо запитали конкретні проєкти і їх більше 3 — обери 3 найкритичніші з названих (найнижча рентабельність_прогноз). Якщо запит загальний (\"що по проєктах\") — візьми 3 найкритичніші з усього портфеля, решту згадай одним рядком у Загальному висновку без I-I-A.' + String.fromCharCode(10) +\n'3. Insight/Impact/Action будуй ТІЛЬКИ на основі наведених цифр вище. Якщо для конкретного висновку не вистачає даних — не вигадуй, пропусти цей пункт.' + String.fromCharCode(10) +\n'4. Кожен Insight/Impact/Action — 1-2 речення, стисло. Не більше 700 символів на весь блок одного проєкту.' + String.fromCharCode(10) +\n'5. Це правило застосовується ДО ВСІХ відповідей, не тільки формату Insight-Impact-Action — включно довільні питання типу \"скільки ще грошей/часу\", \"коли здамо\" тощо. Терміни з ГЛОСАРІЯ вживай однаково завжди.' + String.fromCharCode(10,10) +\n'ФОРМАТ ВІДПОВІДІ (суворо, тільки HTML-теги <b>/<i>, ніякого Markdown, кольору через емодзі 🔴🟡🟢):' + String.fromCharCode(10) +\n'[emoji] <b>Назва</b> (Номер)' + String.fromCharCode(10) +\n'⏱ Залишок_план:Xг Факт_годин:Yг Залишок_факт:Zг Залишок_прогноз:Wг' + String.fromCharCode(10) +\n'💰 Прибуток_план→Прибуток_прогноз: N → M грн  📈 Рентабельність_план→Рентабельність_прогноз: X% → Y%' + String.fromCharCode(10) +\n'💡 <b>Insight:</b> [коротко, з цифрами]' + String.fromCharCode(10) +\n'⚠️ <b>Impact:</b> [коротко]' + String.fromCharCode(10) +\n'🎯 <b>Action:</b> [1 конкретний крок]' + String.fromCharCode(10,10) +\n'Порожня лінія між проектами. У кінці — окремий рядок <b>Загальний висновок:</b> [1-2 речення по портфелю, включно зі згадкою проєктів, які не увійшли в деталі].';\n\nconst body = JSON.stringify({\n  model: 'claude-sonnet-4-6',\n  max_tokens: 1800,\n  system: system,\n  messages: [{ role: 'user', content: text }]\n});\n\nreturn [{ json: { body: body, chat_id: $('Telegram Trigger').item.json.message.chat.id } }];"
    },
    "id": "e0c706c8-ba37-42f4-9c22-45ef402be775",
    "name": "Build Request Body",
@@ -336,42 +301,7 @@
   },
   {
    "parameters": {
-    "documentId": {
-     "__rl": true,
-     "mode": "id",
-     "value": "12VE9q3UbagZ34nGZAHrj2lFo4b0wmsPx1UxXPWhpxRc"
-    },
-    "sheetName": {
-     "__rl": true,
-     "mode": "name",
-     "value": "Аркуш1"
-    },
-    "options": {
-     "dataLocationOnSheet": {
-      "values": {
-       "rangeDefinition": "detectAutomatically"
-      }
-     }
-    }
-   },
-   "id": "64c901db-127c-4332-a37e-b9941339c823",
-   "name": "Read DEMO Flat",
-   "type": "n8n-nodes-base.googleSheets",
-   "typeVersion": 4.7,
-   "position": [
-    672,
-    640
-   ],
-   "credentials": {
-    "googleSheetsOAuth2Api": {
-     "id": "ijBsXae1VQfiWISu",
-     "name": "Google Sheets account"
-    }
-   }
-  },
-  {
-   "parameters": {
-    "jsCode": "function toNum(v){\n  if (v === null || v === undefined || v === '' || v === '—') return null;\n  if (typeof v === 'number') return v;\n  var s = String(v).trim();\n  if (s === '—' || s === '') return null;\n  var n = parseFloat(s.replace(/\\s/g,'').replace(',', '.'));\n  return isNaN(n) ? null : n;\n}\nfunction fmtPct(v){ if (v===null||v===undefined) return '—'; return (v>0?'+':'') + v.toFixed(v===Math.round(v)?0:2).replace('.',',') + '%'; }\nfunction fmtUAH(v){ if (v===null||v===undefined) return '—'; return Math.round(v).toLocaleString('uk-UA') + ' грн'; }\nfunction fmtHrs(v){ if (v===null||v===undefined) return '—'; return (Math.round(v*10)/10) + ' год'; }\nfunction fmtRatio(v){ if (v===null||v===undefined) return '—'; return v.toFixed(2).replace('.', ','); }\n\nconst flatRows = $('Read DEMO Flat').all().map(function(i){ return i.json; });\nconst weeklyRows = $input.all().map(function(i){ return i.json; });\n\nconst projects = [];\nflatRows.forEach(function(row){\n  var id = String(row['ProjectID'] || '').trim();\n  if (!id) return;\n  var rentForecastRaw = toNum(row['Рентабельність_прогноз_pct']);\n  if (rentForecastRaw === null) return;\n\n  var etcPlanTotal = [toNum(row['МБР_ETC_план_год']), toNum(row['ЕП_ETC_план_год']), toNum(row['П_ETC_план_год']), toNum(row['Р_ETC_план_год']), toNum(row['АН_ETC_план_год'])]\n    .reduce(function(s,v){ return s + (v||0); }, 0);\n  var etcForecastRaw = toNum(row['ETC_прогноз_всього_год']);\n\n  var rawQ = toNum(row[\"Засвоєний_об'єм\"]);\n  var rawS = toNum(row['Сума_Актів']);\n  var rawP = toNum(row['Отримані_гроші']);\n  var rawCpi = toNum(row['CPI_класичний_EVM']);\n\n  var weekly = weeklyRows.filter(function(w){ return String(w['ProjectID']||'').trim() === id && toNum(w['Вартість_1%_факт']) !== null; });\n  var lastWeekly = weekly.length ? weekly[weekly.length-1] : null;\n  var weeklyCostFmt = null, weeklyContractFmt = null;\n  if (lastWeekly) {\n    var v1pct = toNum(lastWeekly['Вартість_1%_факт']);\n    var progress = toNum(lastWeekly['Прогрес_%_тиждень']);\n    var expected = toNum(lastWeekly['Очікувано_за_темпом']);\n    if (v1pct !== null && progress !== null) weeklyCostFmt = fmtUAH(v1pct * progress);\n    if (expected !== null) weeklyContractFmt = fmtUAH(expected);\n  }\n\n  projects.push({\n    id: id, name: row['Назва'] || id,\n    contract: toNum(row['Контракт']), contractFmt: fmtUAH(toNum(row['Контракт'])),\n    rentPlan: toNum(row['Рентабельність_план_pct']), rentPlanFmt: fmtPct(toNum(row['Рентабельність_план_pct'])*100),\n    rentForecast: rentForecastRaw, rentForecastFmt: fmtPct(rentForecastRaw*100),\n    profitPlan: toNum(row['Прибуток_план']), profitPlanFmt: fmtUAH(toNum(row['Прибуток_план'])),\n    profitForecast: toNum(row['Прибуток_прогноз']), profitForecastFmt: fmtUAH(toNum(row['Прибуток_прогноз'])),\n    executedWorkFmt: fmtUAH(rawQ),\n    receivedFmt: fmtUAH(rawP),\n    actsFmt: fmtUAH(rawS),\n    moneyToCompleteTeamFmt: fmtUAH(toNum(row['Гроші_до_завершення_Команда'])),\n    moneyToCompleteSubFmt: fmtUAH(toNum(row['Гроші_до_завершення_Субпідряд'])),\n    etcPlanFmt: fmtHrs(etcPlanTotal),\n    etcForecastFmt: fmtHrs(etcForecastRaw),\n    etc: etcForecastRaw,\n    cpi: rawCpi, cpiFmt: fmtRatio(rawCpi),\n    spi: toNum(row['SPI_EVM_наближено']), spiFmt: fmtRatio(toNum(row['SPI_EVM_наближено'])),\n    weeklyCostFmt: weeklyCostFmt, weeklyContractFmt: weeklyContractFmt,\n    rawQ: rawQ, rawS: rawS, rawP: rawP,\n    rawEtcPlan: etcPlanTotal, rawEtcForecast: etcForecastRaw\n  });\n});\n\nfunction rentGroupOf(p){ return p.rentForecast < 0 ? 'critical' : (p.rentForecast < 0.15 ? 'attention' : 'normal'); }\nconst rentGroupDefs = [\n  {id:'critical', label:'Критично', sub:'прогноз < 0%', color:'red'},\n  {id:'attention', label:'Увага', sub:'0–15%', color:'orange'},\n  {id:'normal', label:'Норма', sub:'≥15%', color:'green'}\n];\nconst rentGroupProjects = {critical:[], attention:[], normal:[]};\nprojects.forEach(function(p){ rentGroupProjects[rentGroupOf(p)].push({ id: p.id, name: p.name, value: p.rentForecastFmt }); });\nconst rentGroups = rentGroupDefs.map(function(g){ return Object.assign({}, g, { count: rentGroupProjects[g.id].length, value: rentGroupProjects[g.id].length }); });\n\nconst avgRentForecast = projects.length ? projects.reduce(function(s,p){ return s+p.rentForecast; }, 0) / projects.length : 0;\nconst avgRentPlan = projects.length ? projects.reduce(function(s,p){ return s+(p.rentPlan||0); }, 0) / projects.length : 0;\nconst totalProfitPlan = projects.reduce(function(s,p){ return s+(p.profitPlan||0); }, 0);\nconst totalProfitForecast = projects.reduce(function(s,p){ return s+(p.profitForecast||0); }, 0);\nconst totalContract = projects.reduce(function(s,p){ return s+(p.contract||0); }, 0);\n\nconst volumeGroups = { critical: [], attention: [], normal: [] };\nprojects.forEach(function(p){\n  var Q = p.rawQ||0, S = p.rawS||0, P = p.rawP||0;\n  if (Q > S && Q > P) volumeGroups.critical.push({ id: p.id, name: p.name, value: fmtUAH(Q) });\n  else if (Q > S || S > P) volumeGroups.attention.push({ id: p.id, name: p.name, value: fmtUAH(Q) });\n  else volumeGroups.normal.push({ id: p.id, name: p.name, value: fmtUAH(Q) });\n});\nconst volumeGroupDefs = [\n  {id:'critical', label:'Робота є, актів/грошей нема', sub:'Q > S та Q > P', color:'red'},\n  {id:'attention', label:'Розрив між роботою і грошима', sub:'Q > S або S > P', color:'orange'},\n  {id:'normal', label:'Робота ≈ Акти ≈ Гроші', sub:'Q ≈ S ≈ P', color:'green'}\n];\nconst volumeGapSum = projects.map(function(p){ return (p.rawQ||0) - (p.rawS||0); }).filter(function(v){ return v>0; }).reduce(function(s,v){ return s+v; }, 0);\n\nconst etcGroups = { critical: [], attention: [], normal: [] };\nprojects.forEach(function(p){\n  var plan = p.rawEtcPlan||0, forecast = p.rawEtcForecast||0;\n  var gap = forecast - plan;\n  var gapFmt = fmtHrs(gap);\n  if (plan > 0 && gap > plan*0.2) etcGroups.critical.push({ id: p.id, name: p.name, value: gapFmt });\n  else if (plan > 0 && gap > plan*0.05) etcGroups.attention.push({ id: p.id, name: p.name, value: gapFmt });\n  else etcGroups.normal.push({ id: p.id, name: p.name, value: gapFmt });\n});\nconst etcGroupDefs = [\n  {id:'critical', label:'Прогноз гірший плану на >20%', color:'red'},\n  {id:'attention', label:'Прогноз гірший на 5–20%', color:'orange'},\n  {id:'normal', label:'Прогноз у межах 5% від плану', color:'green'}\n];\nconst etcGapValues = projects.map(function(p){ return (p.rawEtcForecast||0) - (p.rawEtcPlan||0); });\nconst etcGapAvg = etcGapValues.length ? etcGapValues.reduce(function(s,v){ return s+v; },0)/etcGapValues.length : 0;\n\nconst evmGroups = { critical: [], attention: [], normal: [] };\nprojects.forEach(function(p){\n  var cpi = p.cpi;\n  if (cpi === null || cpi === undefined) return;\n  if (cpi < 0.85) evmGroups.critical.push({ id: p.id, name: p.name, value: fmtRatio(cpi) });\n  else if (cpi <= 1.15) evmGroups.attention.push({ id: p.id, name: p.name, value: fmtRatio(cpi) });\n  else evmGroups.normal.push({ id: p.id, name: p.name, value: fmtRatio(cpi) });\n});\nconst evmGroupDefs = [\n  {id:'critical', label:'CPI < 0.85 (перевитрата)', color:'red'},\n  {id:'attention', label:'CPI 0.85–1.15 (норма)', color:'orange'},\n  {id:'normal', label:'CPI > 1.15 (економія)', color:'green'}\n];\nconst cpiValues = projects.map(function(p){ return p.cpi; }).filter(function(v){ return v!==null && v!==undefined; });\nconst cpiAvg = cpiValues.length ? cpiValues.reduce(function(s,v){ return s+v; },0)/cpiValues.length : 0;\n\nconst views = {\n  rent: {\n    title: 'Рентабельність',\n    heroL: { label: 'План', value: (avgRentPlan*100).toFixed(0)+'%' },\n    heroR: { label: 'Прогноз', value: (avgRentForecast*100).toFixed(0)+'%' },\n    groups: rentGroups,\n    groupProjects: rentGroupProjects\n  },\n  profit: {\n    title: 'Прибуток',\n    heroL: { label: 'План', value: fmtUAH(totalProfitPlan) },\n    heroR: { label: 'Прогноз', value: fmtUAH(totalProfitForecast) },\n    groups: rentGroups,\n    groupProjects: rentGroupProjects\n  },\n  volume: {\n    title: 'Обсяг',\n    heroL: { label: 'Сумарний розрив Q-S', value: fmtUAH(volumeGapSum) },\n    heroR: { label: 'Проектів з розривом', value: volumeGroups.critical.length + volumeGroups.attention.length },\n    groups: volumeGroupDefs.map(function(g){ return Object.assign({}, g, { count: volumeGroups[g.id].length, value: volumeGroups[g.id].length }); }),\n    groupProjects: volumeGroups\n  },\n  etc: {\n    title: 'ETC',\n    heroL: { label: 'Середній розрив', value: fmtHrs(etcGapAvg) },\n    heroR: { label: 'Проектів з перевищенням', value: etcGroups.critical.length + etcGroups.attention.length },\n    groups: etcGroupDefs.map(function(g){ return Object.assign({}, g, { count: etcGroups[g.id].length, value: etcGroups[g.id].length }); }),\n    groupProjects: etcGroups\n  },\n  evm: {\n    title: 'EVM',\n    heroL: { label: 'Сер. CPI', value: fmtRatio(cpiAvg) },\n    heroR: { label: 'Проектів з CPI<0.85', value: evmGroups.critical.length },\n    groups: evmGroupDefs.map(function(g){ return Object.assign({}, g, { count: evmGroups[g.id].length, value: evmGroups[g.id].length }); }),\n    groupProjects: evmGroups\n  }\n};\n\nconst data = {\n  asOf: new Date().toLocaleDateString('uk-UA') + ' (DEMO Flat, ' + projects.length + ' проектів)',\n  projects: projects,\n  totalContract: totalContract, totalContractFmt: fmtUAH(totalContract),\n  views: views\n};\nreturn [{ json: data }];"
+    "jsCode": "function toNum(v){\n  if (v === null || v === undefined || v === '' || v === '—') return null;\n  if (typeof v === 'number') return v;\n  var s = String(v).trim();\n  if (s === '—' || s === '') return null;\n  var n = parseFloat(s.replace(/\\s/g,'').replace(',', '.'));\n  return isNaN(n) ? null : n;\n}\nfunction fmtPct(v){ if (v===null||v===undefined) return '—'; return (v>0?'+':'') + v.toFixed(v===Math.round(v)?0:2).replace('.',',') + '%'; }\nfunction fmtUAH(v){ if (v===null||v===undefined) return '—'; return Math.round(v).toLocaleString('uk-UA') + ' грн'; }\nfunction fmtHrs(v){ if (v===null||v===undefined) return '—'; return (Math.round(v*10)/10) + ' год'; }\nfunction fmtRatio(v){ if (v===null||v===undefined) return '—'; return v.toFixed(2).replace('.', ','); }\n\nconst metricsRows = $input.all().map(function(i){ return i.json; });\n\nconst projects = [];\nmetricsRows.forEach(function(row){\n  var id = String(row['project_id'] || '').trim();\n  if (!id) return;\n  var rentForecastPct = toNum(row['profitability_forecast_pct']);\n  if (rentForecastPct === null) return;\n  var rentForecastRaw = rentForecastPct / 100;\n  var rentPlanPct = toNum(row['profitability_plan_pct']);\n  var rentPlanRaw = rentPlanPct !== null ? rentPlanPct / 100 : null;\n\n  var etcPlanTotal = toNum(row['hours_remaining']);\n  var etcForecastRaw = toNum(row['etc_forecast_total_hours']);\n\n  var rawQ = toNum(row['earned_value_contract']);\n  var rawS = toNum(row['acts_amount']);\n  var rawP = toNum(row['money_received']);\n  var rawCpi = toNum(row['cpi_classic_evm']);\n\n  projects.push({\n    id: id, name: id,\n    contract: toNum(row['contract_amount']), contractFmt: fmtUAH(toNum(row['contract_amount'])),\n    rentPlan: rentPlanRaw, rentPlanFmt: fmtPct(rentPlanPct),\n    rentForecast: rentForecastRaw, rentForecastFmt: fmtPct(rentForecastPct),\n    profitPlan: toNum(row['profit_plan']), profitPlanFmt: fmtUAH(toNum(row['profit_plan'])),\n    profitForecast: toNum(row['profit_forecast']), profitForecastFmt: fmtUAH(toNum(row['profit_forecast'])),\n    executedWorkFmt: fmtUAH(rawQ),\n    receivedFmt: fmtUAH(rawP),\n    actsFmt: fmtUAH(rawS),\n    moneyToCompleteTeamFmt: fmtUAH(toNum(row['money_to_completion_team'])),\n    moneyToCompleteSubFmt: fmtUAH(toNum(row['money_to_completion_subcontract'])),\n    etcPlanFmt: fmtHrs(etcPlanTotal),\n    etcForecastFmt: fmtHrs(etcForecastRaw),\n    etc: etcForecastRaw,\n    cpi: rawCpi, cpiFmt: fmtRatio(rawCpi),\n    spi: null, spiFmt: '—',\n    weeklyCostFmt: null, weeklyContractFmt: null,\n    rawQ: rawQ, rawS: rawS, rawP: rawP,\n    rawEtcPlan: etcPlanTotal, rawEtcForecast: etcForecastRaw\n  });\n});\n\nfunction rentGroupOf(p){ return p.rentForecast < 0 ? 'critical' : (p.rentForecast < 0.15 ? 'attention' : 'normal'); }\nconst rentGroupDefs = [\n  {id:'critical', label:'Критично', sub:'прогноз < 0%', color:'red'},\n  {id:'attention', label:'Увага', sub:'0–15%', color:'orange'},\n  {id:'normal', label:'Норма', sub:'≥15%', color:'green'}\n];\nconst rentGroupProjects = {critical:[], attention:[], normal:[]};\nprojects.forEach(function(p){ rentGroupProjects[rentGroupOf(p)].push({ id: p.id, name: p.name, value: p.rentForecastFmt }); });\nconst rentGroups = rentGroupDefs.map(function(g){ return Object.assign({}, g, { count: rentGroupProjects[g.id].length, value: rentGroupProjects[g.id].length }); });\n\nconst avgRentForecast = projects.length ? projects.reduce(function(s,p){ return s+p.rentForecast; }, 0) / projects.length : 0;\nconst avgRentPlan = projects.length ? projects.reduce(function(s,p){ return s+(p.rentPlan||0); }, 0) / projects.length : 0;\nconst totalProfitPlan = projects.reduce(function(s,p){ return s+(p.profitPlan||0); }, 0);\nconst totalProfitForecast = projects.reduce(function(s,p){ return s+(p.profitForecast||0); }, 0);\nconst totalContract = projects.reduce(function(s,p){ return s+(p.contract||0); }, 0);\n\nconst volumeGroups = { critical: [], attention: [], normal: [] };\nprojects.forEach(function(p){\n  var Q = p.rawQ||0, S = p.rawS||0, P = p.rawP||0;\n  if (Q > S && Q > P) volumeGroups.critical.push({ id: p.id, name: p.name, value: fmtUAH(Q) });\n  else if (Q > S || S > P) volumeGroups.attention.push({ id: p.id, name: p.name, value: fmtUAH(Q) });\n  else volumeGroups.normal.push({ id: p.id, name: p.name, value: fmtUAH(Q) });\n});\nconst volumeGroupDefs = [\n  {id:'critical', label:'Робота є, актів/грошей нема', sub:'Q > S та Q > P', color:'red'},\n  {id:'attention', label:'Розрив між роботою і грошима', sub:'Q > S або S > P', color:'orange'},\n  {id:'normal', label:'Робота ≈ Акти ≈ Гроші', sub:'Q ≈ S ≈ P', color:'green'}\n];\nconst volumeGapSum = projects.map(function(p){ return (p.rawQ||0) - (p.rawS||0); }).filter(function(v){ return v>0; }).reduce(function(s,v){ return s+v; }, 0);\n\nconst etcGroups = { critical: [], attention: [], normal: [] };\nprojects.forEach(function(p){\n  var plan = p.rawEtcPlan||0, forecast = p.rawEtcForecast||0;\n  var gap = forecast - plan;\n  var gapFmt = fmtHrs(gap);\n  if (plan > 0 && gap > plan*0.2) etcGroups.critical.push({ id: p.id, name: p.name, value: gapFmt });\n  else if (plan > 0 && gap > plan*0.05) etcGroups.attention.push({ id: p.id, name: p.name, value: gapFmt });\n  else etcGroups.normal.push({ id: p.id, name: p.name, value: gapFmt });\n});\nconst etcGroupDefs = [\n  {id:'critical', label:'Прогноз гірший плану на >20%', color:'red'},\n  {id:'attention', label:'Прогноз гірший на 5–20%', color:'orange'},\n  {id:'normal', label:'Прогноз у межах 5% від плану', color:'green'}\n];\nconst etcGapValues = projects.map(function(p){ return (p.rawEtcForecast||0) - (p.rawEtcPlan||0); });\nconst etcGapAvg = etcGapValues.length ? etcGapValues.reduce(function(s,v){ return s+v; },0)/etcGapValues.length : 0;\n\nconst evmGroups = { critical: [], attention: [], normal: [] };\nprojects.forEach(function(p){\n  var cpi = p.cpi;\n  if (cpi === null || cpi === undefined) return;\n  if (cpi < 0.85) evmGroups.critical.push({ id: p.id, name: p.name, value: fmtRatio(cpi) });\n  else if (cpi <= 1.15) evmGroups.attention.push({ id: p.id, name: p.name, value: fmtRatio(cpi) });\n  else evmGroups.normal.push({ id: p.id, name: p.name, value: fmtRatio(cpi) });\n});\nconst evmGroupDefs = [\n  {id:'critical', label:'CPI < 0.85 (перевитрата)', color:'red'},\n  {id:'attention', label:'CPI 0.85–1.15 (норма)', color:'orange'},\n  {id:'normal', label:'CPI > 1.15 (економія)', color:'green'}\n];\nconst cpiValues = projects.map(function(p){ return p.cpi; }).filter(function(v){ return v!==null && v!==undefined; });\nconst cpiAvg = cpiValues.length ? cpiValues.reduce(function(s,v){ return s+v; },0)/cpiValues.length : 0;\n\nconst views = {\n  rent: {\n    title: 'Рентабельність',\n    heroL: { label: 'План', value: (avgRentPlan*100).toFixed(0)+'%' },\n    heroR: { label: 'Прогноз', value: (avgRentForecast*100).toFixed(0)+'%' },\n    groups: rentGroups,\n    groupProjects: rentGroupProjects\n  },\n  profit: {\n    title: 'Прибуток',\n    heroL: { label: 'План', value: fmtUAH(totalProfitPlan) },\n    heroR: { label: 'Прогноз', value: fmtUAH(totalProfitForecast) },\n    groups: rentGroups,\n    groupProjects: rentGroupProjects\n  },\n  volume: {\n    title: 'Обсяг',\n    heroL: { label: 'Сумарний розрив Q-S', value: fmtUAH(volumeGapSum) },\n    heroR: { label: 'Проєктів з розривом', value: volumeGroups.critical.length + volumeGroups.attention.length },\n    groups: volumeGroupDefs.map(function(g){ return Object.assign({}, g, { count: volumeGroups[g.id].length, value: volumeGroups[g.id].length }); }),\n    groupProjects: volumeGroups\n  },\n  etc: {\n    title: 'ETC',\n    heroL: { label: 'Середній розрив', value: fmtHrs(etcGapAvg) },\n    heroR: { label: 'Проєктів з перевищенням', value: etcGroups.critical.length + etcGroups.attention.length },\n    groups: etcGroupDefs.map(function(g){ return Object.assign({}, g, { count: etcGroups[g.id].length, value: etcGroups[g.id].length }); }),\n    groupProjects: etcGroups\n  },\n  evm: {\n    title: 'EVM',\n    heroL: { label: 'Сер. CPI', value: fmtRatio(cpiAvg) },\n    heroR: { label: 'Проєктів з CPI<0.85', value: evmGroups.critical.length },\n    groups: evmGroupDefs.map(function(g){ return Object.assign({}, g, { count: evmGroups[g.id].length, value: evmGroups[g.id].length }); }),\n    groupProjects: evmGroups\n  }\n};\n\nconst data = {\n  asOf: new Date().toLocaleDateString('uk-UA') + ' (Data Total / project_metrics, ' + projects.length + ' проєктів)',\n  projects: projects,\n  totalContract: totalContract, totalContractFmt: fmtUAH(totalContract),\n  views: views\n};\nreturn [{ json: data }];"
    },
    "id": "5758ec2c-afdf-4006-b0c6-e690f43dfcbf",
    "name": "Build MiniApp Data",
@@ -515,41 +445,6 @@
     "telegramApi": {
      "id": "jDGC5deJSU6Bjk2J",
      "name": "Telegram account 4"
-    }
-   }
-  },
-  {
-   "parameters": {
-    "documentId": {
-     "__rl": true,
-     "mode": "id",
-     "value": "1lTjwXECPqUslqoMymfF3OklkgySgsVls38hJseJAEU4"
-    },
-    "sheetName": {
-     "__rl": true,
-     "mode": "name",
-     "value": "Аркуш1"
-    },
-    "options": {
-     "dataLocationOnSheet": {
-      "values": {
-       "rangeDefinition": "detectAutomatically"
-      }
-     }
-    }
-   },
-   "id": "fa01b2b2-bb0d-497f-8e80-5b03791eddee",
-   "name": "Read Weekly Log",
-   "type": "n8n-nodes-base.googleSheets",
-   "typeVersion": 4.7,
-   "position": [
-    896,
-    736
-   ],
-   "credentials": {
-    "googleSheetsOAuth2Api": {
-     "id": "ijBsXae1VQfiWISu",
-     "name": "Google Sheets account"
     }
    }
   },
@@ -3767,6 +3662,48 @@
      "name": "Postgres account"
     }
    }
+  },
+  {
+   "id": "a1563b3b-ff62-4d82-93e6-9b9da90c9aee",
+   "name": "Fetch Project Metrics (MiniApp)",
+   "type": "n8n-nodes-base.postgres",
+   "typeVersion": 2.6,
+   "position": [
+    1350,
+    400
+   ],
+   "parameters": {
+    "operation": "executeQuery",
+    "options": {},
+    "query": "SELECT project_id, contract_amount, profitability_plan_pct, profitability_forecast_pct, profit_plan, profit_forecast, earned_value_contract, acts_amount, money_received, money_to_completion_team, money_to_completion_subcontract, hours_remaining, etc_forecast_total_hours, cpi_classic_evm FROM public.project_metrics ORDER BY project_id;"
+   },
+   "credentials": {
+    "postgres": {
+     "id": "9RgEysuE2hzWIIQq",
+     "name": "Postgres account"
+    }
+   }
+  },
+  {
+   "id": "f6053f87-188d-42e1-8448-d1ae042f2948",
+   "name": "Fetch Project Metrics (Chat)",
+   "type": "n8n-nodes-base.postgres",
+   "typeVersion": 2.6,
+   "position": [
+    700,
+    0
+   ],
+   "parameters": {
+    "operation": "executeQuery",
+    "options": {},
+    "query": "SELECT project_id, contract_amount, planned_hours, actual_hours, hours_remaining, percent_execution, etc_forecast_total_hours, profit_plan, profit_forecast, profitability_plan_pct, profitability_forecast_pct, earned_value_contract, acts_amount, money_received, cpi_classic_evm FROM public.project_metrics ORDER BY project_id;"
+   },
+   "credentials": {
+    "postgres": {
+     "id": "9RgEysuE2hzWIIQq",
+     "name": "Postgres account"
+    }
+   }
   }
  ],
  "connections": {
@@ -3781,18 +3718,7 @@
     ],
     [
      {
-      "node": "Read DEMO Flat (Chat)",
-      "type": "main",
-      "index": 0
-     }
-    ]
-   ]
-  },
-  "Read DEMO Flat (Chat)": {
-   "main": [
-    [
-     {
-      "node": "Build Request Body",
+      "node": "Fetch Project Metrics (Chat)",
       "type": "main",
       "index": 0
      }
@@ -3869,7 +3795,7 @@
    "main": [
     [
      {
-      "node": "Read DEMO Flat",
+      "node": "Fetch Project Metrics (MiniApp)",
       "type": "main",
       "index": 0
      }
@@ -3939,28 +3865,6 @@
     [
      {
       "node": "Send Status Reply",
-      "type": "main",
-      "index": 0
-     }
-    ]
-   ]
-  },
-  "Read DEMO Flat": {
-   "main": [
-    [
-     {
-      "node": "Read Weekly Log",
-      "type": "main",
-      "index": 0
-     }
-    ]
-   ]
-  },
-  "Read Weekly Log": {
-   "main": [
-    [
-     {
-      "node": "Build MiniApp Data",
       "type": "main",
       "index": 0
      }
@@ -5046,6 +4950,28 @@
      }
     ]
    ]
+  },
+  "Fetch Project Metrics (MiniApp)": {
+   "main": [
+    [
+     {
+      "node": "Build MiniApp Data",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Fetch Project Metrics (Chat)": {
+   "main": [
+    [
+     {
+      "node": "Build Request Body",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
   }
  },
  "active": true,
@@ -5056,5 +4982,5 @@
  },
  "tags": [],
  "id": "CKwCsGIwyw9feCY5",
- "versionId": "18bb72b7-fc94-4038-a28c-d0a7af92e6de"
+ "versionId": "d901835c-c5bd-452a-8621-182d80a58ade"
 }
