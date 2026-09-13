@@ -3704,6 +3704,133 @@
      "name": "Postgres account"
     }
    }
+  },
+  {
+   "id": "e5b16f34-818b-4dcf-9dc9-944da5d42079",
+   "name": "Xlsx Export Webhook",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [
+    2600,
+    2200
+   ],
+   "parameters": {
+    "httpMethod": "GET",
+    "path": "demo-archi-export",
+    "responseMode": "responseNode",
+    "options": {}
+   },
+   "webhookId": "8a750e44-90ae-4f9e-9d2c-c13af014b5ed"
+  },
+  {
+   "id": "5b2f3ad8-4e5b-4b37-bbca-875b20bfaa6f",
+   "name": "Xlsx: Validate InitData",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    2820,
+    2200
+   ],
+   "parameters": {
+    "jsCode": "const crypto = require('crypto');\nconst BOT_TOKEN = '8813476306:AAGvcE5Mys8Pg5__DtE03O6rBcjCu-0TVXk';\nconst MAX_AGE_SECONDS = 86400;\nconst initData = ($json.query && $json.query.initData) ? $json.query.initData : '';\nif (!initData) { return [{ json: { valid: false, reason: 'no_init_data' } }]; }\nlet hash = null; let authDateStr = null; const kvPairs = [];\nconst rawPairs = initData.split('&');\nfor (const raw of rawPairs) {\n  const idx = raw.indexOf('=');\n  if (idx === -1) continue;\n  const key = raw.substring(0, idx);\n  const rawValue = raw.substring(idx + 1);\n  let value; try { value = decodeURIComponent(rawValue); } catch (e) { value = rawValue; }\n  if (key === 'hash') { hash = value; } else { kvPairs.push(key + '=' + value); if (key === 'auth_date') { authDateStr = value; } }\n}\nif (!hash) { return [{ json: { valid: false, reason: 'no_hash' } }]; }\nkvPairs.sort();\nconst dataCheckString = kvPairs.join(String.fromCharCode(10));\nconst secretKey = crypto.createHmac('sha256', 'WebAppData').update(BOT_TOKEN).digest();\nconst computedHash = crypto.createHmac('sha256', secretKey).update(dataCheckString).digest('hex');\nconst hashValid = computedHash === hash;\nlet fresh = true;\nif (authDateStr) { const ageSeconds = (Date.now() / 1000) - parseInt(authDateStr, 10); fresh = ageSeconds >= 0 && ageSeconds < MAX_AGE_SECONDS; }\nreturn [{ json: { valid: hashValid && fresh, hashValid: hashValid, fresh: fresh } }];"
+   }
+  },
+  {
+   "id": "2188ac16-a212-46fd-95e3-18835d0d4fe3",
+   "name": "Xlsx: Is Valid InitData",
+   "type": "n8n-nodes-base.if",
+   "typeVersion": 2.2,
+   "position": [
+    3040,
+    2200
+   ],
+   "parameters": {
+    "conditions": {
+     "combinator": "and",
+     "conditions": [
+      {
+       "leftValue": "={{ $json.valid }}",
+       "operator": {
+        "operation": "equals",
+        "type": "boolean"
+       },
+       "rightValue": true
+      }
+     ],
+     "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "strict",
+      "version": 1
+     }
+    },
+    "options": {}
+   }
+  },
+  {
+   "id": "f5c6f79c-ba44-48f0-a151-06e5efabcabf",
+   "name": "Respond Xlsx Unauthorized",
+   "type": "n8n-nodes-base.respondToWebhook",
+   "typeVersion": 1.5,
+   "position": [
+    3260,
+    2350
+   ],
+   "parameters": {
+    "options": {
+     "responseCode": 401
+    },
+    "respondWith": "json",
+    "responseBody": "={{ { error: 'invalid or missing initData' } }}"
+   }
+  },
+  {
+   "id": "68d28836-e0f0-4d8b-aa5b-43e0920b7865",
+   "name": "Xlsx: Build Rows",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    3480,
+    2100
+   ],
+   "parameters": {
+    "jsCode": "const snapshots = $input.all().map(function(i){ return i.json; });\n\nconst byProject = {};\nconst weeksSet = new Set();\nsnapshots.forEach(function(s){\n  const pid = s.project_id;\n  const week = s.week_start;\n  weeksSet.add(week);\n  if (!byProject[pid]) byProject[pid] = {};\n  const readiness = s['готовність_pct'] || {};\n  const etcStage = s['залишок_прогноз_по_стадіях'] || null;\n  let etcTotal = null;\n  if (etcStage && typeof etcStage === 'object') {\n    etcTotal = Object.values(etcStage).reduce(function(sum, v){ return sum + (Number(v)||0); }, 0);\n  } else if (s['залишок_прогноз_год'] != null) {\n    etcTotal = Number(s['залишок_прогноз_год']);\n  }\n  byProject[pid][week] = {\n    readiness_MBR: readiness['МБР'] != null ? readiness['МБР'] : '',\n    readiness_EP: readiness['ЕП'] != null ? readiness['ЕП'] : '',\n    readiness_P: readiness['П'] != null ? readiness['П'] : '',\n    readiness_R: readiness['Р'] != null ? readiness['Р'] : '',\n    etc_total_h: etcTotal != null ? Math.round(etcTotal*10)/10 : '',\n    act_prob: s['ймовірність_акту'] != null ? s['ймовірність_акту'] : '',\n    doc_prob: s['ймовірність_документації'] != null ? s['ймовірність_документації'] : ''\n  };\n});\n\nconst allProjects = Array.from({length:10}, function(_,i){ return 'DEMO-' + String(i+1).padStart(2,'0'); });\nconst weeks = Array.from(weeksSet).sort();\n\nconst rows = allProjects.map(function(pid){\n  const row = { project_id: pid };\n  weeks.forEach(function(w){\n    const cell = (byProject[pid] && byProject[pid][w]) || {};\n    row[w + '_МБР_%'] = cell.readiness_MBR;\n    row[w + '_ЕП_%'] = cell.readiness_EP;\n    row[w + '_П_%'] = cell.readiness_P;\n    row[w + '_Р_%'] = cell.readiness_R;\n    row[w + '_Залишок_прогноз_год'] = cell.etc_total_h;\n    row[w + '_Ймовірність_акту'] = cell.act_prob;\n    row[w + '_Ймовірність_документації'] = cell.doc_prob;\n  });\n  return { json: row };\n});\n\nif (rows.length === 0) {\n  rows.push({ json: { project_id: 'немає даних' } });\n}\n\nreturn rows;"
+   }
+  },
+  {
+   "id": "5a758707-1359-46c3-86e7-99f4bec82c3f",
+   "name": "Xlsx: Convert To File",
+   "type": "n8n-nodes-base.convertToFile",
+   "typeVersion": 1.1,
+   "position": [
+    3700,
+    2100
+   ],
+   "parameters": {
+    "operation": "xlsx",
+    "binaryPropertyName": "data",
+    "options": {
+     "fileName": "archi_weekly_history.xlsx",
+     "sheetName": "Історія",
+     "headerRow": true
+    }
+   }
+  },
+  {
+   "id": "cf22f232-8d1f-4756-9868-d1e3211f731d",
+   "name": "Respond Xlsx File",
+   "type": "n8n-nodes-base.respondToWebhook",
+   "typeVersion": 1.5,
+   "position": [
+    3920,
+    2100
+   ],
+   "parameters": {
+    "respondWith": "binary",
+    "responseDataSource": "set",
+    "inputFieldName": "data",
+    "options": {}
+   }
   }
  ],
  "connections": {
@@ -4972,6 +5099,79 @@
      }
     ]
    ]
+  },
+  "Xlsx Export Webhook": {
+   "main": [
+    [
+     {
+      "node": "Xlsx: Validate InitData",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Xlsx: Validate InitData": {
+   "main": [
+    [
+     {
+      "node": "Xlsx: Is Valid InitData",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Xlsx: Is Valid InitData": {
+   "main": [
+    [
+     {
+      "node": "Fetch All Weekly Snapshots",
+      "type": "main",
+      "index": 0
+     }
+    ],
+    [
+     {
+      "node": "Respond Xlsx Unauthorized",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Fetch All Weekly Snapshots": {
+   "main": [
+    [
+     {
+      "node": "Xlsx: Build Rows",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Xlsx: Build Rows": {
+   "main": [
+    [
+     {
+      "node": "Xlsx: Convert To File",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Xlsx: Convert To File": {
+   "main": [
+    [
+     {
+      "node": "Respond Xlsx File",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
   }
  },
  "active": true,
@@ -4982,5 +5182,5 @@
  },
  "tags": [],
  "id": "CKwCsGIwyw9feCY5",
- "versionId": "d901835c-c5bd-452a-8621-182d80a58ade"
+ "versionId": "cb2982c6-0dca-41bf-995a-61b14c836327"
 }
