@@ -37,8 +37,25 @@ URL, отримує дані по всіх 10 проєктах без Telegram-�
 перевірено окремо, там `Validate InitData → Is Valid InitData → Read DEMO
 Flat` в одному ланцюгу.
 
-**Статус:** ще не виправлено в живому n8n. **P0 — перший пункт
-`docs/RELEASE_PLAN.md`, Фаза 0.**
+**Статус: ВИПРАВЛЕНО 13.09.2026.** У живому workflow видалено пряме
+з'єднання `Weekly Render Data Webhook → Fetch All Project Metrics` і
+підключено через `WR-Render: Validate InitData → Is Valid InitData`,
+так само як в оригінальному `MiniApp Data Webhook`. Опубліковано
+(`activeVersionId eeba13e1-5e89-43d4-b3a6-0b1b38b80d26`).
+
+Перевірено двома реальними виконаннями workflow (не curl — вихідний
+egress з цієї сесії заблокований проксі на `osbbcopilot.app.n8n.cloud`,
+тест зроблено через n8n execution API):
+- Execution `5512`, запит без `initData` → `WR-Render: Validate InitData`
+  повернув `{"valid":false,"reason":"no_init_data"}` →
+  `lastNodeExecuted: "Respond Weekly Render Unauthorized"`. Дані НЕ
+  віддані.
+- Execution `5513`, запит з коректно підписаним `initData` (HMAC за тим
+  самим алгоритмом, що в коді ноди) → `{"valid":true,"hashValid":true,
+  "fresh":true}` → дійшло до `Fetch All Project Metrics` →
+  `Respond Weekly Render Data` з повними даними по всіх 10 проєктах.
+
+Обидва тести пройдені.
 
 ## 3. Google Sheets credential, Postgres credential
 
