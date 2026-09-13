@@ -3691,6 +3691,82 @@
      "name": "Postgres account"
     }
    }
+  },
+  {
+   "id": "be183aaf-43d7-4cc3-9872-a85b02583dc1",
+   "name": "Б3: Fetch Actual Hours By Stage",
+   "type": "n8n-nodes-base.postgres",
+   "typeVersion": 2.6,
+   "position": [
+    2600,
+    1300
+   ],
+   "parameters": {
+    "operation": "executeQuery",
+    "options": {},
+    "query": "=SELECT стадія, SUM(години) as hours FROM public.time_log WHERE project_id = '{{ $('WR: Parse Agent Output').first().json.project_id }}' GROUP BY стадія;"
+   },
+   "credentials": {
+    "postgres": {
+     "id": "9RgEysuE2hzWIIQq",
+     "name": "Postgres account"
+    }
+   }
+  },
+  {
+   "id": "a2c03de9-5c3c-4e4a-ba54-daaf898e3c1b",
+   "name": "Б3: Fetch Metrics Snapshot",
+   "type": "n8n-nodes-base.postgres",
+   "typeVersion": 2.6,
+   "position": [
+    2820,
+    1300
+   ],
+   "parameters": {
+    "operation": "executeQuery",
+    "options": {},
+    "query": "=SELECT contract_amount, planned_hours, actual_cost, money_to_completion_subcontract, real_rate_team_hour FROM public.project_metrics WHERE project_id = '{{ $('WR: Parse Agent Output').first().json.project_id }}';"
+   },
+   "credentials": {
+    "postgres": {
+     "id": "9RgEysuE2hzWIIQq",
+     "name": "Postgres account"
+    }
+   }
+  },
+  {
+   "id": "127d8354-a2dc-4e73-8cb2-d8ed4128a8ac",
+   "name": "Б3: Compute Forecast",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [
+    3040,
+    1300
+   ],
+   "parameters": {
+    "jsCode": "const wr = $('WR: Parse Agent Output').first().json;\nconst projectId = wr.project_id;\nconst stageRows = $('Б3: Fetch Actual Hours By Stage').all().map(function(i){ return i.json; });\nconst metrics = $input.first().json;\n\nconst stages = ['МБР','ЕП','П','Р'];\nconst etcStage = wr.etc_forecast_stage || {};\nconst readinessStage = wr.stage_readiness || {};\n\nconst actualByStage = {};\nstageRows.forEach(function(r){\n  if (r['стадія']) actualByStage[r['стадія']] = parseFloat(r.hours) || 0;\n});\n\nlet etcForecastTotal = 0;\nlet actualHoursTotal = 0;\nconst stageData = {};\nstages.forEach(function(s){\n  const etc = etcStage[s] != null ? Number(etcStage[s]) : null;\n  const actual = actualByStage[s] != null ? actualByStage[s] : 0;\n  if (etc != null) etcForecastTotal += etc;\n  actualHoursTotal += actual;\n  stageData[s] = {\n    actual_hours_live: Math.round(actual * 100) / 100,\n    etc_forecast_hours: etc,\n    readiness_self_reported_pct: readinessStage[s] != null ? readinessStage[s] : null\n  };\n});\n\nconst plannedHours = Number(metrics.planned_hours) || 0;\nconst percentExecution = plannedHours > 0 ? Math.round((actualHoursTotal / plannedHours) * 1000) / 10 : null;\n\nconst rate = metrics.real_rate_team_hour != null ? Number(metrics.real_rate_team_hour) : null;\nconst actualCost = Number(metrics.actual_cost) || 0;\nconst moneyToCompletionSubcontract = Number(metrics.money_to_completion_subcontract) || 0;\nconst contractAmount = Number(metrics.contract_amount) || 0;\n\nconst moneyToCompletionTeam = rate != null ? Math.round(etcForecastTotal * rate * 100) / 100 : null;\nconst costFinalForecast = rate != null ? Math.round((actualCost + etcForecastTotal * rate + moneyToCompletionSubcontract) * 100) / 100 : null;\nconst profitForecast = costFinalForecast != null ? Math.round((contractAmount - costFinalForecast) * 100) / 100 : null;\nconst profitabilityForecastPct = (profitForecast != null && contractAmount > 0) ? Math.round((profitForecast / contractAmount) * 1000) / 10 : null;\n\nreturn [{ json: {\n  project_id: projectId,\n  actual_hours_total: Math.round(actualHoursTotal * 100) / 100,\n  percent_execution: percentExecution,\n  etc_forecast_total_hours: Math.round(etcForecastTotal * 100) / 100,\n  stage_data: stageData,\n  money_to_completion_team: moneyToCompletionTeam,\n  cost_final_forecast: costFinalForecast,\n  profit_forecast: profitForecast,\n  profitability_forecast_pct: profitabilityForecastPct,\n  nearest_act_probability: wr.act_probability != null ? wr.act_probability : null,\n  doc_issuance_probability: wr.doc_probability != null ? wr.doc_probability : null\n} }];"
+   }
+  },
+  {
+   "id": "32701c9b-462a-4d25-8456-4e04626694ee",
+   "name": "Б3: Update Project Metrics",
+   "type": "n8n-nodes-base.postgres",
+   "typeVersion": 2.6,
+   "position": [
+    3260,
+    1300
+   ],
+   "parameters": {
+    "operation": "executeQuery",
+    "options": {},
+    "query": "=UPDATE public.project_metrics SET actual_hours = {{ $json.actual_hours_total }}, percent_execution = {{ $json.percent_execution ?? 'NULL' }}, etc_forecast_total_hours = {{ $json.etc_forecast_total_hours }}, stage_data = '{{ JSON.stringify($json.stage_data).replace(/'/g, \"''\") }}'::jsonb, money_to_completion_team = {{ $json.money_to_completion_team ?? 'NULL' }}, cost_final_forecast = {{ $json.cost_final_forecast ?? 'NULL' }}, profit_forecast = {{ $json.profit_forecast ?? 'NULL' }}, profitability_forecast_pct = {{ $json.profitability_forecast_pct ?? 'NULL' }}, nearest_act_probability = {{ $json.nearest_act_probability ?? 'NULL' }}, doc_issuance_probability = {{ $json.doc_issuance_probability ?? 'NULL' }}, updated_at = NOW() WHERE project_id = '{{ $json.project_id }}';"
+   },
+   "credentials": {
+    "postgres": {
+     "id": "9RgEysuE2hzWIIQq",
+     "name": "Postgres account"
+    }
+   }
   }
  ],
  "connections": {
@@ -4926,6 +5002,50 @@
      }
     ]
    ]
+  },
+  "WR: Save Weekly Snapshot": {
+   "main": [
+    [
+     {
+      "node": "Б3: Fetch Actual Hours By Stage",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Б3: Fetch Actual Hours By Stage": {
+   "main": [
+    [
+     {
+      "node": "Б3: Fetch Metrics Snapshot",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Б3: Fetch Metrics Snapshot": {
+   "main": [
+    [
+     {
+      "node": "Б3: Compute Forecast",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "Б3: Compute Forecast": {
+   "main": [
+    [
+     {
+      "node": "Б3: Update Project Metrics",
+      "type": "main",
+      "index": 0
+     }
+    ]
+   ]
   }
  },
  "active": true,
@@ -4936,5 +5056,5 @@
  },
  "tags": [],
  "id": "CKwCsGIwyw9feCY5",
- "versionId": "eeba13e1-5e89-43d4-b3a6-0b1b38b80d26"
+ "versionId": "4804eb87-78c8-4fc0-b7df-53d9f5820f5a"
 }
