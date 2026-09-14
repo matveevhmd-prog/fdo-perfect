@@ -17,8 +17,9 @@
 workflows/
   DEMO_Archi_Agent_Core.json         — головний n8n workflow (id CKwCsGIwyw9feCY5,
                                         n8n instance osbbcopilot.app.n8n.cloud),
-                                        живий export станом на 13.09.2026,
-                                        versionId eeba13e1-5e89-43d4-b3a6-0b1b38b80d26 (Checkpoint 1 fix)
+                                        живий export станом на 14.09.2026,
+                                        versionId 762f69dc-73b0-4b3c-9eae-32691f1879af
+                                        (Checkpoint 4: Bug#2/#3/#4 фікси в WR: Build WR Prompt)
   Archi_Protocol_Format_Helper.json  — діагностичний/scratch workflow
                                         (id LK4tBGMPiwIgpoki), read-only helper,
                                         не production-критичний
