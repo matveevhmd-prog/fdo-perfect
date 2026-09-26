@@ -67,3 +67,38 @@ id/назва credential. Це безпечно для git.
 
 Викликається через `predefinedCredentialType` (credential id
 `U5Ts0Bmqulc3foVf`) — так само безпечно, ключ не в JSON.
+
+## 5. 🔴 Supabase RLS вимкнений на ключових таблицях Archi (нова знахідка, 26.09.2026)
+
+**Факт, перевірено `list_tables` на проекті `bxawceksdkqlbkdgjvyz`:** Row
+Level Security ВИМКНЕНИЙ на таблицях, які Archi читає й пише щодня:
+`project_metrics`, `wr_weekly_snapshots`, `wr_plan_items`,
+`archi_bot_mode_state`, `time_log`, `money_log`, `rates`, `meeting_log`
+(і ще 18 інших таблиць проекту, не всі стосуються Archi). Це означає:
+anon-ключ Supabase (клієнтський, публічний за дизайном Supabase) дає
+ПОВНИЙ доступ на читання й запис до цих таблиць будь-кому, хто його
+знає — по всіх 10 демо-проектах.
+
+Для порівняння: нові таблиці цієї сесії (`archi_thresholds`,
+`payment_schedule`) RLS увімкнений одразу при створенні — отже
+проблема стосується тільки таблиць, створених до 25.09.2026.
+
+**Статус: НЕ ВИПРАВЛЕНО.** Умисно — вмикати RLS без підготовлених
+policies заблокує весь легітимний доступ теж (n8n-воркфлоу
+використовують service-role чи прямий Postgres-конектор, не anon-ключ,
+тому мали б не постраждати — але це припущення, не перевірено).
+Потрібне явне рішення власника: чи приймати цей ризик так само свідомо,
+як ризик з токеном бота (п.1), чи готувати policies зараз.
+
+Ремедіація (НЕ застосовувати без підготовлених policies):
+
+```sql
+ALTER TABLE "public"."project_metrics" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "public"."wr_weekly_snapshots" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "public"."wr_plan_items" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "public"."archi_bot_mode_state" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "public"."time_log" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "public"."money_log" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "public"."rates" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "public"."meeting_log" ENABLE ROW LEVEL SECURITY;
+```
