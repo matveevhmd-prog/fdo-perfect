@@ -37,6 +37,10 @@ docs/
                                         front-loaded стадії, §5.1 — Data Total тепер
                                         7 таблиць)
   archi_bot_gpt_analysis.md          — зовнішній аудит (ChatGPT), Owner Morning Test
+  ARCHI_Owner_Questions_Spec.md      — ЧЕРНЕТКА (27.09.2026), ТЗ на логіку відповіді
+                                        Chat-агента на 10 Owner Morning Test питань:
+                                        джерело/формула/fallback по кожному, потребує
+                                        підтвердження власника перед реалізацією
   RELEASE_PLAN.md                    — план від 13.09.2026 до релізу, звірений
                                         з живим кодом; Розділ 8 (26.09.2026) —
                                         Package 1: Flat/WEEKLY_LOG прибрані,
