@@ -6,13 +6,24 @@
 
 **Факт:** живий токен `@archi_demo_bot`
 (`8813476306:AAGvcE5Mys8Pg5__DtE03O6rBcjCu-0TVXk`) лежить відкритим текстом
-у двох нодах `workflows/DEMO_Archi_Agent_Core.json`:
+у ТРЬОХ нодах `workflows/DEMO_Archi_Agent_Core.json` (було двоє до
+04.10.2026):
 - `Validate InitData`
 - `WR-Render: Validate InitData`
+- `M: Send Project Picker` (додано 04.10.2026 — n8n-нода
+  `n8n-nodes-base.telegram` не прийняла динамічну клавіатуру
+  (`replyKeyboard.rows` — fixedCollection, не приймає вираз цілим
+  масивом), замінена на `httpRequest` напряму в Telegram Bot API з
+  URL-шляхом `.../bot<TOKEN>/sendMessage` — той самий літерал, не
+  новий ризик, нове місце)
 
-Токен потрібен там для HMAC-перевірки Telegram Mini App `initData` —
+Перші два — для HMAC-перевірки Telegram Mini App `initData`,
 легітимна причина, але реалізовано неправильно (має бути n8n credential
-або env, не літерал у коді).
+або env, не літерал у коді). Третє — Telegram Bot API вимагає токен
+прямо в URL (не стандартна header/query-схема), тож generic n8n
+credential-injection (`predefinedCredentialType: telegramApi`) для
+цього не перевірявся наживо — обрано літерал, узгоджений з уже
+прийнятим ризиком, а не нова неперевірена гіпотеза.
 
 **Рішення власника (13.09.2026):** запушити як є в публічний репозиторій,
 ризик прийнято свідомо. Це ЗМІНЮЄ рівень ризику порівняно з попереднім

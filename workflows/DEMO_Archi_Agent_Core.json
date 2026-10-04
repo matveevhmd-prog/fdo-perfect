@@ -601,7 +601,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const msg = ($('Telegram Trigger').item.json.message) || {};\nconst text = (msg.text || '').trim();\nconst modeRow = ($input.first() && $input.first().json) || {};\nconst mode = modeRow.mode || 'idle';\nconst hasAudio = !!msg.voice;\nconst hasPhoto = !!msg.photo;\nconst hasDocument = !!msg.document;\nconst lower = text.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\nconst isOwnerViewLike = /^\\/(project|owner_view|status|all_projects|weekly_render|weekly_history)$/i.test(text) || /(огляд|owner|меню|щотижнев|тижнева історія)/i.test(text);\nconst isWrCommand = /^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized) || /^новий$/.test(normalized) || /^про[єе]кт\\s+demo-\\d{2}$/.test(normalized) || /^імпорт\\s+demo-\\d{2}$/.test(normalized) || /^зустріч\\s+demo-\\d{2}$/.test(normalized) || /^додати\\s+.+/.test(normalized) || /^чернетка$/.test(normalized) || /^фінал$/.test(normalized) || /^скасувати$/.test(normalized) || /^статус\\s*звіт(ів)?$/.test(normalized) || /^довідник$/.test(normalized) || /^назад$/.test(normalized) || /^кошторис\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^затвердити$/.test(normalized) || /^(тижневий звіт|години і гроші|зустріч|кошторис)$/.test(normalized);\nconst inWrSession = (mode === 'weekly_report' || mode === 'weekly_reference' || mode === 'import_log' || mode === 'meeting_log' || mode === 'koshtorys_preview');\nconst isWrFlow = Boolean(isWrCommand || (inWrSession && !isOwnerViewLike && (hasAudio || hasPhoto || hasDocument || text.length > 0)));\nreturn [{ json: { is_wr_flow: isWrFlow, mode: mode, project_id: modeRow.project_id || null } }];"
+        "jsCode": "const msg = ($('Telegram Trigger').item.json.message) || {};\nconst text = (msg.text || '').trim();\nconst modeRow = ($input.first() && $input.first().json) || {};\nconst mode = modeRow.mode || 'idle';\nconst hasAudio = !!msg.voice;\nconst hasPhoto = !!msg.photo;\nconst hasDocument = !!msg.document;\nconst lower = text.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\nconst isOwnerViewLike = /^\\/(project|owner_view|status|all_projects|weekly_render|weekly_history)$/i.test(text) || /(огляд|owner|меню|щотижнев|тижнева історія)/i.test(text);\nconst isWrCommand = /^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized) || /^новий$/.test(normalized) || /^про[єе]кт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^імпорт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^зустріч\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^додати\\s+.+/.test(normalized) || /^чернетка$/.test(normalized) || /^фінал$/.test(normalized) || /^скасувати$/.test(normalized) || /^статус\\s*звіт(ів)?$/.test(normalized) || /^довідник$/.test(normalized) || /^назад$/.test(normalized) || /^кошторис\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^затвердити$/.test(normalized) || /^(тижневий звіт|години і гроші|зустріч|кошторис)$/.test(normalized);\nconst inWrSession = (mode === 'weekly_report' || mode === 'weekly_reference' || mode === 'import_log' || mode === 'meeting_log' || mode === 'koshtorys_preview');\nconst isWrFlow = Boolean(isWrCommand || (inWrSession && !isOwnerViewLike && (hasAudio || hasPhoto || hasDocument || text.length > 0)));\nreturn [{ json: { is_wr_flow: isWrFlow, mode: mode, project_id: modeRow.project_id || null } }];"
       },
       "id": "8433a50e-32ed-4fcd-ad07-c14ac80c953d",
       "name": "WR: Determine Route",
@@ -816,7 +816,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const modeRow = ($('WR: Read Mode').first() && $('WR: Read Mode').first().json) || {};\nconst currentMode = modeRow.mode || 'idle';\nconst currentProject = modeRow.project_id || null;\nconst item = $input.first();\nconst rawText = String(item.json.raw_text || '').trim();\nconst lower = rawText.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\n\nif (/^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized)) { return [{ json: { execution_mode: 'clear_context', payload: '', project_id: null } }]; }\n\n// Меню: вибір проєкту кнопкою (дія → клавіатура проєктів)\nconst PICK = { 'тижневий звіт': '📝 проєкт', 'години і гроші': '⏱ імпорт', 'зустріч': '🤝 зустріч', 'кошторис': '📐 кошторис', 'договір': '📄 договір' };\nif (PICK[normalized]) { return [{ json: { execution_mode: 'pick_project', payload: PICK[normalized], project_id: currentProject } }]; }\n\n// Потік А: завантаження Кошторису (доступ — список команди, як у Mini App)\nconst ALLOWED = ['304884647'];\nconst fromId = String(((($('Telegram Trigger').first().json.message) || {}).from || {}).id || '');\nconst koshMatch = normalized.match(/^кошторис\\s+([a-zа-яіїєґ0-9_-]+)$/);\nif (koshMatch) {\n  if (ALLOWED.indexOf(fromId) < 0) { return [{ json: { execution_mode: 'koshtorys_forbidden', payload: '', project_id: currentProject } }]; }\n  return [{ json: { execution_mode: 'koshtorys_preview', mode: 'preview', payload: '', project_id: koshMatch[1].toUpperCase(), telegram_user_id: fromId } }];\n}\n\nconst projMatch = normalized.match(/^про[єе]кт\\s+(demo-\\d{2})$/);\nif (projMatch) { return [{ json: { execution_mode: 'set_project', payload: projMatch[1].toUpperCase(), project_id: projMatch[1].toUpperCase() } }]; }\n\nconst importMatch = normalized.match(/^імпорт\\s+(demo-\\d{2})$/);\nif (importMatch) { return [{ json: { execution_mode: 'set_import_project', payload: importMatch[1].toUpperCase(), project_id: importMatch[1].toUpperCase() } }]; }\n\nconst meetingMatch = normalized.match(/^зустріч\\s+(demo-\\d{2})$/);\nif (meetingMatch) { return [{ json: { execution_mode: 'set_meeting_project', payload: meetingMatch[1].toUpperCase(), project_id: meetingMatch[1].toUpperCase() } }]; }\n\nif (/^скасувати$/.test(normalized)) { return [{ json: { execution_mode: 'clear_context', payload: '', project_id: null } }]; }\nif (/^назад$/.test(normalized)) { return [{ json: { execution_mode: 'clear_context', payload: '', project_id: null } }]; }\nif (/^статус\\s*звіт(ів)?$/.test(normalized)) { return [{ json: { execution_mode: 'status', payload: '', project_id: currentProject } }]; }\nif (/^довідник$/.test(normalized)) { return [{ json: { execution_mode: 'set_reference_mode', payload: '', project_id: currentProject } }]; }\n\nif (currentMode === 'koshtorys_preview') {\n  if (/^затвердити$/.test(normalized)) {\n    if (ALLOWED.indexOf(fromId) < 0) { return [{ json: { execution_mode: 'koshtorys_forbidden', payload: '', project_id: currentProject } }]; }\n    return [{ json: { execution_mode: 'koshtorys_commit', mode: 'commit', payload: '', project_id: currentProject, telegram_user_id: fromId } }];\n  }\n  return [{ json: { execution_mode: 'koshtorys_hint', payload: '', project_id: currentProject } }];\n}\n\nif (!currentProject) { return [{ json: { execution_mode: 'need_project', payload: '', project_id: null } }]; }\n\nconst isNew = /^новий$/.test(normalized);\nconst isDraft = /^чернетка$/.test(normalized);\nconst isFinal = /^фінал$/.test(normalized);\n\nif (currentMode === 'meeting_log') {\n  if (isNew) { return [{ json: { execution_mode: 'reset_meeting_draft', payload: '', project_id: currentProject } }]; }\n  if (isDraft) { return [{ json: { execution_mode: 'show_meeting_draft', payload: 'Покажи поточну чернетку журналу зустрічей — усі накопичені за сесію рішення/дії, нічого нового не додавай.', project_id: currentProject } }]; }\n  if (isFinal) { return [{ json: { execution_mode: 'generate_meeting_final', payload: 'Зведи всі накопичені за сесію рішення/дії у фінальний список.', project_id: currentProject } }]; }\n  return [{ json: { execution_mode: 'process_meeting_transcript', payload: rawText, project_id: currentProject } }];\n}\n\nif (currentMode === 'import_log') {\n  if (isNew) { return [{ json: { execution_mode: 'reset_import_draft', payload: '', project_id: currentProject } }]; }\n  if (isDraft) { return [{ json: { execution_mode: 'show_import_draft', payload: 'Покажи поточну чернетку імпорту Time_Log/Money_Log.', project_id: currentProject } }]; }\n  if (isFinal) { return [{ json: { execution_mode: 'generate_import_final', payload: 'Сформуй фінальний імпорт Time_Log/Money_Log і виведи структуровані рядки.', project_id: currentProject } }]; }\n  return [{ json: { execution_mode: 'process_import_data', payload: rawText, project_id: currentProject } }];\n}\n\nif (isNew) { return [{ json: { execution_mode: 'reset_wr_draft', payload: '', project_id: currentProject } }]; }\nif (isDraft) { return [{ json: { execution_mode: 'show_draft', payload: 'Покажи поточну чернетку тижневого звіту у повній фіксованій структурі.', project_id: currentProject } }]; }\nif (isFinal) { return [{ json: { execution_mode: 'generate_final', payload: 'Сформуй фінальний тижневий звіт у повній фіксованій структурі.', project_id: currentProject } }]; }\nconst addMatch = rawText.match(/^додати\\s+(.+)/i);\nconst payloadText = addMatch ? addMatch[1] : rawText;\nreturn [{ json: { execution_mode: 'process_data', payload: payloadText, project_id: currentProject } }];"
+        "jsCode": "const modeRow = ($('WR: Read Mode').first() && $('WR: Read Mode').first().json) || {};\nconst currentMode = modeRow.mode || 'idle';\nconst currentProject = modeRow.project_id || null;\nconst item = $input.first();\nconst rawText = String(item.json.raw_text || '').trim();\nconst lower = rawText.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\n\nif (/^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized)) { return [{ json: { execution_mode: 'clear_context', payload: '', project_id: null } }]; }\n\n// Меню: вибір проєкту кнопкою (дія → клавіатура проєктів)\nconst PICK = { 'тижневий звіт': '📝 проєкт', 'години і гроші': '⏱ імпорт', 'зустріч': '🤝 зустріч', 'кошторис': '📐 кошторис', 'договір': '📄 договір' };\nif (PICK[normalized]) { return [{ json: { execution_mode: 'pick_project', payload: PICK[normalized], project_id: currentProject } }]; }\n\n// Потік А: завантаження Кошторису (доступ — список команди, як у Mini App)\nconst ALLOWED = ['304884647'];\nconst fromId = String(((($('Telegram Trigger').first().json.message) || {}).from || {}).id || '');\nconst koshMatch = normalized.match(/^кошторис\\s+([a-zа-яіїєґ0-9_-]+)$/);\nif (koshMatch) {\n  if (ALLOWED.indexOf(fromId) < 0) { return [{ json: { execution_mode: 'koshtorys_forbidden', payload: '', project_id: currentProject } }]; }\n  return [{ json: { execution_mode: 'koshtorys_preview', mode: 'preview', payload: '', project_id: koshMatch[1].toUpperCase(), telegram_user_id: fromId } }];\n}\n\nconst projMatch = normalized.match(/^про[єе]кт\\s+([a-zа-яіїєґ0-9_-]+)$/);\nif (projMatch) { return [{ json: { execution_mode: 'set_project', payload: projMatch[1].toUpperCase(), project_id: projMatch[1].toUpperCase() } }]; }\n\nconst importMatch = normalized.match(/^імпорт\\s+([a-zа-яіїєґ0-9_-]+)$/);\nif (importMatch) { return [{ json: { execution_mode: 'set_import_project', payload: importMatch[1].toUpperCase(), project_id: importMatch[1].toUpperCase() } }]; }\n\nconst meetingMatch = normalized.match(/^зустріч\\s+([a-zа-яіїєґ0-9_-]+)$/);\nif (meetingMatch) { return [{ json: { execution_mode: 'set_meeting_project', payload: meetingMatch[1].toUpperCase(), project_id: meetingMatch[1].toUpperCase() } }]; }\n\nif (/^скасувати$/.test(normalized)) { return [{ json: { execution_mode: 'clear_context', payload: '', project_id: null } }]; }\nif (/^назад$/.test(normalized)) { return [{ json: { execution_mode: 'clear_context', payload: '', project_id: null } }]; }\nif (/^статус\\s*звіт(ів)?$/.test(normalized)) { return [{ json: { execution_mode: 'status', payload: '', project_id: currentProject } }]; }\nif (/^довідник$/.test(normalized)) { return [{ json: { execution_mode: 'set_reference_mode', payload: '', project_id: currentProject } }]; }\n\nif (currentMode === 'koshtorys_preview') {\n  if (/^затвердити$/.test(normalized)) {\n    if (ALLOWED.indexOf(fromId) < 0) { return [{ json: { execution_mode: 'koshtorys_forbidden', payload: '', project_id: currentProject } }]; }\n    return [{ json: { execution_mode: 'koshtorys_commit', mode: 'commit', payload: '', project_id: currentProject, telegram_user_id: fromId } }];\n  }\n  return [{ json: { execution_mode: 'koshtorys_hint', payload: '', project_id: currentProject } }];\n}\n\nif (!currentProject) { return [{ json: { execution_mode: 'need_project', payload: '', project_id: null } }]; }\n\nconst isNew = /^новий$/.test(normalized);\nconst isDraft = /^чернетка$/.test(normalized);\nconst isFinal = /^фінал$/.test(normalized);\n\nif (currentMode === 'meeting_log') {\n  if (isNew) { return [{ json: { execution_mode: 'reset_meeting_draft', payload: '', project_id: currentProject } }]; }\n  if (isDraft) { return [{ json: { execution_mode: 'show_meeting_draft', payload: 'Покажи поточну чернетку журналу зустрічей — усі накопичені за сесію рішення/дії, нічого нового не додавай.', project_id: currentProject } }]; }\n  if (isFinal) { return [{ json: { execution_mode: 'generate_meeting_final', payload: 'Зведи всі накопичені за сесію рішення/дії у фінальний список.', project_id: currentProject } }]; }\n  return [{ json: { execution_mode: 'process_meeting_transcript', payload: rawText, project_id: currentProject } }];\n}\n\nif (currentMode === 'import_log') {\n  if (isNew) { return [{ json: { execution_mode: 'reset_import_draft', payload: '', project_id: currentProject } }]; }\n  if (isDraft) { return [{ json: { execution_mode: 'show_import_draft', payload: 'Покажи поточну чернетку імпорту Time_Log/Money_Log.', project_id: currentProject } }]; }\n  if (isFinal) { return [{ json: { execution_mode: 'generate_import_final', payload: 'Сформуй фінальний імпорт Time_Log/Money_Log і виведи структуровані рядки.', project_id: currentProject } }]; }\n  return [{ json: { execution_mode: 'process_import_data', payload: rawText, project_id: currentProject } }];\n}\n\nif (isNew) { return [{ json: { execution_mode: 'reset_wr_draft', payload: '', project_id: currentProject } }]; }\nif (isDraft) { return [{ json: { execution_mode: 'show_draft', payload: 'Покажи поточну чернетку тижневого звіту у повній фіксованій структурі.', project_id: currentProject } }]; }\nif (isFinal) { return [{ json: { execution_mode: 'generate_final', payload: 'Сформуй фінальний тижневий звіт у повній фіксованій структурі.', project_id: currentProject } }]; }\nconst addMatch = rawText.match(/^додати\\s+(.+)/i);\nconst payloadText = addMatch ? addMatch[1] : rawText;\nreturn [{ json: { execution_mode: 'process_data', payload: payloadText, project_id: currentProject } }];"
       },
       "id": "302f6a4e-f5fc-439c-b86e-32e0490098a6",
       "name": "WR: Hard Logic Engine",
@@ -4798,120 +4798,6 @@
       }
     },
     {
-      "id": "826aa93a-7208-492a-8309-16e1cb0ed422",
-      "name": "M: Send Project Picker",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        2240,
-        3300
-      ],
-      "parameters": {
-        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
-        "text": "Оберіть проєкт:",
-        "replyMarkup": "replyKeyboard",
-        "replyKeyboard": {
-          "rows": [
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "={{ $json.payload }} DEMO-01",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "={{ $json.payload }} DEMO-02",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "={{ $json.payload }} DEMO-03",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "={{ $json.payload }} DEMO-04",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "={{ $json.payload }} DEMO-05",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "={{ $json.payload }} DEMO-06",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "={{ $json.payload }} DEMO-07",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "={{ $json.payload }} DEMO-08",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "={{ $json.payload }} DEMO-09",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "={{ $json.payload }} DEMO-10",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "⬅️ Назад",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "replyKeyboardOptions": {
-          "resize_keyboard": true,
-          "one_time_keyboard": false,
-          "is_persistent": true
-        },
-        "additionalFields": {
-          "appendAttribution": false
-        }
-      },
-      "webhookId": "a949ff42-5167-48dc-a0e8-bb87fe745614",
-      "credentials": {
-        "telegramApi": {
-          "id": "jDGC5deJSU6Bjk2J",
-          "name": "Telegram account 4"
-        }
-      }
-    },
-    {
       "id": "9fa8f644-03b8-4c3a-a892-dbb0d366f608",
       "name": "Import: Clear Draft After Final",
       "type": "n8n-nodes-base.postgres",
@@ -5090,7 +4976,7 @@
           "combinator": "and",
           "conditions": [
             {
-              "leftValue": "={{ /^договір\\s+demo-\\d{2}$/i.test((($('Telegram Trigger').item.json.message?.text) || '').trim()) }}",
+              "leftValue": "={{ /^договір\\s+([a-zа-яіїєґ0-9_-]+)$/i.test((($('Telegram Trigger').item.json.message?.text) || '').trim()) }}",
               "operator": {
                 "operation": "equals",
                 "type": "boolean"
@@ -5120,7 +5006,7 @@
       "parameters": {
         "mode": "runOnceForEachItem",
         "language": "javaScript",
-        "jsCode": "const msg = $('Telegram Trigger').item.json.message;\nconst text = (msg.text || '').trim();\nconst m = text.match(/^договір\\s+(demo-\\d{2})$/i);\nreturn { json: { project_id: m ? m[1].toUpperCase() : null } };"
+        "jsCode": "const msg = $('Telegram Trigger').item.json.message;\nconst text = (msg.text || '').trim();\nconst m = text.match(/^договір\\s+([a-zа-яіїєґ0-9_-]+)$/i);\nreturn { json: { project_id: m ? m[1].toUpperCase() : null } };"
       }
     },
     {
@@ -5592,6 +5478,60 @@
           "id": "9RgEysuE2hzWIIQq",
           "name": "Postgres account"
         }
+      }
+    },
+    {
+      "id": "3604dd9a-bb9a-401b-a837-343016c1ae29",
+      "name": "M: Fetch Project List",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2300,
+        2000
+      ],
+      "parameters": {
+        "operation": "executeQuery",
+        "options": {},
+        "query": "SELECT project_id FROM public.project_metrics ORDER BY project_id;"
+      },
+      "credentials": {
+        "postgres": {
+          "id": "9RgEysuE2hzWIIQq",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "id": "ff13d343-81c8-493b-aec0-bad280b83eec",
+      "name": "M: Build Project Keyboard",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2520,
+        2000
+      ],
+      "parameters": {
+        "jsCode": "const payload = ((($('WR: Route').first() || {}).json) || {}).payload || '';\nconst ids = $input.all().map(function(i){ return i.json.project_id; }).filter(Boolean);\nconst keyboard = [];\nfor (let i = 0; i < ids.length; i += 2) {\n  const row = [{ text: payload + ' ' + ids[i] }];\n  if (ids[i+1]) row.push({ text: payload + ' ' + ids[i+1] });\n  keyboard.push(row);\n}\nkeyboard.push([{ text: '⬅️ Назад' }]);\nreturn [{ json: { payload: payload, keyboard: keyboard } }];",
+        "language": "javaScript",
+        "mode": "runOnceForAllItems"
+      }
+    },
+    {
+      "id": "89f61881-5727-4681-8533-0bed37edfd72",
+      "name": "M: Send Project Picker",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2740,
+        2000
+      ],
+      "parameters": {
+        "jsonBody": "={{ JSON.stringify({ chat_id: $('Telegram Trigger').first().json.message.chat.id, text: 'Оберіть проєкт:', reply_markup: { keyboard: $json.keyboard, resize_keyboard: true, one_time_keyboard: false, is_persistent: true } }) }}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://api.telegram.org/bot8813476306:AAGvcE5Mys8Pg5__DtE03O6rBcjCu-0TVXk/sendMessage"
       }
     }
   ],
@@ -6181,7 +6121,7 @@
         ],
         [
           {
-            "node": "M: Send Project Picker",
+            "node": "M: Fetch Project List",
             "type": "main",
             "index": 0
           }
@@ -7166,17 +7106,42 @@
           }
         ]
       ]
+    },
+    "M: Fetch Project List": {
+      "main": [
+        [
+          {
+            "node": "M: Build Project Keyboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "M: Build Project Keyboard": {
+      "main": [
+        [
+          {
+            "node": "M: Send Project Picker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
+  "pinData": null,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
     "binaryMode": "separate"
   },
   "staticData": null,
-  "meta": {},
-  "pinData": {},
-  "versionId": "ea96092c-1e2a-42c4-900b-26cafbea4ac2",
+  "tags": [],
   "triggerCount": 7,
-  "tags": []
+  "versionId": "833f6202-8918-4dd0-af16-86cc7240796e",
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  }
 }
