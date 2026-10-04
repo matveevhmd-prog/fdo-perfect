@@ -102,3 +102,22 @@ ALTER TABLE "public"."money_log" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "public"."rates" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "public"."meeting_log" ENABLE ROW LEVEL SECURITY;
 ```
+
+## 6. 🔴 Нова таблиця `kp_log` (04.10.2026) теж без RLS — той самий клас проблеми, не окрема
+
+**Факт:** таблиця `kp_log` (лічильник комерційних пропозицій, Розділ 9.2
+RELEASE_PLAN) створена 04.10.2026 БЕЗ RLS — перевірено прямим SQL
+(`pg_class.relrowsecurity = false`). Це повторення проблеми п.5 на новій
+таблиці, не нова категорія ризику: будь-хто з anon-ключем Supabase може
+читати й писати в `kp_log`.
+
+**Статус: НЕ ВИПРАВЛЕНО.** Умисно, з тієї ж причини, що й п.5 — чекає
+того самого рішення власника про RLS-policies для Archi в цілому, не
+точкового фіксу однієї таблиці.
+
+Ремедіація (НЕ застосовувати без підготовлених policies, те саме
+застереження, що й п.5):
+
+```sql
+ALTER TABLE "public"."kp_log" ENABLE ROW LEVEL SECURITY;
+```
