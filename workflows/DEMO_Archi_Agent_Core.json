@@ -5507,7 +5507,7 @@
         "options": {},
         "sendBody": true,
         "specifyBody": "json",
-        "url": "https://api.telegram.org/bot8813476306:AAGvcE5Mys8Pg5__DtE03O6rBcjCu-0TVXk/sendMessage"
+        "url": "https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/sendMessage"
       }
     }
   ],
@@ -7115,7 +7115,7 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 7,
-  "versionId": "bd4be4da-fa15-4491-aa40-a91096b26252",
+  "versionId": "61786a6b-bc85-4198-b5be-f799d0f97afa",
   "meta": {
     "aiBuilderAssisted": true,
     "builderVariant": "mcp"

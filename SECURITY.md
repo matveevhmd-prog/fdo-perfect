@@ -36,6 +36,8 @@ git-історії, GitHub secret-scanning майже напевно його п
 пропонувати повторно, не включати в release-план як задачу. Ризик
 постійного витоку прийнятий назавжди.
 
+**Оновлення 09.10.2026:** літерал у `M: Send Project Picker` виявився недійсним (Telegram 401) і замінений чинним токеном власника. З цього моменту `workflows/DEMO_Archi_Agent_Core.json` у репо містить заглушку `bot<TELEGRAM_BOT_TOKEN>`, а не живий токен; старий (недійсний) літерал лишається в git-історії.
+
 ## 2. 🔴 Weekly Render Data Webhook без авторизації (регресія)
 
 **Факт:** `Weekly Render Data Webhook` (`demo-archi-weekly-render-data`)
