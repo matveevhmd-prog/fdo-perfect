@@ -1102,7 +1102,7 @@
                 "buttons": [
                   {
                     "additionalFields": {},
-                    "text": "⬅️ Назад"
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -1496,12 +1496,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "📝 Тижневий звіт",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "📤 Відправити"
                   },
                   {
-                    "text": "⏱ Години і гроші",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "📄 Чернетка"
                   }
                 ]
               }
@@ -1510,12 +1510,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "🤝 Зустріч",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "✅ Фінал"
                   },
                   {
-                    "text": "📐 Кошторис",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "🆕 Новий"
                   }
                 ]
               }
@@ -1524,32 +1524,8 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "📋 Статус звітів",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📊 Owner View",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📖 Довідник",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📄 Договір",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -2429,12 +2405,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "📝 Тижневий звіт",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "📄 Чернетка"
                   },
                   {
-                    "text": "⏱ Години і гроші",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "✅ Фінал"
                   }
                 ]
               }
@@ -2443,46 +2419,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "🤝 Зустріч",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "🆕 Новий"
                   },
                   {
-                    "text": "📐 Кошторис",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📋 Статус звітів",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📊 Owner View",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📖 Довідник",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📄 Договір",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -2622,12 +2564,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "📝 Тижневий звіт",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "📄 Чернетка"
                   },
                   {
-                    "text": "⏱ Години і гроші",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "✅ Фінал"
                   }
                 ]
               }
@@ -2636,46 +2578,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "🤝 Зустріч",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "🆕 Новий"
                   },
                   {
-                    "text": "📐 Кошторис",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📋 Статус звітів",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📊 Owner View",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📖 Довідник",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📄 Договір",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -2861,12 +2769,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "📝 Тижневий звіт",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "📄 Чернетка"
                   },
                   {
-                    "text": "⏱ Години і гроші",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "✅ Фінал"
                   }
                 ]
               }
@@ -2875,46 +2783,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "🤝 Зустріч",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "🆕 Новий"
                   },
                   {
-                    "text": "📐 Кошторис",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📋 Статус звітів",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📊 Owner View",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📖 Довідник",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📄 Договір",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -3677,12 +3551,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "📝 Тижневий звіт",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "📄 Чернетка"
                   },
                   {
-                    "text": "⏱ Години і гроші",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "✅ Фінал"
                   }
                 ]
               }
@@ -3691,46 +3565,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "🤝 Зустріч",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "🆕 Новий"
                   },
                   {
-                    "text": "📐 Кошторис",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📋 Статус звітів",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📊 Owner View",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📖 Довідник",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📄 Договір",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -4462,60 +4302,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "📝 Тижневий звіт",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "✅ Затвердити"
                   },
                   {
-                    "text": "⏱ Години і гроші",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "🤝 Зустріч",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📐 Кошторис",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📋 Статус звітів",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📊 Owner View",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📖 Довідник",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📄 Договір",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -4699,60 +4491,12 @@
               "row": {
                 "buttons": [
                   {
-                    "text": "📝 Тижневий звіт",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "✅ Затвердити"
                   },
                   {
-                    "text": "⏱ Години і гроші",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "🤝 Зустріч",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📐 Кошторис",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📋 Статус звітів",
-                    "additionalFields": {}
-                  },
-                  {
-                    "text": "📊 Owner View",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📖 Довідник",
-                    "additionalFields": {}
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "text": "📄 Договір",
-                    "additionalFields": {}
+                    "additionalFields": {},
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -7115,7 +6859,7 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 7,
-  "versionId": "61786a6b-bc85-4198-b5be-f799d0f97afa",
+  "versionId": "4e6e7c9e-826e-4b7d-90c1-dee334a26685",
   "meta": {
     "aiBuilderAssisted": true,
     "builderVariant": "mcp"
