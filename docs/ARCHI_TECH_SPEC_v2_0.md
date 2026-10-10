@@ -43,6 +43,7 @@
 1. Telegram Chat-агент \+ Mini App webhooks — тепер рахують кольори/сигнали ОДНИМ спільним кодом (вузол `Build MiniApp Data`, розгалуження через IF `Is Chat Request?`) — усунено ризик розбіжності кольорів між чатом і Owner View.
 2. WR-агент (тижневий брифінг ПМа) — з блокер-чек-листом (⛔) і сигналом розбіжності готовності (⚖️).
 3. Автоматичний перерахунок Data Total — **ЗМІНЕНО 26.09:** більше не JS-вузол `Б3: Compute Forecast` в workflow, а SQL-функція `public.archi_recalc(p_project text DEFAULT NULL)` + 5 тригерів на рівні Postgres (`archi_recalc_time`, `archi_recalc_money`, `archi_recalc_wr`, `archi_recalc_schedule`, `archi_recalc_plan`). Перерахунок відбувається одразу при INSERT/UPDATE у `time_log`/`money_log`/`wr_weekly_snapshots`/`payment_schedule`/план-колонках `project_metrics`, незалежно від того, чи workflow зараз запущений.
+   **ЗМІНЕНО 10.10.2026:** `archi_recalc()` не підставляє плановий залишок: якщо ETC_прогноз відсутній по стадії з готовністю < 100%, ETC_Total/прибуток/рентабельність прогноз = NULL (готовність 100% → ETC 0). Нові колонки `project_metrics.forecast_confirmed_pct`, `forecast_confirmed_week` — останній підтверджений прогноз. Owner View показує «🔴 Прогноз відсутній» (RELEASE_PLAN Розділ 16).
 4. Postgres-стан (`archi_bot_mode_state`) — тепер з додатковою колонкою `context` (jsonb), якої не було в v2.0.
 
 **Webhook-ендпоінти (перевірено живим `get_workflow_details`, 26.09.2026):**
