@@ -2260,7 +2260,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "=UPDATE public.wr_plan_items SET status = '{{ $json.status }}' WHERE project_id = '{{ $json.project_id }}' AND week_start = '{{ $json.week_start }}'::date AND item_number = {{ $json.item_number }};"
+        "query": "=UPDATE public.wr_plan_items SET status = '{{ String($json.status ?? '').replace(/'/g, \"''\") }}' WHERE project_id = '{{ $json.project_id }}' AND week_start = '{{ $json.week_start }}'::date AND item_number = {{ parseInt($json.item_number, 10) || 0 }};"
       },
       "credentials": {
         "postgres": {
@@ -2639,7 +2639,7 @@
       "typeVersion": 1.2,
       "position": [
         3360,
-        1130
+        2100
       ],
       "parameters": {
         "additionalFields": {
@@ -3990,7 +3990,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "=INSERT INTO public.time_log (project_id, дата, стадія, виконавець, завдання_розділ, години, статус, source) VALUES ('{{ $json.ProjectID.replace(/'/g, \"''\") }}', CASE WHEN '{{ $json.Дата }}' ~ '^\\d{4}-\\d{2}-\\d{2}' THEN LEFT('{{ $json.Дата }}', 10)::date WHEN '{{ $json.Дата }}' ~ '^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$' THEN TO_DATE('{{ $json.Дата }}', 'DD.MM.YYYY') ELSE NULL END, NULLIF('{{ $json.Стадія }}', ''), NULLIF('{{ $json.Виконавець.replace(/'/g, \"''\") }}', ''), NULLIF('{{ $json['Завдання / розділ'].replace(/'/g, \"''\") }}', ''), NULLIF(REPLACE(REPLACE('{{ $json.Години }}', ' ', ''), ',', '.'), '')::numeric, COALESCE(NULLIF('{{ $json.Статус }}', ''), 'confirmed'), 'bot');"
+        "query": "=INSERT INTO public.time_log (project_id, дата, стадія, виконавець, завдання_розділ, години, статус, source) VALUES ('{{ $json.ProjectID.replace(/'/g, \"''\") }}', CASE WHEN '{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}' ~ '^\\d{4}-\\d{2}-\\d{2}' THEN LEFT('{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}', 10)::date WHEN '{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}' ~ '^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$' THEN TO_DATE('{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}', 'DD.MM.YYYY') ELSE NULL END, NULLIF('{{ String($json.Стадія ?? '').replace(/'/g, \"''\") }}', ''), NULLIF('{{ $json.Виконавець.replace(/'/g, \"''\") }}', ''), NULLIF('{{ $json['Завдання / розділ'].replace(/'/g, \"''\") }}', ''), NULLIF(REPLACE(REPLACE('{{ String($json.Години ?? '').replace(/'/g, \"''\") }}', ' ', ''), ',', '.'), '')::numeric, COALESCE(NULLIF('{{ String($json.Статус ?? '').replace(/'/g, \"''\") }}', ''), 'confirmed'), 'bot');"
       },
       "credentials": {
         "postgres": {
@@ -4011,7 +4011,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "=INSERT INTO public.money_log (project_id, дата, стадія, контрагент, сума, тип, статус, source) VALUES ('{{ $json.ProjectID.replace(/'/g, \"''\") }}', CASE WHEN '{{ $json.Дата }}' ~ '^\\d{4}-\\d{2}-\\d{2}' THEN LEFT('{{ $json.Дата }}', 10)::date WHEN '{{ $json.Дата }}' ~ '^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$' THEN TO_DATE('{{ $json.Дата }}', 'DD.MM.YYYY') ELSE NULL END, NULLIF('{{ $json.Стадія }}', ''), NULLIF('{{ $json.Контрагент.replace(/'/g, \"''\") }}', ''), NULLIF(REPLACE(REPLACE('{{ $json.Сума }}', ' ', ''), ',', '.'), '')::numeric, NULLIF('{{ $json.Тип }}', ''), COALESCE(NULLIF('{{ $json.Статус }}', ''), 'confirmed'), 'bot');"
+        "query": "=INSERT INTO public.money_log (project_id, дата, стадія, контрагент, сума, тип, статус, source) VALUES ('{{ $json.ProjectID.replace(/'/g, \"''\") }}', CASE WHEN '{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}' ~ '^\\d{4}-\\d{2}-\\d{2}' THEN LEFT('{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}', 10)::date WHEN '{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}' ~ '^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$' THEN TO_DATE('{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}', 'DD.MM.YYYY') ELSE NULL END, NULLIF('{{ String($json.Стадія ?? '').replace(/'/g, \"''\") }}', ''), NULLIF('{{ $json.Контрагент.replace(/'/g, \"''\") }}', ''), NULLIF(REPLACE(REPLACE('{{ String($json.Сума ?? '').replace(/'/g, \"''\") }}', ' ', ''), ',', '.'), '')::numeric, NULLIF('{{ String($json.Тип ?? '').replace(/'/g, \"''\") }}', ''), COALESCE(NULLIF('{{ String($json.Статус ?? '').replace(/'/g, \"''\") }}', ''), 'confirmed'), 'bot');"
       },
       "credentials": {
         "postgres": {
@@ -4032,7 +4032,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "=INSERT INTO public.meeting_log (project_id, дата, учасники, рішення_дія, відповідальний, дедлайн, source) VALUES ('{{ $json.ProjectID.replace(/'/g, \"''\") }}', CASE WHEN '{{ $json.Дата }}' ~ '^\\d{4}-\\d{2}-\\d{2}' THEN LEFT('{{ $json.Дата }}', 10)::date WHEN '{{ $json.Дата }}' ~ '^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$' THEN TO_DATE('{{ $json.Дата }}', 'DD.MM.YYYY') ELSE NULL END, NULLIF('{{ $json.Учасники.replace(/'/g, \"''\") }}', ''), NULLIF('{{ $json['Рішення/Дія'].replace(/'/g, \"''\") }}', ''), NULLIF('{{ $json.Відповідальний.replace(/'/g, \"''\") }}', ''), CASE WHEN '{{ $json.Дедлайн }}' ~ '^\\d{4}-\\d{2}-\\d{2}' THEN LEFT('{{ $json.Дедлайн }}', 10)::date WHEN '{{ $json.Дедлайн }}' ~ '^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$' THEN TO_DATE('{{ $json.Дедлайн }}', 'DD.MM.YYYY') ELSE NULL END, 'bot');"
+        "query": "=INSERT INTO public.meeting_log (project_id, дата, учасники, рішення_дія, відповідальний, дедлайн, source) VALUES ('{{ $json.ProjectID.replace(/'/g, \"''\") }}', CASE WHEN '{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}' ~ '^\\d{4}-\\d{2}-\\d{2}' THEN LEFT('{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}', 10)::date WHEN '{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}' ~ '^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$' THEN TO_DATE('{{ String($json.Дата ?? '').replace(/'/g, \"''\") }}', 'DD.MM.YYYY') ELSE NULL END, NULLIF('{{ $json.Учасники.replace(/'/g, \"''\") }}', ''), NULLIF('{{ $json['Рішення/Дія'].replace(/'/g, \"''\") }}', ''), NULLIF('{{ $json.Відповідальний.replace(/'/g, \"''\") }}', ''), CASE WHEN '{{ String($json.Дедлайн ?? '').replace(/'/g, \"''\") }}' ~ '^\\d{4}-\\d{2}-\\d{2}' THEN LEFT('{{ String($json.Дедлайн ?? '').replace(/'/g, \"''\") }}', 10)::date WHEN '{{ String($json.Дедлайн ?? '').replace(/'/g, \"''\") }}' ~ '^\\d{1,2}\\.\\d{1,2}\\.\\d{4}$' THEN TO_DATE('{{ String($json.Дедлайн ?? '').replace(/'/g, \"''\") }}', 'DD.MM.YYYY') ELSE NULL END, 'bot');"
       },
       "credentials": {
         "postgres": {
@@ -6899,7 +6899,7 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 7,
-  "versionId": "5e9d318b-beaa-4aa6-a617-4a8b2e8fd57b",
+  "versionId": "b2a21a8a-d558-4669-9541-b65c0f97fc9e",
   "meta": {
     "aiBuilderAssisted": true,
     "builderVariant": "mcp"
