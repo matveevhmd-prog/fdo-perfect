@@ -870,3 +870,11 @@ SQL нового SELECT на живій базі виконується; JS `Bui
 **Живий прогін Q1–Q10 власником — не проведено; повний ланцюг (Anthropic → санітайзер → Telegram) через `test_workflow` не запускався.** Checkpoint відкритий.
 **Свідомо не зроблено:** Q10 не читає `meeting_log` (рішення власника не отримано); параметризація SQL (окрема задача після демо).
 
+## 19. Weekly Render з initData; .txt/.pdf у Detect Doc Type (10.10.2026)
+
+**Знайдено:** сторінка `Build Weekly Render HTML` викликала `demo-archi-weekly-render-data` без `initData`, а `WR-Render: Validate InitData` вимагає його (`no_init_data` → `Unauthorized`) — сторінка в такому вигляді отримувала відмову. Інша причина: `WR: Detect Doc Type` визначав тип лише за `mime_type`; `.txt`/`.pdf`, надіслані як `application/octet-stream`, потрапляли в «Send Unsupported Format».
+
+**Зроблено** (`activeVersionId 5e9d318b-beaa-4aa6-a617-4a8b2e8fd57b`): (1) сторінка підключає `telegram-web-app.js`, бере `tg.initData`, передає в запит, обробляє 401 і відкриття поза Telegram; (2) `Detect Doc Type`: PDF — `mime = application/pdf` АБО ім'я файлу `.pdf`; TXT — `mime = text/plain` АБО ім'я `.txt`.
+**Перевірка:** код сторінки виконано в `node` (генерується валідний HTML, вбудований скрипт проходить синтаксичний розбір, є `telegram-web-app.js` і `encodeURIComponent(initData)`); залитий код ідентичний локальному; правила `Detect Doc Type` прочитані з живого n8n (`or`: pdf/.pdf, text/plain/.txt).
+**Живий прогін — не проведено:** потрібно відкрити Weekly Render кнопкою з Telegram і надіслати `.txt` у режимі звіту. Checkpoint відкритий.
+
