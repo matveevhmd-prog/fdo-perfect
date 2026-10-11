@@ -3,12 +3,12 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "3d0a50b5-6bbf-459b-bc88-0010cb127836",
-  "activeVersionId": "3d0a50b5-6bbf-459b-bc88-0010cb127836",
+  "versionId": "aba3b480-49a2-4155-95db-88ad8e38d6ab",
+  "activeVersionId": "aba3b480-49a2-4155-95db-88ad8e38d6ab",
   "triggerCount": 7,
   "nodeCount": 167,
   "createdAt": "2026-08-23T06:55:20.331Z",
-  "updatedAt": "2026-10-11T16:48:03.340Z",
+  "updatedAt": "2026-10-11T18:01:04.978Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -2731,7 +2731,8 @@
     {
       "parameters": {
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         },
         "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "replyKeyboard": {
@@ -2782,7 +2783,7 @@
           "is_persistent": true
         },
         "replyMarkup": "replyKeyboard",
-        "text": "=Проєкт {{ $('WR: Hard Logic Engine').item.json.project_id }} — тижневий звіт.\n\n📋 БРИФ — обовʼязково дайте відповідь:\nПо кожній стадії МБР / ЕП / П / Р:\n• готовність, %\n• скільки годин ще потрібно\n• прогнозна дата завершення (або «без змін»)\nПо проєкту:\n• ймовірність видачі документації, 1–10\n• статус пунктів плану минулого тижня (якщо був)\n• проблеми і потрібна допомога (або «немає»)\n• план на наступний тиждень\n• чи є блокер: що зупиняє роботу, з якої дати, що потрібно і хто вирішує (або «немає»)\n\nНа кожне питання — відповідь або «відповіді нема».\nМожна текстом, голосом, фото чи файлом, частинами. Коли надіслали — натисніть «📤 Відправити»: Archi збере звіт і покаже, чого бракує. Коли все закрито — «✅ Фінал» (поки чогось бракує, фінал не прийметься).\n«Новий» — почати заново, «Чернетка» — переглянути, «Скасувати» — вийти.{{ $json.plan_confirm_text || '' }}"
+        "text": "=📝 <b>Проєкт {{ $('WR: Hard Logic Engine').item.json.project_id }} — тижневий звіт</b>\n\n📋 <b>Що потрібно у звіті</b>\n\n<b>По кожній стадії (МБР / ЕП / П / Р):</b>\n• Готовність, %\n• Скільки годин ще потрібно\n• Прогнозна дата завершення (або «без змін»)\n\n<b>По проєкту:</b>\n• Ймовірність видачі документації, 1–10\n• Статус пунктів плану минулого тижня (якщо був)\n• Проблеми і потрібна допомога (або «немає»)\n• План на наступний тиждень\n• Блокер: що зупиняє роботу, з якої дати, що потрібно, хто вирішує (або «немає»)\n\n⚠️ На кожне питання — відповідь або «відповіді нема».\n\n✍️ <b>Як відповідати</b>\n• Текстом, голосом, фото чи файлом — можна частинами\n• Коли надіслали — «📤 Відправити»: Archi збере звіт і покаже, чого бракує\n• Коли все закрито — «✅ Фінал» (поки чогось бракує, фінал не прийметься)\n\n🔘 <b>Кнопки</b>\n• «Новий» — почати заново\n• «Чернетка» — переглянути\n• «Скасувати» — вийти{{ $json.plan_confirm_text || '' }}"
       },
       "id": "85153296-1219-44ac-a317-ab724deb66a9",
       "name": "WR: Send Project Confirmation",
@@ -4063,7 +4064,8 @@
       ],
       "parameters": {
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         },
         "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "replyKeyboard": {
@@ -4104,7 +4106,7 @@
           "is_persistent": true
         },
         "replyMarkup": "replyKeyboard",
-        "text": "=Проєкт {{ $('WR: Hard Logic Engine').item.json.project_id }} — години і гроші.\n\n📋 БРИФ — по кожному запису обовʼязково:\nГодини: дата · стадія (МБР/ЕП/П/Р) · виконавець · скільки годин · завдання (необовʼязково)\nГроші: дата · тип (оплата субпідряднику / надходження від замовника / акт підписаний) · контрагент · сума · стадія (якщо відома)\n\nПриклад: «22.09 П Іванов 6 год креслення фасадів; 23.09 оплата субпідряднику ІнжПроект 15000 П».\nМожна текстом, голосом або фото. Поки якийсь запис неповний — «Фінал» не прийметься, бот скаже, чого бракує.\n«Новий» — почати заново, «Чернетка» — переглянути, «Скасувати» — вийти."
+        "text": "=💰 <b>Проєкт {{ $('WR: Hard Logic Engine').item.json.project_id }} — години і гроші</b>\n\n📋 <b>По кожному запису обовʼязково</b>\n\n⏱ <b>Години:</b>\n• Дата\n• Стадія (МБР / ЕП / П / Р)\n• Виконавець\n• Скільки годин\n• Завдання (необовʼязково)\n\n💵 <b>Гроші:</b>\n• Дата\n• Тип: оплата субпідряднику / надходження від замовника / акт підписаний\n• Контрагент\n• Сума\n• Стадія (якщо відома)\n\n✍️ <b>Приклад</b>\n«22.09 П Іванов 6 год креслення фасадів; 23.09 оплата субпідряднику ІнжПроект 15000 П»\n\nℹ️ Можна текстом, голосом або фото. Поки запис неповний — «Фінал» не прийметься, бот скаже, чого бракує.\n\n🔘 <b>Кнопки</b>\n• «Новий» — почати заново\n• «Чернетка» — переглянути\n• «Скасувати» — вийти"
       },
       "webhookId": "aa11b74c-d86d-4d75-9c6e-b75285cf43b8",
       "credentials": {
@@ -4427,7 +4429,8 @@
       ],
       "parameters": {
         "additionalFields": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "parse_mode": "HTML"
         },
         "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
         "replyKeyboard": {
@@ -4468,7 +4471,7 @@
           "is_persistent": true
         },
         "replyMarkup": "replyKeyboard",
-        "text": "=Проєкт {{ $('WR: Hard Logic Engine').item.json.project_id }} — журнал зустрічей.\n\n📋 БРИФ — обовʼязково:\n• дата зустрічі (якщо не сьогодні) і учасники\n• по кожному рішенню: що вирішили · хто відповідальний · дедлайн\n\nНадішліть транскрипт (будь-який ноутейкер) або конспект — можна кількома повідомленнями. Чого не буде в транскрипті — бот допитає.\nПоки в рішення немає відповідального чи дедлайну — «Фінал» не прийметься.\n«Новий» — почати заново, «Чернетка» — переглянути, «Скасувати» — вийти."
+        "text": "=🤝 <b>Проєкт {{ $('WR: Hard Logic Engine').item.json.project_id }} — журнал зустрічей</b>\n\n📋 <b>Обовʼязково</b>\n\n<b>Про зустріч:</b>\n• Дата (якщо не сьогодні)\n• Учасники\n\n<b>По кожному рішенню:</b>\n• Що вирішили\n• Хто відповідальний\n• Дедлайн\n\n✍️ <b>Як надіслати</b>\n• Транскрипт (будь-який ноутейкер) або конспект\n• Можна кількома повідомленнями\n• Чого не буде в транскрипті — бот допитає\n\n⚠️ Поки в рішення немає відповідального чи дедлайну — «Фінал» не прийметься.\n\n🔘 <b>Кнопки</b>\n• «Новий» — почати заново\n• «Чернетка» — переглянути\n• «Скасувати» — вийти"
       },
       "webhookId": "0c2f8d2e-cbfd-4fcd-9b8e-025233deb291",
       "credentials": {
@@ -5308,7 +5311,7 @@
         1030
       ],
       "parameters": {
-        "jsCode": "const items = $input.all().filter(function(i){ return i.json && i.json.item_number != null; });\nconst pendingItems = items.filter(function(i){ return i.json.status === 'pending'; });\nif (pendingItems.length === 0) {\n  return [{ json: { plan_confirm_text: '' } }];\n}\nconst lines = pendingItems.map(function(i){ return i.json.item_number + '. ' + i.json.item_text; }).join('\\n');\nconst text = '\\n\\n\\ud83d\\udccb \\u041d\\u0435\\u0437\\u0430\\u043a\\u0440\\u0438\\u0442\\u0438\\u0439 \\u043f\\u043b\\u0430\\u043d \\u043c\\u0438\\u043d\\u0443\\u043b\\u043e\\u0433\\u043e \\u0442\\u0438\\u0436\\u043d\\u044f:\\n' + lines + '\\n\\n\\u041f\\u043e\\u0437\\u043d\\u0430\\u0447\\u0442\\u0435 \\u0432\\u0438\\u043a\\u043e\\u043d\\u0430\\u043d\\u043e \\u2705 \\u0447\\u0438 \\u043d\\u0456 \\u274c \\u043f\\u043e \\u043a\\u043e\\u0436\\u043d\\u043e\\u043c\\u0443 \\u043f\\u0443\\u043d\\u043a\\u0442\\u0443.';\nreturn [{ json: { plan_confirm_text: text } }];"
+        "jsCode": "const items = $input.all().filter(function(i){ return i.json && i.json.item_number != null; });\nconst pendingItems = items.filter(function(i){ return i.json.status === 'pending'; });\nif (pendingItems.length === 0) {\n  return [{ json: { plan_confirm_text: '' } }];\n}\nfunction esc(s){ return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }\nconst lines = pendingItems.map(function(i){ return i.json.item_number + '. ' + esc(i.json.item_text); }).join('\\n');\nconst text = '\\n\\n📋 <b>Незакритий план минулого тижня</b>\\n' + lines + '\\n\\nПозначте по кожному пункту: виконано ✅ чи ні ❌.';\nreturn [{ json: { plan_confirm_text: text } }];"
       }
     },
     {
