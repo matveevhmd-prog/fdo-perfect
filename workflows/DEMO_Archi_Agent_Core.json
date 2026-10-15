@@ -3,12 +3,12 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "514b6473-5337-4ae5-8abe-98ef13c366f0",
-  "activeVersionId": "514b6473-5337-4ae5-8abe-98ef13c366f0",
+  "versionId": "04844eb7-7113-40ca-8a5e-48f8605de386",
+  "activeVersionId": "04844eb7-7113-40ca-8a5e-48f8605de386",
   "triggerCount": 7,
-  "nodeCount": 167,
+  "nodeCount": 171,
   "createdAt": "2026-08-23T06:55:20.331Z",
-  "updatedAt": "2026-10-15T19:23:34.344Z",
+  "updatedAt": "2026-10-15T19:46:26.841Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -994,7 +994,7 @@
         ],
         [
           {
-            "node": "Is Owner View Request?",
+            "node": "Is Questions Menu?",
             "type": "main",
             "index": 0
           }
@@ -1627,7 +1627,7 @@
       "main": [
         [
           {
-            "node": "Send Reply",
+            "node": "Is Fixed Question?",
             "type": "main",
             "index": 0
           }
@@ -1672,6 +1672,42 @@
         [
           {
             "node": "Fetch Project Metrics (MiniApp)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Fixed Question?": {
+      "main": [
+        [
+          {
+            "node": "Send Reply (Questions)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Questions Menu?": {
+      "main": [
+        [
+          {
+            "node": "Send Questions Menu",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Owner View Request?",
             "type": "main",
             "index": 0
           }
@@ -1889,6 +1925,10 @@
                 "buttons": [
                   {
                     "text": "📖 Довідник",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
                     "additionalFields": {}
                   }
                 ]
@@ -2199,6 +2239,10 @@
                   {
                     "text": "📖 Довідник",
                     "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
+                    "additionalFields": {}
                   }
                 ]
               }
@@ -2282,7 +2326,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const msg = ($('Telegram Trigger').item.json.message) || {};\nconst text = (msg.text || '').trim();\nconst modeRow = ($input.first() && $input.first().json) || {};\nconst mode = modeRow.mode || 'idle';\nconst hasAudio = !!msg.voice;\nconst hasPhoto = !!msg.photo;\nconst hasDocument = !!msg.document;\nconst lower = text.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\nconst isOwnerViewLike = /^\\/(project|owner_view|status|all_projects|weekly_render|weekly_history)$/i.test(text) || /(огляд|owner|меню|щотижнев|тижнева історія)/i.test(text);\nconst isWrCommand = /^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized) || /^новий$/.test(normalized) || /^про[єе]кт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^імпорт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^зустріч\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^додати\\s+.+/.test(normalized) || /^(чернетка|відправити)$/.test(normalized) || /^фінал$/.test(normalized) || /^скасувати$/.test(normalized) || /^статус\\s*звіт(ів)?$/.test(normalized) || /^довідник$/.test(normalized) || /^назад$/.test(normalized) || /^кошторис\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^затвердити$/.test(normalized) || /^(тижневий звіт|години і гроші|зустріч|кошторис)$/.test(normalized);\nconst inWrSession = (mode === 'weekly_report' || mode === 'weekly_reference' || mode === 'import_log' || mode === 'meeting_log' || mode === 'koshtorys_preview');\nconst isWrFlow = Boolean(isWrCommand || (inWrSession && !isOwnerViewLike && (hasAudio || hasPhoto || hasDocument || text.length > 0)));\nreturn [{ json: { is_wr_flow: isWrFlow, mode: mode, project_id: modeRow.project_id || null } }];"
+        "jsCode": "const msg = ($('Telegram Trigger').item.json.message) || {};\nconst text = (msg.text || '').trim();\nconst modeRow = ($input.first() && $input.first().json) || {};\nconst mode = modeRow.mode || 'idle';\nconst hasAudio = !!msg.voice;\nconst hasPhoto = !!msg.photo;\nconst hasDocument = !!msg.document;\nconst lower = text.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\nconst FIXED_Q = new RegExp(\"^(Що в нас зараз відбувається\\\\?|Де може запалати\\\\?|Чи потрібно мені зараз щось робити\\\\?|Чи є гроші на зарплату\\\\?|Чи є небезпека касового розриву\\\\?|На який час у команди є робота\\\\?|Чи виконуємо ми річний план по прибутку\\\\?|Чи є небезпечні дедлайни\\\\?|За що нам може прилетіти від ключового / якірного замовника\\\\?|Що ми / PM пообіцяли замовнику на останній нараді\\\\?)$\", 'i');\nconst isFixedQuestion = /^❓/.test(text) || FIXED_Q.test(text);\nconst isOwnerViewLike = /^\\/(project|owner_view|status|all_projects|weekly_render|weekly_history)$/i.test(text) || /(огляд|owner|меню|щотижнев|тижнева історія)/i.test(text) || isFixedQuestion;\nconst isWrCommand = /^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized) || /^новий$/.test(normalized) || /^про[єе]кт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^імпорт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^зустріч\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^додати\\s+.+/.test(normalized) || /^(чернетка|відправити)$/.test(normalized) || /^фінал$/.test(normalized) || /^скасувати$/.test(normalized) || /^статус\\s*звіт(ів)?$/.test(normalized) || /^довідник$/.test(normalized) || /^назад$/.test(normalized) || /^кошторис\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^затвердити$/.test(normalized) || /^(тижневий звіт|години і гроші|зустріч|кошторис)$/.test(normalized);\nconst inWrSession = (mode === 'weekly_report' || mode === 'weekly_reference' || mode === 'import_log' || mode === 'meeting_log' || mode === 'koshtorys_preview');\nconst isWrFlow = Boolean(isWrCommand || (inWrSession && !isOwnerViewLike && (hasAudio || hasPhoto || hasDocument || text.length > 0)));\nreturn [{ json: { is_wr_flow: isWrFlow, mode: mode, project_id: modeRow.project_id || null } }];"
       },
       "id": "8433a50e-32ed-4fcd-ad07-c14ac80c953d",
       "name": "WR: Determine Route",
@@ -2588,6 +2632,10 @@
                   {
                     "text": "📖 Довідник",
                     "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
+                    "additionalFields": {}
                   }
                 ]
               }
@@ -2684,6 +2732,10 @@
                 "buttons": [
                   {
                     "text": "📖 Довідник",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
                     "additionalFields": {}
                   }
                 ]
@@ -2889,6 +2941,10 @@
                   {
                     "text": "📖 Довідник",
                     "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
+                    "additionalFields": {}
                   }
                 ]
               }
@@ -3006,6 +3062,10 @@
                 "buttons": [
                   {
                     "text": "📖 Довідник",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
                     "additionalFields": {}
                   }
                 ]
@@ -3300,6 +3360,10 @@
                 "buttons": [
                   {
                     "text": "📖 Довідник",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
                     "additionalFields": {}
                   }
                 ]
@@ -4386,6 +4450,10 @@
                   {
                     "text": "📖 Довідник",
                     "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
+                    "additionalFields": {}
                   }
                 ]
               }
@@ -4622,6 +4690,10 @@
                 "buttons": [
                   {
                     "text": "📖 Довідник",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
                     "additionalFields": {}
                   }
                 ]
@@ -4918,6 +4990,10 @@
                   {
                     "text": "📖 Довідник",
                     "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
+                    "additionalFields": {}
                   }
                 ]
               }
@@ -5036,6 +5112,10 @@
                   {
                     "text": "📖 Довідник",
                     "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
+                    "additionalFields": {}
                   }
                 ]
               }
@@ -5153,6 +5233,10 @@
                 "buttons": [
                   {
                     "text": "📖 Довідник",
+                    "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
                     "additionalFields": {}
                   }
                 ]
@@ -6151,6 +6235,10 @@
                   {
                     "text": "📖 Довідник",
                     "additionalFields": {}
+                  },
+                  {
+                    "text": "❓ Питання",
+                    "additionalFields": {}
                   }
                 ]
               }
@@ -7019,6 +7107,360 @@
       "parameters": {
         "jsCode": "const base = $('Build MiniApp Data').first().json;\nconst rows = ($input.first() && $input.first().json && $input.first().json.rows) || [];\nreturn [{ json: Object.assign({}, base, { meetings: Array.isArray(rows) ? rows : [] }) }];"
       }
+    },
+    {
+      "name": "Is Questions Menu?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        640
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('Telegram Trigger').first().json.message?.text || \"\" }}",
+              "operator": {
+                "operation": "regex",
+                "type": "string"
+              },
+              "rightValue": "^❓"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ba825956-7ded-4ea1-bb4b-592c23773290"
+    },
+    {
+      "name": "Send Questions Menu",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        640
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "jDGC5deJSU6Bjk2J",
+          "name": "Telegram account 4"
+        }
+      },
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "❓ <b>Питання власника</b>\n\nОберіть питання кнопкою внизу.\nЩоб повернутись у головне меню — «Назад».",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Що в нас зараз відбувається?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Де може запалати?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи потрібно мені зараз щось робити?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи є гроші на зарплату?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи є небезпека касового розриву?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "На який час у команди є робота?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи виконуємо ми річний план по прибутку?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи є небезпечні дедлайни?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "За що нам може прилетіти від ключового / якірного замовника?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Що ми / PM пообіцяли замовнику на останній нараді?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {
+          "resize_keyboard": true,
+          "one_time_keyboard": false,
+          "is_persistent": true
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "d388c4ca-4b23-4c99-98ea-63b2ba7a14e7",
+      "webhookId": "119daabb-d6f6-4a72-9cc0-7f5be2c9fae7"
+    },
+    {
+      "name": "Is Fixed Question?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1064,
+        320
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('Telegram Trigger').first().json.message?.text || \"\" }}",
+              "operator": {
+                "operation": "regex",
+                "type": "string"
+              },
+              "rightValue": "^(Що в нас зараз відбувається\\?|Де може запалати\\?|Чи потрібно мені зараз щось робити\\?|Чи є гроші на зарплату\\?|Чи є небезпека касового розриву\\?|На який час у команди є робота\\?|Чи виконуємо ми річний план по прибутку\\?|Чи є небезпечні дедлайни\\?|За що нам може прилетіти від ключового / якірного замовника\\?|Що ми / PM пообіцяли замовнику на останній нараді\\?)$"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e0f698e4-ca12-4ef5-8bf5-4537d32b2760"
+    },
+    {
+      "name": "Send Reply (Questions)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1288,
+        320
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "jDGC5deJSU6Bjk2J",
+          "name": "Telegram account 4"
+        }
+      },
+      "parameters": {
+        "chatId": "={{ $('Build Request Body').first().json.chat_id }}",
+        "text": "={{ $json.text }}",
+        "replyMarkup": "replyKeyboard",
+        "replyKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Що в нас зараз відбувається?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Де може запалати?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи потрібно мені зараз щось робити?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи є гроші на зарплату?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи є небезпека касового розриву?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "На який час у команди є робота?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи виконуємо ми річний план по прибутку?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Чи є небезпечні дедлайни?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "За що нам може прилетіти від ключового / якірного замовника?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Що ми / PM пообіцяли замовнику на останній нараді?",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            },
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Назад",
+                    "additionalFields": {}
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "replyKeyboardOptions": {
+          "resize_keyboard": true,
+          "one_time_keyboard": false,
+          "is_persistent": true
+        },
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "852504b6-b476-465d-8444-1cf1302787e4",
+      "webhookId": "e956391a-c0b6-4119-a1af-366d8e4671ca"
     }
   ],
   "nodeGroups": [],

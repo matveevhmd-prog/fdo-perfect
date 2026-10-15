@@ -2,7 +2,7 @@
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
 **Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 6f702771-f338-4b12-a698-3a6f483238db` (далі — `8bce8982` D2+D4, RELEASE_PLAN §48; далі `9de75532` D10, §49)
-(167 нод), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+(171 нода після §51), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -128,8 +128,19 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 ### 4.3 Чат-агент
 `Build MiniApp Data` → `Build Request Body` (детектор Q1–Q10; дані пораховані кодом;
 глосарій; правила «не вигадувати») → Anthropic `claude-sonnet-4-6`, `max_tokens 2600`,
-`temperature 0.2` → `Sanitize Reply` (Markdown → HTML Telegram) → `Send Reply`.
+`temperature 0.2` → `Sanitize Reply` (Markdown → HTML Telegram) → `Is Fixed Question?` →
+`Send Reply (Questions)` (клавіатура питань лишається) або `Send Reply` (головне меню).
 Пам'яті розмови немає (кожне питання окремо).
+
+**Кнопки фіксованих питань Q1–Q10 (RELEASE_PLAN §51, 15.10.2026).** У головній клавіатурі —
+кнопка «❓ Питання» (поряд з «📖 Довідник»). Маршрут: `Is Weekly Render Request?` (false) →
+`Is Questions Menu?` (текст починається з «❓») → `Send Questions Menu` (клавіатура з 10 питань +
+«Назад»); інакше → `Is Owner View Request?` як раніше. Натиснуте питання — звичайне текстове
+повідомлення; детектор `detectIntent` не змінювався. `WR: Determine Route` не віддає тексти Q1–Q10
+і «❓ Питання» у сесію тижневого звіту (`isFixedQuestion`). Тексти питань — LOCKED-список
+(`OWNER_MORNING_TEST`), Q8 на кнопці: «Чи є небезпечні дедлайни?» (рішення власника 15.10.2026).
+У коді тексти продубльовано в 4 місцях (`Send Questions Menu`, `Send Reply (Questions)`,
+`Is Fixed Question?`, `WR: Determine Route`) — зміна формулювання питання = правка всіх чотирьох.
 
 ### 4.4 Owner View
 `Validate InitData` → `Fetch Project Metrics (MiniApp)` + `Fetch KP Log Sum (MiniApp)` →
@@ -172,7 +183,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `514b6473-5337-4ae5-8abe-98ef13c366f0` |
+| Core workflow | `CKwCsGIwyw9feCY5`, `04844eb7-7113-40ca-8a5e-48f8605de386` |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо) |
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |

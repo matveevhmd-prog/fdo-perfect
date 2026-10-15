@@ -3,7 +3,7 @@
 > **Ред. 5 (15.10.2026, аудит якості).** Додано розділ «Карта» (де ми на трьох фіналах —
 > відео, реліз, перший клієнт), реєстр дефектів D1–D10 і порядок наступних дій; прибрано
 > застарілі місця (опис гілок до §48, правило гілки/PR, діапазон розділів). Історія редакцій — в кінці.
-> **Живий стан:** `activeVersionId 514b6473-5337-4ae5-8abe-98ef13c366f0` (RELEASE_PLAN §50).
+> **Живий стан:** `activeVersionId 04844eb7-7113-40ca-8a5e-48f8605de386` (RELEASE_PLAN §50).
 
 > **Як читати.** Це вхідний документ для нової сесії. Він не замінює `CLAUDE.md`
 > (там закриті рішення власника й ритуал старту — читати першим), а дає повну
@@ -169,7 +169,7 @@ Owner Morning Test власником — відкритий з 14.09.** Виз�
 | Компонент | ID / значення | Стан |
 |---|---|---|
 | n8n інстанс | `osbbcopilot.app.n8n.cloud` (MCP-сервер `OSBB_n8n`) | |
-| Головний workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent (Core: Chat + MiniApp)» | active, **`514b6473-5337-4ae5-8abe-98ef13c366f0`** (з 15.10.2026, §49; до того `8bce8982` §48, `6f702771`), 167 нод, 7 тригерів |
+| Головний workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent (Core: Chat + MiniApp)» | active, **`04844eb7-7113-40ca-8a5e-48f8605de386`** (з 15.10.2026, §49; до того `8bce8982` §48, `6f702771`), 167 нод, 7 тригерів |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (викликається `K: Ingest Preview/Commit`) | active, оновлено 11.10; **JSON у репо немає** |
 | Document Intake | `RC7HNVlJtuPLtvYV` (викликається `Doc Intake: Run Document Intake`) | active, оновлено 11.10; **JSON у репо немає** |
 | Representative Bot | `I3K5tBj0FWF1dbWb` | окремий продукт — **не чіпати** |
@@ -228,7 +228,7 @@ RLS вимкнений на більшості таблиць ARCHI (`SECURITY.m
 
 ---
 
-## 5. Карта workflow `CKwCsGIwyw9feCY5` (167 нод)
+## 5. Карта workflow `CKwCsGIwyw9feCY5` (171 нода після §51; нижче — розбір на 167)
 
 Групи за префіксом: `WR:` 58, без префікса 42, `Import:` 16, `Doc Intake:` 16,
 `Meeting:` 14, `K:` 7, `KP Log:` 5, `Xlsx:` 4, `M:` 3, `WR-Render:` 2.
