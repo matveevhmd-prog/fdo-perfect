@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 6f702771-f338-4b12-a698-3a6f483238db`
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 6f702771-f338-4b12-a698-3a6f483238db` (далі — `8bce8982`, лише D2+D4, RELEASE_PLAN §48)
 (167 нод), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
@@ -172,7 +172,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `6f702771-f338-4b12-a698-3a6f483238db` |
+| Core workflow | `CKwCsGIwyw9feCY5`, `8bce8982-0126-46ef-8a13-7dacc2591cca` |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо) |
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
@@ -244,9 +244,9 @@ FORMULAS §7.1, §7.5.
 | # | Дефект | Впевненість |
 |---|---|---|
 | D1 | `WR: Schedule Reminder (Fri 10:00)` без вихідних з'єднань і без дня/часу | Факт |
-| D2 | Чат бачить 0 КП (порядок сестринських гілок `executionOrder v1`) | Припущення, перевірити execution |
+| D2 | Чат бачить 0 КП (порядок сестринських гілок `executionOrder v1`) | **Виправлено 15.10.2026** (§48): `Fetch KP Log Sum` → `Fetch Project Metrics` послідовно в чаті й Mini App; живим чатом не перевірено |
 | D3 | ETC-методологія в картці (FORMULAS §7.3–7.5) | Факт (код), рішення власника |
-| D4 | Чат Q6/Q7 не знає плану бюро | Факт |
+| D4 | Чат Q6/Q7 не знає плану бюро | **Виправлено 15.10.2026** (§48): Q6/Q7 цитують `pfc`; живим чатом не перевірено |
 | D5 | Кнопка «📄 Договір» іде в чат-LLM; кнопка «📄 договір X» не пройде regex | Припущення за кодом |
 | D6 | Подвійні відповіді на «КП: N» / «договір X» | Припущення |
 | D7 | `WR: Fetch Money Log Acts` без фільтра `статус='confirmed'` | Факт |
