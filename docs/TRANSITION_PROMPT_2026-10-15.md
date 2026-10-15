@@ -1,5 +1,11 @@
 # ARCHI — перехідний промпт для нової сесії Claude Code (15.10.2026, ред. 2)
 
+> **Ред. 3 (15.10.2026, кінець сесії):** D2 і D4 виправлено й опубліковано —
+> живий `activeVersionId` тепер **`8bce8982-0126-46ef-8a13-7dacc2591cca`** (RELEASE_PLAN §48);
+> аналіз нижче зроблено на `6f702771`, відмінність лише у вузлах КП (послідовно) і `Build Request Body` (Q6/Q7).
+> **Перша дія нової сесії:** попросити власника надіслати в чат 2 питання (план по прибутку, на який час є робота)
+> і відкрити Owner View → перевірити executions → закрити checkpoint §48.
+>
 > **Ред. 2 (15.10.2026):** додано чинну специфікацію `docs/ARCHI_TECH_SPEC_v3_0.md`,
 > довідник формул `docs/FORMULAS.md` (v1.0), промпт аудиту `docs/CTO_CHECKPOINT_PROMPT.md`,
 > вердикт по зовнішньому аудиту GPT (розділ 9А), еталонну звірку даних (14/14 збіг).
@@ -105,7 +111,7 @@
 | Компонент | ID / значення | Стан |
 |---|---|---|
 | n8n інстанс | `osbbcopilot.app.n8n.cloud` (MCP-сервер `OSBB_n8n`) | |
-| Головний workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent (Core: Chat + MiniApp)» | active, **`6f702771-f338-4b12-a698-3a6f483238db`**, 167 нод, 7 тригерів |
+| Головний workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent (Core: Chat + MiniApp)» | active, **`8bce8982-0126-46ef-8a13-7dacc2591cca`** (з 15.10.2026, §48; до того `6f702771`), 167 нод, 7 тригерів |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (викликається `K: Ingest Preview/Commit`) | active, оновлено 11.10; **JSON у репо немає** |
 | Document Intake | `RC7HNVlJtuPLtvYV` (викликається `Doc Intake: Run Document Intake`) | active, оновлено 11.10; **JSON у репо немає** |
 | Representative Bot | `I3K5tBj0FWF1dbWb` | окремий продукт — **не чіпати** |
