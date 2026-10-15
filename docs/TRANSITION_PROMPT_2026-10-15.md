@@ -3,7 +3,7 @@
 > **Ред. 5 (15.10.2026, аудит якості).** Додано розділ «Карта» (де ми на трьох фіналах —
 > відео, реліз, перший клієнт), реєстр дефектів D1–D10 і порядок наступних дій; прибрано
 > застарілі місця (опис гілок до §48, правило гілки/PR, діапазон розділів). Історія редакцій — в кінці.
-> **Живий стан:** `activeVersionId 58e5c414-a367-4acb-b68c-0d9263b27459` (RELEASE_PLAN §50).
+> **Живий стан:** `activeVersionId f9290fa9-ded4-42a4-b70e-d8f9d9140ac3` (RELEASE_PLAN §50).
 
 > **Як читати.** Це вхідний документ для нової сесії. Він не замінює `CLAUDE.md`
 > (там закриті рішення власника й ритуал старту — читати першим), а дає повну
@@ -169,7 +169,7 @@ Owner Morning Test власником — відкритий з 14.09.** Виз�
 | Компонент | ID / значення | Стан |
 |---|---|---|
 | n8n інстанс | `osbbcopilot.app.n8n.cloud` (MCP-сервер `OSBB_n8n`) | |
-| Головний workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent (Core: Chat + MiniApp)» | active, **`58e5c414-a367-4acb-b68c-0d9263b27459`** (з 15.10.2026, §49; до того `8bce8982` §48, `6f702771`), 167 нод, 7 тригерів |
+| Головний workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent (Core: Chat + MiniApp)» | active, **`f9290fa9-ded4-42a4-b70e-d8f9d9140ac3`** (з 15.10.2026, §49; до того `8bce8982` §48, `6f702771`), 167 нод, 7 тригерів |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (викликається `K: Ingest Preview/Commit`) | active, оновлено 11.10; **JSON у репо немає** |
 | Document Intake | `RC7HNVlJtuPLtvYV` (викликається `Doc Intake: Run Document Intake`) | active, оновлено 11.10; **JSON у репо немає** |
 | Representative Bot | `I3K5tBj0FWF1dbWb` | окремий продукт — **не чіпати** |
