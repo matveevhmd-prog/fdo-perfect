@@ -145,7 +145,8 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 ### 4.4 Owner View
 `Validate InitData` → `Fetch Project Metrics (MiniApp)` + `Fetch KP Log Sum (MiniApp)` →
 `Build MiniApp Data` → JSON → `Build MiniApp HTML` (сторінка окремим вебхуком).
-Структура екрана: портфель (таблиця FORMULAS §4, КП, вкладки, статуси, групи, увага) →
+Структура екрана (з 15.10.2026, RELEASE_PLAN §54): портфель (таблиця FORMULAS §4 з рядками КП під «Проєкти») →
+загальний статус (клікабельні лічильники → перелік проєктів) → синя панель «Показник» (вкладки, плитки, розподіл за показником) → увага →
 картка (сигнали → РЕНТАБЕЛЬНІСТЬ → ⛔ → Контракт → Роботи/акти/гроші → Прибуток →
 Звіт ПМа → До завершення → CPI).
 
@@ -183,7 +184,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `58e5c414-a367-4acb-b68c-0d9263b27459` |
+| Core workflow | `CKwCsGIwyw9feCY5`, `f9290fa9-ded4-42a4-b70e-d8f9d9140ac3` |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо) |
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
