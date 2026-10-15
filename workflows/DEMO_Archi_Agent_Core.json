@@ -3,12 +3,12 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "04844eb7-7113-40ca-8a5e-48f8605de386",
-  "activeVersionId": "04844eb7-7113-40ca-8a5e-48f8605de386",
+  "versionId": "58e5c414-a367-4acb-b68c-0d9263b27459",
+  "activeVersionId": "58e5c414-a367-4acb-b68c-0d9263b27459",
   "triggerCount": 7,
   "nodeCount": 171,
   "createdAt": "2026-08-23T06:55:20.331Z",
-  "updatedAt": "2026-10-15T19:46:26.841Z",
+  "updatedAt": "2026-10-15T20:06:01.485Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -7296,19 +7296,19 @@
       "parameters": {
         "conditions": {
           "options": {
-            "caseSensitive": false,
+            "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "loose",
+            "typeValidation": "strict",
             "version": 1
           },
           "conditions": [
             {
-              "leftValue": "={{ $('Telegram Trigger').first().json.message?.text || \"\" }}",
+              "leftValue": "={{ [\"Що в нас зараз відбувається?\", \"Де може запалати?\", \"Чи потрібно мені зараз щось робити?\", \"Чи є гроші на зарплату?\", \"Чи є небезпека касового розриву?\", \"На який час у команди є робота?\", \"Чи виконуємо ми річний план по прибутку?\", \"Чи є небезпечні дедлайни?\", \"За що нам може прилетіти від ключового / якірного замовника?\", \"Що ми / PM пообіцяли замовнику на останній нараді?\"].includes((($('Telegram Trigger').first().json.message?.text) || '').trim()) }}",
               "operator": {
-                "operation": "regex",
-                "type": "string"
+                "operation": "equals",
+                "type": "boolean"
               },
-              "rightValue": "^(Що в нас зараз відбувається\\?|Де може запалати\\?|Чи потрібно мені зараз щось робити\\?|Чи є гроші на зарплату\\?|Чи є небезпека касового розриву\\?|На який час у команди є робота\\?|Чи виконуємо ми річний план по прибутку\\?|Чи є небезпечні дедлайни\\?|За що нам може прилетіти від ключового / якірного замовника\\?|Що ми / PM пообіцяли замовнику на останній нараді\\?)$"
+              "rightValue": true
             }
           ],
           "combinator": "and"
