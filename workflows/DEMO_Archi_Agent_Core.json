@@ -3,12 +3,12 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "8bce8982-0126-46ef-8a13-7dacc2591cca",
-  "activeVersionId": "8bce8982-0126-46ef-8a13-7dacc2591cca",
+  "versionId": "9de75532-cb34-4246-9a77-d4998aef5dd8",
+  "activeVersionId": "9de75532-cb34-4246-9a77-d4998aef5dd8",
   "triggerCount": 7,
   "nodeCount": 167,
   "createdAt": "2026-08-23T06:55:20.331Z",
-  "updatedAt": "2026-10-15T06:55:50.851Z",
+  "updatedAt": "2026-10-15T19:16:13.641Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -5768,7 +5768,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "SELECT m.project_id, m.contract_amount, m.planned_hours, m.actual_hours, m.profitability_plan_pct, m.profitability_forecast_pct, m.profit_plan, m.profit_forecast, m.earned_value_contract, m.acts_amount, m.money_received, m.money_to_completion_team, m.money_to_completion_subcontract, m.hours_remaining, m.etc_forecast_total_hours, m.cpi_classic_evm, m.contract_file_url, m.forecast_confirmed_pct, m.forecast_confirmed_week, s.week_start AS wr_week, s.\"готовність_pct\" AS wr_readiness, s.\"залишок_прогноз_по_стадіях\" AS wr_etc, s.\"дедлайн_прогноз_по_стадіях\" AS wr_deadlines, s.\"ймовірність_акту\" AS wr_act_prob, s.\"ймовірність_документації\" AS wr_doc_prob, s.problems AS wr_problems, s.help_needed AS wr_help, s.plans_next_week AS wr_plans, s.\"блокер\" AS wr_blocker, s.\"розбіжність_готовності\" AS wr_gap, (SELECT json_object_agg(t.key, t.value) FROM public.archi_thresholds t) AS rules, (SELECT json_object_agg(p.\"стадія\", p.\"дата_план\") FROM public.payment_schedule p WHERE p.project_id = m.project_id AND p.\"подія\" = 'документація') AS doc_deadlines_plan FROM public.project_metrics m LEFT JOIN LATERAL (SELECT * FROM public.wr_weekly_snapshots w WHERE w.project_id = m.project_id ORDER BY w.week_start DESC LIMIT 1) s ON true ORDER BY m.project_id;"
+        "query": "SELECT m.project_id, m.contract_amount, m.planned_hours, m.actual_hours, m.profitability_plan_pct, m.profitability_forecast_pct, m.profit_plan, m.profit_forecast, m.earned_value_contract, m.acts_amount, m.actual_cost, m.stage_data, m.money_received, m.money_to_completion_team, m.money_to_completion_subcontract, m.hours_remaining, m.etc_forecast_total_hours, m.cpi_classic_evm, m.contract_file_url, m.forecast_confirmed_pct, m.forecast_confirmed_week, s.week_start AS wr_week, s.\"готовність_pct\" AS wr_readiness, s.\"залишок_прогноз_по_стадіях\" AS wr_etc, s.\"дедлайн_прогноз_по_стадіях\" AS wr_deadlines, s.\"ймовірність_акту\" AS wr_act_prob, s.\"ймовірність_документації\" AS wr_doc_prob, s.problems AS wr_problems, s.help_needed AS wr_help, s.plans_next_week AS wr_plans, s.\"блокер\" AS wr_blocker, s.\"розбіжність_готовності\" AS wr_gap, (SELECT json_object_agg(t.key, t.value) FROM public.archi_thresholds t) AS rules, (SELECT json_object_agg(p.\"стадія\", p.\"дата_план\") FROM public.payment_schedule p WHERE p.project_id = m.project_id AND p.\"подія\" = 'документація') AS doc_deadlines_plan FROM public.project_metrics m LEFT JOIN LATERAL (SELECT * FROM public.wr_weekly_snapshots w WHERE w.project_id = m.project_id ORDER BY w.week_start DESC LIMIT 1) s ON true ORDER BY m.project_id;"
       },
       "credentials": {
         "postgres": {

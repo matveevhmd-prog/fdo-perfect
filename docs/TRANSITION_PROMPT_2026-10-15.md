@@ -1,5 +1,10 @@
-# ARCHI — перехідний промпт для нової сесії Claude Code (15.10.2026, ред. 2)
+# ARCHI — перехідний промпт для нової сесії Claude Code (15.10.2026, ред. 4)
 
+> **Ред. 4 (15.10.2026, вечір):** checkpoint §48 частково закрито наживо (чат: D2 і D4 за структурою пройдено); знайдено й виправлено D10
+> (чат не отримував `actual_cost`, `stage_data`) — живий `activeVersionId` **`9de75532-cb34-4246-9a77-d4998aef5dd8`** (RELEASE_PLAN §49).
+> **Перша дія нової сесії:** власник повторює в чаті «Чи виконуємо ми річний план по прибутку?» → очікуємо Прибуток факт **−2 413 215 грн**,
+> Рентабельність бізнесу факт **−65,5%**; потім відкриває Owner View (КП = 5, таблиця без змін) → закрити §49.
+>
 > **Ред. 3 (15.10.2026, кінець сесії):** D2 і D4 виправлено й опубліковано —
 > живий `activeVersionId` тепер **`8bce8982-0126-46ef-8a13-7dacc2591cca`** (RELEASE_PLAN §48);
 > аналіз нижче зроблено на `6f702771`, відмінність лише у вузлах КП (послідовно) і `Build Request Body` (Q6/Q7).
@@ -111,7 +116,7 @@
 | Компонент | ID / значення | Стан |
 |---|---|---|
 | n8n інстанс | `osbbcopilot.app.n8n.cloud` (MCP-сервер `OSBB_n8n`) | |
-| Головний workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent (Core: Chat + MiniApp)» | active, **`8bce8982-0126-46ef-8a13-7dacc2591cca`** (з 15.10.2026, §48; до того `6f702771`), 167 нод, 7 тригерів |
+| Головний workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent (Core: Chat + MiniApp)» | active, **`9de75532-cb34-4246-9a77-d4998aef5dd8`** (з 15.10.2026, §49; до того `8bce8982` §48, `6f702771`), 167 нод, 7 тригерів |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (викликається `K: Ingest Preview/Commit`) | active, оновлено 11.10; **JSON у репо немає** |
 | Document Intake | `RC7HNVlJtuPLtvYV` (викликається `Doc Intake: Run Document Intake`) | active, оновлено 11.10; **JSON у репо немає** |
 | Representative Bot | `I3K5tBj0FWF1dbWb` | окремий продукт — **не чіпати** |
