@@ -17,9 +17,9 @@
 workflows/
   DEMO_Archi_Agent_Core.json         — головний n8n workflow (id CKwCsGIwyw9feCY5,
                                         n8n instance osbbcopilot.app.n8n.cloud).
-                                        Переекспортовано 04.10.2026,
-                                        activeVersionId 833f6202-8918-4dd0-af16-86cc7240796e,
-                                        164 ноди (Розділ 10 — DEMO-хардкод вибору
+                                        Переекспортовано 08.10.2026,
+                                        activeVersionId 8bce8982-0126-46ef-8a13-7dacc2591cca (15.10.2026, D2+D4),
+                                        165 нод (Розділ 10 — DEMO-хардкод вибору
                                         проєкту прибрано з 6 місць, живим тестом
                                         на не-DEMO ID; +2 ноди: M: Fetch Project List,
                                         M: Build Project Keyboard).
@@ -32,12 +32,21 @@ workflows/
                                         не production-критичний
 
 docs/
-  ARCHI_TECH_SPEC_v2_0.md            — технічна специфікація, заголовок усередині
-                                        v2.2 (оновлено 04.10.2026, звірено живим SQL/n8n)
+  ARCHI_TECH_SPEC_v2_0.md            — ЗАСТАРІЛА (v2.2, 04.10.2026), історія рішень
   ARCHI_Obraz_Idealnoho_Rezultatu.md — методологія й образ ідеального результату,
                                         доповнено 26.09.2026 (Розділ 7 — урок про
                                         front-loaded стадії, §5.1 — Data Total тепер
                                         7 таблиць)
+  ARCHI_TECH_SPEC_v3_0.md            — ЧИННА технічна специфікація (15.10.2026);
+                                        v2_0 — застаріла історія
+  FORMULAS.md                        — довідник усіх формул (ID F/S/P/V/R), єдине
+                                        джерело визначень показників
+  CTO_CHECKPOINT_PROMPT.md           — промпт аудиту коду проти документації
+  TRANSITION_PROMPT_2026-10-15.md    — перехідний промпт: аналіз живого коду проти
+                                        документів, формули, знахідки, відкриті задачі
+                                        (читати першим після CLAUDE.md)
+  FEATURE_IDEAS.md                   — реєстр ідей власника (не в розробці); Ідея 1 —
+                                        Archi адміністратором чату проєкту (10.10.2026)
   archi_bot_gpt_analysis.md          — зовнішній аудит (ChatGPT), Owner Morning Test
   RELEASE_PLAN.md                    — план від 13.09.2026 до релізу, звірений
                                         з живим кодом; Розділ 9 (04.10.2026) —
