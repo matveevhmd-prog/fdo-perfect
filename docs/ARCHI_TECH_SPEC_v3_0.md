@@ -186,7 +186,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `c53b1a74-4736-45ac-b31b-06bb906830f3` |
+| Core workflow | `CKwCsGIwyw9feCY5`, `ac85ca96-4daa-42ca-bd99-e24fde1bf940` |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо) |
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
