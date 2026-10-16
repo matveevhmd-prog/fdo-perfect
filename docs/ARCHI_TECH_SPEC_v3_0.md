@@ -150,6 +150,8 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 картка (сигнали → РЕНТАБЕЛЬНІСТЬ → ⛔ → Контракт → Роботи/акти/гроші → Прибуток →
 Звіт ПМа → До завершення → CPI).
 
+Картка з 16.10.2026 (RELEASE_PLAN §57): «Виконані роботи» = Собівартість_факт (F-24); у рядках ETC_Total, стадійному ETC і Прибуток — колонки План \| Факт \| Прогноз (F-23, F-25); `Fetch KP Log Sum` повертає `kp_month` і `kp_year`; конверсія КП 20%, план КП 350.
+
 ### 4.5 Weekly Render і xlsx
 Без грошових сум (методологія). Колонки — тижні знімків + «Сьогодні (Data Total)»:
 рентабельність, ETC, «Години до кінця / бюджет» (F-22, **не готовність**), готовність
@@ -184,7 +186,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `f9290fa9-ded4-42a4-b70e-d8f9d9140ac3` |
+| Core workflow | `CKwCsGIwyw9feCY5`, `c53b1a74-4736-45ac-b31b-06bb906830f3` |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо) |
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
