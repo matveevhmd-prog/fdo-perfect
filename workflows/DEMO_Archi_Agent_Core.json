@@ -3,8 +3,8 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "d90c8027-c8f0-42b9-a938-9ca9410e9dbf",
-  "activeVersionId": "2632d3d3-d7fb-4f18-827f-cfd20f42babd",
+  "versionId": "22fd592b-8463-4cf7-842e-cab33fb53d76",
+  "activeVersionId": "22fd592b-8463-4cf7-842e-cab33fb53d76",
   "triggerCount": 7,
   "nodeCount": 175,
   "createdAt": "2026-08-23T06:55:20.331Z",
@@ -5561,7 +5561,26 @@
           "parse_mode": "HTML"
         },
         "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
-        "text": "📅 <b>Щотижневий рендер</b>\n\nВідкрийте в браузері на великому екрані:\nhttps://osbbcopilot.app.n8n.cloud/webhook/demo-archi-weekly-render"
+        "text": "📅 <b>Щотижневий рендер</b>\n\nТаблиця «усі проєкти × усі тижні» — відкрийте кнопкою нижче.",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "📅 Відкрити Щотижневий рендер",
+                    "additionalFields": {
+                      "web_app": {
+                        "url": "=https://osbbcopilot.app.n8n.cloud/webhook/demo-archi-weekly-render?t={{ $now.toMillis() }}"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
       },
       "webhookId": "2b605464-1f3f-424e-bfb1-04fd5209eb7c",
       "credentials": {
