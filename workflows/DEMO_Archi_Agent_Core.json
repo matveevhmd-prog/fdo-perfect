@@ -3,10 +3,10 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "12c9b58e-2fb4-41a7-9c7b-537b65835d48",
-  "activeVersionId": "12c9b58e-2fb4-41a7-9c7b-537b65835d48",
+  "versionId": "2632d3d3-d7fb-4f18-827f-cfd20f42babd",
+  "activeVersionId": "2632d3d3-d7fb-4f18-827f-cfd20f42babd",
   "triggerCount": 7,
-  "nodeCount": 172,
+  "nodeCount": 175,
   "createdAt": "2026-08-23T06:55:20.331Z",
   "updatedAt": "2026-10-16T19:25:26.444Z",
   "settings": {
@@ -84,7 +84,7 @@
       "main": [
         [
           {
-            "node": "Respond MiniApp HTML",
+            "node": "AN: Patch HTML",
             "type": "main",
             "index": 0
           }
@@ -1133,7 +1133,7 @@
       "main": [
         [
           {
-            "node": "Build MiniApp Data",
+            "node": "AN: Split Stage Rows",
             "type": "main",
             "index": 0
           }
@@ -1349,7 +1349,7 @@
       "main": [
         [
           {
-            "node": "Build MiniApp Data",
+            "node": "AN: Split Stage Rows",
             "type": "main",
             "index": 0
           }
@@ -1360,7 +1360,7 @@
       "main": [
         [
           {
-            "node": "Is Chat Request?",
+            "node": "AN: Attach Block",
             "type": "main",
             "index": 0
           }
@@ -1720,6 +1720,39 @@
         [
           {
             "node": "WR: Is WR Flow?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AN: Split Stage Rows": {
+      "main": [
+        [
+          {
+            "node": "Build MiniApp Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AN: Attach Block": {
+      "main": [
+        [
+          {
+            "node": "Is Chat Request?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AN: Patch HTML": {
+      "main": [
+        [
+          {
+            "node": "Respond MiniApp HTML",
             "type": "main",
             "index": 0
           }
@@ -5689,7 +5722,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "SELECT project_id, contract_amount, profitability_plan_pct, profitability_forecast_pct, planned_hours, actual_hours, actual_cost, percent_execution, etc_forecast_total_hours, stage_data, money_to_completion_subcontract, cpi_classic_evm, nearest_act_date, nearest_act_probability, nearest_doc_deadline, doc_issuance_probability FROM public.project_metrics ORDER BY project_id;"
+        "query": "SELECT project_id, contract_amount, profitability_plan_pct, profitability_forecast_pct, planned_hours, actual_hours, actual_cost, percent_execution, etc_forecast_total_hours, stage_data, money_to_completion_subcontract, cpi_classic_evm, nearest_act_date, nearest_act_probability, nearest_doc_deadline, doc_issuance_probability FROM public.project_metrics WHERE COALESCE(contract_type,'stages') = 'stages' ORDER BY project_id;"
       },
       "credentials": {
         "postgres": {
@@ -5843,7 +5876,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "SELECT m.project_id, m.contract_amount, m.planned_hours, m.actual_hours, m.profitability_plan_pct, m.profitability_forecast_pct, m.profit_plan, m.profit_forecast, m.earned_value_contract, m.acts_amount, m.actual_cost, m.stage_data, m.money_received, m.money_to_completion_team, m.money_to_completion_subcontract, m.hours_remaining, m.etc_forecast_total_hours, m.cpi_classic_evm, m.contract_file_url, m.forecast_confirmed_pct, m.forecast_confirmed_week, s.week_start AS wr_week, s.\"готовність_pct\" AS wr_readiness, s.\"залишок_прогноз_по_стадіях\" AS wr_etc, s.\"дедлайн_прогноз_по_стадіях\" AS wr_deadlines, s.\"ймовірність_акту\" AS wr_act_prob, s.\"ймовірність_документації\" AS wr_doc_prob, s.problems AS wr_problems, s.help_needed AS wr_help, s.plans_next_week AS wr_plans, s.\"блокер\" AS wr_blocker, s.\"розбіжність_готовності\" AS wr_gap, (SELECT json_object_agg(t.key, t.value) FROM public.archi_thresholds t) AS rules, (SELECT json_object_agg(p.\"стадія\", p.\"дата_план\") FROM public.payment_schedule p WHERE p.project_id = m.project_id AND p.\"подія\" = 'документація') AS doc_deadlines_plan FROM public.project_metrics m LEFT JOIN LATERAL (SELECT * FROM public.wr_weekly_snapshots w WHERE w.project_id = m.project_id ORDER BY w.week_start DESC LIMIT 1) s ON true ORDER BY m.project_id;"
+        "query": "SELECT m.project_id, m.contract_type, m.parent_project_id, m.visits_plan, m.visit_price, m.visits_done, m.contract_amount, m.planned_hours, m.actual_hours, m.profitability_plan_pct, m.profitability_forecast_pct, m.profit_plan, m.profit_forecast, m.earned_value_contract, m.acts_amount, m.actual_cost, m.stage_data, m.money_received, m.money_to_completion_team, m.money_to_completion_subcontract, m.hours_remaining, m.etc_forecast_total_hours, m.cpi_classic_evm, m.contract_file_url, m.forecast_confirmed_pct, m.forecast_confirmed_week, s.week_start AS wr_week, s.\"готовність_pct\" AS wr_readiness, s.\"залишок_прогноз_по_стадіях\" AS wr_etc, s.\"дедлайн_прогноз_по_стадіях\" AS wr_deadlines, s.\"ймовірність_акту\" AS wr_act_prob, s.\"ймовірність_документації\" AS wr_doc_prob, s.problems AS wr_problems, s.help_needed AS wr_help, s.plans_next_week AS wr_plans, s.\"блокер\" AS wr_blocker, s.\"розбіжність_готовності\" AS wr_gap, (SELECT json_object_agg(t.key, t.value) FROM public.archi_thresholds t) AS rules, (SELECT json_object_agg(p.\"стадія\", p.\"дата_план\") FROM public.payment_schedule p WHERE p.project_id = m.project_id AND p.\"подія\" = 'документація') AS doc_deadlines_plan FROM public.project_metrics m LEFT JOIN LATERAL (SELECT * FROM public.wr_weekly_snapshots w WHERE w.project_id = m.project_id ORDER BY w.week_start DESC LIMIT 1) s ON true ORDER BY m.project_id;"
       },
       "credentials": {
         "postgres": {
@@ -5864,7 +5897,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "SELECT m.project_id, m.contract_amount, m.planned_hours, m.actual_hours, m.profitability_plan_pct, m.profitability_forecast_pct, m.profit_plan, m.profit_forecast, m.earned_value_contract, m.acts_amount, m.actual_cost, m.stage_data, m.money_received, m.money_to_completion_team, m.money_to_completion_subcontract, m.hours_remaining, m.etc_forecast_total_hours, m.cpi_classic_evm, m.contract_file_url, m.forecast_confirmed_pct, m.forecast_confirmed_week, s.week_start AS wr_week, s.\"готовність_pct\" AS wr_readiness, s.\"залишок_прогноз_по_стадіях\" AS wr_etc, s.\"дедлайн_прогноз_по_стадіях\" AS wr_deadlines, s.\"ймовірність_акту\" AS wr_act_prob, s.\"ймовірність_документації\" AS wr_doc_prob, s.problems AS wr_problems, s.help_needed AS wr_help, s.plans_next_week AS wr_plans, s.\"блокер\" AS wr_blocker, s.\"розбіжність_готовності\" AS wr_gap, (SELECT json_object_agg(t.key, t.value) FROM public.archi_thresholds t) AS rules, (SELECT json_object_agg(p.\"стадія\", p.\"дата_план\") FROM public.payment_schedule p WHERE p.project_id = m.project_id AND p.\"подія\" = 'документація') AS doc_deadlines_plan FROM public.project_metrics m LEFT JOIN LATERAL (SELECT * FROM public.wr_weekly_snapshots w WHERE w.project_id = m.project_id ORDER BY w.week_start DESC LIMIT 1) s ON true ORDER BY m.project_id;"
+        "query": "SELECT m.project_id, m.contract_type, m.parent_project_id, m.visits_plan, m.visit_price, m.visits_done, m.contract_amount, m.planned_hours, m.actual_hours, m.profitability_plan_pct, m.profitability_forecast_pct, m.profit_plan, m.profit_forecast, m.earned_value_contract, m.acts_amount, m.actual_cost, m.stage_data, m.money_received, m.money_to_completion_team, m.money_to_completion_subcontract, m.hours_remaining, m.etc_forecast_total_hours, m.cpi_classic_evm, m.contract_file_url, m.forecast_confirmed_pct, m.forecast_confirmed_week, s.week_start AS wr_week, s.\"готовність_pct\" AS wr_readiness, s.\"залишок_прогноз_по_стадіях\" AS wr_etc, s.\"дедлайн_прогноз_по_стадіях\" AS wr_deadlines, s.\"ймовірність_акту\" AS wr_act_prob, s.\"ймовірність_документації\" AS wr_doc_prob, s.problems AS wr_problems, s.help_needed AS wr_help, s.plans_next_week AS wr_plans, s.\"блокер\" AS wr_blocker, s.\"розбіжність_готовності\" AS wr_gap, (SELECT json_object_agg(t.key, t.value) FROM public.archi_thresholds t) AS rules, (SELECT json_object_agg(p.\"стадія\", p.\"дата_план\") FROM public.payment_schedule p WHERE p.project_id = m.project_id AND p.\"подія\" = 'документація') AS doc_deadlines_plan FROM public.project_metrics m LEFT JOIN LATERAL (SELECT * FROM public.wr_weekly_snapshots w WHERE w.project_id = m.project_id ORDER BY w.week_start DESC LIMIT 1) s ON true ORDER BY m.project_id;"
       },
       "credentials": {
         "postgres": {
@@ -6430,7 +6463,7 @@
       ],
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT project_id, contract_amount, profitability_forecast_pct, profit_forecast, etc_forecast_total_hours, cpi_classic_evm FROM public.project_metrics ORDER BY project_id;",
+        "query": "SELECT project_id, contract_amount, profitability_forecast_pct, profit_forecast, etc_forecast_total_hours, cpi_classic_evm FROM public.project_metrics WHERE COALESCE(contract_type,'stages') = 'stages' ORDER BY project_id;",
         "options": {}
       },
       "credentials": {
@@ -6483,7 +6516,7 @@
       ],
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT m.project_id, (s.project_id IS NOT NULL) AS reported, s.\"блокер\"->'types' AS blocker_types, (s.\"розбіжність_готовності\" IS NOT NULL) AS gap FROM public.project_metrics m LEFT JOIN public.wr_weekly_snapshots s ON s.project_id = m.project_id AND s.week_start = $1::date ORDER BY m.project_id;",
+        "query": "SELECT m.project_id, (s.project_id IS NOT NULL) AS reported, s.\"блокер\"->'types' AS blocker_types, (s.\"розбіжність_готовності\" IS NOT NULL) AS gap FROM public.project_metrics m LEFT JOIN public.wr_weekly_snapshots s ON s.project_id = m.project_id AND s.week_start = $1::date WHERE COALESCE(m.contract_type,'stages') = 'stages' ORDER BY m.project_id;",
         "options": {
           "queryReplacement": "={{ [ $now.startOf('week').toFormat('yyyy-MM-dd') ] }}"
         }
@@ -7030,7 +7063,7 @@
       "parameters": {
         "operation": "executeQuery",
         "options": {},
-        "query": "SELECT project_id FROM public.project_metrics ORDER BY project_id;"
+        "query": "SELECT project_id FROM public.project_metrics WHERE COALESCE(contract_type,'stages') = 'stages' ORDER BY project_id;"
       },
       "credentials": {
         "postgres": {
@@ -7504,6 +7537,51 @@
           }
         },
         "options": {}
+      }
+    },
+    {
+      "id": "cf7f8a4a-75ca-4e7d-ac85-b67f9327ac14",
+      "name": "AN: Split Stage Rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        1300
+      ],
+      "parameters": {
+        "jsCode": "// Договори АН «оплата за виїзд» (contract_type='visit') — окремі договори: у портфель і картки проєктів не потрапляють (рішення власника 17.10.2026)\nreturn $input.all().filter(function(i){ return i.json.contract_type !== 'visit'; });",
+        "language": "javaScript",
+        "mode": "runOnceForAllItems"
+      }
+    },
+    {
+      "id": "ee974194-9d92-4e8c-87c6-518f3544b949",
+      "name": "AN: Attach Block",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1500,
+        1300
+      ],
+      "parameters": {
+        "jsCode": "// Блок «Авторський нагляд»: договори contract_type='visit' (оплата за виїзд). Дані = ті самі рядки project_metrics, що й у запиті Owner View.\nfunction toNum(v){ if (v === null || v === undefined || v === '') return null; var n = parseFloat(String(v).replace(/\\s/g,'').replace(',', '.')); return isNaN(n) ? null : n; }\nfunction fmtPct(v){ if (v===null||v===undefined) return '—'; return (v>0?'+':'') + v.toFixed(v===Math.round(v)?0:1).replace('.',',') + '%'; }\nfunction fmtUAH(v){ if (v===null||v===undefined) return '—'; return Math.round(v).toLocaleString('uk-UA') + ' грн'; }\nfunction fmtRatio(v){ if (v===null||v===undefined) return '—'; return v.toFixed(2).replace('.', ','); }\nfunction worst(a, b){ var r = {red:3, yellow:2, green:1}; return (r[a]||0) >= (r[b]||0) ? a : b; }\nconst bmd = $input.first().json;\nlet rows = [];\ntry { rows = $('Fetch Project Metrics (MiniApp)').all(); } catch (e1) { rows = []; }\nif (!rows.length) { try { rows = $('Fetch Project Metrics (Chat)').all(); } catch (e2) { rows = []; } }\nconst all = rows.map(function(i){ return i.json; });\nlet RULES = (all[0] || {}).rules || {};\nif (typeof RULES === 'string') { try { RULES = JSON.parse(RULES); } catch (e3) { RULES = {}; } }\nfunction rule(k, d){ var v = toNum(RULES[k]); return v === null ? d : v; }\nconst DROP = rule('rent_drop_pp', 5), DROP_RED = rule('rent_drop_pp_red', 10), CPI_RED = rule('cpi_red', 0.85), CPI_YELLOW = rule('cpi_yellow', 0.95), UNP_Y = rule('unpaid_yellow', 0.10), UNP_R = rule('unpaid_red', 0.25);\nconst an = all.filter(function(r){ return r.contract_type === 'visit'; }).map(function(r){\n  var C = toNum(r.contract_amount) || 0, Q = toNum(r.actual_cost), S = toNum(r.acts_amount) || 0, Rc = toNum(r.money_received) || 0;\n  var vp = toNum(r.visits_plan) || 0, vd = toNum(r.visits_done) || 0;\n  var rentP = toNum(r.profitability_plan_pct), rentF = toNum(r.profitability_forecast_pct), cpiA = toNum(r.cpi_classic_evm);\n  var drop = (rentP !== null && rentF !== null) ? (rentP - rentF) : null;\n  var st = 'green', sig = [];\n  if (rentF !== null && rentF < 0) { st = 'red'; sig.push('Рентабельність прогноз ' + fmtPct(rentF) + ' — договір у збитку'); }\n  else if (drop !== null && drop >= DROP_RED) { st = 'red'; sig.push('Рентабельність прогноз на ' + (Math.round(drop * 10) / 10) + ' п.п. нижче плану'); }\n  else if (drop !== null && drop >= DROP) { st = 'yellow'; sig.push('Рентабельність прогноз на ' + (Math.round(drop * 10) / 10) + ' п.п. нижче плану'); }\n  if (cpiA !== null && cpiA < CPI_RED) { st = 'red'; sig.push('CPI ' + fmtRatio(cpiA) + ' — перевитрата на виїздах'); }\n  else if (cpiA !== null && cpiA < CPI_YELLOW) { st = worst(st, 'yellow'); sig.push('CPI ' + fmtRatio(cpiA) + ' — на межі'); }\n  if (C > 0 && S - Rc > C * UNP_R) { st = 'red'; sig.push('Акти не оплачено: ' + fmtUAH(S - Rc)); }\n  else if (C > 0 && S - Rc > C * UNP_Y) { st = worst(st, 'yellow'); sig.push('Акти не оплачено: ' + fmtUAH(S - Rc)); }\n  return { id: String(r.project_id), parent: r.parent_project_id || null, status: st, signals: sig, visitsFmt: vd + ' з ' + vp, priceFmt: fmtUAH(toNum(r.visit_price)), contractFmt: fmtUAH(C), actsFmt: fmtUAH(S), receivedFmt: fmtUAH(Rc), costFmt: fmtUAH(Q), rentPlanFmt: fmtPct(rentP), rentForecastFmt: fmtPct(rentF), cpiFmt: fmtRatio(cpiA) };\n});\nreturn [{ json: Object.assign({}, bmd, { an: an }) }];",
+        "language": "javaScript",
+        "mode": "runOnceForAllItems"
+      }
+    },
+    {
+      "id": "8427f857-6730-4c44-89cc-814b5e714f82",
+      "name": "AN: Patch HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        1500
+      ],
+      "parameters": {
+        "jsCode": "// Блок «Авторський нагляд» в Owner View: вставляється в готовий HTML (дані — data.an з вузла AN: Attach Block)\nconst out = $input.first().json;\nlet html = out.html;\nconst A = \"(attHtml ? '<div class=\\\"section-title\\\">Потребують уваги</div>' + attHtml : '');\";\nconst B = \"  document.getElementById('app').innerHTML =\\n    '<h1>📊 Портфель</h1>' +\";\nif (html.indexOf(A) < 0 || html.indexOf(B) < 0) { throw new Error('AN: Patch HTML — не знайдено якорі в Build MiniApp HTML (змінилась верстка?)'); }\nconst AN_BLOCK = \"  const anHtml = (DATA.an || []).length ? '<div class=\\\"section-title\\\">Авторський нагляд · окремі договори (оплата за виїзд)</div>' + DATA.an.map(function(a){\\n    return '<div class=\\\"att ' + a.status + '\\\"><div class=\\\"top\\\"><span>' + ICON[a.status] + ' ' + esc(a.id) + '</span><span class=\\\"cnt\\\">виїздів ' + a.visitsFmt + '</span></div><div class=\\\"why\\\">Контракт ' + a.contractFmt + ' (' + a.priceFmt + ' за виїзд)<br>Акти ' + a.actsFmt + ' · надійшло ' + a.receivedFmt + ' · собівартість ' + a.costFmt + '<br>Рентабельність: план ' + a.rentPlanFmt + ' → прогноз ' + a.rentForecastFmt + ' · CPI ' + a.cpiFmt + (a.signals.length ? '<br>' + a.signals.map(esc).join('; ') : '') + '</div></div>';\\n  }).join('') : '';\\n\";\nhtml = html.replace(A, A.slice(0, -1) + \" + anHtml;\");\nhtml = html.replace(B, AN_BLOCK + B);\nreturn [{ json: Object.assign({}, out, { html: html }) }];",
+        "language": "javaScript",
+        "mode": "runOnceForAllItems"
       }
     }
   ],

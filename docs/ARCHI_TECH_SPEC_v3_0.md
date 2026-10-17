@@ -90,6 +90,13 @@ nearest_act_date/_probability, nearest_doc_deadline, doc_issuance_probability, u
 `розбіжність_готовності` jsonb, `plans_next_week, problems, help_needed, pm_comment,
 final_message, item_statuses, session_id, created_at`.
 
+**АН «оплата за виїзд» (17.10.2026):** окремий рядок `project_metrics` з `contract_type='visit'`
+(`DEMO-05-АН`), поля `parent_project_id, visits_plan, visit_price, visit_hours, visits_done`.
+`archi_recalc()` = `archi_recalc_stages()` (оригінальна логіка, лише `contract_type='stages'`) +
+`archi_recalc_visit()` (FORMULAS F-27). `contract_amount/planned_hours/bac` візитної функції НЕ
+пише — тригер `archi_recalc_plan` спрацьовує на UPDATE OF цих колонок (рекурсія). SQL — `sql/2026-10-17_visit_contracts.sql`,
+бекап `_bak_20261017_project_metrics`.
+
 **Інші:** `wr_plan_items` (план тижня, статуси пунктів), `archi_bot_mode_state`
 (session_id, mode, project_id, context, updated_at), `archi_thresholds` (key, value
 numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `rates`,
