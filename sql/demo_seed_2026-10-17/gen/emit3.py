@@ -95,9 +95,10 @@ def sql_snaps():
                 (dt.date.fromisoformat(sn['week']) + dt.timedelta(days=4)).isoformat()))
         chunks.append((p['id'], "insert into public.wr_weekly_snapshots(%s) values\n%s\non conflict (project_id, week_start) do update set %s;\n" % (cols, ",\n".join(vals), upd)))
     return chunks
-def sql_items():
+def sql_items(only=None):
     vals = []; keys = set()
     for p in S:
+        if only and p['id'] != only: continue
         tags = p['tag']
         for sn in sim.snapshots(p):
             nxt = (dt.date.fromisoformat(sn['week']) + dt.timedelta(days=7)).isoformat()
@@ -110,10 +111,15 @@ def sql_items():
                 vals.append("(%s,'%s',%s,%s,'%s')" % (q(p['id']), nxt, k, q(text), stt))
     return ("insert into public.wr_plan_items(project_id, week_start, item_number, item_text, status) values\n" + ",\n".join(vals) +
             "\non conflict (project_id, week_start, item_number) do update set item_text=EXCLUDED.item_text, status=EXCLUDED.status;\n")
+def sql_items_project(pid):
+    pre = "update public.wr_plan_items set project_id = 'ARCH-' || project_id where project_id = %s and week_start between date '2026-09-07' and date '2026-10-19';\n" % q(pid)
+    return pre + sql_items(pid)
 if __name__ == '__main__':
     import os
     O = '../out/'
     for pid, t in sql_snaps(): open(O + '05_snap_%s.sql' % pid.replace('-', '_'), 'w').write(t)
     open(O + '06_items.sql', 'w').write(sql_items())
+    for p in S:
+        if sim.snapshots(p): open(O + '06_items_%s.sql' % p['id'].replace('-', '_'), 'w').write(sql_items_project(p['id']))
     for f in sorted(os.listdir(O)):
         if f.startswith('05_') or f.startswith('06_'): print(f, os.path.getsize(O + f))
