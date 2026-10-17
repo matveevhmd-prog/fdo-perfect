@@ -15,5 +15,5 @@ insert into public.wr_plan_items(project_id, week_start, item_number, item_text,
 ($q$DEMO-04$q$,'2026-10-12',3,$q$Видати документацію Р до 16.10.2026$q$,'done'),
 ($q$DEMO-04$q$,'2026-10-19',1,$q$Довести готовність Р до 100%$q$,'pending'),
 ($q$DEMO-04$q$,'2026-10-19',2,$q$Передати розділи Р на внутрішню перевірку$q$,'pending'),
-($q$DEMO-04$q$,'2026-10-19',3,$q$Видати документацію Р до 14.10.2026$q$,'pending')
+($q$DEMO-04$q$,'2026-10-19',3,$q$Підготувати акт по стадії Р до підписання$q$,'pending')
 on conflict (project_id, week_start, item_number) do update set item_text=EXCLUDED.item_text, status=EXCLUDED.status;

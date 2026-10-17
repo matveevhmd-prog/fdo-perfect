@@ -88,7 +88,7 @@ def sql_snaps():
             tot = sum(etc[s] for s in stl) if all(s in etc for s in stl) else None
             sm = week_sum(p, sn)
             if sn is sns[-1] and p['id'] in LIVE: sm['rent_fc'], sm['etc_fact'] = LIVE[p['id']]
-            fm = final_message(p, sn, sm)
+            fm = final_message(p, sn, sm) if (sn is sns[-1] or p['id'] == 'DEMO-01') else None
             vals.append("(%s,'%s','304884647',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%sT10:00:00+00')" % (
                 q(p['id']), sn['week'], js(sn['rd']), 'NULL' if tot is None else tot, sn['ap'], sn['dp'], q(sn['plans']), q(sn['problems']), q(sn['help']), q(sn['comment']), q(fm),
                 js(etc), js(sn['dl']), js(sn['bl']) if sn['bl'] is not None else 'NULL', js(sn['gap']) if sn['gap'] else 'NULL',
@@ -100,14 +100,15 @@ def sql_items(only=None):
     for p in S:
         if only and p['id'] != only: continue
         tags = p['tag']
-        for sn in sim.snapshots(p):
+        sns_ = sim.snapshots(p)
+        for idx, sn in enumerate(sns_):
             nxt = (dt.date.fromisoformat(sn['week']) + dt.timedelta(days=7)).isoformat()
+            nxt_sn = sns_[idx + 1] if idx + 1 < len(sns_) else None
             for k, line in enumerate(sn['plans'].split('\n'), 1):
                 text = re.sub(r'^🔴 \d+: ', '', line)
                 if sn['w'] == 7: stt = 'pending'
                 else:
-                    nxt_tag = tags[sn['w']] if sn['w'] < len(tags) else 'ok'
-                    stt = 'not_done' if (k == 1 and nxt_tag in sim.BAD) else 'done'
+                    stt = 'not_done' if (k == 1 and nxt_sn and nxt_sn.get('carried')) else 'done'
                 vals.append("(%s,'%s',%s,%s,'%s')" % (q(p['id']), nxt, k, q(text), stt))
     return ("insert into public.wr_plan_items(project_id, week_start, item_number, item_text, status) values\n" + ",\n".join(vals) +
             "\non conflict (project_id, week_start, item_number) do update set item_text=EXCLUDED.item_text, status=EXCLUDED.status;\n")
