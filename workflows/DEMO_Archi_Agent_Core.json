@@ -3,8 +3,8 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "1139b608-3c43-4e1b-8f0d-0e76479cd1d6",
-  "activeVersionId": "1139b608-3c43-4e1b-8f0d-0e76479cd1d6",
+  "versionId": "12c9b58e-2fb4-41a7-9c7b-537b65835d48",
+  "activeVersionId": "12c9b58e-2fb4-41a7-9c7b-537b65835d48",
   "triggerCount": 7,
   "nodeCount": 172,
   "createdAt": "2026-08-23T06:55:20.331Z",
@@ -2338,7 +2338,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const msg = ($('Telegram Trigger').item.json.message) || {};\nconst text = (msg.text || '').trim();\nconst modeRow = ($input.first() && $input.first().json) || {};\nconst mode = modeRow.mode || 'idle';\nconst hasAudio = !!msg.voice;\nconst hasPhoto = !!msg.photo;\nconst hasDocument = !!msg.document;\nconst lower = text.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\nconst FIXED_Q = new RegExp(\"^(Що в нас зараз відбувається\\\\?|Де може запалати\\\\?|Чи потрібно мені зараз щось робити\\\\?|Чи є гроші на зарплату\\\\?|Чи є небезпека касового розриву\\\\?|На який час у команди є робота\\\\?|Чи виконуємо ми річний план по прибутку\\\\?|Чи є небезпечні дедлайни\\\\?|За що нам може прилетіти від ключового / якірного замовника\\\\?|Що ми / PM пообіцяли замовнику на останній нараді\\\\?)$\", 'i');\nconst isFixedQuestion = /^❓/.test(text) || FIXED_Q.test(text.replace(/[«»\"“”]/g, '').trim());\nconst isOwnerViewLike = /^\\/(project|owner_view|status|all_projects|weekly_render|weekly_history)$/i.test(text) || /(огляд|owner|меню|щотижнев|тижнева історія)/i.test(text) || isFixedQuestion;\nconst isWrCommand = /^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized) || /^новий$/.test(normalized) || /^про[єе]кт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^імпорт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^зустріч\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^додати\\s+.+/.test(normalized) || /^(чернетка|відправити)$/.test(normalized) || /^фінал$/.test(normalized) || /^скасувати$/.test(normalized) || /^статус\\s*звіт(ів)?$/.test(normalized) || /^довідник$/.test(normalized) || /^назад$/.test(normalized) || /^кошторис\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^затвердити$/.test(normalized) || /^(тижневий звіт|години і гроші|зустріч|кошторис|договір)$/.test(normalized);\n// Команди, які обробляють паралельні гілки (KP Log, Doc Intake): головний ланцюг (чат/WR) на них мовчить — інакше подвійна відповідь\nconst tt = text.trim();\nconst isParallelCmd = /^кп[:\\s]+(?:надіслано\\s+)?(\\d+)$/i.test(tt) || /^договір\\s+([a-zа-яіїєґ0-9_-]+)$/i.test(tt) || (mode === 'document_intake' && (hasPhoto || hasDocument || /drive\\.google\\.com/i.test(text)));\nconst inWrSession = (mode === 'weekly_report' || mode === 'weekly_reference' || mode === 'import_log' || mode === 'meeting_log' || mode === 'koshtorys_preview');\nconst isWrFlow = Boolean(isWrCommand || (inWrSession && !isOwnerViewLike && (hasAudio || hasPhoto || hasDocument || text.length > 0)));\nreturn [{ json: { is_parallel_cmd: isParallelCmd, is_wr_flow: isWrFlow, mode: mode, project_id: modeRow.project_id || null } }];"
+        "jsCode": "const msg = ($('Telegram Trigger').item.json.message) || {};\nconst text = (msg.text || '').trim();\nconst modeRow = ($input.first() && $input.first().json) || {};\nconst mode = modeRow.mode || 'idle';\nconst hasAudio = !!msg.voice;\nconst hasPhoto = !!msg.photo;\nconst hasDocument = !!msg.document;\nconst lower = text.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\nconst FIXED_Q = new RegExp(\"^(Що в нас зараз відбувається\\\\?|Де може запалати\\\\?|Чи потрібно мені зараз щось робити\\\\?|Чи є гроші на зарплату\\\\?|Чи є небезпека касового розриву\\\\?|На який час у команди є робота\\\\?|Чи виконуємо ми річний план по прибутку\\\\?|Чи є небезпечні дедлайни\\\\?|За що нам може прилетіти від ключового / якірного замовника\\\\?|Що ми / PM пообіцяли замовнику на останній нараді\\\\?)$\", 'i');\nconst isFixedQuestion = /^❓/.test(text) || FIXED_Q.test(text.replace(/[«»\"“”]/g, '').trim());\nconst isOwnerViewLike = /^\\/(project|owner_view|status|all_projects|weekly_render|weekly_history)$/i.test(text) || /(огляд|owner|меню|щотижнев|тижнева історія)/i.test(text) || isFixedQuestion;\nconst isWrCommand = /^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized) || /^новий$/.test(normalized) || /^про[єе]кт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^імпорт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^зустріч\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^додати\\s+.+/.test(normalized) || /^(чернетка|відправити)$/.test(normalized) || /^фінал$/.test(normalized) || /^скасувати$/.test(normalized) || /^статус\\s*звіт(ів)?$/.test(normalized) || /^довідник$/.test(normalized) || /^назад$/.test(normalized) || /^кошторис\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^затвердити$/.test(normalized) || /^(тижневий звіт|години і гроші|зустріч|кошторис|договір)$/.test(normalized);\n// Команди, які обробляють паралельні гілки (KP Log, Doc Intake): головний ланцюг (чат/WR) на них мовчить — інакше подвійна відповідь\nconst tt = text.trim();\nconst isParallelCmd = /^кп[:\\s]+(?:надіслано\\s+)?(\\d+)$/i.test(tt) || /^[^\\p{L}\\d]*договір\\s+([a-zа-яіїєґ0-9_-]+)$/iu.test(tt) || (mode === 'document_intake' && (hasPhoto || hasDocument || /drive\\.google\\.com/i.test(text)));\nconst inWrSession = (mode === 'weekly_report' || mode === 'weekly_reference' || mode === 'import_log' || mode === 'meeting_log' || mode === 'koshtorys_preview');\nconst isWrFlow = Boolean(isWrCommand || (inWrSession && !isOwnerViewLike && (hasAudio || hasPhoto || hasDocument || text.length > 0)));\nreturn [{ json: { is_parallel_cmd: isParallelCmd, is_wr_flow: isWrFlow, mode: mode, project_id: modeRow.project_id || null } }];"
       },
       "id": "8433a50e-32ed-4fcd-ad07-c14ac80c953d",
       "name": "WR: Determine Route",
@@ -6509,7 +6509,7 @@
           "combinator": "and",
           "conditions": [
             {
-              "leftValue": "={{ /^договір\\s+([a-zа-яіїєґ0-9_-]+)$/i.test((($('Telegram Trigger').item.json.message?.text) || '').trim()) }}",
+              "leftValue": "={{ /^[^\\p{L}\\d]*договір\\s+([a-zа-яіїєґ0-9_-]+)$/iu.test((($('Telegram Trigger').item.json.message?.text) || '').trim()) }}",
               "operator": {
                 "operation": "equals",
                 "type": "boolean"
@@ -6539,7 +6539,7 @@
       "parameters": {
         "mode": "runOnceForEachItem",
         "language": "javaScript",
-        "jsCode": "const msg = $('Telegram Trigger').item.json.message;\nconst text = (msg.text || '').trim();\nconst m = text.match(/^договір\\s+([a-zа-яіїєґ0-9_-]+)$/i);\nreturn { json: { project_id: m ? m[1].toUpperCase() : null } };"
+        "jsCode": "const msg = $('Telegram Trigger').item.json.message;\nconst text = (msg.text || '').trim();\nconst m = text.match(/^[^\\p{L}\\d]*договір\\s+([a-zа-яіїєґ0-9_-]+)$/iu);\nreturn { json: { project_id: m ? m[1].toUpperCase() : null } };"
       }
     },
     {
