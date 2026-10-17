@@ -1,0 +1,2 @@
+update public.time_log set "статус"='archived_20261017' where project_id in ('DEMO-01','DEMO-02','DEMO-03','DEMO-04','DEMO-05','DEMO-06','DEMO-07','DEMO-08','DEMO-09','DEMO-10','22-24','24-11','24-37','24-52','DEMO-05-АН') and "статус"='confirmed';
+update public.money_log set "статус"='archived_20261017' where project_id in ('DEMO-01','DEMO-02','DEMO-03','DEMO-04','DEMO-05','DEMO-06','DEMO-07','DEMO-08','DEMO-09','DEMO-10','22-24','24-11','24-37','24-52','DEMO-05-АН') and "статус"='confirmed';
