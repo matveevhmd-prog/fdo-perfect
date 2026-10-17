@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json, datetime as dt, hashlib
+import json, re, datetime as dt, hashlib
 from scen import S
 from spec import *
 from texts import T, pick, GAP_NOTE
@@ -70,8 +70,46 @@ def active_stage(p, w):
         if p['prog'].get(s, [0] * 8)[w] < 100: return s
     return stages_of(p)[-1]
 
-def snapshots(p):
+
+BAD = ('blocked', 'overrun', 'unpaid', 'cust', 'exam', 'slow')
+FACT_TAGS = ('ok', 'ahead', 'gap', 'prepaid', 'noact')
+def dd(d): return d.strftime('%d.%m.%Y')
+def rd_at(p, s, w):
+    pr = p['prog'].get(s, [0] * 8)[w]; b = p.get('bias', {}).get(s, [0] * 8)[w]
+    return 100 if pr >= 100 else max(0, min(99, round(pr + b)))
+def facts(p, w, S_, dl):
+    """Факти тижня w з даних проєкту (без грошових сум): прогрес, години, акти, завершення стадій."""
+    r = rd_at(p, S_, w); r0 = rd_at(p, S_, w - 1)
+    pl = planh(p, S_); hp = int(round(H(p, S_, w) / pl * 100)) if pl else 0
+    w0 = wk(w); w1 = w0 + dt.timedelta(days=6)
+    acts = [(s, d) for s, d in p.get('acts', {}).items() if w0 <= d <= w1]
+    done = [s for s in stages_of(p) if rd_at(p, s, w) >= 100 and rd_at(p, s, w - 1) < 100]
+    nxt = None
+    for s in stages_of(p):
+        if rd_at(p, s, w) < 100 and s != S_: nxt = s; break
+    return dict(r=r, r0=r0, hp=hp, acts=acts, done=done, nxt=nxt, dl=dl.get(S_), r_next=(rd_at(p, S_, w + 1) if w + 1 < 8 else None))
+def fact_sentences(f, S_):
     out = []
+    for s, d in f['acts']: out.append('Акт по стадії %s підписано %s.' % (s, dd(d)))
+    for s in f['done']: out.append('Стадію %s завершено, комплект передано замовнику.' % s)
+    return out
+def fact_plans(p, w, S_, f):
+    L = []
+    if f['r'] < 100:
+        tgt = f['r_next'] if f['r_next'] and f['r_next'] > f['r'] else min(100, f['r'] + 10)
+        L.append('Довести готовність %s до %s%%' % (S_, tgt))
+        if f['r'] >= 60: L.append('Передати розділи %s на внутрішню перевірку' % S_)
+    if f['dl']:
+        d = dt.date.fromisoformat(f['dl'])
+        if wk(w + 1) <= d and d - wk(w) <= dt.timedelta(days=35) and f['r'] < 100: L.append('Видати документацію %s до %s' % (S_, dd(d)))
+    if f['r'] >= 90 or f['done']:
+        L.append('Підготувати акт по стадії %s до підписання' % (f['done'][0] if f['done'] else S_))
+    if f['nxt'] and f['r'] >= 90: L.append('Розпочати стадію %s' % f['nxt'])
+    if not L: L.append('Продовжити стадію %s' % S_)
+    return L[:3]
+
+def snapshots(p):
+    out = []; prev_first = None; prev_goal = None
     ws = p.get('weeks', list(range(1, 8)))
     st = stages_of(p)
     for w in ws:
@@ -102,13 +140,36 @@ def snapshots(p):
         tag = p['tag'][w - 1]
         t = T[tag]; S_ = active_stage(p, w)
         fmt = lambda x: x.replace('{S}', S_)
-        problems = fmt(pick(t['problems'], p['id'], w, 'p'))
-        help_ = fmt(pick(t['help'], p['id'], w, 'h'))
-        plans = []
-        for k in range(2 + (1 if w % 2 == 0 else 0)):
-            x = fmt(t['plans'][(k + w + len(p['id'])) % len(t['plans'])])
-            if x not in plans: plans.append(x)
-        comment = fmt(pick(t['comment'], p['id'], w, 'c'))
+        f = facts(p, w, S_, dl); fs = fact_sentences(f, S_)
+        help_ = fmt(t['help'][0] if (w == 1 or p['tag'][w - 2] != tag) else pick(t['help'], p['id'], w, 'h'))
+        first = (w == 1 or p['tag'][w - 2] != tag)
+        tp = fmt(t['problems'][0] if first else pick(t['problems'], p['id'], w, 'p')); tc = fmt(t['comment'][0] if first else pick(t['comment'], p['id'], w, 'c'))
+        fcomment = '%s: готовність %s%% → %s%%, витрачено %s%% годин від ETC_план.' % (S_, f['r0'], f['r'], f['hp'])
+        if tag in ('ok', 'ahead'):
+            base = 'Відхилень від графіка немає.' if tag == 'ok' else 'Відхилень немає, йдемо швидше за графік.'
+            problems = ' '.join(fs + [base] + (['Видача документації %s за прогнозом %s.' % (S_, dd(dt.date.fromisoformat(f['dl'])))] if f['dl'] and f['r'] < 100 else []))
+            comment = fcomment
+        else:
+            problems = ' '.join([tp] + fs)
+            comment = fcomment + ' ' + tc
+        if tag in FACT_TAGS: new_plans = fact_plans(p, w, S_, f)
+        else:
+            new_plans = []
+            for k in range(2 + (1 if w % 2 == 0 else 0)):
+                x = fmt(t['plans'][(k + w + len(p['id'])) % len(t['plans'])])
+                if x not in new_plans: new_plans.append(x)
+        plans = list(new_plans)
+        carried = False
+        if w >= 2 and tag in BAD and prev_first:
+            achieved = bool(prev_goal) and rd_at(p, prev_goal[0], w) >= prev_goal[1]
+            mt = re.search(r'(?<![А-Яа-яІіЇїЄє])(МБР|ЕП|П|Р)(?![А-Яа-яІіЇїЄє])', prev_first)
+            if mt and mt.group(1) in p['prog'] and rd_at(p, mt.group(1), w) >= 100: achieved = True
+            if not achieved:
+                carried = True
+                plans = ['🔴 1: ' + prev_first] + [x for x in plans if x != prev_first]
+        prev_first = new_plans[0] if new_plans else prev_first
+        m_ = re.match(r'Довести готовність (\S+) до (\d+)%', prev_first or '')
+        prev_goal = (m_.group(1), int(m_.group(2))) if m_ else None
         if ('Р', w) in p.get('noans', set()): problems = problems + '\n❓ Відповіді нема (ПМ): ETC Р'
         bl = None
         if w >= 2 or p.get('blocker', {}).get(w): bl = {'types': []}
@@ -117,5 +178,5 @@ def snapshots(p):
             bl = {'types': types, 'since': since, 'need': help_}
         ap = p['act_prob'][w - 1]; dp_ = p['doc_prob'][w - 1]
         out.append(dict(pid=p['id'], w=w, week=iso(wk(w)), rd=rd, etc=etc, dl=dl, gap=gap, ap=ap, dp=dp_, bl=bl,
-                        plans='\n'.join(plans), problems=problems, help=help_, comment=comment, tag=tag, S=S_))
+                        plans='\n'.join(plans), problems=problems, help=help_, comment=comment, tag=tag, S=S_, carried=carried))
     return out
