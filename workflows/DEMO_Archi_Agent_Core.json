@@ -3,10 +3,10 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "9cee09b5-0cf0-4c75-9061-d5ed330e8624",
-  "activeVersionId": "9cee09b5-0cf0-4c75-9061-d5ed330e8624",
+  "versionId": "e5f5704d-5a47-4aba-ad99-0beb7600f72f",
+  "activeVersionId": "e5f5704d-5a47-4aba-ad99-0beb7600f72f",
   "triggerCount": 7,
-  "nodeCount": 175,
+  "nodeCount": 176,
   "createdAt": "2026-08-23T06:55:20.331Z",
   "updatedAt": "2026-10-17T08:49:20.676Z",
   "settings": {
@@ -994,7 +994,7 @@
       "main": [
         [
           {
-            "node": "Respond Weekly Render HTML",
+            "node": "WR: Patch Layout",
             "type": "main",
             "index": 0
           }
@@ -1753,6 +1753,17 @@
         [
           {
             "node": "Respond MiniApp HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WR: Patch Layout": {
+      "main": [
+        [
+          {
+            "node": "Respond Weekly Render HTML",
             "type": "main",
             "index": 0
           }
@@ -7653,6 +7664,21 @@
         "jsCode": "// Блок «Авторський нагляд» в Owner View: вставляється в готовий HTML (дані — data.an з вузла AN: Attach Block)\nconst out = $input.first().json;\nlet html = out.html;\nconst A = \"(attHtml ? '<div class=\\\"section-title\\\">Потребують уваги</div>' + attHtml : '');\";\nconst B = \"  document.getElementById('app').innerHTML =\\n    '<h1>📊 Портфель</h1>' +\";\nif (html.indexOf(A) < 0 || html.indexOf(B) < 0) { throw new Error('AN: Patch HTML — не знайдено якорі в Build MiniApp HTML (змінилася верстка?)'); }\nconst AN_BLOCK = \"  const anHtml = (DATA.an || []).length ? '<div class=\\\"section-title\\\">Авторський нагляд · окремі договори (оплата за виїзд)</div>' + DATA.an.map(function(a){\\n    return '<div class=\\\"att ' + a.status + '\\\"><div class=\\\"top\\\"><span>' + ICON[a.status] + ' ' + esc(a.id) + '</span><span class=\\\"cnt\\\">виїздів ' + a.visitsFmt + '</span></div><div class=\\\"why\\\">Контракт ' + a.contractFmt + ' (' + a.priceFmt + ' за виїзд)<br>Акти ' + a.actsFmt + ' · надійшло ' + a.receivedFmt + ' · собівартість ' + a.costFmt + '<br>Рентабельність: план ' + a.rentPlanFmt + ' → прогноз ' + a.rentForecastFmt + ' · CPI ' + a.cpiFmt + (a.signals.length ? '<br>' + a.signals.map(esc).join('; ') : '') + '</div></div>';\\n  }).join('') : '';\\n\";\nhtml = html.replace(A, A.slice(0, -1) + \" + anHtml;\");\nhtml = html.replace(B, AN_BLOCK + B);\n// «Оновлено ДД.ММ.РРРР» під заголовком (демо-дата з archi_thresholds.demo_asof; без неї — дата зі збірки даних)\nconst H1 = \"'<h1>📊 Портфель</h1>' +\";\nif (html.indexOf(H1) >= 0) { html = html.replace(H1, H1 + \" '<div class=\\\"sub\\\">Оновлено ' + esc(DATA.asOfLabel || DATA.asOf || '') + '</div>' +\"); }\nreturn [{ json: Object.assign({}, out, { html: html }) }];",
         "language": "javaScript",
         "mode": "runOnceForAllItems"
+      }
+    },
+    {
+      "id": "7c1e5a10-wr10-4a11-9c11-5a0b1d3c7f01",
+      "name": "WR: Patch Layout",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        600
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "let html = $input.first().json.html;\nconst reps = [\n  ['table { border-collapse:collapse; width:100%; table-layout:fixed; }', 'table { border-collapse:collapse; width:max-content; min-width:100%; }'],\n  ['position:sticky; top:0; z-index:2; min-width:250px; text-align:left; }', 'position:sticky; top:0; z-index:2; width:270px; min-width:270px; text-align:left; }'],\n  ['.cell { padding:12px 14px; font-size:12px; line-height:1.5; }', '.cell { padding:12px 14px; font-size:12px; line-height:1.5; width:270px; overflow-wrap:anywhere; }\\n@media (max-width:700px){ body{padding:14px 10px;} h1{font-size:22px;} }']\n];\nfor (const r of reps) { if (html.indexOf(r[0]) < 0) throw new Error('WR layout anchor missing: ' + r[0].slice(0, 40)); html = html.split(r[0]).join(r[1]); }\nreturn [{ json: { html: html } }];"
       }
     }
   ],

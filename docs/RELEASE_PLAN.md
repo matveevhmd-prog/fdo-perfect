@@ -1294,3 +1294,10 @@ P0 0 · P1 7 · P2 8; C-3 14/14; живий `ac85ca96` = репо. Звіт — 
 **Симптом (власник):** «Нема кнопки» — у постійній клавіатурі бота не було пункту для Weekly Render (були лише текстові команди `/weekly_render`, «щотижнева…»).
 **Зроблено:** у 13 вузлах з головним меню (`Send Reply`, `Send Status Reply`, `WR: Send Clear Confirmation`, `WR: Send Need Project`, `WR: Send Status`, `WR: Send Reference Stub`, `WR: Send Final Report`, `Import: Send Final Confirmation`, `Meeting: Send Confirmation`, `WR: Send Reset Confirmation`, `Import: Send Reset Confirmation`, `Meeting: Send Reset Confirmation`, `K: Send Commit Result`) останній ряд = «📄 Договір», «📅 Щотижневий рендер». Текст кнопки проходить існуючий маршрут (`щотижнев` у `WR: Determine Route` і `Is Weekly Render Request?`) → `Send Weekly Render Button` (web_app, §65). n8n `22fd592b` → `9cee09b5-0cf0-4c75-9061-d5ed330e8624`.
 **Не перевірено наживо:** клавіатура оновлюється в чаті лише після наступної відповіді бота, яка її шле (напр. «Назад» або «🏠»); потім натиснути кнопку.
+
+## 67. Weekly Render: колонки на телефоні (17.10.2026)
+
+**Симптом (скрін власника, Telegram на телефоні):** колонки тижнів стиснуті до ~95 px, текст накладається, колонка «Сьогодні» обрізана.
+**Причина (факт, з CSS `Build Weekly Render HTML`):** `table{width:100%; table-layout:fixed}` — при вузькому екрані ширина ділиться порівну між колонками, `min-width:250px` у фіксованій розкладці не діє.
+**Зроблено (за прямим запитом власника — виняток із закритого п.3 CLAUDE.md):** новий вузол `WR: Patch Layout` між `Build Weekly Render HTML` і `Respond Weekly Render HTML` (заміна 3 CSS-рядків за якорями, падає з помилкою, якщо якоря зникли): `table{width:max-content}`, колонка тижня 270 px, `overflow-wrap:anywhere`, менші відступи на екрані ≤700 px. Склад і порядок метрик не змінювались. n8n `9cee09b5` → `e5f5704d-5a47-4aba-ad99-0beb7600f72f` (176 нод).
+**Перевірка:** Playwright, 430 px, **макет з 2 проєктами × 7 тижнів, не живі дані**: колонки по 270 px, текст не накладається, таблиця скролиться вправо. На живих даних у Telegram — не перевірено.
