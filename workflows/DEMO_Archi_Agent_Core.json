@@ -3,8 +3,8 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "ac6d369a-75ae-4e97-9c39-16764e8a2103",
-  "activeVersionId": "ac6d369a-75ae-4e97-9c39-16764e8a2103",
+  "versionId": "95edb5dc-5183-4788-92a9-f7b77dc2cee2",
+  "activeVersionId": "95edb5dc-5183-4788-92a9-f7b77dc2cee2",
   "triggerCount": 7,
   "nodeCount": 175,
   "createdAt": "2026-08-23T06:55:20.331Z",
@@ -1795,7 +1795,7 @@
                 "operation": "regex",
                 "type": "string"
               },
-              "rightValue": "^/(project|owner_view)|(огляд|owner|меню)"
+              "rightValue": "^/(project|owner_view)|^[^a-zа-яіїєґ0-9]*(огляд|меню|owner view|owner)[^a-zа-яіїєґ0-9]*$"
             }
           ],
           "options": {
@@ -2379,7 +2379,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const msg = ($('Telegram Trigger').item.json.message) || {};\nconst text = (msg.text || '').trim();\nconst modeRow = ($input.first() && $input.first().json) || {};\nconst mode = modeRow.mode || 'idle';\nconst hasAudio = !!msg.voice;\nconst hasPhoto = !!msg.photo;\nconst hasDocument = !!msg.document;\nconst lower = text.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\nconst FIXED_Q = new RegExp(\"^(Що в нас зараз відбувається\\\\?|Де може запалати\\\\?|Чи потрібно мені зараз щось робити\\\\?|Чи є гроші на зарплату\\\\?|Чи є небезпека касового розриву\\\\?|На який час у команди є робота\\\\?|Чи виконуємо ми річний план по прибутку\\\\?|Чи є небезпечні дедлайни\\\\?|За що нам може прилетіти від ключового / якірного замовника\\\\?|Що ми / PM пообіцяли замовнику на останній нараді\\\\?)$\", 'i');\nconst isFixedQuestion = /^❓/.test(text) || FIXED_Q.test(text.replace(/[«»\"“”]/g, '').trim());\nconst isOwnerViewLike = /^\\/(project|owner_view|status|all_projects|weekly_render|weekly_history)$/i.test(text) || /(огляд|owner|меню|щотижнев|тижнева історія)/i.test(text) || isFixedQuestion;\nconst isWrCommand = /^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized) || /^новий$/.test(normalized) || /^про[єе]кт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^імпорт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^зустріч\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^додати\\s+.+/.test(normalized) || /^(чернетка|відправити)$/.test(normalized) || /^фінал$/.test(normalized) || /^скасувати$/.test(normalized) || /^статус\\s*звіт(ів)?$/.test(normalized) || /^довідник$/.test(normalized) || /^назад$/.test(normalized) || /^кошторис\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^затвердити$/.test(normalized) || /^(тижневий звіт|години і гроші|зустріч|кошторис|договір)$/.test(normalized);\n// Команди, які обробляють паралельні гілки (KP Log, Doc Intake): головний ланцюг (чат/WR) на них мовчить — інакше подвійна відповідь\nconst tt = text.trim();\nconst isParallelCmd = /^кп[:\\s]+(?:надіслано\\s+)?(\\d+)$/i.test(tt) || /^[^\\p{L}\\d]*договір\\s+([a-zа-яіїєґ0-9_-]+)$/iu.test(tt) || (mode === 'document_intake' && (hasPhoto || hasDocument || /drive\\.google\\.com/i.test(text)));\nconst inWrSession = (mode === 'weekly_report' || mode === 'weekly_reference' || mode === 'import_log' || mode === 'meeting_log' || mode === 'koshtorys_preview');\nconst isWrFlow = Boolean(isWrCommand || (inWrSession && !isOwnerViewLike && (hasAudio || hasPhoto || hasDocument || text.length > 0)));\nreturn [{ json: { is_parallel_cmd: isParallelCmd, is_wr_flow: isWrFlow, mode: mode, project_id: modeRow.project_id || null } }];"
+        "jsCode": "const msg = ($('Telegram Trigger').item.json.message) || {};\nconst text = (msg.text || '').trim();\nconst modeRow = ($input.first() && $input.first().json) || {};\nconst mode = modeRow.mode || 'idle';\nconst hasAudio = !!msg.voice;\nconst hasPhoto = !!msg.photo;\nconst hasDocument = !!msg.document;\nconst lower = text.toLowerCase();\nconst normalized = lower.replace(/[^\\p{L}\\d\\s\\/-]/gu, '').trim();\nconst FIXED_Q = new RegExp(\"^(Що в нас зараз відбувається\\\\?|Де може запалати\\\\?|Чи потрібно мені зараз щось робити\\\\?|Чи є гроші на зарплату\\\\?|Чи є небезпека касового розриву\\\\?|На який час у команди є робота\\\\?|Чи виконуємо ми річний план по прибутку\\\\?|Чи є небезпечні дедлайни\\\\?|За що нам може прилетіти від ключового / якірного замовника\\\\?|Що ми / PM пообіцяли замовнику на останній нараді\\\\?)$\", 'i');\nconst isFixedQuestion = /^❓/.test(text) || FIXED_Q.test(text.replace(/[«»\"“”]/g, '').trim());\n// Запит Owner View / Weekly Render / питань = лише точна команда або кнопка меню, не слово всередині тексту ПМа (інакше звіт у сесії йде в чат, а не в WR-агента).\nconst OWNER_CMD = /^(огляд|меню|owner view|owner|щотижневий рендер|щотижнева історія|тижнева історія)$/;\nconst isOwnerViewLike = /^\\/(project|owner_view|status|all_projects|weekly_render|weekly_history)$/i.test(text) || OWNER_CMD.test(normalized) || isFixedQuestion;\nconst isWrCommand = /^(\\/weekly|\\/start|новий звіт|start|старт)$/.test(normalized) || /^новий$/.test(normalized) || /^про[єе]кт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^імпорт\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^зустріч\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^додати\\s+.+/.test(normalized) || /^(чернетка|відправити)$/.test(normalized) || /^фінал$/.test(normalized) || /^скасувати$/.test(normalized) || /^статус\\s*звіт(ів)?$/.test(normalized) || /^довідник$/.test(normalized) || /^назад$/.test(normalized) || /^кошторис\\s+[a-zа-яіїєґ0-9_-]+$/.test(normalized) || /^затвердити$/.test(normalized) || /^(тижневий звіт|години і гроші|зустріч|кошторис|договір)$/.test(normalized);\n// Команди, які обробляють паралельні гілки (KP Log, Doc Intake): головний ланцюг (чат/WR) на них мовчить — інакше подвійна відповідь\nconst tt = text.trim();\nconst isParallelCmd = /^кп[:\\s]+(?:надіслано\\s+)?(\\d+)$/i.test(tt) || /^[^\\p{L}\\d]*договір\\s+([a-zа-яіїєґ0-9_-]+)$/iu.test(tt) || (mode === 'document_intake' && (hasPhoto || hasDocument || /drive\\.google\\.com/i.test(text)));\nconst inWrSession = (mode === 'weekly_report' || mode === 'weekly_reference' || mode === 'import_log' || mode === 'meeting_log' || mode === 'koshtorys_preview');\nconst isWrFlow = Boolean(isWrCommand || (inWrSession && !isOwnerViewLike && (hasAudio || hasPhoto || hasDocument || text.length > 0)));\nreturn [{ json: { is_parallel_cmd: isParallelCmd, is_wr_flow: isWrFlow, mode: mode, project_id: modeRow.project_id || null } }];"
       },
       "id": "8433a50e-32ed-4fcd-ad07-c14ac80c953d",
       "name": "WR: Determine Route",
@@ -5581,7 +5581,7 @@
                 "operation": "regex",
                 "type": "string"
               },
-              "rightValue": "^/(weekly_render|weekly_history)$|(щотижнев|тижнева історія)"
+              "rightValue": "^/(weekly_render|weekly_history)$|^[^a-zа-яіїєґ0-9]*(щотижневий рендер|щотижнева історія|тижнева історія)[^a-zа-яіїєґ0-9]*$"
             }
           ],
           "options": {
