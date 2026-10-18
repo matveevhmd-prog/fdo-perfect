@@ -3,8 +3,8 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "942e9f2c-1393-45f4-b7ad-2d35fa8623bc",
-  "activeVersionId": "942e9f2c-1393-45f4-b7ad-2d35fa8623bc",
+  "versionId": "ac6d369a-75ae-4e97-9c39-16764e8a2103",
+  "activeVersionId": "ac6d369a-75ae-4e97-9c39-16764e8a2103",
   "triggerCount": 7,
   "nodeCount": 175,
   "createdAt": "2026-08-23T06:55:20.331Z",
@@ -2932,7 +2932,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Джерело — wr_weekly_snapshots (база), не Google Sheets. Список проєктів — з project_metrics.\n// Верстка (стандарт docs/LAYOUT_STANDARD.md): заголовок, зведення, один проєкт — один рядок, ознаки — окремими рядками.\nconst rows = $input.all().map(function (i) { return i.json; }).filter(function (r) { return r.project_id; });\nconst week = $now.startOf('week');\nconst lines = rows.map(function (r) {\n  const blocked = Array.isArray(r.blocker_types) && r.blocker_types.length > 0;\n  let s = (r.reported ? '✅ ' : '⬜ ') + '<b>' + r.project_id + '</b>';\n  if (blocked) s += '\\n      ⛔ проєкт стоїть';\n  if (r.gap) s += '\\n      ⚖️ розбіжність готовності';\n  return s;\n});\nconst done = rows.filter(function (r) { return r.reported; }).length;\nconst text = '📋 <b>Статус тижневих звітів</b>\\n🗓 Тиждень з ' + week.toFormat('dd.MM.yyyy') + '\\n✅ Подано: ' + done + ' з ' + rows.length + '\\n\\n' + lines.join('\\n');\nreturn [{ json: { statusText: text } }];"
+        "jsCode": "// Джерело — wr_weekly_snapshots (база), не Google Sheets. Список проєктів — з project_metrics.\n// Верстка (стандарт docs/LAYOUT_STANDARD.md): «Станом на» першим рядком, заголовок, зведення, один проєкт — один рядок, ознаки — окремими рядками.\n// «Станом на» = F-28 (data_updated_at, рахує SQL archi_recalc); тут лише формат і максимум по проєктах.\nfunction fmtDay(v){ if (!v) return null; var d = new Date(v); if (isNaN(d)) return null; return d.toLocaleDateString('uk-UA', { timeZone: 'Europe/Kyiv', day: '2-digit', month: '2-digit', year: 'numeric' }); }\nfunction maxTs(rows){ var best = null; rows.forEach(function(r){ var t = r && r.data_updated_at ? new Date(r.data_updated_at).getTime() : NaN; if (!isNaN(t) && (best === null || t > best)) best = t; }); return best === null ? null : new Date(best).toISOString(); }\nconst rows = $input.all().map(function (i) { return i.json; }).filter(function (r) { return r.project_id; });\nconst week = $now.startOf('week');\nconst lines = rows.map(function (r) {\n  const blocked = Array.isArray(r.blocker_types) && r.blocker_types.length > 0;\n  let s = (r.reported ? '✅ ' : '⬜ ') + '<b>' + r.project_id + '</b>';\n  if (blocked) s += '\\n      ⛔ проєкт стоїть';\n  if (r.gap) s += '\\n      ⚖️ розбіжність готовності';\n  return s;\n});\nconst done = rows.filter(function (r) { return r.reported; }).length;\nconst text = 'Станом на ' + (fmtDay(maxTs(rows)) || '—') + '\\n\\n📋 <b>Статус тижневих звітів</b>\\n🗓 Тиждень з ' + week.toFormat('dd.MM.yyyy') + '\\n✅ Подано: ' + done + ' з ' + rows.length + '\\n\\n' + lines.join('\\n');\nreturn [{ json: { statusText: text } }];"
       },
       "id": "b89a1dd6-1667-4c2a-840f-91b390116e38",
       "name": "WR: Build Status Text",
@@ -6587,7 +6587,7 @@
       ],
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT m.project_id, (s.project_id IS NOT NULL) AS reported, s.\"блокер\"->'types' AS blocker_types, (s.\"розбіжність_готовності\" IS NOT NULL) AS gap FROM public.project_metrics m LEFT JOIN public.wr_weekly_snapshots s ON s.project_id = m.project_id AND s.week_start = $1::date WHERE COALESCE(m.contract_type,'stages') = 'stages' ORDER BY m.project_id;",
+        "query": "SELECT m.project_id, m.data_updated_at, (s.project_id IS NOT NULL) AS reported, s.\"блокер\"->'types' AS blocker_types, (s.\"розбіжність_готовності\" IS NOT NULL) AS gap FROM public.project_metrics m LEFT JOIN public.wr_weekly_snapshots s ON s.project_id = m.project_id AND s.week_start = $1::date WHERE COALESCE(m.contract_type,'stages') = 'stages' ORDER BY m.project_id;",
         "options": {
           "queryReplacement": "={{ [ $now.startOf('week').toFormat('yyyy-MM-dd') ] }}"
         }
