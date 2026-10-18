@@ -1,8 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 6f702771-f338-4b12-a698-3a6f483238db` (далі — `8bce8982` D2+D4, RELEASE_PLAN §48; далі `9de75532` D10, §49)
-(171 нода після §51), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 6c90d6c0-b5f3-4377-904d-81ac15828a24` (18.10.2026, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -79,7 +78,7 @@ baseline_at/_by, contract_file_url`; факт і прогноз (пише лиш
 money_received, earned_value_contract, ev_classic_evm, cpi_classic_evm, stage_data,
 etc_forecast_total_hours, money_to_completion_team/_subcontract, cost_final_forecast,
 profit_forecast, profitability_forecast_pct, forecast_confirmed_pct/_week,
-nearest_act_date/_probability, nearest_doc_deadline, doc_issuance_probability, updated_at`;
+nearest_act_date/_probability, nearest_doc_deadline, doc_issuance_probability, data_updated_at (F-28, 18.10.2026), updated_at`;
 застарілі/невикористовувані — `efficiency_contract, earned_value, paid_volume, comparison`
 **Потребує перевірки** (не пише `archi_recalc`).
 
@@ -160,9 +159,11 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 Картка з 16.10.2026 (RELEASE_PLAN §57): «Виконані роботи» = Собівартість_факт (F-24); у рядках ETC_Total, стадійному ETC і Прибуток — колонки План \| Факт \| Прогноз (F-23, F-25); `Fetch KP Log Sum` повертає `kp_month` і `kp_year`; конверсія КП 20%, план КП 350.
 
 ### 4.5 Weekly Render і xlsx
-Без грошових сум (методологія). Колонки — тижні знімків + «Сьогодні (Data Total)»:
-рентабельність, ETC, «Години до кінця / бюджет» (F-22, **не готовність**), готовність
-стадій ЕП/П/Р, акт, документація, CPI, тексти ПМа. Вигляд не змінювати (`CLAUDE.md` п.3).
+Без грошових сум (методологія). Колонки — тижні знімків + «Сьогодні»: рентабельність, ETC, «Години до кінця / бюджет»
+(F-22, **не готовність**), готовність стадій ЕП/П/Р, акт, документація, CPI, тексти ПМа; у комірці проєкту і в шапці —
+дата оновлення даних (F-28). **Повна специфікація (метрики 1–13, порядок, формати) — `WEEKLY_REPORT_FORM.md` §2**;
+вигляд змінюється лише за запитом власника й разом із цією специфікацією (`CLAUDE.md` п.3). CSS і формати живуть у
+`Build Weekly Render HTML` (патч-вузла немає з 18.10.2026).
 
 ### 4.6 Кошторис і договір
 `кошторис <id>` → K6sm preview (перевірки K1–K11) → `затвердити` → commit плану в
@@ -218,6 +219,7 @@ FORMULAS §7.1, §7.5.
 
 Джерело: зовнішній аудит + власна перевірка. **Статус: вимоги, не реалізовано.**
 
+0. **Дата оновлення даних — реалізовано 18.10.2026 (F-28):** колонка `project_metrics.data_updated_at`; показують Owner View (портфель і картка), Weekly Render, xlsx, `/status`, чат («Станом на» бере її з коду). Нижче — вимоги, що лишаються відкритими.
 1. **Свіжість прогнозу.** Показувати дату останнього звіту ПМа в картці (є) і
    **сигнал «прогноз застарів»**, якщо звіт старший за N днів (новий ключ
    `wr_stale_days`, пропозиція 10). Факт 15.10.2026: останні звіти DEMO — 21.09.2026
