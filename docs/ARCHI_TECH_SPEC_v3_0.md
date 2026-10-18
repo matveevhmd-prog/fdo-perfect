@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 79c89419-f2a5-42df-87c2-a9abc34156a0` (18.10.2026, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 744b9fe8-a270-484b-a834-3391311f416f` (18.10.2026, 173 ноди; контур «план → виконання» PX-01, RELEASE_PLAN §77; до цього `79c89419`, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -99,7 +99,7 @@ final_message, item_statuses, session_id, created_at`.
 пише — тригер `archi_recalc_plan` спрацьовує на UPDATE OF цих колонок (рекурсія). SQL — `sql/2026-10-17_visit_contracts.sql`,
 бекап `_bak_20261017_project_metrics`.
 
-**Інші:** `wr_plan_items` (план тижня, статуси пунктів), `archi_bot_mode_state`
+**Інші:** `wr_plan_items` (план тижня: `status` pending|done|not_done|no_answer, `origin_week`, `carry_count`; вʼю `archi_plan_execution` — PX-01, FORMULAS), `archi_bot_mode_state`
 (session_id, mode, project_id, context, updated_at), `archi_thresholds` (key, value
 numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `rates`,
 `time_log`, `money_log` (статус `confirmed` — **механізм підтвердження: імпорт через бот
@@ -131,7 +131,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 проблеми, допомога, план, блокер; «відповіді нема» дозволено) → довільні відповіді
 (текст/голос/фото/PDF/TXT) → «📤 Відправити» → `WR: Agent` (gpt-4o, пам'ять 30) структурує →
 `WR: Parse Agent Output` детерміновано рахує підсумки (FORMULAS §5), ставить уточнення →
-«✅ Фінал» (гейт) → `wr_weekly_snapshots` UPSERT + `wr_plan_items` → тригер →
+«✅ Фінал» (гейт; без статусів усіх пунктів минулого плану не приймається) → один SQL-вираз: `wr_weekly_snapshots` UPSERT + статуси `wr_plan_items`; далі план наступного тижня з переносом → тригер →
 `archi_recalc()` → усі екрани.
 
 ### 4.3 Чат-агент
