@@ -55,8 +55,7 @@ def final_message(p, sn, sm):
     L.append('(не потрібно)' if sn['help'].lower().startswith('не потрібна') else '1. ' + sn['help'])
     L.append('')
     L.append('<b>6. ПЛАН НА ТИЖДЕНЬ</b>')
-    for j, x in enumerate(sn['plans'].split('\n'), 1):
-        L.append(x if x.startswith('🔴') else '%d. %s' % (j, x))
+    L.extend(sn['plans'].split('\n'))
     return '\n'.join(L)
 
 def week_sum(p, sn):
@@ -105,7 +104,7 @@ def sql_items(only=None):
             nxt = (dt.date.fromisoformat(sn['week']) + dt.timedelta(days=7)).isoformat()
             nxt_sn = sns_[idx + 1] if idx + 1 < len(sns_) else None
             for k, line in enumerate(sn['plans'].split('\n'), 1):
-                text = re.sub(r'^🔴 \d+: ', '', line)
+                text = re.sub(r'^(🔴 \d+: |\d+\. )', '', line)
                 if sn['w'] == 7: stt = 'pending'
                 else:
                     stt = 'not_done' if (k == 1 and nxt_sn and nxt_sn.get('carried')) else 'done'

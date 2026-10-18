@@ -101,7 +101,7 @@ def fact_plans(p, w, S_, f):
         if f['r'] >= 60: L.append('Передати розділи %s на внутрішню перевірку' % S_)
     if f['dl']:
         d = dt.date.fromisoformat(f['dl'])
-        if wk(w + 1) <= d and d - wk(w) <= dt.timedelta(days=35) and f['r'] < 100: L.append('Видати документацію %s до %s' % (S_, dd(d)))
+        if wk(w + 1) <= d <= wk(w) + dt.timedelta(days=13) and f['r'] < 100: L.append('Видати документацію %s до %s' % (S_, dd(d)))
     if f['r'] >= 90 or f['done']:
         L.append('Підготувати акт по стадії %s до підписання' % (f['done'][0] if f['done'] else S_))
     if f['nxt'] and f['r'] >= 90: L.append('Розпочати стадію %s' % f['nxt'])
@@ -178,5 +178,5 @@ def snapshots(p):
             bl = {'types': types, 'since': since, 'need': help_}
         ap = p['act_prob'][w - 1]; dp_ = p['doc_prob'][w - 1]
         out.append(dict(pid=p['id'], w=w, week=iso(wk(w)), rd=rd, etc=etc, dl=dl, gap=gap, ap=ap, dp=dp_, bl=bl,
-                        plans='\n'.join(plans), problems=problems, help=help_, comment=comment, tag=tag, S=S_, carried=carried))
+                        plans='\n'.join(x if x.startswith('🔴') else '%d. %s' % (i + 1, x) for i, x in enumerate(plans)), problems=problems, help=help_, comment=comment, tag=tag, S=S_, carried=carried))
     return out

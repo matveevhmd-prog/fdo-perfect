@@ -2,7 +2,6 @@ update public.wr_plan_items set project_id = 'ARCH-' || project_id where project
 insert into public.wr_plan_items(project_id, week_start, item_number, item_text, status) values
 ($q$DEMO-03$q$,'2026-09-07',1,$q$Довести готовність ЕП до 90%$q$,'done'),
 ($q$DEMO-03$q$,'2026-09-07',2,$q$Передати розділи ЕП на внутрішню перевірку$q$,'done'),
-($q$DEMO-03$q$,'2026-09-07',3,$q$Видати документацію ЕП до 18.09.2026$q$,'done'),
 ($q$DEMO-03$q$,'2026-09-14',1,$q$Погодити з замовником зміну обсягу$q$,'not_done'),
 ($q$DEMO-03$q$,'2026-09-14',2,$q$Скласти перелік змін для додаткової угоди$q$,'done'),
 ($q$DEMO-03$q$,'2026-09-14',3,$q$Передати ЕП на перевірку$q$,'done'),
