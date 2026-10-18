@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 95edb5dc-5183-4788-92a9-f7b77dc2cee2` (18.10.2026, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 79c89419-f2a5-42df-87c2-a9abc34156a0` (18.10.2026, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -88,6 +88,9 @@ nearest_act_date/_probability, nearest_doc_deadline, doc_issuance_probability, d
 `ймовірність_акту`, `ймовірність_документації`, `блокер` jsonb {types, since, need},
 `розбіжність_готовності` jsonb, `plans_next_week, problems, help_needed, pm_comment,
 final_message, item_statuses, session_id, created_at`.
+
+**SQL-вʼю `archi_report_today` (18.10.2026):** єдине обчислення колонки «Сьогодні» звіту — `rent_plan_pct`, `rent_forecast_pct`, `etc_plan_hours`, `etc_fact_hours`, `etc_forecast_hours`, `eac_hours_pct` (F-22), `cpi`, `act_date/prob`, `doc_date/prob`, `data_updated_at` (джерело — `project_metrics`; міграція `report_today_view_20261018`, `sql/2026-10-18_report_today_view.sql`). Читають: `Build Weekly Render Data` (через `Fetch All Project Metrics`) і чат ПМа (`WR: Fetch Report Today` → `WR: Render Report`). Закриває борг «№2/№3 рахує n8n-вузол» (§2.1).
+**`wr_weekly_snapshots.final_message`** — застарілий стовпець: з 18.10.2026 не пишеться (звіт складає код із полів, див. `WEEKLY_REPORT_FORM` §1); старі рядки лишаються.
 
 **АН «оплата за виїзд» (17.10.2026):** окремий рядок `project_metrics` з `contract_type='visit'`
 (`DEMO-05-АН`), поля `parent_project_id, visits_plan, visit_price, visit_hours, visits_done`.
@@ -219,7 +222,7 @@ FORMULAS §7.1, §7.5.
 
 Джерело: зовнішній аудит + власна перевірка. **Статус: вимоги, не реалізовано.**
 
-0. **Дата оновлення даних — реалізовано 18.10.2026 (F-28):** колонка `project_metrics.data_updated_at`; показують Owner View (портфель і картка), Weekly Render, xlsx, `/status`, кнопка «Статус звітів», чат («Станом на» бере її з коду). Нижче — вимоги, що лишаються відкритими.
+0. **Дата оновлення даних — реалізовано 18.10.2026 (F-28):** колонка `project_metrics.data_updated_at`; показують Owner View (портфель і картка), Weekly Render, xlsx, `/status`, кнопка «Статус звітів», чат («Станом на» бере її з коду). **Єдина форма звіту (18.10.2026):** чат ПМа і Weekly Render показують ті самі пп. 1–13 (`WEEKLY_REPORT_FORM` §1); LLM лише збирає поля й питання (`ask`), звіт складає `WR: Render Report`. Нижче — вимоги, що лишаються відкритими.
 1. **Свіжість прогнозу.** Показувати дату останнього звіту ПМа в картці (є) і
    **сигнал «прогноз застарів»**, якщо звіт старший за N днів (новий ключ
    `wr_stale_days`, пропозиція 10). Факт 15.10.2026: останні звіти DEMO — 21.09.2026

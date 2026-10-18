@@ -108,6 +108,8 @@ from project_metrics m left join h using(project_id) left join mo using(project_
   from wr_weekly_snapshots group by 1` — проєкти зі звітом старшим за 10 днів, які
   мають статус не 🔴 — знахідка DATA (поки немає `wr_stale_days`, фіксувати як ризик).
 
+- **R-form (18.10.2026):** `python3 scripts/check_report_form.py` — підписи й нумерація пп. 1–13 збігаються в `WR: Render Report` і `Build Weekly Render HTML`; застарілих підписів чат-шаблону («Готовність (%)_Total», «4. ПРОБЛЕМИ») немає. Будь-яке `FAIL` — знахідка SEM.
+
 ### Крок 3. Контури показу (6 контурів, FORMULAS шапка)
 Для показників рентабельність, прибуток, ETC, акти, оплачено, CPI — у кожному
 контурі (`Build MiniApp HTML`, `Build Request Body`, `Build Status Text`,
