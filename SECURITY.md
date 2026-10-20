@@ -161,3 +161,7 @@ Call Anthropic → Send Reply` перевірки відправника не м
 ## 8. Нове SQL-вʼю `archi_plan_execution` (18.10.2026) — без RLS
 
 Вʼю `public.archi_plan_execution` (PX-01: підрахунок статусів `wr_plan_items`) створене без обмеження доступу, як і таблиця-джерело (§5, §7). Рішення про RLS — власника; самостійно не вмикати. Нові колонки `wr_plan_items.origin_week`, `carry_count` — без RLS з тієї ж причини.
+
+## 9. Нове SQL-вʼю `archi_snapshot_history` і функція `archi_snapshot_metrics` (20.10.2026) — без RLS
+
+Вʼю читає `wr_weekly_snapshots`, `project_metrics`, `time_log`, `money_log`, `rates` (усі без RLS, див. §5). Нових таблиць і колонок немає. Рішення про RLS — власника; самостійно не вмикати.
