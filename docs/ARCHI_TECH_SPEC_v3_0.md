@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 8afe1891-d0d4-4627-84c5-c8f176b608b0` (20.10.2026, 173 ноди; ETC трійка + Δ, RELEASE_PLAN §79; раніше `e2f7f2b2` — Weekly Render 13 рядків, §78; Weekly Render — 13 рядків у всіх колонках, RELEASE_PLAN §78; до цього `744b9fe8`; контур «план → виконання» PX-01, RELEASE_PLAN §77; до цього `79c89419`, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId ba8d6ded-3d1b-4f89-8f10-4c46d4cd4fb7` (21.10.2026, 173 ноди; EVM-ланцюжок готовності, RELEASE_PLAN §80; раніше `8afe1891` — ETC трійка + Δ, §79; раніше `e2f7f2b2` — Weekly Render 13 рядків, §78; Weekly Render — 13 рядків у всіх колонках, RELEASE_PLAN §78; до цього `744b9fe8`; контур «план → виконання» PX-01, RELEASE_PLAN §77; до цього `79c89419`, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -99,7 +99,7 @@ final_message, item_statuses, session_id, created_at`.
 пише — тригер `archi_recalc_plan` спрацьовує на UPDATE OF цих колонок (рекурсія). SQL — `sql/2026-10-17_visit_contracts.sql`,
 бекап `_bak_20261017_project_metrics`.
 
-**Інші:** `wr_plan_items` (план тижня: `status` pending|done|not_done|no_answer, `origin_week`, `carry_count`; вʼю `archi_plan_execution` — PX-01, вʼю `archi_snapshot_history` — H-01, функція `archi_etc_gap_signal` — H-02, FORMULAS), `archi_bot_mode_state`
+**Інші:** `wr_plan_items` (план тижня: `status` pending|done|not_done|no_answer, `origin_week`, `carry_count`; вʼю `archi_plan_execution` — PX-01, вʼю `archi_snapshot_history` — H-01, функція `archi_etc_gap_signal` — H-02, `archi_snapshot_evm`, `archi_idx_signal`, `archi_ready_gap_signal` — E-01…E-07, FORMULAS), `archi_bot_mode_state`
 (session_id, mode, project_id, context, updated_at), `archi_thresholds` (key, value
 numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `rates`,
 `time_log`, `money_log` (статус `confirmed` — **механізм підтвердження: імпорт через бот

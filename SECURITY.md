@@ -165,3 +165,7 @@ Call Anthropic → Send Reply` перевірки відправника не м
 ## 9. Нове SQL-вʼю `archi_snapshot_history` (з 20.10.2026 також `etc_gap_*` і функція `archi_etc_gap_signal`) і функція `archi_snapshot_metrics` (20.10.2026) — без RLS
 
 Вʼю читає `wr_weekly_snapshots`, `project_metrics`, `time_log`, `money_log`, `rates` (усі без RLS, див. §5). Нових таблиць і колонок немає. Рішення про RLS — власника; самостійно не вмикати.
+
+## 10. Нові SQL-функції `archi_snapshot_evm`, `archi_idx_signal`, `archi_ready_gap_signal` і нові колонки вʼю `archi_report_today` / `archi_snapshot_history` (21.10.2026) — без RLS
+
+Нових таблиць немає; джерела (`wr_weekly_snapshots`, `time_log`, `money_log`, `project_metrics`) — без RLS, див. §5. Рішення про RLS — власника. Середовище сесії скасовує міграції з `DROP VIEW/FUNCTION` — такі зміни виконує власник у Supabase SQL Editor.
