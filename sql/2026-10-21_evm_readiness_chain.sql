@@ -1,3 +1,4 @@
+-- УВАГА 22.10.2026: тексти вʼю archi_snapshot_history / archi_report_today та функцій archi_idx_signal / archi_ready_gap_signal в цьому файлі ЗАСТАРІЛІ — чинні версії в sql/2026-10-21_deviation_colors2.sql і sql/2026-10-22_color_direction.sql.
 -- ARCHI 21.10.2026: ланцюжок готовності (EVM, FORMULAS §0, E-01…E-07) — єдине обчислення в SQL.
 -- Додає в archi_report_today та archi_snapshot_history: spent_pct, ready_pm_pct, ready_fc_pct, ready_gap_pp, ready_gap_signal,
 -- eff_hours_idx, eff_signal, acts_to_ev, paid_to_acts. Пороги: readiness_gap_pp (20 п.п.), cpi_yellow / cpi_red з archi_thresholds.

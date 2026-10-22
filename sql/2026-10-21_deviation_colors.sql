@@ -1,3 +1,4 @@
+-- УВАГА 22.10.2026: функції archi_etc_gap_signal / archi_ready_gap_signal / archi_idx_signal тут ЗАСТАРІЛІ (симетричний колір скасовано) — чинні в sql/2026-10-22_color_direction.sql.
 -- ARCHI 21.10.2026: колір відхилень від плану (RELEASE_PLAN §81) — єдине обчислення в SQL.
 -- Застосовано міграцією deviation_colors_20261021. Дані не змінюються. Без DROP (середовище скасовує такі міграції).
 -- Вʼю archi_snapshot_history і archi_report_today у цій міграції = версії з sql/2026-10-21_evm_readiness_chain.sql
