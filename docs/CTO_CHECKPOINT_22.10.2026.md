@@ -57,6 +57,7 @@
 
 - **Закрито:** 18.10 P0 #1 (`demo_asof` — код ключ не читає; рядок у БД лишився); n8n 176 → 173 вузли (зокрема прибрано `WR: Patch Layout`; повний перелік не порівнювався); єдина форма пп. 1–12 (R-form, 0 розбіжностей); помилок виконань 0.
 - **Нове:** SQL-шар сигналів (`archi_etc_gap_signal`, `archi_ready_gap_signal`, `archi_idx_signal`, `archi_flow_idx_signal`, `archi_paid_idx_signal`, `archi_snapshot_evm`, `archi_snapshot_metrics`), вʼю `archi_report_today`, `archi_snapshot_history`, `archi_plan_execution`; нові пороги `idx_*`, `wr_ready_gap_pp`; EVM-ланцюжок готовності (E-01…E-07); CPI прибрано з Weekly Render/чату/xlsx.
+- **24.10.2026 (§89):** S-04 в Owner View переведено на SQL (`etc_gap_signal`, `stage_etc_signal`) — пункт 5 закрито частково; S-05, інші сигнали Owner View і `AN: Attach Block` лишаються в JS.
 - **Не змінилось (відкрите з 18.10):** A-1 (`AN: Attach Block`, `AN: Patch HTML`), D1 (`WR: Schedule Reminder`), токен у репо, RLS, відсутність `wr_stale_days`, `Build Status Text` (знахідка 8).
 - Детальна методологічна частина: `docs/SELF_AUDIT_EVM_22.10.2026.md`.
 
