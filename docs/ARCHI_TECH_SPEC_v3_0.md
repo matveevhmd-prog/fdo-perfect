@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId cc94785c-b323-4742-ac97-7aefbdcb2c6e` (25.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§112), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 8a9fe9e5-5609-42cc-8b1b-eebef70b0d7a` (25.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§112), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
