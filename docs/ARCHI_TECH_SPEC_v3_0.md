@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 68118665-e383-495c-bc78-5658ce95ff5a (24.10.2026: прогноз року — лише колір шрифту, §91; раніше ffa8bd31-43e8-4c26-9d68-56fdbdc966b9 (24.10.2026: колір прогнозу року в портфелі Owner View, RELEASE_PLAN §90; раніше febb053b-f252-4a30-a067-05022414e5fe (24.10.2026: Owner View читає S-04 з SQL, RELEASE_PLAN §89; раніше fb3b3a6e-1d84-40b7-b7d1-43ba604fd3c2 (24.10.2026: S-04 на BAC в Owner View, RELEASE_PLAN §87; раніше 3a319870-262d-47de-9057-92eb701052dc (22.10.2026: рішення самоаудиту — узгодженість в обидва боки, ETC Δ від BAC, «Ефективність виконання», «Акти ÷ план на дату», «станом на», RELEASE_PLAN §86; раніше 868f0316-bb59-4958-9d73-2f457fa40459) (22.10.2026: прибрано CPI з Weekly Render, чату ПМа і xlsx; пп. 9–12, RELEASE_PLAN §84; раніше 89f82443-3458-4368-b64e-7ba19a8bef6c) (21.10.2026: симетрична ефективність, аванс, ETC Δ без кольору для виконаного проєкту, RELEASE_PLAN §82; раніше b9875b77-ecaa-450f-bc73-7258e6e256c5) (21.10.2026: колір відхилень від плану — індекси актів/оплати 0,9/0,7, розбіжність готовності 10 п.п., ETC Δ симетрично, RELEASE_PLAN §81; раніше ba8d6ded-3d1b-4f89-8f10-4c46d4cd4fb7)` (21.10.2026, 173 ноди; EVM-ланцюжок готовності, RELEASE_PLAN §80; раніше `8afe1891` — ETC трійка + Δ, §79; раніше `e2f7f2b2` — Weekly Render 13 рядків, §78; Weekly Render — 13 рядків у всіх колонках, RELEASE_PLAN §78; до цього `744b9fe8`; контур «план → виконання» PX-01, RELEASE_PLAN §77; до цього `79c89419`, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 00a776b7-9c4f-4c63-8087-a734c9d1cce5 (25.10.2026: черга повідомлень ПМа, §93; раніше 68118665-e383-495c-bc78-5658ce95ff5a (24.10.2026: прогноз року — лише колір шрифту, §91; раніше ffa8bd31-43e8-4c26-9d68-56fdbdc966b9 (24.10.2026: колір прогнозу року в портфелі Owner View, RELEASE_PLAN §90; раніше febb053b-f252-4a30-a067-05022414e5fe (24.10.2026: Owner View читає S-04 з SQL, RELEASE_PLAN §89; раніше fb3b3a6e-1d84-40b7-b7d1-43ba604fd3c2 (24.10.2026: S-04 на BAC в Owner View, RELEASE_PLAN §87; раніше 3a319870-262d-47de-9057-92eb701052dc (22.10.2026: рішення самоаудиту — узгодженість в обидва боки, ETC Δ від BAC, «Ефективність виконання», «Акти ÷ план на дату», «станом на», RELEASE_PLAN §86; раніше 868f0316-bb59-4958-9d73-2f457fa40459) (22.10.2026: прибрано CPI з Weekly Render, чату ПМа і xlsx; пп. 9–12, RELEASE_PLAN §84; раніше 89f82443-3458-4368-b64e-7ba19a8bef6c) (21.10.2026: симетрична ефективність, аванс, ETC Δ без кольору для виконаного проєкту, RELEASE_PLAN §82; раніше b9875b77-ecaa-450f-bc73-7258e6e256c5) (21.10.2026: колір відхилень від плану — індекси актів/оплати 0,9/0,7, розбіжність готовності 10 п.п., ETC Δ симетрично, RELEASE_PLAN §81; раніше ba8d6ded-3d1b-4f89-8f10-4c46d4cd4fb7)` (21.10.2026, 173 ноди; EVM-ланцюжок готовності, RELEASE_PLAN §80; раніше `8afe1891` — ETC трійка + Δ, §79; раніше `e2f7f2b2` — Weekly Render 13 рядків, §78; Weekly Render — 13 рядків у всіх колонках, RELEASE_PLAN §78; до цього `744b9fe8`; контур «план → виконання» PX-01, RELEASE_PLAN §77; до цього `79c89419`, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -99,7 +99,7 @@ final_message, item_statuses, session_id, created_at`.
 пише — тригер `archi_recalc_plan` спрацьовує на UPDATE OF цих колонок (рекурсія). SQL — `sql/2026-10-17_visit_contracts.sql`,
 бекап `_bak_20261017_project_metrics`.
 
-**Інші:** `wr_plan_items` (план тижня: `status` pending|done|not_done|no_answer, `origin_week`, `carry_count`; вʼю `archi_plan_execution` — PX-01, вʼю `archi_snapshot_history` — H-01, функція `archi_etc_gap_signal` — H-02, `archi_snapshot_evm`, `archi_idx_signal`, `archi_ready_gap_signal` — E-01…E-07, FORMULAS), `archi_bot_mode_state`
+**Інші:** `wr_plan_items` (план тижня: `status` pending|done|not_done|no_answer, `origin_week`, `carry_count`; вʼю `archi_plan_execution` — PX-01, вʼю `archi_snapshot_history` — H-01, функція `archi_etc_gap_signal` — H-02, `archi_snapshot_evm`, `archi_idx_signal`, `archi_ready_gap_signal` — E-01…E-07, FORMULAS), `archi_bot_mode_state`, `archi_wr_inbox` (черга повідомлень ПМа до «Відправити», 25.10.2026, RLS увімкнено)
 (session_id, mode, project_id, context, updated_at), `archi_thresholds` (key, value
 numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `rates`,
 `time_log`, `money_log` (статус `confirmed` — **механізм підтвердження: імпорт через бот
@@ -117,8 +117,13 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 
 ### 4.1 Telegram (`message`) → 4 паралельні гілки
 1. **Головна:** режим (`archi_bot_mode_state`) → `WR: Determine Route` →
-   WR-потоки (`WR: Hard Logic Engine` → `WR: Route`, 17 виходів: меню, вибір проєкту,
-   звіт ПМа, імпорт, зустріч, Кошторис preview/commit, статус, довідник, скидання)
+   WR-потоки (`WR: Hard Logic Engine` → `WR: Route`, 18 виходів: меню, вибір проєкту,
+   звіт ПМа, імпорт, зустріч, Кошторис preview/commit, статус, довідник, скидання, черга звіту)
+   **Тижневий звіт (варіант А, 25.10.2026):** повідомлення ПМа (текст, голос, фото, документ) → `buffer_data` →
+   `WR: Inbox Add` (таблиця `archi_wr_inbox`) → `WR: Send Inbox Ack` «📥 Прийнято · у черзі N», без LLM.
+   «📤 Відправити» (`send_inbox`) і «✅ Фінал» (`generate_final`) → `WR: Fetch Inbox` → `WR: Build WR Prompt`
+   (уся черга одним запитом) → `WR: Agent` → `WR: Parse Agent Output` → `WR: Inbox Consume` (видаляє оброблені `id <= max`).
+   «📄 Чернетка» — показ без обробки черги. «🆕 Новий» чистить і памʼять, і чергу
    **або** не-WR: `/status`, Weekly Render, Owner View кнопка, інакше чат.
 2. **Doc Intake — команда** `договір <id>`.
 3. **Doc Intake — вміст** (режим `document_intake` + файл/Drive-посилання) → RC7H.
