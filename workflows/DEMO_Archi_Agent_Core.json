@@ -3,12 +3,12 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "371ef3d9-056e-4d4d-9fec-4bb8dadeaa5f",
-  "activeVersionId": "371ef3d9-056e-4d4d-9fec-4bb8dadeaa5f",
+  "versionId": "7aa0baa7-ff5c-4d1e-8579-4d72383c6408",
+  "activeVersionId": "7aa0baa7-ff5c-4d1e-8579-4d72383c6408",
   "triggerCount": 7,
   "nodeCount": 177,
   "createdAt": "2026-08-23T06:55:20.331Z",
-  "updatedAt": "2026-10-25T11:55:40.452Z",
+  "updatedAt": "2026-10-25T15:16:28.133Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -5072,11 +5072,11 @@
                 "buttons": [
                   {
                     "additionalFields": {},
-                    "text": "📝 Тижневий звіт"
+                    "text": "📤 Відправити"
                   },
                   {
                     "additionalFields": {},
-                    "text": "⏱ Години і гроші"
+                    "text": "📄 Чернетка"
                   }
                 ]
               }
@@ -5086,11 +5086,11 @@
                 "buttons": [
                   {
                     "additionalFields": {},
-                    "text": "🤝 Зустріч"
+                    "text": "✅ Фінал"
                   },
                   {
                     "additionalFields": {},
-                    "text": "📐 Кошторис"
+                    "text": "🆕 Новий"
                   }
                 ]
               }
@@ -5100,39 +5100,7 @@
                 "buttons": [
                   {
                     "additionalFields": {},
-                    "text": "📋 Статус звітів"
-                  },
-                  {
-                    "additionalFields": {},
-                    "text": "📊 Owner View"
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "additionalFields": {},
-                    "text": "📖 Довідник"
-                  },
-                  {
-                    "additionalFields": {},
-                    "text": "❓ Питання"
-                  }
-                ]
-              }
-            },
-            {
-              "row": {
-                "buttons": [
-                  {
-                    "additionalFields": {},
-                    "text": "📄 Договір"
-                  },
-                  {
-                    "additionalFields": {},
-                    "text": "📅 Щотижневий рендер"
+                    "text": "❌ Скасувати"
                   }
                 ]
               }
@@ -5145,7 +5113,7 @@
           "is_persistent": true
         },
         "replyMarkup": "replyKeyboard",
-        "text": "🆕 <b>Нову сесію тижневого звіту розпочато</b>\n\nПопередні недописані дані очищено.\nДиктуйте заново."
+        "text": "=🆕 <b>Нова сесія тижневого звіту · {{ $('WR: Hard Logic Engine').item.json.project_id }}</b>\n\nПопередні дані та чергу очищено.\n\n🎯 <b>Що зробити:</b>\n• Надішліть відповіді: текст, голос, фото або файл\n• Потім натисніть «📤 Відправити»"
       },
       "webhookId": "a22ad332-5ccc-4103-9675-8b41a190194e",
       "credentials": {
@@ -11234,11 +11202,11 @@
                   "buttons": [
                     {
                       "additionalFields": {},
-                      "text": "📝 Тижневий звіт"
+                      "text": "📤 Відправити"
                     },
                     {
                       "additionalFields": {},
-                      "text": "⏱ Години і гроші"
+                      "text": "📄 Чернетка"
                     }
                   ]
                 }
@@ -11248,11 +11216,11 @@
                   "buttons": [
                     {
                       "additionalFields": {},
-                      "text": "🤝 Зустріч"
+                      "text": "✅ Фінал"
                     },
                     {
                       "additionalFields": {},
-                      "text": "📐 Кошторис"
+                      "text": "🆕 Новий"
                     }
                   ]
                 }
@@ -11262,39 +11230,7 @@
                   "buttons": [
                     {
                       "additionalFields": {},
-                      "text": "📋 Статус звітів"
-                    },
-                    {
-                      "additionalFields": {},
-                      "text": "📊 Owner View"
-                    }
-                  ]
-                }
-              },
-              {
-                "row": {
-                  "buttons": [
-                    {
-                      "additionalFields": {},
-                      "text": "📖 Довідник"
-                    },
-                    {
-                      "additionalFields": {},
-                      "text": "❓ Питання"
-                    }
-                  ]
-                }
-              },
-              {
-                "row": {
-                  "buttons": [
-                    {
-                      "additionalFields": {},
-                      "text": "📄 Договір"
-                    },
-                    {
-                      "additionalFields": {},
-                      "text": "📅 Щотижневий рендер"
+                      "text": "❌ Скасувати"
                     }
                   ]
                 }
@@ -11307,7 +11243,7 @@
             "is_persistent": true
           },
           "replyMarkup": "replyKeyboard",
-          "text": "🆕 <b>Нову сесію тижневого звіту розпочато</b>\n\nПопередні недописані дані очищено.\nДиктуйте заново."
+          "text": "=🆕 <b>Нова сесія тижневого звіту · {{ $('WR: Hard Logic Engine').item.json.project_id }}</b>\n\nПопередні дані та чергу очищено.\n\n🎯 <b>Що зробити:</b>\n• Надішліть відповіді: текст, голос, фото або файл\n• Потім натисніть «📤 Відправити»"
         },
         "webhookId": "a22ad332-5ccc-4103-9675-8b41a190194e",
         "credentials": {
