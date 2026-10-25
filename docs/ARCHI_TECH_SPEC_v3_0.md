@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId cc94785c-b323-4742-ac97-7aefbdcb2c6e (25.10.2026: перевірка чисел і дат ПМа за його текстом, варіант Б) (22.10.2026: прибрано CPI з Weekly Render, чату ПМа і xlsx; пп. 9–12, RELEASE_PLAN §84; раніше 89f82443-3458-4368-b64e-7ba19a8bef6c) (21.10.2026: симетрична ефективність, аванс, ETC Δ без кольору для виконаного проєкту, RELEASE_PLAN §82; раніше b9875b77-ecaa-450f-bc73-7258e6e256c5) (21.10.2026: колір відхилень від плану — індекси актів/оплати 0,9/0,7, розбіжність готовності 10 п.п., ETC Δ симетрично, RELEASE_PLAN §81; раніше ba8d6ded-3d1b-4f89-8f10-4c46d4cd4fb7)` (21.10.2026, 173 ноди; EVM-ланцюжок готовності, RELEASE_PLAN §80; раніше `8afe1891` — ETC трійка + Δ, §79; раніше `e2f7f2b2` — Weekly Render 13 рядків, §78; Weekly Render — 13 рядків у всіх колонках, RELEASE_PLAN §78; до цього `744b9fe8`; контур «план → виконання» PX-01, RELEASE_PLAN §77; до цього `79c89419`, 175 нод; історія: `6f702771` → `8bce8982` D2+D4 §48 → `9de75532` D10 §49 → … → `27350d38` §69 → `6c90d6c0` §71), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId cc94785c-b323-4742-ac97-7aefbdcb2c6e` (25.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§112), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -260,8 +260,8 @@ FORMULAS §7.1, §7.5.
 ## 10. Межі масштабування (не блокує DEMO/пілот)
 
 - Один тенант: таблиці без `company_id`, SQL без фільтра компанії.
-- Allowlist Telegram ID зашитий у коді (3 вузли Validate + Hard Logic Engine).
-- Токен бота в коді (3 вузли); RLS вимкнений на більшості таблиць.
+- Allowlist Telegram ID зашитий у коді (`Validate InitData`, `WR-Render: Validate InitData`, `Xlsx: Validate InitData` + `WR: Hard Logic Engine`).
+- Токен бота в живому workflow — 1 вузол (`M: Send Project Picker`); три `Validate InitData` токена не мають (підпис Telegram перевіряється публічним ключем). У репозиторії токен замінюється на `<TELEGRAM_BOT_TOKEN>` (SECURITY.md п. 1). RLS вимкнений на більшості таблиць.
 - SQL імпорту частково збирається рядком (екранування є, параметризації немає).
 - DDL (`CREATE TABLE IF NOT EXISTS`) виконується на кожне повідомлення.
 Для другого клієнта потрібні: `company_id` + фільтри, права доступу з таблиці,
@@ -281,7 +281,7 @@ FORMULAS §7.1, §7.5.
 | D5 | Кнопка «📄 Договір» іде в чат-LLM; кнопка «📄 договір X» не пройде regex | **Виправлено 17.10.2026** (§60): `договір` у `isWrCommand`; наживо в Telegram не перевірено |
 | D6 | Подвійні відповіді на «КП: N» / «договір X» | **Виправлено 17.10.2026** (§60): вузол `Is Parallel Cmd?` глушить чат-гілку; наживо в Telegram не перевірено |
 | D11 | У сесії звіту/імпорту/зустрічі текст ПМа зі словами «огляд», «меню», «owner», «щотижнев» відрізався від WR-потоку й ішов у чат (`isOwnerViewLike`) | **Виправлено 18.10.2026** (§75): Owner View / Weekly Render розпізнаються лише за точною командою чи кнопкою (`OWNER_CMD` у `WR: Determine Route`; ті самі точні форми в `Is Owner View Request?` / `Is Weekly Render Request?`); живий екран не перевірено |
-| D7 | `WR: Fetch Money Log Acts` без фільтра `статус='confirmed'` | Факт |
+| D7 | `WR: Fetch Money Log Acts` без фільтра `статус='confirmed'` | **Виправлено 17.10.2026** (RELEASE_PLAN §63): у запиті `AND статус = 'confirmed'` (CTO checkpoint 25.10.2026, #3) |
 | D8 | Немає сигналу застарілого прогнозу | Факт |
 | D9 | Дві бази рентабельності під одним підписом | **Виправлено 16.10.2026** (§58): дві проєкції — від контракту і від собівартості |
 | D10 | Запит `Fetch Project Metrics (Chat)` не мав `m.actual_cost, m.stage_data` → у чаті `pfc.factProfit` = Σ актів (без собівартості), `factRentPct` = «—», `unpaidHours` = 0, сигнал оптимістичного ETC не рахувався (порушення §2.1 на вході) | **Виправлено 15.10.2026** (§49): запит чату ідентичний запиту Mini App; чат після правки наживо не перевірено |
