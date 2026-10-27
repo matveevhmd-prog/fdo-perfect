@@ -17,10 +17,10 @@
 workflows/
   DEMO_Archi_Agent_Core.json         — головний n8n workflow (id CKwCsGIwyw9feCY5,
                                         n8n instance osbbcopilot.app.n8n.cloud).
-                                        Переекспортовано 25.10.2026,
-                                        activeVersionId 8a9fe9e5-5609-42cc-8b1b-eebef70b0d7a,
-                                        179 вузлів (25.10.2026: дата за Києвом, RELEASE_PLAN §114; раніше блокер і його тип лише зі
-                                        слів ПМа, RELEASE_PLAN §111). Історія версій — у
+                                        Переекспортовано 27.10.2026,
+                                        activeVersionId 769bc540-bd4b-42e8-9689-9054d68b6ac0,
+                                        179 вузлів (27.10.2026: параметризований SQL у 4 вузлах, RELEASE_PLAN §116; раніше дата за
+                                        Києвом, §114, блокер і його тип лише зі слів ПМа, §111). Історія версій — у
                                         `docs/RELEASE_PLAN.md` (§48–§112) і в git.
                                         Токен бота в експорті замінено на `<TELEGRAM_BOT_TOKEN>` (SECURITY.md п. 1).
                                         ⚠️ Як завжди: цей файл застаріє одразу після
