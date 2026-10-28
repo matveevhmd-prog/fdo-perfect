@@ -10,7 +10,7 @@ const fs=require('fs'); const { chromium } = require('/opt/node-tools/node_modul
 const D=JSON.parse(fs.readFileSync(path.resolve(process.argv[2]),'utf8'));
 const W=x=>x.map(j=>({json:j}));
 const split=new Function('$input','$',CODE('AN: Split Stage Rows'))({all:()=>W(D.ov)},()=>({all:()=>[]}));
-const stub=(name)=>({ all:()=> name==='Fetch Project Metrics (MiniApp)'?W(D.ov):[], first:()=>({json:{kp_month:0,kp_year:0}}) });
+const stub=(name)=>({ all:()=> name==='Fetch Project Metrics (MiniApp)'?W(D.ov):[], first:()=>({json:D.kp||{kp_month:0,kp_year:0}}) });
 const dataOut=new Function('$input','$',CODE('Build MiniApp Data'))({all:()=>split},stub);
 let attached;
 try { attached=new Function('$input','$',CODE('AN: Attach Block'))({all:()=>dataOut, first:()=>dataOut[0]},stub); } catch(e){ console.log('AN attach error',e.message); attached=dataOut; }
