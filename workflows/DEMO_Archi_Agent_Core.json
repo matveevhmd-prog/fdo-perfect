@@ -3,12 +3,12 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "769bc540-bd4b-42e8-9689-9054d68b6ac0",
-  "activeVersionId": "769bc540-bd4b-42e8-9689-9054d68b6ac0",
+  "versionId": "4d403691-53c7-4bfb-a026-7118f7c886b0",
+  "activeVersionId": "4d403691-53c7-4bfb-a026-7118f7c886b0",
   "triggerCount": 7,
   "nodeCount": 179,
   "createdAt": "2026-08-23T06:55:20.331Z",
-  "updatedAt": "2026-10-26T05:36:10.716Z",
+  "updatedAt": "2026-10-27T20:43:47.547Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -4174,8 +4174,10 @@
       ],
       "parameters": {
         "operation": "executeQuery",
-        "options": {},
-        "query": "=INSERT INTO public.wr_plan_items (project_id, week_start, item_number, item_text, origin_week, carry_count) VALUES ('{{ $json.project_id }}', '{{ $json.week_start }}'::date, {{ $json.item_number }}, '{{ $json.item_text.replace(/'/g, \"''\") }}', '{{ $json.origin_week }}'::date, {{ $json.carry_count }}) ON CONFLICT (project_id, week_start, item_number) DO UPDATE SET item_text = EXCLUDED.item_text, status = 'pending', origin_week = EXCLUDED.origin_week, carry_count = EXCLUDED.carry_count;"
+        "options": {
+          "queryReplacement": "={{ [ String($json.project_id ?? ''), String($json.week_start ?? ''), String($json.item_number ?? ''), String($json.item_text ?? ''), String($json.origin_week ?? ''), String($json.carry_count ?? '') ] }}"
+        },
+        "query": "INSERT INTO public.wr_plan_items (project_id, week_start, item_number, item_text, origin_week, carry_count) VALUES ($1::text, $2::date, $3::int, $4::text, $5::date, $6::int) ON CONFLICT (project_id, week_start, item_number) DO UPDATE SET item_text = EXCLUDED.item_text, status = 'pending', origin_week = EXCLUDED.origin_week, carry_count = EXCLUDED.carry_count;"
       },
       "credentials": {
         "postgres": {
@@ -4217,8 +4219,10 @@
       ],
       "parameters": {
         "operation": "executeQuery",
-        "options": {},
-        "query": "=WITH ins AS (INSERT INTO public.wr_weekly_snapshots (project_id, week_start, session_id, готовність_pct, залишок_прогноз_по_стадіях, ймовірність_акту, ймовірність_документації, plans_next_week, problems, help_needed, pm_comment, final_message, item_statuses, дедлайн_прогноз_по_стадіях, \"блокер\", \"розбіжність_готовності\") VALUES ('{{ $json.project_id }}', '{{ $now.startOf(\"week\").toFormat(\"yyyy-MM-dd\") }}'::date, '{{ $(\"Telegram Trigger\").item.json.message.chat.id }}', {{ $json.stage_readiness ? \"'\" + JSON.stringify($json.stage_readiness).replace(/'/g, \"''\") + \"'::jsonb\" : \"NULL\" }}, {{ $json.etc_forecast_stage ? \"'\" + JSON.stringify($json.etc_forecast_stage).replace(/'/g, \"''\") + \"'::jsonb\" : \"NULL\" }}, {{ $json.act_probability ?? \"NULL\" }}, {{ $json.doc_probability ?? \"NULL\" }}, '{{ ($json.plans_next_week || \"\").replace(/'/g, \"''\") }}', '{{ ($json.problems_text || \"\").replace(/'/g, \"''\") }}', '{{ ($json.help_text || \"\").replace(/'/g, \"''\") }}', '{{ ($json.pm_comment_text || \"\").replace(/'/g, \"''\") }}', NULL, {{ $json.item_statuses ? \"'\" + JSON.stringify($json.item_statuses).replace(/'/g, \"''\") + \"'::jsonb\" : \"NULL\" }}, {{ $json.deadline_forecast_stage ? \"'\" + JSON.stringify($json.deadline_forecast_stage).replace(/'/g, \"''\") + \"'::jsonb\" : \"NULL\" }}, {{ $json.blocker ? \"'\" + JSON.stringify($json.blocker).replace(/'/g, \"''\") + \"'::jsonb\" : \"NULL\" }}, {{ $json.readiness_gap ? \"'\" + JSON.stringify($json.readiness_gap).replace(/'/g, \"''\") + \"'::jsonb\" : \"NULL\" }}) ON CONFLICT (project_id, week_start) DO UPDATE SET session_id=EXCLUDED.session_id, готовність_pct=EXCLUDED.готовність_pct, залишок_прогноз_по_стадіях=EXCLUDED.залишок_прогноз_по_стадіях, ймовірність_акту=EXCLUDED.ймовірність_акту, ймовірність_документації=EXCLUDED.ймовірність_документації, plans_next_week=EXCLUDED.plans_next_week, problems=EXCLUDED.problems, help_needed=EXCLUDED.help_needed, pm_comment=EXCLUDED.pm_comment, final_message=EXCLUDED.final_message, item_statuses=EXCLUDED.item_statuses, дедлайн_прогноз_по_стадіях=EXCLUDED.дедлайн_прогноз_по_стадіях, \"блокер\"=EXCLUDED.\"блокер\", \"розбіжність_готовності\"=EXCLUDED.\"розбіжність_готовності\", created_at=NOW() RETURNING 1), upd AS (UPDATE public.wr_plan_items AS pi SET status = s.status FROM jsonb_to_recordset('{{ JSON.stringify($json.item_statuses || []).replace(/'/g, \"''\") }}'::jsonb) AS s(item_number int, status text) WHERE pi.project_id = '{{ $json.project_id }}' AND pi.week_start = '{{ $now.startOf(\"week\").toFormat(\"yyyy-MM-dd\") }}'::date AND pi.item_number = s.item_number AND s.status IN ('done','not_done','no_answer') RETURNING 1) SELECT (SELECT count(*) FROM ins) AS saved, (SELECT count(*) FROM upd) AS plan_updated;"
+        "options": {
+          "queryReplacement": "={{ [ String($json.project_id ?? ''), $now.startOf(\"week\").toFormat(\"yyyy-MM-dd\"), String($(\"Telegram Trigger\").item.json.message.chat.id), $json.stage_readiness ? JSON.stringify($json.stage_readiness) : '', $json.etc_forecast_stage ? JSON.stringify($json.etc_forecast_stage) : '', String($json.act_probability ?? ''), String($json.doc_probability ?? ''), String($json.plans_next_week || ''), String($json.problems_text || ''), String($json.help_text || ''), String($json.pm_comment_text || ''), $json.item_statuses ? JSON.stringify($json.item_statuses) : '', $json.deadline_forecast_stage ? JSON.stringify($json.deadline_forecast_stage) : '', $json.blocker ? JSON.stringify($json.blocker) : '', $json.readiness_gap ? JSON.stringify($json.readiness_gap) : '', JSON.stringify($json.item_statuses || []) ] }}"
+        },
+        "query": "WITH ins AS (INSERT INTO public.wr_weekly_snapshots (project_id, week_start, session_id, готовність_pct, залишок_прогноз_по_стадіях, ймовірність_акту, ймовірність_документації, plans_next_week, problems, help_needed, pm_comment, final_message, item_statuses, дедлайн_прогноз_по_стадіях, \"блокер\", \"розбіжність_готовності\") VALUES ($1::text, $2::date, $3::text, NULLIF($4::text, '')::jsonb, NULLIF($5::text, '')::jsonb, NULLIF($6::text, '')::numeric, NULLIF($7::text, '')::numeric, $8::text, $9::text, $10::text, $11::text, NULL, NULLIF($12::text, '')::jsonb, NULLIF($13::text, '')::jsonb, NULLIF($14::text, '')::jsonb, NULLIF($15::text, '')::jsonb) ON CONFLICT (project_id, week_start) DO UPDATE SET session_id=EXCLUDED.session_id, готовність_pct=EXCLUDED.готовність_pct, залишок_прогноз_по_стадіях=EXCLUDED.залишок_прогноз_по_стадіях, ймовірність_акту=EXCLUDED.ймовірність_акту, ймовірність_документації=EXCLUDED.ймовірність_документації, plans_next_week=EXCLUDED.plans_next_week, problems=EXCLUDED.problems, help_needed=EXCLUDED.help_needed, pm_comment=EXCLUDED.pm_comment, final_message=EXCLUDED.final_message, item_statuses=EXCLUDED.item_statuses, дедлайн_прогноз_по_стадіях=EXCLUDED.дедлайн_прогноз_по_стадіях, \"блокер\"=EXCLUDED.\"блокер\", \"розбіжність_готовності\"=EXCLUDED.\"розбіжність_готовності\", created_at=NOW() RETURNING 1), upd AS (UPDATE public.wr_plan_items AS pi SET status = s.status FROM jsonb_to_recordset($16::jsonb) AS s(item_number int, status text) WHERE pi.project_id = $1::text AND pi.week_start = $2::date AND pi.item_number = s.item_number AND s.status IN ('done','not_done','no_answer') RETURNING 1) SELECT (SELECT count(*) FROM ins) AS saved, (SELECT count(*) FROM upd) AS plan_updated;"
       },
       "onError": "continueErrorOutput",
       "retryOnFail": true,
