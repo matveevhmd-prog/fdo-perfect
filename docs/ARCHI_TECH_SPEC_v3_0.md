@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 769bc540-bd4b-42e8-9689-9054d68b6ac0` (27.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§112), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId 4d403691-53c7-4bfb-a026-7118f7c886b0` (28.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§112), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -202,7 +202,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `769bc540-bd4b-42e8-9689-9054d68b6ac0` (27.10.2026, 179 вузлів) |
+| Core workflow | `CKwCsGIwyw9feCY5`, `4d403691-53c7-4bfb-a026-7118f7c886b0` (28.10.2026, 179 вузлів) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64) |
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
@@ -262,7 +262,7 @@ FORMULAS §7.1, §7.5.
 - Один тенант: таблиці без `company_id`, SQL без фільтра компанії.
 - Allowlist Telegram ID зашитий у коді (`Validate InitData`, `WR-Render: Validate InitData`, `Xlsx: Validate InitData` + `WR: Hard Logic Engine`).
 - Токен бота в живому workflow — 1 вузол (`M: Send Project Picker`); три `Validate InitData` токена не мають (підпис Telegram перевіряється публічним ключем). У репозиторії токен замінюється на `<TELEGRAM_BOT_TOKEN>` (SECURITY.md п. 1). RLS вимкнений на більшості таблиць.
-- SQL, куди йде вільний текст ПМа, параметризовано (27.10.2026, RELEASE_PLAN §116) лише в 4 вузлах: `WR: Inbox Add`, `Import: Insert Time Rows`, `Import: Insert Money Rows`, `Meeting: Insert Rows` (`$1…$n`, `queryReplacement`). Решта вузлів Postgres з `'{{ … }}'` у запиті лишається (екранування `'` → `''`, параметризації немає) — наступна ітерація.
+- SQL, куди йде вільний текст ПМа, параметризовано (RELEASE_PLAN §116 і §118) у 6 вузлах: `WR: Inbox Add`, `Import: Insert Time Rows`, `Import: Insert Money Rows`, `Meeting: Insert Rows`, `WR: Save Weekly Snapshot`, `WR: Save Next Week Plan` (`$1…$n`, `queryReplacement`). Інвентар 28.10.2026: вузлів Postgres 47 — з параметрами 13, з інтерполяцією `'{{ … }}'` 21, статичних 13. 21 вузол інтерполює лише `chat.id` (число) і `project_id` (регулярки з класом `[a-zа-яіїєґ0-9_-]`, без лапок) — за кодом ризик низький, параметризація не планується (RELEASE_PLAN §117, варіант A).
 - DDL (`CREATE TABLE IF NOT EXISTS`) виконується на кожне повідомлення.
 Для другого клієнта потрібні: `company_id` + фільтри, права доступу з таблиці,
 окремий бот/токен із сховища секретів, RLS-policies, параметризовані запити.
