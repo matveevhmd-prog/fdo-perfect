@@ -176,7 +176,8 @@ ARCHI — зупинись і виконай кроки нижче ПЕРШИМ�
 ## Після будь-якої зміни в n8n/Supabase — онови репозиторій тим же коммітом
 
 1. Переекспортуй `workflows/DEMO_Archi_Agent_Core.json` (повний live
-   JSON з `get_workflow_details`, не лише змінені ноди).
+   JSON з `get_workflow_details`, не лише змінені ноди) і перегенеруй
+   `docs/NODE_MAP.md`: `python3 scripts/gen_node_map.py` (п. 14, рішення 6).
 2. Допиши новий розділ у `docs/RELEASE_PLAN.md` в тому самому форматі,
    що й існуючі розділи: що зробив → результат → спосіб перевірки
    (реальний SQL/execution, не "status: success") → checkpoint
