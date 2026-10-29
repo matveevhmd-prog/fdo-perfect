@@ -50,6 +50,7 @@ docs/  (порядок читання — `CLAUDE.md` «Порядок чита�
   DEMO_REPORT_TEXTS_2026-10-30.md    — сценарні тексти звітів ПМа для живого циклу 30.10
   OWNER_MORNING_TEST.md              — текст тесту для власника
   START_PROMPT_DOC_AUDIT.md          — стартовий промпт аудиту документації (виконано 29.10.2026)
+  START_PROMPT_POST_AUDIT.md         — стартовий промпт наступної сесії: рішення за аудитом → місія EVM
   FEATURE_IDEAS.md                   — реєстр ідей власника (не в розробці)
   Аудити: CTO_CHECKPOINT_16/18/22/25/29.10.2026.md (датовані звіти), DOC_AUDIT_29.10.2026.md
   Історія (банер у шапці): ARCHI_TECH_SPEC_v2_0.md, TRANSITION_PROMPT_2026-10-15.md (v1),
