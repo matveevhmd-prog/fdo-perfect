@@ -41,7 +41,7 @@ docs/  (порядок читання — `CLAUDE.md` «Порядок чита�
                                         джерело визначень показників (v1.7)
   WEEKLY_REPORT_FORM.md              — форма звіту ПМа і специфікація Weekly Render (§2)
   LAYOUT_STANDARD.md                 — стандарт верстки «стовпчиком» і словник емодзі
-  RELEASE_PLAN.md                    — журнал робіт §0–§137 (читати з кінця)
+  RELEASE_PLAN.md                    — журнал робіт §0–§138 (читати з кінця)
   CTO_CHECKPOINT_PROMPT.md           — промпт аудиту коду проти документації
   NODE_MAP.md                        — карта всіх 179 вузлів (генерує scripts/gen_node_map.py; руками не правити)
   ARCHI_Obraz_Idealnoho_Rezultatu.md — методологія «навіщо» (05.09.2026, доповнено 26.09.2026)
