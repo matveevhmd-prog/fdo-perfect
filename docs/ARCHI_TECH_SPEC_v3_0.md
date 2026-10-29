@@ -202,7 +202,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `c508c7d5-0d8d-41e4-99ec-f7bc231e8d5c` (28.10.2026, 179 вузлів) |
+| Core workflow | `CKwCsGIwyw9feCY5`, `f41d1e6b-3d00-45f2-bf69-633936f82c10` (29.10.2026, 179 вузлів) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64) |
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
