@@ -64,7 +64,7 @@ sql/                                 — SQL-зміни Supabase по датах
                                         demo_seed_2026-10-29/ (демо-години + rollback.sql)
 scripts/                             — check_report_form.py; replay/ (код вузлів на живих даних)
 tests/                               — тести `WR: Parse Agent Output` (tests/README.md)
-CLAUDE.md                            — закриті рішення власника п. 1–13, ритуал старту
+CLAUDE.md                            — закриті рішення власника п. 1–14, ритуал старту
 
 SECURITY.md                          — відомі проблеми безпеки, прийняті ризики;
                                         п.5 (26.09.2026) — Supabase RLS вимкнений
