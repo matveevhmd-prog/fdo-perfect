@@ -18,7 +18,7 @@ workflows/
   DEMO_Archi_Agent_Core.json         — головний n8n workflow (id CKwCsGIwyw9feCY5,
                                         n8n instance osbbcopilot.app.n8n.cloud).
                                         Переекспортовано 28.10.2026,
-                                        activeVersionId c508c7d5-0d8d-41e4-99ec-f7bc231e8d5c,
+                                        activeVersionId f41d1e6b-3d00-45f2-bf69-633936f82c10,
                                         179 вузлів (27–28.10.2026: параметризований SQL у 6 вузлах, RELEASE_PLAN §116 і §118; раніше дата за
                                         Києвом, §114, блокер і його тип лише зі слів ПМа, §111). Історія версій — у
                                         `docs/RELEASE_PLAN.md` (§48–§112) і в git.
