@@ -1,6 +1,6 @@
 # ARCHI — репозиторій продукту
 
-**Стан на 29.10.2026:** n8n `CKwCsGIwyw9feCY5` `eb66775d`, 179 вузлів; аудит документації — `docs/DOC_AUDIT_29.10.2026.md`.
+**Стан на 29.10.2026:** n8n `CKwCsGIwyw9feCY5` `cbaac3d3`, 179 вузлів; аудит документації — `docs/DOC_AUDIT_29.10.2026.md`.
 
 Оркестраційний шар над проектними даними архітектурно-будівельної компанії
 (Telegram Chat-агент + Owner View Mini App + Щотижневий WR-цикл).
@@ -20,10 +20,10 @@ workflows/
   DEMO_Archi_Agent_Core.json         — головний n8n workflow (id CKwCsGIwyw9feCY5,
                                         n8n instance osbbcopilot.app.n8n.cloud).
                                         Переекспортовано 29.10.2026,
-                                        activeVersionId eb66775d-28dc-476c-85ad-eb7cbcfcccb6,
-                                        179 вузлів (29.10.2026: назви Archi без «CPI»/«EVM», §135; P-10 «за чиї гроші», §131; 27–28.10.2026: параметризований SQL у 6 вузлах, RELEASE_PLAN §116 і §118; раніше дата за
+                                        activeVersionId cbaac3d3-bad7-43af-8c40-3304b381ab51,
+                                        179 вузлів (29.10.2026: P-09 на канон стадій, §136; назви Archi без «CPI»/«EVM», §135; P-10 «за чиї гроші», §131; 27–28.10.2026: параметризований SQL у 6 вузлах, RELEASE_PLAN §116 і §118; раніше дата за
                                         Києвом, §114, блокер і його тип лише зі слів ПМа, §111). Історія версій — у
-                                        `docs/RELEASE_PLAN.md` (§48–§135) і в git.
+                                        `docs/RELEASE_PLAN.md` (§48–§136) і в git.
                                         Токен бота в експорті замінено на `<TELEGRAM_BOT_TOKEN>` (SECURITY.md п. 1).
                                         ⚠️ Як завжди: цей файл застаріє одразу після
                                         наступної сесії редагування в n8n, якщо його
@@ -41,7 +41,7 @@ docs/  (порядок читання — `CLAUDE.md` «Порядок чита�
                                         джерело визначень показників (v1.7)
   WEEKLY_REPORT_FORM.md              — форма звіту ПМа і специфікація Weekly Render (§2)
   LAYOUT_STANDARD.md                 — стандарт верстки «стовпчиком» і словник емодзі
-  RELEASE_PLAN.md                    — журнал робіт §0–§135 (читати з кінця)
+  RELEASE_PLAN.md                    — журнал робіт §0–§136 (читати з кінця)
   CTO_CHECKPOINT_PROMPT.md           — промпт аудиту коду проти документації
   NODE_MAP.md                        — карта всіх 179 вузлів (генерує scripts/gen_node_map.py; руками не правити)
   ARCHI_Obraz_Idealnoho_Rezultatu.md — методологія «навіщо» (05.09.2026, доповнено 26.09.2026)
