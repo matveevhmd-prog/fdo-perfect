@@ -1,7 +1,7 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
 **Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
-**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId b100e952-a686-4354-877b-828b88f5e909` (28.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§112), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
+**Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId b100e952-a686-4354-877b-828b88f5e909` (29.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§132; звірено аудитом документації 29.10.2026, `docs/DOC_AUDIT_29.10.2026.md`), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
 `docs/LAYOUT_STANDARD.md`, `SECURITY.md`, `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (методологія «навіщо»).
@@ -52,11 +52,11 @@ Full = продукт + операційна підтримка якості д�
 - рівень проєкту — лише `archi_recalc()` (SQL);
 - сигнали, кольори, агрегати портфеля — лише `Build MiniApp Data` (n8n), спільний для
   Owner View і чату (`Is Chat Request?` розгалужує);
+- **уточнення (аудит 29.10.2026, `CLAUDE.md` п. 7 «Колір рахує лише SQL»):** з 18–29.10.2026 частину показників і кольорів рахують SQL-вʼю й функції — `archi_report_today`, `archi_snapshot_history`, `archi_plan_execution`, `archi_weekly_progress`, `archi_*_signal` (E-01…E-08, H-01, H-02, PX-01, S-04, P-10; FORMULAS). Рівень SQL = `archi_recalc()` + ці вʼю/функції;
 - решта контурів (HTML, чат-промпт, /status, Weekly Render, xlsx) — **тільки
   відображення**. Відомий виняток — колір стадійного блоку в браузері
   (FORMULAS §7.2), підлягає перенесенню.
-- Weekly Render і /status кольорів не рахують (Факт: порогів не читають) — нейтральний
-  показ план → прогноз.
+- Weekly Render і /status кольорів не рахують (порогів не читають). **Застаріле «нейтральний показ план → прогноз» знято аудитом 29.10.2026:** Weekly Render показує кольори відхилень, пораховані SQL (`archi_report_today`, `archi_snapshot_history`; `CLAUDE.md` п. 7, `WEEKLY_REPORT_FORM.md` §2).
 
 ### 2.2 Перерахунок
 SQL-функція `public.archi_recalc(p_project text DEFAULT NULL)` + `archi_recalc_trg()`;
@@ -70,7 +70,7 @@ INSERT/UPDATE/DELETE; `archi_recalc_plan` (project_metrics INSERT/UPDATE). Workf
 ## 3. Data Total — схема (Факт, 15.10.2026)
 
 **`project_metrics`** (43 колонки, 14 рядків: DEMO-01…10 + реальні `22-24`, `24-11`,
-`24-37`, `24-52`): план — `contract_amount, profitability_plan_pct, profit_plan,
+`24-37`, `24-52`; **live 29.10.2026: 50 колонок, 18 рядків — 14 `stages` + 4 `visit` `DEMO-01/04/05/08-АН`**): план — `contract_amount, profitability_plan_pct, profit_plan,
 cost_plan_team, cost_plan_subcontract, planned_hours, etc_plan_by_stage,
 planned_hours_by_stage, real_rate_team_hour, bac, koshtorys_spreadsheet_id/_sheet,
 baseline_at/_by, contract_file_url`; факт і прогноз (пише лише `archi_recalc`) —
@@ -113,7 +113,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 
 ## 4. Workflow `CKwCsGIwyw9feCY5` — потоки
 
-Детальна карта вузлів — `docs/TRANSITION_PROMPT_2026-10-15.md` §5.
+Детальна карта вузлів — `docs/TRANSITION_PROMPT_2026-10-25.md` §6 (179 вузлів); `docs/TRANSITION_PROMPT_2026-10-15.md` §5 — історія (167 вузлів). 47 із 179 вузлів не названо в жодному документі (аудит 29.10.2026, реєстр у `docs/DOC_AUDIT_29.10.2026.md`).
 
 ### 4.1 Telegram (`message`) → 4 паралельні гілки
 1. **Головна:** режим (`archi_bot_mode_state`) → `WR: Determine Route` →
@@ -167,8 +167,8 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 Картка з 16.10.2026 (RELEASE_PLAN §57): «Виконані роботи» = Собівартість_факт (F-24); у рядках ETC_Total, стадійному ETC і Прибуток — колонки План \| Факт \| Прогноз (F-23, F-25); `Fetch KP Log Sum` повертає `kp_month` і `kp_year`; конверсія КП 20%, план КП 350.
 
 ### 4.5 Weekly Render і xlsx
-Без грошових сум (методологія). Колонки — тижні знімків + «Сьогодні»: рентабельність, ETC, «Години до кінця / бюджет»
-(F-22, **не готовність**), готовність стадій ЕП/П/Р, акт, документація, тексти ПМа (CPI з 22.10.2026 не показується); у комірці проєкту і в шапці —
+Без грошових сум (методологія). Колонки — тижні знімків + «Сьогодні»: рентабельність, ETC, готовність — ланцюжок EVM у годинах
+(E-01…E-05, E-08; з 21.10.2026 замінив «Години до кінця / бюджет» F-22 — FORMULAS F-22, виправлено аудитом 29.10.2026), готовність стадій ЕП/П/Р, акт, документація, тексти ПМа (CPI з 22.10.2026 не показується); у комірці проєкту і в шапці —
 дата оновлення даних (F-28). **Повна специфікація (метрики 1–12, порядок, формати) — `WEEKLY_REPORT_FORM.md` §2**;
 вигляд змінюється лише за запитом власника й разом із цією специфікацією (`CLAUDE.md` п.3). CSS і формати живуть у
 `Build Weekly Render HTML` (патч-вузла немає з 18.10.2026).
@@ -204,7 +204,8 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | n8n | `osbbcopilot.app.n8n.cloud` |
 | Core workflow | `CKwCsGIwyw9feCY5`, `b100e952-a686-4354-877b-828b88f5e909` (29.10.2026, 179 вузлів) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64) |
-| Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо) |
+| Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо; live 29.10.2026 — 5 нод) |
+| Sheets Helper | `nGcSyWfuMO7vjTn6` (ручний, inactive, 7 нод; правки Кошторису) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
 | Supabase | `bxawceksdkqlbkdgjvyz` |
 | Кошторис DEMO | `1Ok4_U9u8kLZ0GJarPbEk4nQsqKeqdLzNNBONNNDgF7g` |
@@ -249,6 +250,8 @@ FORMULAS §7.1, §7.5.
 
 ## 9. Демо-дані (стан 15.10.2026)
 
+> **Історичний зріз.** Live 29.10.2026: 18 рядків `project_metrics` (14 договорів + 4 АН), 90 знімків за 9 тижнів, демо-години `time_log.source='demo_2910'` — 80 рядків / 757 год (відкат `sql/demo_seed_2026-10-29/rollback.sql`). Актуальні числа портфеля — найновіший розділ `RELEASE_PLAN`.
+
 14 проєктів; 9 з прогнозом ПМа (DEMO-01, 03–10); без прогнозу — DEMO-02 (немає ETC по Р)
 і 4 реальні (звітів не було). Графік оплат реальних проєктів — вигаданий (рішення 13.10).
 Портфель: рентабельність факт −65,5% (мало актів у демо — наслідок формули P-04),
@@ -274,7 +277,7 @@ FORMULAS §7.1, §7.5.
 
 | # | Дефект | Впевненість |
 |---|---|---|
-| D1 | `WR: Schedule Reminder (Fri 10:00)` без вихідних з'єднань і без дня/часу | Факт |
+| D1 | `WR: Schedule Reminder (Fri 10:00)` без вихідних з'єднань і без дня/часу | Факт; **live 29.10.2026:** день і час є (п'ятниця 10:00, Europe/Kyiv), вихідних з'єднань немає — нагадування не надсилається |
 | D2 | Чат бачить 0 КП (порядок сестринських гілок `executionOrder v1`) | **Виправлено 15.10.2026** (§48): `Fetch KP Log Sum` → `Fetch Project Metrics` послідовно в чаті й Mini App; чат перевірено наживо (запуски 6168/6169: `kp_month = 5`), Owner View — не перевірено |
 | D3 | ETC-методологія в картці (FORMULAS §7.3–7.5) | **Виправлено 16.10.2026** (§57): F-23, три рядки План/Факт/Прогноз |
 | D4 | Чат Q6/Q7 не знає плану бюро | **Виправлено 15.10.2026** (§48): Q6/Q7 цитують `pfc`; структуру відповідей перевірено наживо 15.10.2026 |
