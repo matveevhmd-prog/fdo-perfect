@@ -1,6 +1,6 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
-**Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
+**Дата:** 15.10.2026 · **Замінює:** `archive/ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
 **Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId b100e952-a686-4354-877b-828b88f5e909` (29.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§132; звірено аудитом документації 29.10.2026, `docs/DOC_AUDIT_29.10.2026.md`), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
@@ -106,6 +106,10 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 пише одразу `confirmed` [Припущення], перевірити**), `meeting_log`, `kp_log`,
 `n8n_chat_histories` (пам'ять WR/Import/Meeting агентів).
 
+**Вʼю поза розрахунками ARCHI (описано 29.10.2026, `CLAUDE.md` п. 14, рішення 6; Факт — `pg_get_viewdef`, власник `postgres`, коментаря немає; жоден вузол core workflow їх не читає — пошук по JSON = 0):**
+- `project_metrics_live` — **застаріла** (до `archi_recalc`, [Припущення] вересень 2026): рахує з `time_log`/`money_log`/`rates` «наживо» `actual_hours`, `percent_execution` = факт ÷ план годин, `earned_value_contract` = контракт × факт ÷ план годин, `actual_cost`, `efficiency_contract`, `comparison`. Це **лінійна оцінка готовності за годинами** — суперечить F-07/E-02 (готовність лише від ПМа) і Образу результату §7. Не використовувати; видалення — рішення власника.
+- `rates_coverage_check` — діагностика: пари (проєкт, виконавець) з підтвердженими годинами, для яких немає ставки в `rates` (такі години не входять у F-02 і P-10). Корисна для перевірки даних перед демо.
+
 **Чужі таблиці в тій самій базі** (`_bak_2026092*`, `jarvis_*`, `shift_*`, `bot_*`,
 `archi_bot_semantic_memory` тощо) — не частина ARCHI, не чіпати.
 
@@ -113,7 +117,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 
 ## 4. Workflow `CKwCsGIwyw9feCY5` — потоки
 
-Детальна карта вузлів — `docs/TRANSITION_PROMPT_2026-10-25.md` §6 (179 вузлів); `docs/TRANSITION_PROMPT_2026-10-15.md` §5 — історія (167 вузлів). 47 із 179 вузлів не названо в жодному документі (аудит 29.10.2026, реєстр у `docs/DOC_AUDIT_29.10.2026.md`).
+Повна карта вузлів (усі 179, з'єднання) — `docs/NODE_MAP.md`, генерується `scripts/gen_node_map.py` після кожного переекспорту. Опис ключових вузлів — `docs/TRANSITION_PROMPT_2026-10-25.md` §6; `docs/archive/TRANSITION_PROMPT_2026-10-15.md` §5 — історія (167 вузлів).
 
 ### 4.1 Telegram (`message`) → 4 паралельні гілки
 1. **Головна:** режим (`archi_bot_mode_state`) → `WR: Determine Route` →
@@ -203,7 +207,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
 | Core workflow | `CKwCsGIwyw9feCY5`, `b100e952-a686-4354-877b-828b88f5e909` (29.10.2026, 179 вузлів) |
-| Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64) |
+| Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64). **⚠️ Факт 29.10.2026:** гілка `AN:` (7 вузлів) є лише в збереженій чернетці `f2eb3887` (17.10.2026); опублікована версія — `84a8e8b0` (11.10.2026, 9 нод, без гілки АН). Чи використовує бот гілку АН — **Потребує перевірки**; публікація — рішення власника |
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо; live 29.10.2026 — 5 нод) |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` (ручний, inactive, 7 нод; правки Кошторису) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |

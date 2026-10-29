@@ -15,7 +15,7 @@
 1. Прочитай CLAUDE.md повністю (особливо п. 7, 8, 9; ритуал; заборони).
 2. Прочитай docs/EVM_CLASSIC_PLAN.md повністю — це твій план і план перевірки.
 3. Прочитай docs/TRANSITION_PROMPT_2026-10-25.md (карта, інфраструктура, правила роботи).
-4. Прочитай docs/FORMULAS.md розділи 0, 1, 2 і «Дві методології»; docs/SELF_AUDIT_EVM_22.10.2026.md (M1–M11);
+4. Прочитай docs/FORMULAS.md розділи 0, 1, 2 і «Дві методології»; docs/archive/SELF_AUDIT_EVM_22.10.2026.md (M1–M11);
    docs/ARCHI_TECH_SPEC_v3_0.md §2, §3, §13; SECURITY.md п. 1; docs/RELEASE_PLAN.md з кінця.
 5. Звір живий стан: n8n CKwCsGIwyw9feCY5 → activeVersionId (перехідний промпт називає 8a9fe9e5-…, але
    паралельна сесія могла його змінити — довіряй живому n8n, не файлу). K6sm (K6smBd5xWZLWx9rr) —

@@ -59,8 +59,8 @@
 - **Нове:** SQL-шар сигналів (`archi_etc_gap_signal`, `archi_ready_gap_signal`, `archi_idx_signal`, `archi_flow_idx_signal`, `archi_paid_idx_signal`, `archi_snapshot_evm`, `archi_snapshot_metrics`), вʼю `archi_report_today`, `archi_snapshot_history`, `archi_plan_execution`; нові пороги `idx_*`, `wr_ready_gap_pp`; EVM-ланцюжок готовності (E-01…E-07); CPI прибрано з Weekly Render/чату/xlsx.
 - **24.10.2026 (§89):** S-04 в Owner View переведено на SQL (`etc_gap_signal`, `stage_etc_signal`) — пункт 5 закрито частково; S-05, інші сигнали Owner View і `AN: Attach Block` лишаються в JS.
 - **Не змінилось (відкрите з 18.10):** A-1 (`AN: Attach Block`, `AN: Patch HTML`), D1 (`WR: Schedule Reminder`), токен у репо, RLS, відсутність `wr_stale_days`, `Build Status Text` (знахідка 8).
-- Детальна методологічна частина: `docs/SELF_AUDIT_EVM_22.10.2026.md`.
+- Детальна методологічна частина: `docs/archive/SELF_AUDIT_EVM_22.10.2026.md`.
 
 ## Зміни в репозиторії цього checkpoint
 
-`workflows/DEMO_Archi_Agent_Core.json` (`activeVersionId`), `docs/FORMULAS.md` (E-01), шапки `sql/2026-10-21_evm_readiness_chain.sql` і `sql/2026-10-21_deviation_colors.sql`, `docs/SELF_AUDIT_EVM_22.10.2026.md`, цей файл, `docs/RELEASE_PLAN.md` §85. У n8n і Supabase нічого не змінювалось.
+`workflows/DEMO_Archi_Agent_Core.json` (`activeVersionId`), `docs/FORMULAS.md` (E-01), шапки `sql/2026-10-21_evm_readiness_chain.sql` і `sql/2026-10-21_deviation_colors.sql`, `docs/archive/SELF_AUDIT_EVM_22.10.2026.md`, цей файл, `docs/RELEASE_PLAN.md` §85. У n8n і Supabase нічого не змінювалось.

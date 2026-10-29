@@ -43,6 +43,7 @@ docs/  (порядок читання — `CLAUDE.md` «Порядок чита�
   LAYOUT_STANDARD.md                 — стандарт верстки «стовпчиком» і словник емодзі
   RELEASE_PLAN.md                    — журнал робіт §0–§133 (читати з кінця)
   CTO_CHECKPOINT_PROMPT.md           — промпт аудиту коду проти документації
+  NODE_MAP.md                        — карта всіх 179 вузлів (генерує scripts/gen_node_map.py; руками не правити)
   ARCHI_Obraz_Idealnoho_Rezultatu.md — методологія «навіщо» (05.09.2026, доповнено 26.09.2026)
   Плани й промпти:
   EVM_CLASSIC_PLAN.md                — план вкладки EVM (⚠️ не відповідає CLAUDE.md п. 13 — переглянути)
@@ -53,18 +54,15 @@ docs/  (порядок читання — `CLAUDE.md` «Порядок чита�
   START_PROMPT_POST_AUDIT.md         — стартовий промпт наступної сесії: рішення за аудитом → місія EVM
   FEATURE_IDEAS.md                   — реєстр ідей власника (не в розробці)
   Аудити: CTO_CHECKPOINT_16/18/22/25/29.10.2026.md (датовані звіти), DOC_AUDIT_29.10.2026.md
-  Історія (банер у шапці): ARCHI_TECH_SPEC_v2_0.md, TRANSITION_PROMPT_2026-10-15.md (v1),
-    TRANSITION_PROMPT_2026-10-25.md (v3; розділи 2–8, 10–15 ще чинні), START_PROMPT_EVM_S0.md,
-    SESSION_PLAN_2026-10-26_SQL_PARAMS.md, SESSION_PLAN_2026-10-27_SQL_PARAMS_BLOCK_A.md,
-    DEMO_VIDEO_PLAN.md, DEMO_RUNSHEET_DEMO-01.md, SELF_AUDIT_EVM_22.10.2026.md,
-    archi_bot_gpt_analysis.md (зовнішній аналіз ChatGPT)
+  Історія — docs/archive/ (перелік і чим замінено — docs/archive/README.md);
+    TRANSITION_PROMPT_2026-10-25.md (v3) лишився в docs/: розділи 2–8, 10–15 ще чинні
 
 sql/                                 — SQL-зміни Supabase по датах (2026-10-17…2026-10-29),
                                         demo_seed_2026-10-17/ (генератор і скрипти демо-даних),
                                         demo_seed_2026-10-29/ (демо-години + rollback.sql)
-scripts/                             — check_report_form.py; replay/ (код вузлів на живих даних)
+scripts/                             — check_report_form.py; gen_node_map.py (→ docs/NODE_MAP.md); replay/ (код вузлів на живих даних)
 tests/                               — тести `WR: Parse Agent Output` (tests/README.md)
-CLAUDE.md                            — закриті рішення власника п. 1–13, ритуал старту
+CLAUDE.md                            — закриті рішення власника п. 1–14, ритуал старту
 
 SECURITY.md                          — відомі проблеми безпеки, прийняті ризики;
                                         п.5 (26.09.2026) — Supabase RLS вимкнений
