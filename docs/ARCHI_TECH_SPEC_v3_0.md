@@ -99,7 +99,7 @@ final_message, item_statuses, session_id, created_at`.
 пише — тригер `archi_recalc_plan` спрацьовує на UPDATE OF цих колонок (рекурсія). SQL — `sql/2026-10-17_visit_contracts.sql`,
 бекап `_bak_20261017_project_metrics`.
 
-**Інші:** `wr_plan_items` (план тижня: `status` pending|done|not_done|no_answer, `origin_week`, `carry_count`; вʼю `archi_plan_execution` — PX-01, вʼю `archi_snapshot_history` — H-01, функція `archi_etc_gap_signal` — H-02, `archi_snapshot_evm`, `archi_idx_signal`, `archi_ready_gap_signal` — E-01…E-07, FORMULAS), `archi_bot_mode_state`, `archi_wr_inbox` (черга повідомлень ПМа до «Відправити», 25.10.2026, RLS увімкнено)
+**Інші:** вʼю `archi_weekly_progress` (P-10: приріст готовності проти витрат; бюджет/замовник/власник; `sql/2026-10-29_archi_weekly_progress.sql`); `wr_plan_items` (план тижня: `status` pending|done|not_done|no_answer, `origin_week`, `carry_count`; вʼю `archi_plan_execution` — PX-01, вʼю `archi_snapshot_history` — H-01, функція `archi_etc_gap_signal` — H-02, `archi_snapshot_evm`, `archi_idx_signal`, `archi_ready_gap_signal` — E-01…E-07, FORMULAS), `archi_bot_mode_state`, `archi_wr_inbox` (черга повідомлень ПМа до «Відправити», 25.10.2026, RLS увімкнено)
 (session_id, mode, project_id, context, updated_at), `archi_thresholds` (key, value
 numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `rates`,
 `time_log`, `money_log` (статус `confirmed` — **механізм підтвердження: імпорт через бот
