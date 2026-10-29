@@ -1,6 +1,6 @@
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.0
 
-**Дата:** 15.10.2026 · **Замінює:** `ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
+**Дата:** 15.10.2026 · **Замінює:** `archive/ARCHI_TECH_SPEC_v2_0.md` (v2.2 від 04.10.2026 — історичний документ)
 **Звірено з:** n8n `CKwCsGIwyw9feCY5` `activeVersionId b100e952-a686-4354-877b-828b88f5e909` (29.10.2026, 179 вузлів; історія версій — `docs/RELEASE_PLAN.md` §48–§132; звірено аудитом документації 29.10.2026, `docs/DOC_AUDIT_29.10.2026.md`), Supabase `bxawceksdkqlbkdgjvyz` (схема, тригери, `archi_recalc()`, `archi_thresholds`).
 **Супутні документи:** `CLAUDE.md` (закриті рішення), `docs/FORMULAS.md` (усі формули —
 ця специфікація їх не дублює, лише посилається на ID), `docs/WEEKLY_REPORT_FORM.md`,
@@ -113,7 +113,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 
 ## 4. Workflow `CKwCsGIwyw9feCY5` — потоки
 
-Детальна карта вузлів — `docs/TRANSITION_PROMPT_2026-10-25.md` §6 (179 вузлів); `docs/TRANSITION_PROMPT_2026-10-15.md` §5 — історія (167 вузлів). 47 із 179 вузлів не названо в жодному документі (аудит 29.10.2026, реєстр у `docs/DOC_AUDIT_29.10.2026.md`).
+Детальна карта вузлів — `docs/TRANSITION_PROMPT_2026-10-25.md` §6 (179 вузлів); `docs/archive/TRANSITION_PROMPT_2026-10-15.md` §5 — історія (167 вузлів). 47 із 179 вузлів не названо в жодному документі (аудит 29.10.2026, реєстр у `docs/DOC_AUDIT_29.10.2026.md`).
 
 ### 4.1 Telegram (`message`) → 4 паралельні гілки
 1. **Головна:** режим (`archi_bot_mode_state`) → `WR: Determine Route` →

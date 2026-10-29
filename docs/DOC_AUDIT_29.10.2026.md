@@ -19,12 +19,12 @@
 **Вибірково (шапки, grep, посилання, лічильники):**
 - `RELEASE_PLAN.md` (заголовки всіх 136 розділів, §64, §63, §131–§132);
 - `TRANSITION_PROMPT_2026-10-25.md` (§4, §6, §11);
-- `TRANSITION_PROMPT_2026-10-15.md` (§5);
-- `EVM_CLASSIC_PLAN.md`, `START_PROMPT_EVM_S0.md`, `DEMO_PLAN_2026-10-28.md`, `CTO_CHECKPOINT_PROMPT.md`, `OWNER_MORNING_TEST.md`, `LAYOUT_STANDARD.md` — шапки й grep;
+- `archive/TRANSITION_PROMPT_2026-10-15.md` (§5);
+- `EVM_CLASSIC_PLAN.md`, `archive/START_PROMPT_EVM_S0.md`, `DEMO_PLAN_2026-10-28.md`, `CTO_CHECKPOINT_PROMPT.md`, `OWNER_MORNING_TEST.md`, `LAYOUT_STANDARD.md` — шапки й grep;
 - усі 99 файлів — grep по закритих рішеннях, секретах, персональних даних і внутрішніх посиланнях.
 
 **Не перевірено (чому):**
-- зміст `ARCHI_Obraz_Idealnoho_Rezultatu.md`, `archi_bot_gpt_analysis.md`, `TRANSITION_PROMPT_2026-10-15.md`, `ARCHI_TECH_SPEC_v2_0.md` по суті — історичні документи, перевірено лише банери й посилання на них;
+- зміст `ARCHI_Obraz_Idealnoho_Rezultatu.md`, `archive/archi_bot_gpt_analysis.md`, `archive/TRANSITION_PROMPT_2026-10-15.md`, `archive/ARCHI_TECH_SPEC_v2_0.md` по суті — історичні документи, перевірено лише банери й посилання на них;
 - `sql/demo_seed_2026-10-17/out/*` проти живої БД — дані змінено живими циклами після 17.10;
 - відповідність кожного з 37 Code-вузлів кожному ID FORMULAS — це предмет CTO Checkpoint (29.10.2026, P0 0), тут — вибірково (P-02, P-06, R-05, S-04, H-02, F-23, P-10);
 - K6sm і RC7H по вузлах — JSON у репозиторії немає, звірено лише лічильники.
@@ -70,7 +70,7 @@
 | 2 | `README.md` | 94 | 2026-10-29 | опис | чинний | 8 |
 | 3 | `SECURITY.md` | 155 | 2026-10-28 | еталон | чинний | 20 |
 | 4 | `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` | 314 | 2026-10-22 | аналіз/методологія | чинний | 5 |
-| 5 | `docs/ARCHI_TECH_SPEC_v2_0.md` | 454 | 2026-10-22 | опис | замінений → TECH_SPEC v3 | 7 |
+| 5 | `docs/archive/ARCHI_TECH_SPEC_v2_0.md` | 454 | 2026-10-22 | опис | замінений → TECH_SPEC v3 | 7 |
 | 6 | `docs/ARCHI_TECH_SPEC_v3_0.md` | 319 | 2026-10-29 | еталон | чинний | 9 |
 | 7 | `docs/CTO_CHECKPOINT_16.10.2026.md` | 50 | 2026-10-22 | checkpoint | датований звіт | 2 |
 | 8 | `docs/CTO_CHECKPOINT_18.10.2026.md` | 55 | 2026-10-22 | checkpoint | датований звіт | 2 |
@@ -80,24 +80,24 @@
 | 12 | `docs/CTO_CHECKPOINT_PROMPT.md` | 175 | 2026-10-22 | промпт аудиту | чинний | 9 |
 | 13 | `docs/DEMO_PLAN_2026-10-28.md` | 139 | 2026-10-28 | план | чинний | 4 |
 | 14 | `docs/DEMO_REPORT_TEXTS_2026-10-30.md` | 328 | 2026-10-28 | демо | чинний | 5 |
-| 15 | `docs/DEMO_RUNSHEET_DEMO-01.md` | 46 | 2026-10-22 | демо | історія | 2 |
-| 16 | `docs/DEMO_VIDEO_PLAN.md` | 159 | 2026-10-22 | план | історія → DEMO_PLAN | 3 |
+| 15 | `docs/archive/DEMO_RUNSHEET_DEMO-01.md` | 46 | 2026-10-22 | демо | історія | 2 |
+| 16 | `docs/archive/DEMO_VIDEO_PLAN.md` | 159 | 2026-10-22 | план | історія → DEMO_PLAN | 3 |
 | 17 | `docs/EVM_CLASSIC_PLAN.md` | 114 | 2026-10-29 | план | чинний | 6 |
 | 18 | `docs/FEATURE_IDEAS.md` | 53 | 2026-10-22 | план | чинний | 1 |
 | 19 | `docs/FORMULAS.md` | 236 | 2026-10-29 | еталон | чинний | 16 |
 | 20 | `docs/LAYOUT_STANDARD.md` | 79 | 2026-10-22 | еталон | чинний | 7 |
 | 21 | `docs/OWNER_MORNING_TEST.md` | 82 | 2026-10-22 | демо | чинний | 5 |
 | 22 | `docs/RELEASE_PLAN.md` | 2000 | 2026-10-29 | журнал/план | чинний | 18 |
-| 23 | `docs/SELF_AUDIT_EVM_22.10.2026.md` | 125 | 2026-10-24 | checkpoint | історія | 3 |
-| 24 | `docs/SESSION_PLAN_2026-10-26_SQL_PARAMS.md` | 76 | 2026-10-26 | план | виконано, історія | 2 |
-| 25 | `docs/SESSION_PLAN_2026-10-27_SQL_PARAMS_BLOCK_A.md` | 178 | 2026-10-28 | план | виконано, історія | 2 |
+| 23 | `docs/archive/SELF_AUDIT_EVM_22.10.2026.md` | 125 | 2026-10-24 | checkpoint | історія | 3 |
+| 24 | `docs/archive/SESSION_PLAN_2026-10-26_SQL_PARAMS.md` | 76 | 2026-10-26 | план | виконано, історія | 2 |
+| 25 | `docs/archive/SESSION_PLAN_2026-10-27_SQL_PARAMS_BLOCK_A.md` | 178 | 2026-10-28 | план | виконано, історія | 2 |
 | 26 | `docs/START_PROMPT_DOC_AUDIT.md` | 65 | 2026-10-29 | стартовий/перехідний промпт | чинний | 1 |
-| 27 | `docs/START_PROMPT_EVM_S0.md` | 54 | 2026-10-26 | стартовий/перехідний промпт | замінений (п. 13) | 4 |
-| 28 | `docs/TRANSITION_PROMPT_2026-10-15.md` | 646 | 2026-10-25 | стартовий/перехідний промпт | замінений → TP v4 | 5 |
+| 27 | `docs/archive/START_PROMPT_EVM_S0.md` | 54 | 2026-10-26 | стартовий/перехідний промпт | замінений (п. 13) | 4 |
+| 28 | `docs/archive/TRANSITION_PROMPT_2026-10-15.md` | 646 | 2026-10-25 | стартовий/перехідний промпт | замінений → TP v4 | 5 |
 | 29 | `docs/TRANSITION_PROMPT_2026-10-25.md` | 422 | 2026-10-29 | стартовий/перехідний промпт | частково чинний (розд. 2–8, 10–15) | 9 |
 | 30 | `docs/TRANSITION_PROMPT_2026-10-29.md` | 95 | 2026-10-29 | стартовий/перехідний промпт | чинний | 5 |
 | 31 | `docs/WEEKLY_REPORT_FORM.md` | 99 | 2026-10-25 | еталон | чинний | 11 |
-| 32 | `docs/archi_bot_gpt_analysis.md` | 616 | 2026-10-22 | аналіз/методологія | історія | 4 |
+| 32 | `docs/archive/archi_bot_gpt_analysis.md` | 616 | 2026-10-22 | аналіз/методологія | історія | 4 |
 | 33 | `scripts/check_report_form.py` | 38 | 2026-10-22 | код перевірки | чинний | 13 |
 | 34 | `scripts/replay/replay_owner_view.js` | 38 | 2026-10-29 | код перевірки | чинний | 3 |
 | 35 | `scripts/replay/replay_weekly_render.js` | 25 | 2026-10-24 | код перевірки | чинний | 2 |
@@ -187,7 +187,7 @@
 |---|---|---|---|---|
 | Б-1 | **P0** | п. 10 Workload без нових договорів | `FORMULAS.md` P-06: «той самий прогноз нових договорів входить у … Workload (+ `kp_year` ÷ 5 × `plan_avg_project_hours`)». Код `Build MiniApp Data` уже за п. 10 (коментар «нові договори з КП НЕ входять»); live 5 688 = Σ ETC без АН | **виправлено** в FORMULAS (суперечить CLAUDE.md). Окремо: перший коментар у коді досі каже «його ж беруть … Workload» — знахідка коду, не виправлялась |
 | Б-2 | P1 | п. 13 «класичний EVM без костилів Archi» | `FORMULAS.md` «Дві методології»: «EV = BAC × готовність … `cpi_classic_evm` — це вже класичний EVM»; F-09 «EV класичний» = `bac` × готовність ПМа; V-05 «EVM» | банер-попередження в FORMULAS; перейменування — **рішення 1** |
-| Б-3 | P1 | п. 13 | `START_PROMPT_EVM_S0.md` вів у EVM-сесію за планом, що не відповідає п. 13 | **виправлено** (банер ЗАМІНЕНО) |
+| Б-3 | P1 | п. 13 | `archive/START_PROMPT_EVM_S0.md` вів у EVM-сесію за планом, що не відповідає п. 13 | **виправлено** (банер ЗАМІНЕНО) |
 | Б-4 | P1 | п. 7 «колір рахує лише SQL» | `TECH_SPEC` §2.1: «кольори — лише `Build MiniApp Data`», «Weekly Render … нейтральний показ план → прогноз»; `FORMULAS` шапка «контурів обчислення 2» | **виправлено** (уточнення: SQL-вʼю й функції) |
 | Б-5 | P1 | п. 7 (внутрішня) | `CLAUDE.md:56` «Індекси грошей у Weekly Render: «Акти ÷ освоєний обсяг»» проти `CLAUDE.md:61` «Акти порівнюються з планом актів, не з освоєним»; код і `WEEKLY_REPORT_FORM` §2: E-06 (план актів) з кольором, E-06b (освоєне) без кольору | CLAUDE.md не змінено — **рішення 2** |
 | Б-6 | — | п. 1 «Залишок» | grep: у чинних документах лише заборони й назва колонки БД `залишок_прогноз_по_стадіях`; у коді — лише в заборонах промптів (`Build Request Body`, `WR: Build WR Prompt`) | суперечностей немає |
@@ -224,14 +224,14 @@
 
 | Файл | Банер до аудиту | Посилаються як на еталон? | Дія |
 |---|---|---|---|
-| `ARCHI_TECH_SPEC_v2_0.md` | є | ні | — |
-| `TRANSITION_PROMPT_2026-10-15.md` | є | **так**: `README.md` («читати першим»), `TECH_SPEC` §4 (карта вузлів) | **виправлено** (README → v4; TECH_SPEC → TP v3 §6) |
+| `archive/ARCHI_TECH_SPEC_v2_0.md` | є | ні | — |
+| `archive/TRANSITION_PROMPT_2026-10-15.md` | є | **так**: `README.md` («читати першим»), `TECH_SPEC` §4 (карта вузлів) | **виправлено** (README → v4; TECH_SPEC → TP v3 §6) |
 | `TRANSITION_PROMPT_2026-10-25.md` | є | `START_PROMPT_EVM_S0` (історія) | — |
-| `START_PROMPT_EVM_S0.md` | немає | `TP v4` §1 «вихідний матеріал» | **банер додано** |
+| `archive/START_PROMPT_EVM_S0.md` | немає | `TP v4` §1 «вихідний матеріал» | **банер додано** |
 | `SESSION_PLAN_2026-10-26/27` | немає | ні | **банер «ВИКОНАНО»** |
-| `DEMO_VIDEO_PLAN.md` | немає | `DEMO_PLAN` (як попередник) | **банер «історія»** |
-| `archi_bot_gpt_analysis.md` | немає | README (опис) | **банер «історія»** |
-| `DEMO_RUNSHEET_DEMO-01.md`, `SELF_AUDIT_EVM_22.10.2026.md` | немає | ні | **банер «історія»** |
+| `archive/DEMO_VIDEO_PLAN.md` | немає | `DEMO_PLAN` (як попередник) | **банер «історія»** |
+| `archive/archi_bot_gpt_analysis.md` | немає | README (опис) | **банер «історія»** |
+| `archive/DEMO_RUNSHEET_DEMO-01.md`, `archive/SELF_AUDIT_EVM_22.10.2026.md` | немає | ні | **банер «історія»** |
 | `CTO_CHECKPOINT_16…25.10` | датовані назви | ні | без банера (дата в імені) |
 | `sql/2026-10-20…22_*` | у файлах є «УВАГА … застаріло» | — | — |
 
@@ -249,7 +249,7 @@
 
 ## Ж. Посилання й навігація
 
-- Ж-1 (P1) — `README.md` вів на `TRANSITION_PROMPT_2026-10-15.md` «читати першим». **Виправлено** (v4).
+- Ж-1 (P1) — `README.md` вів на `archive/TRANSITION_PROMPT_2026-10-15.md` «читати першим». **Виправлено** (v4).
 - Ж-2 (P2) — README не згадував 20 документів (WRF, LAYOUT, TP v3/v4, CTO 16–29, DEMO_*, EVM_*, START_PROMPT_*, SESSION_PLAN_*, OWNER_MORNING_TEST, SELF_AUDIT, `sql/`, `scripts/`, `tests/`, `CLAUDE.md`). **Виправлено**.
 - Ж-3 (P2) — README «Як синхронізувати»: `Download` у меню — розходиться з `CLAUDE.md` «Правила n8n через MCP». **Виправлено**.
 - Ж-4 (—) — неіснуючі файли: `docs/ARCHI_FEATURES_v1.md` (план DEMO_VIDEO 1.1, не створено), `docs/EVM_CLASSIC_DESIGN.md` (результат Ф0 EVM, ще не створено) — заплановані, не биті посилання.
@@ -296,7 +296,7 @@
 2. `docs/FORMULAS.md` — Б-1 (P0, P-06), Б-2 (банер п. 13), Б-4 (шапка контурів), В (R-05 §7.8, `plan_avg_project_hours`), звірка 31 ключа.
 3. `SECURITY.md` — Ж-7, З-2, А-8 (п. 12).
 4. `README.md` — Ж-1, Ж-2, Ж-3, дата/версія.
-5. Банери: `START_PROMPT_EVM_S0.md`, `SESSION_PLAN_2026-10-26_SQL_PARAMS.md`, `SESSION_PLAN_2026-10-27_SQL_PARAMS_BLOCK_A.md`, `DEMO_VIDEO_PLAN.md`, `archi_bot_gpt_analysis.md`, `DEMO_RUNSHEET_DEMO-01.md`, `SELF_AUDIT_EVM_22.10.2026.md`.
+5. Банери: `archive/START_PROMPT_EVM_S0.md`, `archive/SESSION_PLAN_2026-10-26_SQL_PARAMS.md`, `archive/SESSION_PLAN_2026-10-27_SQL_PARAMS_BLOCK_A.md`, `archive/DEMO_VIDEO_PLAN.md`, `archive/archi_bot_gpt_analysis.md`, `archive/DEMO_RUNSHEET_DEMO-01.md`, `archive/SELF_AUDIT_EVM_22.10.2026.md`.
 6. `docs/TRANSITION_PROMPT_2026-10-29.md` — рядок «Живий стан», вхідна точка після аудиту; `docs/RELEASE_PLAN.md` §133.
 
 Не змінено: n8n, Supabase, `CLAUDE.md`, код вузлів, жодного файла не видалено.

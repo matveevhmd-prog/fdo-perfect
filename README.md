@@ -53,11 +53,11 @@ docs/  (порядок читання — `CLAUDE.md` «Порядок чита�
   START_PROMPT_POST_AUDIT.md         — стартовий промпт наступної сесії: рішення за аудитом → місія EVM
   FEATURE_IDEAS.md                   — реєстр ідей власника (не в розробці)
   Аудити: CTO_CHECKPOINT_16/18/22/25/29.10.2026.md (датовані звіти), DOC_AUDIT_29.10.2026.md
-  Історія (банер у шапці): ARCHI_TECH_SPEC_v2_0.md, TRANSITION_PROMPT_2026-10-15.md (v1),
-    TRANSITION_PROMPT_2026-10-25.md (v3; розділи 2–8, 10–15 ще чинні), START_PROMPT_EVM_S0.md,
-    SESSION_PLAN_2026-10-26_SQL_PARAMS.md, SESSION_PLAN_2026-10-27_SQL_PARAMS_BLOCK_A.md,
-    DEMO_VIDEO_PLAN.md, DEMO_RUNSHEET_DEMO-01.md, SELF_AUDIT_EVM_22.10.2026.md,
-    archi_bot_gpt_analysis.md (зовнішній аналіз ChatGPT)
+  Історія (банер у шапці): archive/ARCHI_TECH_SPEC_v2_0.md, archive/TRANSITION_PROMPT_2026-10-15.md (v1),
+    TRANSITION_PROMPT_2026-10-25.md (v3; розділи 2–8, 10–15 ще чинні), archive/START_PROMPT_EVM_S0.md,
+    archive/SESSION_PLAN_2026-10-26_SQL_PARAMS.md, archive/SESSION_PLAN_2026-10-27_SQL_PARAMS_BLOCK_A.md,
+    archive/DEMO_VIDEO_PLAN.md, archive/DEMO_RUNSHEET_DEMO-01.md, archive/SELF_AUDIT_EVM_22.10.2026.md,
+    archive/archi_bot_gpt_analysis.md (зовнішній аналіз ChatGPT)
 
 sql/                                 — SQL-зміни Supabase по датах (2026-10-17…2026-10-29),
                                         demo_seed_2026-10-17/ (генератор і скрипти демо-даних),
