@@ -1,7 +1,7 @@
 # CTO Checkpoint — 30.10.2026
 
-Живий `activeVersionId`: `9581c7e3-54a4-4ed9-ab86-7c79c95337da` (`get_workflow_history`, n8n `CKwCsGIwyw9feCY5`, остання версія — п. 15, 29.10) | Репо (`workflows/DEMO_Archi_Agent_Core.json`, README): `9581c7e3-…` | **Збіг версії: так.** Побайтна звірка `parameters` усіх вузлів з live **не виконувалась** (див. «Не перевірено»).
-Підсумок: **P0 0 · P1 3 · P2 4**
+Живий `activeVersionId`: `bc449cbd-e249-4972-a5d5-e9cd507353b1` (`get_workflow_history`, n8n `CKwCsGIwyw9feCY5`, опубліковано 30.10.2026 05:57 UTC, §141) | Репо (`main` після PR #103): `bc449cbd-…`, 179 вузлів | **Збіг версії: так.** Перша частина checkpoint (ранок 30.10) писалась на застарілому `main` (`9581c7e3`): паралельна сесія за час моєї роботи опублікувала 4 версії (п. 15 на індекси, §141) і міграцію `p15_indices_red_20261030`; частину 1 перевірено вдруге після оновлення. Побайтна звірка `parameters` усіх вузлів з live **не виконувалась** (див. «Не перевірено»).
+Підсумок: **P0 0 · P1 3 · P2 5**
 Режим: лише читання (n8n `get_workflow_history`; Supabase `SELECT`; аналіз файлу репо). Код і дані не змінювались.
 Попередній checkpoint: `CTO_CHECKPOINT_29.10.2026.md` (`b100e952`). Після нього — 4 публікації n8n (§135–§140).
 
@@ -40,3 +40,28 @@
 - Нова версія n8n `9581c7e3` (було `b100e952` на момент checkpoint): правило кольору п. 15, §140.
 - Знахідка 29.10 #2 (токен у git-історії) і #6–#7 (P-10) цим checkpoint не перевірялись — залишаються як у 29.10.
 - Нова знахідка #2: склад циклу не збігається з кількістю проєктів у базі; DEMO-08 без знімка 12.10.
+
+## Частина 2: код проти специфікації після оновлення `main` (30.10.2026, `bc449cbd`)
+
+Режим: лише читання (Supabase `SELECT`, файл репо). Виконано: пороги БД проти `FORMULAS` §6; резервні значення `rule('key', default)` у вузлах проти БД (A-2); SQL-функції сигналів проти `FORMULAS`; перегенерація вузлів з файлу репо; тести.
+
+### Перевірено й відповідає
+- **Пороги БД ↔ `FORMULAS` §6 (live SQL, 31 ключ `archi_thresholds`, звірка вручну).** Збігаються всі: індекси і `cpi_*` = 1 / 1, `wr_ready_gap_pp` = 0, `plan_exec_*` = 100 / 100, `etc_*`, `rent_drop_pp*`, `profit_*_pct`, `slip_red_days` = 0, `unpaid_*` 0,10 / 0,25, `doc_prob_*` 6 / 3, `block_red_days` 14, `readiness_gap_pp` 20, `opt_*` 0,40 / 50, `plan_year_*`.
+- **Міграція `p15_indices_red_20261030`.** Є в БД (`list_migrations`) і в репо (`sql/2026-10-30_p15_indices_red.sql` та відкат).
+- **SQL-сигнали.** `archi_idx_signal`, `archi_flow_idx_signal`: `round(p,2) < idx_red` → red, інакше green (жовтого при `idx_yellow` = 1 немає). `archi_ready_gap_signal`: `round(p_pp,1) > wr_ready_gap_pp` → red. `archi_etc_gap_signal`, `archi_vac_signal`: перевитрата > 0 → red, `<= 0` → green. Усе відповідає `CLAUDE.md` п. 15.
+- **Тести.** `check_report_form.py` — розбіжностей 0; `wr_parse_agent_output` — 29/0.
+- **Ключі `wr_ready_gap_pp` і `plan_exec_*` не читаються вузлами n8n за `rule()`**: перший читає SQL-функція `archi_ready_gap_signal`, другі — в `Build MiniApp Data` і вʼю `archi_plan_execution`. Це не дефект, але `FORMULAS` має це вказувати (P2, нижче).
+
+### Нові знахідки
+| # | Пріор. | Тип | Де | Еталон | Факт | Рекомендація |
+|---|---|---|---|---|---|---|
+| 8 | P2 | ARCH | `Build MiniApp Data`, `AN: Attach Block`: резервні значення `rule('key', default)`; SQL `COALESCE` у `archi_etc_gap_signal`, `archi_vac_signal` | A-2: резервне значення в коді = значенню в БД | Код: `cpi_red` 0,85, `cpi_yellow` 0,95, `idx_red` 0,7, `idx_yellow` 0,9, `etc_red` 0,1, `etc_yellow` 0,05, `profit_red_pct` 10, `profit_yellow_pct` 5, `rent_drop_pp` 5, `rent_drop_pp_red` 10, `slip_red_days` 14. БД: 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0. SQL `COALESCE`: etc 0,10 / 0,05. Резервні значення спрацюють, лише якщо рядка порогу в `archi_thresholds` немає (не перевіряв, чи таке можливо); тоді екран покаже старі пороги | Привести резервні значення до БД окремою ітерацією; не до 03.11 (зміна n8n) |
+
+### Не виконано (чесно)
+- F-check: `pg_get_functiondef('archi_recalc')` по F-01…F-23 не звірявся.
+- S-check і P-check по рядках `FORMULAS` §3–4 для `Build MiniApp Data` (45 КБ коду) — лише пороги й ключі, не кожна умова.
+- R-check (`WR: Build WR Prompt`, `WR: Parse Agent Output`) — крім тестів 29/0.
+- Крок 3 («показник × контур»), маршрутизація, RLS, A-5.
+- Replay екранів (`scripts/replay/`) на live-даних — не запускався.
+- Чи читає `demo_asof` SQL (функція/вʼю) — перевірив лише вузли n8n (не читають); БД не перевіряв.
+- Повторна побайтна звірка вузлів з live — не виконувалась, збіг лише за `versionId`.
