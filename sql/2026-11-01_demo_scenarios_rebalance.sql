@@ -1,0 +1,30 @@
+-- Перебалансування демо-сценаріїв знімків 26.10.2026 (CLAUDE.md п. 18, рішення власника 01.11.2026 «SQL-пакет, роби»).
+-- Мета: зняти перекіс у червоне (11 з 14 проєктів 🔴) — DEMO-01 і DEMO-09 стають 🟢 (за планом чи кращі), 22-24 лишається 🟡 (запит допомоги по актах).
+-- Числа узгоджені арифметично (розрахунок вручну від project_metrics 01.11.2026, ставка × години + субпідряд; перерахунок виконує тригер archi_recalc_wr):
+--   DEMO-01: ETC Р 85 год (≤ ETC_факт 110,1; прогноз рентабельності ≈ 27,2% ≥ план 26,9%), готовність Р 60% (= 125,5 ÷ (125,5 + 85)), усі пункти плану виконані.
+--   DEMO-09: ETC П 70 / Р 200 год (≤ ETC_факт 322,5; рентабельність ≈ 21,9% ≥ план 19,8%), готовність П 55%, терміни = плановим (П 06.11, Р 11.12).
+--   22-24:  ETC Р 150 год (≤ ETC_факт 157,2; рентабельність ≈ 11,6% ≥ план 11,1%), готовність Р 88%.
+-- Відкат: sql/2026-11-01_demo_scenarios_rebalance_rollback.sql
+UPDATE public.wr_weekly_snapshots SET
+  "готовність_pct" = '{"П":100,"Р":60,"ЕП":100,"МБР":100}'::jsonb,
+  "залишок_прогноз_по_стадіях" = '{"П":0,"Р":85,"ЕП":0,"МБР":0}'::jsonb,
+  item_statuses = '[{"status":"done","item_number":1},{"status":"done","item_number":2}]'::jsonb,
+  pm_comment = 'Проміжні рішення по П із замовником узгодили, акт по П підписано.'
+WHERE id = 256 AND project_id = 'DEMO-01';
+UPDATE public.wr_plan_items SET status = 'done' WHERE id = 291 AND project_id = 'DEMO-01';
+DELETE FROM public.wr_plan_items WHERE id = 548 AND project_id = 'DEMO-01';
+UPDATE public.wr_plan_items SET item_number = 1 WHERE id = 549 AND project_id = 'DEMO-01';
+UPDATE public.wr_plan_items SET item_number = 2 WHERE id = 550 AND project_id = 'DEMO-01';
+
+UPDATE public.wr_weekly_snapshots SET
+  "готовність_pct" = '{"П":55,"Р":0,"ЕП":100,"МБР":100}'::jsonb,
+  "залишок_прогноз_по_стадіях" = '{"П":70,"Р":200,"ЕП":0,"МБР":0}'::jsonb,
+  "дедлайн_прогноз_по_стадіях" = '{"П":"2026-11-06","Р":"2026-12-11"}'::jsonb,
+  plans_next_week = '1) Довести готовність П до 65%'
+WHERE id = 261 AND project_id = 'DEMO-09';
+UPDATE public.wr_plan_items SET item_text = 'Довести готовність П до 65%' WHERE id = 559 AND project_id = 'DEMO-09';
+
+UPDATE public.wr_weekly_snapshots SET
+  "готовність_pct" = '{"П":100,"Р":88,"ЕП":100,"МБР":100}'::jsonb,
+  "залишок_прогноз_по_стадіях" = '{"П":0,"Р":150,"ЕП":0,"МБР":0}'::jsonb
+WHERE id = 259 AND project_id = '22-24';
