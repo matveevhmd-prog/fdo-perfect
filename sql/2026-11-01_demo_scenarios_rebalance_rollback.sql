@@ -6,10 +6,6 @@ UPDATE public.wr_weekly_snapshots SET
   pm_comment = 'Проміжні рішення по П із замовником узгодили, акт по П готуємо.'
 WHERE id = 256 AND project_id = 'DEMO-01';
 UPDATE public.wr_plan_items SET status = 'not_done' WHERE id = 291 AND project_id = 'DEMO-01';
-UPDATE public.wr_plan_items SET item_number = 3 WHERE id = 550 AND project_id = 'DEMO-01';
-UPDATE public.wr_plan_items SET item_number = 2 WHERE id = 549 AND project_id = 'DEMO-01';
-INSERT INTO public.wr_plan_items (id, project_id, week_start, item_number, item_text, status, carry_count, origin_week, created_at) OVERRIDING SYSTEM VALUE VALUES
-  (548, 'DEMO-01', '2026-11-02', 1, 'Підготувати до підписання акт по завершеній стадії', 'pending', 1, '2026-10-19', now());
 
 UPDATE public.wr_weekly_snapshots SET
   "готовність_pct" = '{"П":48,"Р":0,"ЕП":100,"МБР":100}'::jsonb,

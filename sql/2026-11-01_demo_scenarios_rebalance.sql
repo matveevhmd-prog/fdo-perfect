@@ -4,6 +4,7 @@
 --   DEMO-01: ETC Р 85 год (≤ ETC_факт 110,1; прогноз рентабельності ≈ 27,2% ≥ план 26,9%), готовність Р 60% (= 125,5 ÷ (125,5 + 85)), усі пункти плану виконані.
 --   DEMO-09: ETC П 70 / Р 200 год (≤ ETC_факт 322,5; рентабельність ≈ 21,9% ≥ план 19,8%), готовність П 55%, терміни = плановим (П 06.11, Р 11.12).
 --   22-24:  ETC Р 150 год (≤ ETC_факт 157,2; рентабельність ≈ 11,6% ≥ план 11,1%), готовність Р 88%.
+-- Не виконано (свідомо): видалення перенесеного пункту плану `id` 548 DEMO-01 («Підготувати до підписання акт…», 02.11, pending) — потребує підтвердження деструктивного SQL; на екрани не впливає (план на тиждень береться з тексту знімка).
 -- Відкат: sql/2026-11-01_demo_scenarios_rebalance_rollback.sql
 UPDATE public.wr_weekly_snapshots SET
   "готовність_pct" = '{"П":100,"Р":60,"ЕП":100,"МБР":100}'::jsonb,
@@ -12,9 +13,6 @@ UPDATE public.wr_weekly_snapshots SET
   pm_comment = 'Проміжні рішення по П із замовником узгодили, акт по П підписано.'
 WHERE id = 256 AND project_id = 'DEMO-01';
 UPDATE public.wr_plan_items SET status = 'done' WHERE id = 291 AND project_id = 'DEMO-01';
-DELETE FROM public.wr_plan_items WHERE id = 548 AND project_id = 'DEMO-01';
-UPDATE public.wr_plan_items SET item_number = 1 WHERE id = 549 AND project_id = 'DEMO-01';
-UPDATE public.wr_plan_items SET item_number = 2 WHERE id = 550 AND project_id = 'DEMO-01';
 
 UPDATE public.wr_weekly_snapshots SET
   "готовність_pct" = '{"П":55,"Р":0,"ЕП":100,"МБР":100}'::jsonb,
