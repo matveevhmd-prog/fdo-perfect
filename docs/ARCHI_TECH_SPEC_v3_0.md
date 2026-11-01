@@ -110,6 +110,8 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 - `project_metrics_live` — **застаріла** (до `archi_recalc`, [Припущення] вересень 2026): рахує з `time_log`/`money_log`/`rates` «наживо» `actual_hours`, `percent_execution` = факт ÷ план годин, `earned_value_contract` = контракт × факт ÷ план годин, `actual_cost`, `efficiency_contract`, `comparison`. Це **лінійна оцінка готовності за годинами** — суперечить F-07/E-02 (готовність лише від ПМа) і Образу результату §7. Не використовувати; видалення — рішення власника.
 - `rates_coverage_check` — діагностика: пари (проєкт, виконавець) з підтвердженими годинами, для яких немає ставки в `rates` (такі години не входять у F-02 і P-10). Корисна для перевірки даних перед демо.
 
+**Гілка «EVM (класичний)» (01.11.2026, `FORMULAS` §9):** таблиці `evm_packages` (базовий план, 100 демо-рядків), `evm_package_done` (факт виконання, порожня) — з RLS без політик; функції `evm_classic_indices`, `evm_classic_at`; в'ю `evm_classic_today` (`security_invoker`). Джерело плану — Supabase (`CLAUDE.md` п. 17), Кошторис лише адаптер.
+
 **Чужі таблиці в тій самій базі** (`_bak_2026092*`, `jarvis_*`, `shift_*`, `bot_*`,
 `archi_bot_semantic_memory` тощо) — не частина ARCHI, не чіпати.
 
