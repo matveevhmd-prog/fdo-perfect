@@ -2168,3 +2168,22 @@ P0 1 · P1 5 · P2 11; інваріанти 3/5. Живий `27350d38` = реп�
 **Не перевірено:** чи credential n8n «Google Sheets account» — це сервісний акаунт `archi-ai@…` і чи має він право запису (Assumption).
 **Checkpoint:** відкрито (запис Н-1…Н-4 і «EVM_пакети» — сесія EVM-2).
 
+## 143. Місія EVM, сесія EVM-2: джерело плану — Supabase, Ф1 таблиці `evm_packages` і `evm_package_done` (01.11.2026)
+**M-пункт/вплив:** гілка «EVM (класичний)», Ф1 (SQL, `EVM_CLASSIC_DESIGN.md` §4). Нові об'єкти, наявні таблиці не змінювались. Archi-формули, пороги, Weekly Render, core `CKwCsGIwyw9feCY5`, K6sm — без змін.
+**Рішення власника 01.11.2026 («Так»):** відмовитись від Google Drive/Sheets як джерела плану; Supabase — джерело; Python/нову платформу не будувати зараз (`CLAUDE.md` п. 17). Скасовує шлях запису в Кошторис з §142 і розділу 8 `TRANSITION_PROMPT_EVM_2026-10-31.md`.
+**Що зроблено:**
+1. Перевірка інструментів: Drive читає (метадані), `copy_file` відмовляє «The caller does not have permission»; Google Sheets MCP — Developer Preview; n8n бачить credential `ijBsXae1VQfiWISu` (тип `googleSheetsOAuth2Api`).
+2. Знімок Кошториса: xlsx-експорт, 20 вкладок, SHA-256 `dbc4ee33…050ab` (scratchpad, не в git). Рядки плану DEMO-01…10 (120 рядків) збережено в `sql/seed/demo_plan_rows_2026-10-31.json`.
+3. Звірка K6sm: версія `cf904641`; колонок `U`, `V` не читає (Н-1/Н-2 безпечні); Н-4 — реальний дефект (точне порівняння ProjectID). Локальний файл core не містить вузлів Sheets (grep; живий core не перечитувався).
+4. Міграція `evm_classic_f1_tables` (`apply_migration`, файл `sql/2026-11-01_evm_classic_f1_tables.sql`, відкат `…_rollback.sql`): `evm_packages`, `evm_package_done`, RLS увімкнено без політик (як `archi_wr_inbox`), `rule` лише `0/100` (D1).
+5. Наповнення (`sql/2026-11-01_evm_classic_f1_seed.sql`, відкат `…_seed_rollback.sql`): 100 пакетів, `source='demo'`, `created_by='claude-evm-2'`.
+6. Знайдено Н-5: перевірка E3 (§6 дизайну) вимагає код пакета в `Довідник_розділів`, а там лише назви без кодів → перевіряти назву (D). Виконання — після «так» власника.
+7. Apps Script для Кошториса написано, але **не запускався і не злитий** (шлях скасовано п. 17); лишається в історії гілки `claude/evm-2-apps-script`.
+**Спосіб перевірки (читання з бази, `live SQL` 01.11.2026):**
+- `evm_packages`: 100 рядків (очікувалось 100); DEMO-01…10 по 8; `22-24` 3; `24-11` 3; `24-37` 7; `24-52` 7.
+- Σ `budget_uah` проти `project_metrics.bac`: відхилення ≤ 0,01 грн у 14 з 14 (−0,01: DEMO-02, DEMO-07, 24-11; +0,01: 24-37; решта 0,00).
+- Кінець П і Р = `payment_schedule` «документація»: 26 з 26.
+- `relrowsecurity` = true на обох таблицях.
+**Не зроблено:** функція `evm_classic_at` і в'ю `evm_classic_today` (Ф1b); запис фактів виконання (Ф3, бот «Видано»); вкладка Owner View (Ф4); форма введення плану; версії плану. Беклог з причинами — `CLAUDE.md` п. 17.
+**Не перевірено:** живий core `CKwCsGIwyw9feCY5` не перечитувався на згадки Кошториса (лише локальний JSON); `evm_*` у `SECURITY.md` записано, інші таблиці без RLS не змінювались.
+**Checkpoint:** Ф1 (таблиці + демо-набір) пройдено; Ф1b (функція/в'ю) відкрито.
