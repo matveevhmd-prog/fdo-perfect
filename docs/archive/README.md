@@ -16,3 +16,15 @@
 | `archi_bot_gpt_analysis.md` | зовнішній аналіз ChatGPT (історія) |
 
 `TRANSITION_PROMPT_2026-10-25.md` (v3) лишився в `docs/`: його розділи 2–8, 10–15 ще чинні.
+
+## Переміщено 02.11.2026 (фіналізація документації, RELEASE_PLAN §155)
+- `START_PROMPT_NEXT_2026-10-29.md` — виконано/замінено планом START_PROMPT_DEMO_AND_CLOSE (29.10.2026)
+- `START_PROMPT_POST_AUDIT.md` — виконано (аудит і рішення за ним — RELEASE_PLAN §133–§136)
+- `START_PROMPT_DOC_AUDIT.md` — виконано (результат — DOC_AUDIT_29.10.2026.md, RELEASE_PLAN §133)
+- `CTO_CHECKPOINT_16.10.2026.md` — датований звіт; чинні — CTO_CHECKPOINT_30.10.2026.md і 01.11.2026
+- `CTO_CHECKPOINT_18.10.2026.md` — датований звіт; чинні — CTO_CHECKPOINT_30.10.2026.md і 01.11.2026
+- `CTO_CHECKPOINT_22.10.2026.md` — датований звіт; чинні — CTO_CHECKPOINT_30.10.2026.md і 01.11.2026
+- `CTO_CHECKPOINT_25.10.2026.md` — датований звіт; чинні — CTO_CHECKPOINT_30.10.2026.md і 01.11.2026
+- `CTO_CHECKPOINT_29.10.2026.md` — датований звіт; чинні — CTO_CHECKPOINT_30.10.2026.md і 01.11.2026
+- `TRANSITION_PROMPT_2026-10-29.md` — замінено TRANSITION_PROMPT_2026-11-02.md (v5)
+- `TRANSITION_PROMPT_EVM_2026-10-31.md` — місію EVM зведено в ROADMAP_TO_RELEASE (потік W7), EVM_CLASSIC_DESIGN §9–§10 і RELEASE_PLAN §142–§144
