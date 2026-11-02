@@ -15,7 +15,7 @@
 2. `docs/ROADMAP_TO_RELEASE.md` повністю.
 3. `docs/TRANSITION_PROMPT_*.md` — найновіші (`2026-10-29` і `EVM_2026-10-31`).
 4. `docs/RELEASE_PLAN.md` — з кінця (§143–§150).
-5. `docs/CTO_CHECKPOINT_01.11.2026.md`, `docs/ARCHI_TECH_SPEC_v3_0.md` (§2, §10–§13), `docs/FORMULAS.md`, `SECURITY.md`.
+5. `docs/CTO_CHECKPOINT_01.11.2026.md`, `docs/ARCHI_TECH_SPEC_v3_1.md` (§2, §10–§13), `docs/FORMULAS.md`, `SECURITY.md`.
 6. За потреби: `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (чому саме так).
 
 ## Звірка з живим станом (лише читання)
