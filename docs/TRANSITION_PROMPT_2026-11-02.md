@@ -38,4 +38,4 @@
 5. Архітектурні рішення, які власник бачить як блукання, закривати одним документом-картою, а не серією сесій.
 
 ## 6. Інфраструктура
-Реєстр — `ARCHI_TECH_SPEC_v3_0.md` §6 та `TRANSITION_PROMPT_2026-10-25.md` §4 (K6sm, RC7H `RC7HNVlJtuPLtvYV`, Sheets Helper `nGcSyWfuMO7vjTn6`, Representative Bot `I3K5tBj0FWF1dbWb` — не чіпати).
+Реєстр — `ARCHI_TECH_SPEC_v3_1.md` §6 та `TRANSITION_PROMPT_2026-10-25.md` §4 (K6sm, RC7H `RC7HNVlJtuPLtvYV`, Sheets Helper `nGcSyWfuMO7vjTn6`, Representative Bot `I3K5tBj0FWF1dbWb` — не чіпати).
