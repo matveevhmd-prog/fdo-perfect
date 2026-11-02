@@ -16,63 +16,31 @@
 ## Структура
 
 ```
+CLAUDE.md                            — закриті рішення власника (п. 1–23), ритуал старту, правила сесії
+SECURITY.md                          — відомі ризики безпеки і прийняті рішення (RLS, токен, доступ)
+
 workflows/
   DEMO_Archi_Agent_Core.json         — головний n8n workflow (id CKwCsGIwyw9feCY5,
-                                        n8n instance osbbcopilot.app.n8n.cloud).
-                                        Переекспортовано 30.10.2026,
+                                        n8n instance osbbcopilot.app.n8n.cloud),
                                         activeVersionId bc449cbd-e249-4972-a5d5-e9cd507353b1,
-                                        179 вузлів (30.10.2026: п. 15 на індекси й «Різниця», §141; 29.10.2026: п. 15 кольори, §140; колір заголовків карток і лічильник Q8 з коду, §139; P-09 на канон стадій, §136; назви Archi без «CPI»/«EVM», §135; P-10 «за чиї гроші», §131; 27–28.10.2026: параметризований SQL у 6 вузлах, RELEASE_PLAN §116 і §118; раніше дата за
-                                        Києвом, §114, блокер і його тип лише зі слів ПМа, §111). Історія версій — у
-                                        `docs/RELEASE_PLAN.md` (§48–§136) і в git.
-                                        Токен бота в експорті замінено на `<TELEGRAM_BOT_TOKEN>` (SECURITY.md п. 1).
-                                        ⚠️ Як завжди: цей файл застаріє одразу після
-                                        наступної сесії редагування в n8n, якщо його
-                                        не переекспортувати — перевіряти дату/versionId
-                                        тут проти живого workflow, не довіряти мовчки.
-  Archi_Protocol_Format_Helper.json  — діагностичний/scratch workflow
-                                        (id LK4tBGMPiwIgpoki), read-only helper,
-                                        не production-критичний
+                                        179 вузлів (експорт 30.10.2026). Токен бота замінено
+                                        на `<TELEGRAM_BOT_TOKEN>`. Файл застаріє після
+                                        наступної публікації в n8n: звіряти versionId з живим.
+  Archi_Protocol_Format_Helper.json  — діагностичний workflow (id LK4tBGMPiwIgpoki), не production-критичний
 
-docs/  (порядок читання — `CLAUDE.md` «Порядок читання»; аудит документації — DOC_AUDIT_29.10.2026.md)
-  Еталони (чинні):
-  TRANSITION_PROMPT_2026-10-29.md    — ЧИННИЙ перехідний промпт v4 (читати першим після CLAUDE.md)
-  ARCHI_TECH_SPEC_v3_0.md            — ЧИННА технічна специфікація (15.10.2026, звірено 29.10.2026)
-  FORMULAS.md                        — довідник усіх формул (ID D/E/F/S/P/V/R/H/PX), єдине
-                                        джерело визначень показників (v1.7)
-  WEEKLY_REPORT_FORM.md              — форма звіту ПМа і специфікація Weekly Render (§2)
-  LAYOUT_STANDARD.md                 — стандарт верстки «стовпчиком» і словник емодзі
-  RELEASE_PLAN.md                    — журнал робіт §0–§140 (читати з кінця)
-  CTO_CHECKPOINT_PROMPT.md           — промпт аудиту коду проти документації
-  NODE_MAP.md                        — карта всіх 179 вузлів (генерує scripts/gen_node_map.py; руками не правити)
-  ARCHI_Obraz_Idealnoho_Rezultatu.md — методологія «навіщо» (05.09.2026, доповнено 26.09.2026)
-  Плани й промпти:
-  EVM_CLASSIC_PLAN.md                — план v2 гілки EVM (30.10.2026): D1…D10, фази Ф0–Ф5, метод перевірки V1–V10
-  EVM_CLASSIC_DESIGN.md (+_notes)    — дизайн Ф0 гілки EVM (31.10.2026): D1–D10 прийнято, K-01…K-12, 100 демо-пакетів
-  TRANSITION_PROMPT_EVM_2026-10-31.md — перехідний промпт місії EVM (EVM-2, 31.10.2026): Н-1…Н-4 і вкладка «EVM_пакети»; запис заблоковано доступом (RELEASE_PLAN §142)
-  DEMO_PLAN_2026-10-28.md            — план демо Ф1 (03.11.2026)
-  DEMO_REPORT_TEXTS_2026-10-30.md    — сценарні тексти звітів ПМа для живого циклу 30.10
-  OWNER_MORNING_TEST.md              — текст тесту для власника
-  START_PROMPT_DOC_AUDIT.md          — стартовий промпт аудиту документації (виконано 29.10.2026)
-  START_PROMPT_POST_AUDIT.md         — стартовий промпт наступної сесії: рішення за аудитом → місія EVM
-  FEATURE_IDEAS.md                   — реєстр ідей власника (не в розробці)
-  Аудити: CTO_CHECKPOINT_16/18/22/25/29.10.2026.md (датовані звіти), DOC_AUDIT_29.10.2026.md
-  Історія — docs/archive/ (перелік і чим замінено — docs/archive/README.md);
-    TRANSITION_PROMPT_2026-10-25.md (v3) лишився в docs/: розділи 2–8, 10–15 ще чинні
+docs/                                — документи; індекс, рівні й правила оновлення — docs/README.md
+  Читати: CLAUDE.md → docs/DECISIONS_REGISTER.md → docs/ROADMAP_TO_RELEASE.md →
+          docs/TRANSITION_PROMPT_2026-11-02.md → docs/RELEASE_PLAN.md (з кінця)
+  docs/archive/                      — історія (перелік — docs/archive/README.md)
 
-sql/                                 — SQL-зміни Supabase по датах (2026-10-17…2026-10-29),
-                                        demo_seed_2026-10-17/ (генератор і скрипти демо-даних),
-                                        demo_seed_2026-10-29/ (демо-години + rollback.sql)
-scripts/                             — check_report_form.py; gen_node_map.py (→ docs/NODE_MAP.md); replay/ (код вузлів на живих даних)
+sql/                                 — SQL-зміни Supabase по датах (файл + відкат тим самим комітом);
+                                        demo_seed_*/ (демо-дані), seed/ (знімки для імпорту)
+scripts/                             — check_docs.py (узгодженість документації),
+                                        check_report_form.py, gen_node_map.py (→ docs/NODE_MAP.md), replay/
 tests/                               — тести `WR: Parse Agent Output` (tests/README.md)
-CLAUDE.md                            — закриті рішення власника п. 1–14, ритуал старту
-
-SECURITY.md                          — відомі проблеми безпеки, прийняті ризики;
-                                        п.5 (26.09.2026) — Supabase RLS вимкнений
-                                        на ключових таблицях; п.6 (04.10.2026) —
-                                        нова таблиця kp_log теж без RLS, той самий
-                                        клас проблеми; обидва НЕ виправлені, чекають
-                                        рішення власника
 ```
+
+**Перевірка перед комітом документації:** `python3 scripts/check_docs.py` (0 помилок).
 
 ## Що НЕ в цьому репозиторії (свідомо)
 

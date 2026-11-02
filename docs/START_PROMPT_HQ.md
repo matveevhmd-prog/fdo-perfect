@@ -29,7 +29,8 @@
 3. Якщо потрібне рішення власника (OD-N) — задай його одним повідомленням з двома варіантами й рекомендацією. Без відповіді не міняй.
 4. Зміна живого n8n чи Supabase — лише після явного «так» (стоп-тригер (а)). n8n — за правилами `CLAUDE.md` «Правила n8n через MCP». Supabase — `apply_migration` + файл у `sql/` + відкат.
 5. Перевір зчитуванням стану (SQL/виконання), не звітом інструмента.
-6. Оновлення тим самим комітом: `docs/FORMULAS.md`, `TECH_SPEC`, `SECURITY.md`, `README.md`, `RELEASE_PLAN.md` (новий розділ), **статус вузла в `ROADMAP_TO_RELEASE.md`**.
+6. Перед комітом документації: `python3 scripts/check_docs.py` (0 помилок); новий документ внести в `docs/README.md`; нове рішення власника — в `docs/DECISIONS_REGISTER.md`.
+6a. Оновлення тим самим комітом: `docs/FORMULAS.md`, `TECH_SPEC`, `SECURITY.md`, `README.md`, `RELEASE_PLAN.md` (новий розділ), **статус вузла в `ROADMAP_TO_RELEASE.md`**.
 7. PR + merge у `main` (`CLAUDE.md` п. 6).
 
 ## Принципи (власник, 02.11.2026, `CLAUDE.md` п. 20)
