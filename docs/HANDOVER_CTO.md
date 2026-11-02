@@ -31,7 +31,7 @@ ARCHI — це в першу чергу **контроль майбутньої 
 
 ## 4. Поточний стан (02.11.2026)
 **Core workflow n8n** `CKwCsGIwyw9feCY5` («DEMO Archi Agent»): `activeVersionId bc449cbd-e249-4972-a5d5-e9cd507353b1`, **179 вузлів** (Факт: збігається з експортом у репо, CTO 01.11). Типи: postgres 47, code 37, telegram 36, if 20, respondToWebhook 8, webhook 5, set 4, memoryPostgresChat 3 (Факт, код).
-**Sub-workflow, яких немає в git:** K6sm `K6smBd5xWZLWx9rr` (читає Кошторис, активна `cf904641`), RC7H `RC7HNVlJtuPLtvYV` (договір), Sheets Helper `nGcSyWfuMO7vjTn6`. `Representative Bot I3K5tBj0FWF1dbWb` — не чіпати.
+**Sub-workflow:** K6sm `K6smBd5xWZLWx9rr` (читає Кошторис, активна `cf904641`) і RC7H `RC7HNVlJtuPLtvYV` (договір, `d86d127a`) експортовано в git 02.11.2026 (`workflows/`, W8.3); Sheets Helper `nGcSyWfuMO7vjTn6` у git немає. `Representative Bot I3K5tBj0FWF1dbWb` — не чіпати.
 **Supabase** `bxawceksdkqlbkdgjvyz` (`live SQL` 02.11.2026): `project_metrics` 18 рядків (14 `stages` + 4 `visit`), 50 колонок; `wr_weekly_snapshots` 101 рядок (8 тижнів); `time_log` 476; `money_log` 152; `payment_schedule` 56; `wr_plan_items` 467; `meeting_log` 11; `evm_packages` 100; `evm_package_done` 0. Розширення `vector` 0.8.0 встановлено.
 **Моделі:** Claude `claude-sonnet-4-6` (чат); OpenAI `gpt-4o` (звіти, імпорт, зустрічі, фото), OpenAI transcribe (голос).
 **Екрани:** Owner View (Mini App; ендпоінти `demo-archi-owner-view[-data]`), Weekly Render (`demo-archi-weekly-render[-data]`), xlsx (`demo-archi-export`), чат Q1–Q10, `/status`.
