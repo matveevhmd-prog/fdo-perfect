@@ -4,7 +4,7 @@
 > **Як читати.** `CLAUDE.md` → `docs/DECISIONS_REGISTER.md` → `docs/ROADMAP_TO_RELEASE.md` → цей файл → `docs/RELEASE_PLAN.md` з кінця. Позначки: **Факт** (перевірено), **[Припущення]**, **Потребує перевірки**. Індекс усіх документів — `docs/README.md`. Перед комітом документації: `python3 scripts/check_docs.py`.
 
 ## 1. Живий стан (02.11.2026)
-- **n8n core** `CKwCsGIwyw9feCY5`: `activeVersionId 40abff53-e82e-478a-b1c5-0cb628406ab2`, 179 вузлів, збігається з `workflows/DEMO_Archi_Agent_Core.json` (звірено 03.11.2026). Остання публікація 03.11.2026 (`RELEASE_PLAN` §160, виправлено `WR: Detect Doc Type`); попередня `bc449cbd` — ID відкату. Sub-workflow K6sm `K6smBd5xWZLWx9rr` — активна `cf904641` (звірено 01.11); у git його немає.
+- **n8n core** `CKwCsGIwyw9feCY5`: `activeVersionId eab0cf36-e34d-4694-b4c6-87bfe1217b22`, 191 вузол (W1 M5, 03.11.2026; відкат 40abff53); K6sm `23c5765e`, RC7H `6a8d9dbe`, збігається з `workflows/DEMO_Archi_Agent_Core.json` (звірено 03.11.2026). Остання публікація 03.11.2026 (`RELEASE_PLAN` §160, виправлено `WR: Detect Doc Type`); попередня `bc449cbd` — ID відкату. Sub-workflow K6sm `K6smBd5xWZLWx9rr` — активна `cf904641` (звірено 01.11); у git його немає.
 - **Supabase** `bxawceksdkqlbkdgjvyz`: нове з 01.11.2026 — `evm_packages` (100 демо-пакетів), `evm_package_done` (порожня), функції `evm_classic_indices`, `evm_classic_at`, в'ю `evm_classic_today`; `project_metrics` 18 рядків; `wr_weekly_snapshots` 101 рядок (`live SQL`).
 - **Репозиторій** `matveevhmd-prog/fdo-perfect`, `main`.
 
