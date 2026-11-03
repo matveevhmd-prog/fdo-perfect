@@ -1,5 +1,5 @@
 -- ARCHI W1 (M3), 03.11.2026: нові складені унікальні індекси ПОРЯД зі старими ключами (розширення). Дизайн: docs/W1_DESIGN.md §5.
--- СТАТУС: підготовлено, НЕ застосовано (оновити після застосування).
+-- СТАТУС 03.11.2026: ЗАСТОСОВАНО (міграція w1_m3_company_keys; індекси створено, live SQL).
 -- Старі первинні ключі й UNIQUE лишаються до M6, щоб ON CONFLICT у n8n не зламались до оновлення вузлів (M5).
 -- Відкат: sql/2026-11-03_w1_m3_company_keys_rollback.sql
 CREATE UNIQUE INDEX project_metrics_company_project_uq        ON public.project_metrics (company_id, project_id);

@@ -1,5 +1,5 @@
 -- ARCHI W1 (M4), 03.11.2026: функції, в'ю й тригерна функція з company_id. Дизайн: docs/W1_DESIGN.md §3.3.
--- СТАТУС: підготовлено, НЕ застосовано (оновити після застосування).
+-- СТАТУС 03.11.2026: ЗАСТОСОВАНО чотирма міграціями (w1_m4a_recalc_company, w1_m4b_snapshot_evm_company, w1_m4c_views_company, w1_m4d_legacy_wrappers). Перевірено live SQL: хеші 8 в'ю й project_metrics після archi_recalc() збігаються з еталоном до змін.
 -- Без DROP: нові сигнатури з p_company додаються поряд; старі лишаються тонкими обгортками; в'ю — CREATE OR REPLACE
 -- (company_id додано останньою колонкою; evm_classic_today зберігає security_invoker).
 -- Пороги на клієнта (archi_thresholds.company_id) — W1.5, тут не змінюються.
