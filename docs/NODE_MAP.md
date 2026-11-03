@@ -1,16 +1,16 @@
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId 40abff53-e82e-478a-b1c5-0cb628406ab2`, вузлів: 179, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId eab0cf36-e34d-4694-b4c6-87bfe1217b22`, вузлів: 191, груп за префіксом: 11.
 
 ## Типи вузлів
 
 | Тип | Кількість |
 |---|---|
-| `postgres` | 47 |
-| `code` | 37 |
-| `telegram` | 36 |
-| `if` | 20 |
+| `postgres` | 51 |
+| `code` | 40 |
+| `telegram` | 37 |
+| `if` | 24 |
 | `respondToWebhook` | 8 |
 | `webhook` | 5 |
 | `set` | 4 |
@@ -44,8 +44,8 @@
 | Doc Intake: Extract Drive Link | `code` | Doc Intake: Branch File Or Link? | Doc Intake: Write Link URL |
 | Doc Intake: Extract File Id | `code` | Doc Intake: Branch File Or Link? | Doc Intake: Download File |
 | Doc Intake: Extract Set Project | `code` | Doc Intake: Is Set Command? | Doc Intake: Write Mode |
-| Doc Intake: Is Contract Content? | `if` | Telegram Trigger | Doc Intake: Branch File Or Link? |
-| Doc Intake: Is Set Command? | `if` | Telegram Trigger | Doc Intake: Extract Set Project |
+| Doc Intake: Is Contract Content? | `if` | Attach Company (Telegram) | Doc Intake: Branch File Or Link? |
+| Doc Intake: Is Set Command? | `if` | Attach Company (Telegram) | Doc Intake: Extract Set Project |
 | Doc Intake: Reset Mode After File | `postgres` | Doc Intake: Send File Confirmation | — |
 | Doc Intake: Reset Mode After Link | `postgres` | Doc Intake: Send Link Confirmation | — |
 | Doc Intake: Run Document Intake | `executeWorkflow` | Doc Intake: Attach File Fields | Doc Intake: Send File Confirmation |
@@ -76,12 +76,14 @@
 | Import: Split Time Rows | `code` | Import: Is Final? | Import: Insert Time Rows |
 | Import: Write Project Mode | `postgres` | WR: Route | Import: Send Project Confirmation |
 
-## K (7)
+## K (9)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| K: Ingest Commit | `executeWorkflow` | WR: Route | K: Reset Mode |
-| K: Ingest Preview | `executeWorkflow` | WR: Route | K: Save Mode |
+| K: Attach Company (Commit) | `code` | WR: Route | K: Ingest Commit |
+| K: Attach Company (Preview) | `code` | WR: Route | K: Ingest Preview |
+| K: Ingest Commit | `executeWorkflow` | K: Attach Company (Commit) | K: Reset Mode |
+| K: Ingest Preview | `executeWorkflow` | K: Attach Company (Preview) | K: Save Mode |
 | K: Reset Mode | `postgres` | K: Ingest Commit | K: Send Commit Result |
 | K: Save Mode | `postgres` | K: Ingest Preview | K: Send Preview |
 | K: Send Commit Result | `telegram` | K: Reset Mode | — |
@@ -95,7 +97,7 @@
 | KP Log: Extract Count | `code` | KP Log: Is Count Command? | KP Log: Insert Row |
 | KP Log: Fetch Month Total | `postgres` | KP Log: Insert Row | KP Log: Send Confirmation |
 | KP Log: Insert Row | `postgres` | KP Log: Extract Count | KP Log: Fetch Month Total |
-| KP Log: Is Count Command? | `if` | Telegram Trigger | KP Log: Extract Count |
+| KP Log: Is Count Command? | `if` | Attach Company (Telegram) | KP Log: Extract Count |
 | KP Log: Send Confirmation | `telegram` | KP Log: Fetch Month Total | — |
 
 ## M (3)
@@ -139,7 +141,7 @@
 | WR: Download Audio | `telegram` | WR: Is Audio or Photo? | WR: Transcribe |
 | WR: Download Document | `telegram` | WR: Is Audio or Photo? | WR: Detect Doc Type |
 | WR: Download Photo | `telegram` | WR: Is Audio or Photo? | WR: Analyze Image |
-| WR: Ensure Mode Table | `postgres` | Telegram Trigger | WR: Read Mode |
+| WR: Ensure Mode Table | `postgres` | Attach Company (Telegram) | WR: Read Mode |
 | WR: Ensure Plan Table | `postgres` | WR: Fetch Payment Schedule | WR: Fetch This Week Plan |
 | WR: Extract PDF Text | `extractFromFile` | WR: Detect Doc Type | WR: Normalize Document |
 | WR: Extract TXT Text | `extractFromFile` | WR: Detect Doc Type | WR: Normalize Document |
@@ -172,7 +174,7 @@
 | WR: Render Report | `code` | WR: Fetch Report Today | WR: Is Final (Render)? |
 | WR: Reset Draft | `postgres` | WR: Route | WR: Send Reset Confirmation |
 | WR: Reset Mode | `postgres` | WR: Route | WR: Send Clear Confirmation |
-| WR: Route | `switch` | WR: Hard Logic Engine | [0] WR: Reset Mode, [1] WR: Send Need Project, [2] WR: Write Project Mode, [3] WR: Fetch Report Status, [4] WR: Write Reference Mode, [5] WR: Fetch Payment Schedule, [6] Import: Write Project Mode, [7] Import: Build Prompt, [8] Meeting: Write Project Mode, [9] Meeting: Build Prompt, [10] WR: Reset Draft, [11] Import: Reset Draft, [12] Meeting: Reset Draft, [13] K: Ingest Preview, [14] K: Ingest Commit, [15] K: Send Hint, [16] M: Fetch Project List, [17] WR: Inbox Add |
+| WR: Route | `switch` | WR: Hard Logic Engine | [0] WR: Reset Mode, [1] WR: Send Need Project, [2] WR: Write Project Mode, [3] WR: Fetch Report Status, [4] WR: Write Reference Mode, [5] WR: Fetch Payment Schedule, [6] Import: Write Project Mode, [7] Import: Build Prompt, [8] Meeting: Write Project Mode, [9] Meeting: Build Prompt, [10] WR: Reset Draft, [11] Import: Reset Draft, [12] Meeting: Reset Draft, [13] K: Attach Company (Preview), [14] K: Attach Company (Commit), [15] K: Send Hint, [16] M: Fetch Project List, [17] WR: Inbox Add |
 | WR: Save Next Week Plan | `postgres` | WR: Split New Plan Items | — |
 | WR: Save Weekly Snapshot | `postgres` | WR: Is Final? | WR: Fetch Report Today |
 | WR: Schedule Reminder (Fri 10:00) | `cron` | — | — |
@@ -196,7 +198,7 @@
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| WR-Render: Is Valid InitData | `if` | WR-Render: Validate InitData | [0] Fetch All Project Metrics, [1] Respond Weekly Render Unauthorized |
+| WR-Render: Is Valid InitData | `if` | WR-Render: Validate InitData | [0] Resolve Company (Weekly Render), [1] Respond Weekly Render Unauthorized |
 | WR-Render: Validate InitData | `code` | Weekly Render Data Webhook | WR-Render: Is Valid InitData |
 
 ## Xlsx (4)
@@ -205,13 +207,14 @@
 |---|---|---|---|
 | Xlsx: Build Rows | `code` | Fetch All Weekly Snapshots | Xlsx: Convert To File |
 | Xlsx: Convert To File | `convertToFile` | Xlsx: Build Rows | Respond Xlsx File |
-| Xlsx: Is Valid InitData | `if` | Xlsx: Validate InitData | [0] Fetch All Weekly Snapshots, [1] Respond Xlsx Unauthorized |
+| Xlsx: Is Valid InitData | `if` | Xlsx: Validate InitData | [0] Resolve Company (Xlsx), [1] Respond Xlsx Unauthorized |
 | Xlsx: Validate InitData | `code` | Xlsx Export Webhook | Xlsx: Is Valid InitData |
 
-## (без префікса) (47)
+## (без префікса) (57)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
+| Attach Company (Telegram) | `code` | Has Access (Telegram) | WR: Ensure Mode Table, Doc Intake: Is Set Command?, Doc Intake: Is Contract Content?, KP Log: Is Count Command? |
 | Attach Meeting Log | `code` | Fetch Meeting Log (Chat) | Build Request Body |
 | Build MiniApp Data | `code` | AN: Split Stage Rows | AN: Attach Block |
 | Build MiniApp HTML | `code` | MiniApp Page Webhook | AN: Patch HTML |
@@ -220,41 +223,50 @@
 | Build Weekly Render Data | `code` | Fetch Weekly Snapshots For Grid | Respond Weekly Render Data |
 | Build Weekly Render HTML | `code` | Weekly Render Page Webhook | Respond Weekly Render HTML |
 | Call Anthropic | `httpRequest` | Build Request Body | Sanitize Reply |
-| Fetch All Project Metrics | `postgres` | WR-Render: Is Valid InitData | Fetch Weekly Snapshots For Grid |
-| Fetch All Weekly Snapshots | `postgres` | Xlsx: Is Valid InitData | Xlsx: Build Rows |
+| Fetch All Project Metrics | `postgres` | Has Access (Weekly Render) | Fetch Weekly Snapshots For Grid |
+| Fetch All Weekly Snapshots | `postgres` | Has Access (Xlsx) | Xlsx: Build Rows |
 | Fetch KP Log Sum (Chat) | `postgres` | Is Owner View Request? | Fetch Project Metrics (Chat) |
-| Fetch KP Log Sum (MiniApp) | `postgres` | Is Valid InitData | Fetch Project Metrics (MiniApp) |
+| Fetch KP Log Sum (MiniApp) | `postgres` | Has Access (Owner View) | Fetch Project Metrics (MiniApp) |
 | Fetch Meeting Log (Chat) | `postgres` | Is Chat Request? | Attach Meeting Log |
 | Fetch Project Metrics (Chat) | `postgres` | Fetch KP Log Sum (Chat) | AN: Split Stage Rows |
 | Fetch Project Metrics (MiniApp) | `postgres` | Fetch KP Log Sum (MiniApp) | AN: Split Stage Rows |
 | Fetch Status Metrics | `postgres` | Is Status Command? | Build Status Text |
 | Fetch Weekly Snapshots For Grid | `postgres` | Fetch All Project Metrics | Build Weekly Render Data |
+| Has Access (Owner View) | `if` | Resolve Company (Owner View) | [0] Fetch KP Log Sum (MiniApp), [1] Respond Unauthorized |
+| Has Access (Telegram) | `if` | Resolve Company (Telegram) | [0] Attach Company (Telegram), [1] Send Access Denied |
+| Has Access (Weekly Render) | `if` | Resolve Company (Weekly Render) | [0] Fetch All Project Metrics, [1] Respond Weekly Render Unauthorized |
+| Has Access (Xlsx) | `if` | Resolve Company (Xlsx) | [0] Fetch All Weekly Snapshots, [1] Respond Xlsx Unauthorized |
 | Is Chat Request? | `if` | AN: Attach Block | [0] Fetch Meeting Log (Chat), [1] Respond MiniApp Data |
 | Is Fixed Question? | `if` | Sanitize Reply | [0] Send Reply (Questions), [1] Send Reply |
 | Is Owner View Request? | `if` | Is Questions Menu? | [0] Send MiniApp Open Button, [1] Fetch KP Log Sum (Chat) |
 | Is Parallel Cmd? | `if` | WR: Determine Route | [1] WR: Is WR Flow? |
 | Is Questions Menu? | `if` | Is Weekly Render Request? | [0] Send Questions Menu, [1] Is Owner View Request? |
 | Is Status Command? | `if` | WR: Is WR Flow? | [0] Fetch Status Metrics, [1] Is Weekly Render Request? |
-| Is Valid InitData | `if` | Validate InitData | [0] Fetch KP Log Sum (MiniApp), [1] Respond Unauthorized |
+| Is Valid InitData | `if` | Validate InitData | [0] Resolve Company (Owner View), [1] Respond Unauthorized |
 | Is Weekly Render Request? | `if` | Is Status Command? | [0] Send Weekly Render Button, [1] Is Questions Menu? |
 | MiniApp Data Webhook | `webhook` | — | Validate InitData |
 | MiniApp Page Webhook | `webhook` | — | Build MiniApp HTML |
+| Resolve Company (Owner View) | `postgres` | Is Valid InitData | Has Access (Owner View) |
+| Resolve Company (Telegram) | `postgres` | Telegram Trigger | Has Access (Telegram) |
+| Resolve Company (Weekly Render) | `postgres` | WR-Render: Is Valid InitData | Has Access (Weekly Render) |
+| Resolve Company (Xlsx) | `postgres` | Xlsx: Is Valid InitData | Has Access (Xlsx) |
 | Respond MiniApp Data | `respondToWebhook` | Is Chat Request? | — |
 | Respond MiniApp HTML | `respondToWebhook` | AN: Patch HTML | — |
-| Respond Unauthorized | `respondToWebhook` | Is Valid InitData | — |
+| Respond Unauthorized | `respondToWebhook` | Has Access (Owner View), Is Valid InitData | — |
 | Respond Weekly Render Data | `respondToWebhook` | Build Weekly Render Data | — |
 | Respond Weekly Render HTML | `respondToWebhook` | Build Weekly Render HTML | — |
-| Respond Weekly Render Unauthorized | `respondToWebhook` | WR-Render: Is Valid InitData | — |
+| Respond Weekly Render Unauthorized | `respondToWebhook` | Has Access (Weekly Render), WR-Render: Is Valid InitData | — |
 | Respond Xlsx File | `respondToWebhook` | Xlsx: Convert To File | — |
-| Respond Xlsx Unauthorized | `respondToWebhook` | Xlsx: Is Valid InitData | — |
+| Respond Xlsx Unauthorized | `respondToWebhook` | Has Access (Xlsx), Xlsx: Is Valid InitData | — |
 | Sanitize Reply | `code` | Call Anthropic | Is Fixed Question? |
+| Send Access Denied | `telegram` | Has Access (Telegram) | — |
 | Send MiniApp Open Button | `telegram` | Is Owner View Request? | — |
 | Send Questions Menu | `telegram` | Is Questions Menu? | — |
 | Send Reply | `telegram` | Is Fixed Question? | — |
 | Send Reply (Questions) | `telegram` | Is Fixed Question? | — |
 | Send Status Reply | `telegram` | Build Status Text | — |
 | Send Weekly Render Button | `telegram` | Is Weekly Render Request? | — |
-| Telegram Trigger | `telegramTrigger` | — | WR: Ensure Mode Table, Doc Intake: Is Set Command?, Doc Intake: Is Contract Content?, KP Log: Is Count Command? |
+| Telegram Trigger | `telegramTrigger` | — | Resolve Company (Telegram) |
 | Validate InitData | `code` | MiniApp Data Webhook | Is Valid InitData |
 | Weekly Render Data Webhook | `webhook` | — | WR-Render: Validate InitData |
 | Weekly Render Page Webhook | `webhook` | — | Build Weekly Render HTML |

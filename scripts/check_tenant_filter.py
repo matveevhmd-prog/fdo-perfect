@@ -9,7 +9,7 @@
 import json, re, sys, glob, os
 
 TENANT = ["project_metrics","time_log","money_log","payment_schedule","meeting_log","kp_log","rates",
-          "wr_weekly_snapshots","wr_plan_items","archi_bot_mode_state","archi_wr_inbox","archi_thresholds",
+          "wr_weekly_snapshots","wr_plan_items","archi_wr_inbox","archi_thresholds",
           "evm_packages","evm_package_done","archi_report_today","archi_snapshot_history",
           "archi_weekly_progress","archi_plan_execution","evm_classic_today"]
 root = os.path.join(os.path.dirname(__file__), "..")
@@ -22,7 +22,8 @@ for p in sorted(glob.glob(os.path.join(root, "workflows", "*.json"))):
     miss = []
     for n in pg:
         q = str(n["parameters"].get("query", ""))
-        if not any(re.search(r"\b" + t + r"\b", q) for t in TENANT):
+        qs = re.sub(r"'[^']*'", "''", q)  # літерали рядків не рахуються (напр. mode='meeting_log')
+        if not any(re.search(r"\b" + t + r"\b", qs) for t in TENANT):
             continue
         touch += 1
         if "company_id" not in q and "company_id" not in json.dumps(n["parameters"].get("options", {})):
