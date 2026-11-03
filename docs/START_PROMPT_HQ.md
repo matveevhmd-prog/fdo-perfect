@@ -14,7 +14,7 @@
 Перевір, що працюють: n8n (`get_workflow_details` на `CKwCsGIwyw9feCY5`), Supabase (`execute_sql` `select 1`), GitHub. Якщо чогось немає — скажи першим рядком і зупинись.
 
 ## Порядок читання
-1. `CLAUDE.md` повністю (п. 1–26, правила сесії).
+1. `CLAUDE.md` повністю (п. 1–27, правила сесії).
 2. `docs/HANDOVER_CTO.md` — пакет передачі (там порядок решти документів).
 3. `docs/DECISIONS_REGISTER.md`, `docs/ROADMAP_TO_RELEASE.md`.
 4. `docs/TRANSITION_PROMPT_2026-11-02.md` (v5), `docs/RELEASE_PLAN.md` з кінця, `docs/CTO_CHECKPOINT_01.11.2026.md`.
