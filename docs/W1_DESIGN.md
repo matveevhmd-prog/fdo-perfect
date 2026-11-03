@@ -1,5 +1,5 @@
 # ARCHI — W1: дизайн багатоклієнтності (W1.1, W1.2, W1.6)
-Версія 1 · 03.11.2026 · дизайн, не реалізація. Живий n8n і Supabase не змінювались. Позначки: **Факт** (джерело поруч: `live SQL`, код, документ), **[Припущення]**, **Потребує перевірки**. Назви об'єктів нижче — **робочі**; назва в гілці Archi діє лише після погодження власника (`CLAUDE.md` п. 14), див. розділ 8.
+Версія 1 · 03.11.2026 · дизайн. **Статус реалізації 03.11.2026: M0–M6 і M5 (n8n) виконано, див. `RELEASE_PLAN` §165; T2–T6 і D2 відкриті.** Позначки: **Факт** (джерело поруч: `live SQL`, код, документ), **[Припущення]**, **Потребує перевірки**. Назви об'єктів нижче — **робочі**; назва в гілці Archi діє лише після погодження власника (`CLAUDE.md` п. 14), див. розділ 8.
 
 ## 0. Місце · вплив · борг · масштаб
 - **Місце:** потік W1 карти (`ROADMAP_TO_RELEASE.md`), перший на критичному шляху; передує W2, W3, W10, W11. Критерії R-2, R-3, R-12.
@@ -72,6 +72,14 @@
 | M8 | RLS — **відкладено** (п. 28) | — |
 
 **Чому M3 передує M5:** вузли використовують `ON CONFLICT (project_id)` (код): core `WR: Save Weekly Snapshot` — `(project_id, week_start)`, `WR: Save Next Week Plan` — `(project_id, week_start, item_number)`; K6sm `Commit Plan`, `AN: Commit Visit Plan` і RC7H `Write Contract URL` — `(project_id)`. Це 5 операторів, які перестали б працювати після заміни ключів. Ще 10 вузлів режиму (`WR: Reset Mode`, `K: Save Mode` та інші) використовують `ON CONFLICT (session_id)`, ключ `archi_bot_mode_state` лишається, їх це не зачіпає. Заміна ключів без оновлення вузлів зупинила б запис плану, знімків і договору. `DEFAULT` в M2 дозволяє старим вузлам писати рядки до M5.
+
+## 5a. M5: правила переписування n8n (з аналізу коду 03.11.2026)
+- **Входи:** 4 (`Telegram Trigger`, `MiniApp Data Webhook`, `Weekly Render Data Webhook`, `Xlsx Export Webhook`). Кожен із 42 Postgres-вузлів core на об'єктах Archi досяжний рівно з одного входу; виняток — `Fetch Meeting Log (Chat)` (Telegram і Owner View): для нього вираз бере компанію з того резолвера, що виконався.
+- **Резолвер на вході:** `Postgres Resolve Company` → `If Has Access` → `Code Attach Company` (додає `company_id`, `role` до елемента, зберігаючи поля тригера). Для вебхуків резолвер стоїть після `Is Valid InitData`; гілка «відмова» веде в наявні `Respond … Unauthorized`; для Telegram — повідомлення «доступ не надано».
+- **Факт:** `Validate InitData`, `WR-Render: Validate InitData`, `Xlsx: Validate InitData` не повертають Telegram-ID користувача (повертають лише `valid`, `hashValid`, `fresh`, `member`) і перевіряють зашитий `ALLOWED = ['304884647']`. Для резолвера треба додати `userId` у вихід, а перевірку `ALLOWED` замінити на `user_access` (W1.2).
+- **Категорії запитів:** (A) режим чату `archi_bot_mode_state` — ключ `session_id` (Telegram-чат), не змінюється, ізоляція за чатом; (B) два вузли DDL (`WR: Ensure Mode Table`, `WR: Ensure Plan Table`) → `SELECT 1`; (C) видалення чернеток за `session_id` — `company_id` у ключі чернетки (§4); (D) читання `project_metrics`, знімків, в'ю, журналів — `WHERE company_id = $N`; (E) вставки `time_log`, `money_log`, `meeting_log`, `kp_log`, `wr_plan_items`, `wr_weekly_snapshots`, `archi_wr_inbox` — явний `company_id`, `ON CONFLICT` зі складеним ключем (потрібен M3). Параметр `company_id` — через `queryReplacement`, у наявних масивах додається останнім.
+- **K6sm і RC7H:** ядро передає `company_id` у виклик; вузли `Commit Plan`, `AN: Commit Visit Plan`, `Write Contract URL` пишуть його й використовують `ON CONFLICT (company_id, project_id)`.
+- **Порядок залежностей:** M5 після M3 (потрібні складені індекси для `ON CONFLICT`) і M4 (в'ю мають `company_id`). D2 (сироти) потрібне лише до M6 (складений FK), не до M5.
 
 ## 6. Тест ізоляції (критерій R-2)
 | Тест | Що перевіряє | Стан |
