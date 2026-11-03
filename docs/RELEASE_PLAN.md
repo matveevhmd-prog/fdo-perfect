@@ -2377,3 +2377,19 @@ P0 1 · P1 5 · P2 11; інваріанти 3/5. Живий `27350d38` = реп�
 **Головне:** (1) сигналу застарілості звітів немає, 13 знімків за 26.10 перейдуть поріг 10 днів 05.11; (2) `WR: Detect Doc Type` — TXT-вихід без з'єднань, fallback іде в два вузли; (3) і (4) документні P1 з 01.11 не усунуто; (5) резервні пороги в `Build MiniApp Data` ≠ БД (розширює 01.11 №3).
 **Спосіб перевірки:** `live SQL` (пороги, тригери, C-3, свіжість, RLS, функції), `connections` і параметри з `workflows/DEMO_Archi_Agent_Core.json` (`versionId` збігається з живим, побайтово не порівнювалось), `search_workflow_executions` (помилок 0).
 **Checkpoint:** відкрито — W0.3 лишається 🟡 до виконання пропущених кроків.
+
+## 160. Публікація core `40abff53`: виправлено `WR: Detect Doc Type`; рішення власника п. 26 (03.11.2026)
+**M-пункт/вплив:** W3.9, CTO Checkpoint 02.11 №2. Зачіпає лише розбір документів у боті (`WR: Detect Doc Type` → `WR: Extract TXT Text` / `WR: Send Unsupported Format`); решта вузлів і налаштування без змін. Масштаб: логіка не залежить від кількості клієнтів чи проєктів.
+**Рішення власника 03.11.2026:** «так, змінюй, зроби щоб працювало» (зміна n8n); свіжість прогнозу — без окремого сигналу, показується дата оновлення (OD-11 закрито); усі дати релізів скасовано; токен — ризик прийнято, ротація останнім кроком перед презентацією клієнту (`CLAUDE.md` п. 25, 26).
+**Що зроблено:**
+- ID відкату: `bc449cbd-e249-4972-a5d5-e9cd507353b1`.
+- Перед зміною: живий workflow порівняно з `workflows/DEMO_Archi_Agent_Core.json` (Python, після заміни токена на заглушку): `versionId` збігається, 179 вузлів, відмінностей `parameters` 0, `connections` рівні, `settings` рівні. Це закриває застереження CTO Checkpoint 02.11 про непорівняні параметри.
+- `update_workflow`: `removeConnection` `WR: Detect Doc Type` [вихід 2] → `WR: Extract TXT Text`; `addConnection` `WR: Detect Doc Type` [вихід 1] → `WR: Extract TXT Text`. Версія `40abff53-e82e-478a-b1c5-0cb628406ab2`.
+- Після зміни, до публікації: порівняння з версією до зміни — вузли відрізняються 0, `settings` рівні, відрізняється `connections` лише ключа `WR: Detect Doc Type`.
+- `publish_workflow` `40abff53-e82e-478a-b1c5-0cb628406ab2`: `activeVersionId` = `40abff53…`.
+- Новий стан зʼєднань: вихід 0 → `WR: Extract PDF Text`; вихід 1 (TXT) → `WR: Extract TXT Text`; вихід 2 (fallback) → `WR: Send Unsupported Format`.
+- Експорт у репо: `workflows/DEMO_Archi_Agent_Core.json` з заглушкою `<TELEGRAM_BOT_TOKEN>` (літералів токена: 0), `docs/NODE_MAP.md` перегенеровано (`scripts/gen_node_map.py`: 179 вузлів, 11 груп).
+- Документи: `CLAUDE.md` п. 25 (терміни токена) і п. 26; `DECISIONS_REGISTER` (рядок 26, C-1); `SECURITY.md` п. 1; `ROADMAP` (W3.9 ✅, W4.3, OD-5, OD-11, R-6); `TECH_SPEC` (D8, D12, відкриті питання, версія); `README.md`, `HANDOVER_CTO`, `TRANSITION_PROMPT`, `START_PROMPT_HQ` (версія core); у `EVM_CLASSIC_PLAN`/`EVM_CLASSIC_DESIGN`/`WEEKLY_REPORT_FORM` прибрано обмеження «до 03.11»; розділи §5, §6 дизайну й Ф2 плану позначено «скасовано п. 17».
+**Спосіб перевірки:** `get_workflow_details` до і після зміни (Python-порівняння, див. вище); `check_docs.py` — 0 помилок.
+**Не перевірено:** виконання в Telegram (надіслати .txt у режимі звіту ПМа) — потрібен акаунт Telegram власника; `test_workflow` не запускався (виконує вузли по-справжньому); що дата оновлення показана на кожному екрані (п. 26); решта пунктів CTO Checkpoint 02.11 (F-, S-, P-, R-check, кроки 3 і 5).
+**Checkpoint:** №2 виправлено (опубліковано, у Telegram не перевірено); №1 закрито рішенням власника; №3 передано власнику окремим питанням.
