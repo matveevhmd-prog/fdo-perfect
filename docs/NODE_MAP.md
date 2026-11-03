@@ -1,7 +1,7 @@
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId bc449cbd-e249-4972-a5d5-e9cd507353b1`, вузлів: 179, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId 40abff53-e82e-478a-b1c5-0cb628406ab2`, вузлів: 179, груп за префіксом: 11.
 
 ## Типи вузлів
 
@@ -134,7 +134,7 @@
 | WR: Build Status Text | `code` | WR: Fetch Report Status | WR: Send Status |
 | WR: Build WR Prompt | `code` | WR: Final Has Data? | WR: Agent |
 | WR: Clear Draft After Final | `postgres` | WR: Send Final Report | — |
-| WR: Detect Doc Type | `switch` | WR: Download Document | [0] WR: Extract PDF Text, [2] WR: Extract TXT Text, [2] WR: Send Unsupported Format |
+| WR: Detect Doc Type | `switch` | WR: Download Document | [0] WR: Extract PDF Text, [1] WR: Extract TXT Text, [2] WR: Send Unsupported Format |
 | WR: Determine Route | `code` | WR: Read Mode | Is Parallel Cmd? |
 | WR: Download Audio | `telegram` | WR: Is Audio or Photo? | WR: Transcribe |
 | WR: Download Document | `telegram` | WR: Is Audio or Photo? | WR: Detect Doc Type |

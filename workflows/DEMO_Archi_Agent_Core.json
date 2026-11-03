@@ -3,12 +3,12 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "bc449cbd-e249-4972-a5d5-e9cd507353b1",
-  "activeVersionId": "bc449cbd-e249-4972-a5d5-e9cd507353b1",
+  "versionId": "40abff53-e82e-478a-b1c5-0cb628406ab2",
+  "activeVersionId": "40abff53-e82e-478a-b1c5-0cb628406ab2",
   "triggerCount": 7,
   "nodeCount": 179,
   "createdAt": "2026-08-23T06:55:20.331Z",
-  "updatedAt": "2026-10-30T05:57:44.976Z",
+  "updatedAt": "2026-11-03T04:59:59.528Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -761,13 +761,14 @@
             "index": 0
           }
         ],
-        [],
         [
           {
             "node": "WR: Extract TXT Text",
             "type": "main",
             "index": 0
-          },
+          }
+        ],
+        [
           {
             "node": "WR: Send Unsupported Format",
             "type": "main",
