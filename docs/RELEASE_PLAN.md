@@ -2456,3 +2456,36 @@ P0 1 · P1 5 · P2 11; інваріанти 3/5. Живий `27350d38` = реп�
 **Архітектурне питання власника (04.11.2026):** «чи правильно, що формули рахуються в Mini App?» — відповідь: ні, ціль інша; факт: частина сигналів і агрегатів портфеля рахується в n8n-вузлі `Build MiniApp Data`, різниці й знак — у браузері; борг A-1/D14, `FORMULAS` §7.2. Додано вузол карти W1.8 (⬜, потребує «так» власника).
 **Не перевірено:** вигляд на екрані (потрібен скрін); Weekly Render і xlsx не змінювались.
 **Checkpoint:** відкрито до скріна власника; W1.8 — до рішення.
+
+## 168. Динамічний тест ізоляції T2/T3 виконано (04.11.2026)
+**M-пункт/вплив:** W1.1, R-2 (частково). Тест у Supabase SQL Editor під акаунтом власника (`sql/tests/w1_isolation_T2_T3.sql`), транзакція скасована навмисно (`T_RESULT`), у базі нічого не лишилось; Supabase змінено не було.
+**Результат (live SQL, скрін власника):**
+• проєкт `22-24` одночасно в трьох компаніях (DEMO, A, B): рядків = 3 — **OK**;
+• `ON CONFLICT (company_id, project_id)` для B не змінив рядок A: true — **OK**; рядок B оновлено: true — **OK**;
+• `archi_report_today` по цьому коду: усього 3, A = 1, B = 1 — **OK** (в'ю розділяє компанії);
+• запис у `project_metrics` без `company_id` — відхилено — **OK** (DEFAULT прибрано);
+• FK `evm_packages` у тесті — **не перевірено запитом** (раніше спрацював NOT NULL по `stage`); за каталогом (live SQL) існує `evm_packages_project_fkey FOREIGN KEY (company_id, project_id) → project_metrics`; композитні ключі `project_metrics`, `rates`, `wr_weekly_snapshots`, `wr_plan_items` підтверджені тим самим запитом.
+**Не зроблено:** T4 (replay для двох клієнтів), T5 (мутаційний), T6 (сесії оператора); перевірка того, що n8n-запити реально віддають лише дані компанії (потрібні два клієнти й другий акаунт Telegram).
+**Checkpoint:** R-2 — частково (БД-рівень доведено, n8n-рівень не доведено); відкрито.
+
+## 169. W1.5 крок 1: пороги по компанії (04.11.2026)
+**M-пункт/вплив:** W1.5 (дизайн `W1_DESIGN` §9, `CLAUDE.md` п. 30 D4, п. 31). Змінено живий Supabase за «так» власника; n8n не змінювався.
+**Що зроблено:** таблиця `company_thresholds(company_id, key, value, note, updated_at; PK(company_id, key))` з RLS без політик; функції `archi_threshold(company, key)` і `archi_rules(company)` (`sql/2026-11-04_w1_5_step1_company_thresholds.sql`, відкат — `…_rollback.sql`, виконувати в SQL Editor).
+**Спосіб перевірки (live SQL):** `archi_rules(DEMO)::jsonb` дорівнює `json_object_agg(key,value)` з `archi_thresholds` — true, 31 ключ; `archi_threshold` для невідомої компанії повертає значення за замовчуванням (`plan_year_projects` = 70); перевизначень 0. Споживачі не змінювались, поведінка екранів та сама.
+**Не зроблено:** крок 2 (сигнальні функції й `archi_plan_execution` з `company_id`) і крок 3 (три вузли n8n на `archi_rules`); тест двох клієнтів з різним `rent_drop_pp`.
+**Checkpoint:** відкрито (кроки 2–3).
+
+## 170. W1.5 крок 2: сигнали й в'ю читають пороги по компанії (04.11.2026)
+**M-пункт/вплив:** W1.5. Змінено живий Supabase за «так» власника; n8n не змінювався.
+**Що зроблено:** нові перевантаження `archi_etc_gap_signal`, `archi_flow_idx_signal`, `archi_idx_signal`, `archi_ready_gap_signal`, `archi_vac_signal`, `archi_paid_idx_signal` з `p_company` (пороги через `archi_threshold`); в'ю `archi_snapshot_history`, `archi_weekly_progress`, `archi_report_today`, `archi_plan_execution` і функції `archi_snapshot_evm`/`archi_snapshot_metrics` викликають їх з `company_id` (`sql/2026-11-04_w1_5_step2_company_signals.sql`, відкат — `…_rollback.sql`). Старі однопараметрові сигнали лишились (споживачів у БД не лишилось, n8n їх не викликає).
+**Спосіб перевірки (live SQL):** md5 рядків усіх чотирьох в'ю до і після однакові (18 / 101 / 88 / 215 рядків); старі й нові сигнали для DEMO дають однакове значення.
+**Знайдено й виправлено:** перша спроба міграції впала на `FROM (c )` у `archi_plan_execution` (нічого не застосувалось, транзакція скасована); виправлено на `FROM c`.
+**Не зроблено:** крок 3 (три вузли n8n на `archi_rules`); динамічний тест перевизначення (`sql/tests/w1_5_threshold_override.sql`, потрібен SQL Editor власника).
+**Checkpoint:** відкрито (крок 3 і тест).
+
+## 171. W1.5 крок 3: три вузли n8n читають пороги по компанії (04.11.2026)
+**M-пункт/вплив:** W1.5. Змінено живий n8n за «так» власника; core `83f65552` → `a4c89c3c` (відкат — `83f65552`).
+**Що зроблено:** `Fetch Project Metrics (MiniApp)` і `(Chat)` беруть `public.archi_rules($1::uuid)` замість `json_object_agg` по `archi_thresholds`; `WR: Fetch Project Metrics Static` — `public.archi_threshold($1::uuid, 'readiness_gap_pp')`. Рядки `rules` для DEMO дорівнюють попереднім (jsonb, 31 ключ — §169).
+**Спосіб перевірки:** чернетка проти очікуваного — `query` і `options` трьох вузлів `==` (True); `connections` без змін; змінились лише ці вузли (+ заглушка токена в експорті); `grep` токена = 0.
+**Не перевірено:** виконання цих запитів у n8n після публікації (потрібне відкриття Owner View і чату власником; запитів без помилок поки немає); динамічний тест перевизначення `sql/tests/w1_5_threshold_override.sql` (SQL Editor власника). `Build MiniApp Data` лишається з запасними порогами в JS (`rule('…', запасне)`) — до W1.8.
+**Checkpoint:** W1.5 — реалізовано, перевірка відкрита.
