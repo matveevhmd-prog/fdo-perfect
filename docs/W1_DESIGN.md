@@ -113,3 +113,19 @@ R-2 вважається виконаним лише після T1–T6.
 
 ## 9. Що далі
 Після рішення D6: міграції M0–M2 і M3–M4 (кожна — `apply_migration` + файл і відкат у `sql/`), далі M5 (зміна n8n за правилами `CLAUDE.md`), M6, T1–T6. Зміна живої системи — лише після явного «так».
+
+## 9. W1.5 — пороги методології на клієнта (дизайн, 04.11.2026; рішення D4 `CLAUDE.md` п. 30, порядок п. 31)
+**Факт (live SQL 04.11.2026):** `archi_thresholds(key text PK, value numeric, note text)` — 31 ключ. Споживачі: функції `archi_etc_gap_signal`, `archi_flow_idx_signal`, `archi_idx_signal`, `archi_ready_gap_signal`, `archi_vac_signal`; в'ю `archi_plan_execution`; n8n: `Fetch Project Metrics (MiniApp)`, `Fetch Project Metrics (Chat)`, `WR: Fetch Project Metrics Static`, `Build MiniApp Data` (читає `rules`).
+**Модель:**
+• `archi_thresholds` — значення за замовчуванням (без змін, лишається).
+• Нова таблиця `company_thresholds(company_id uuid FK, key text, value numeric, note text, PK(company_id, key))`, RLS увімкнено без політик (як `companies`).
+• Функція `archi_threshold(p_company uuid, p_key text) → numeric` = `COALESCE(override, default)`; `STABLE`.
+• Функція `archi_rules(p_company uuid) → json` (всі ключі з перевизначенням) замість `json_object_agg` по `archi_thresholds` у n8n.
+**Міграція (expand/contract, як M3–M4):**
+1. таблиця + дві функції (нічого не ламають);
+2. нові перевантаження сигнальних функцій з `p_company uuid` (старі — обгортки на DEMO), `archi_plan_execution` читає пороги через `archi_threshold(company_id, key)`; контроль — md5 рядків в'ю до/після (як M3–M4);
+3. n8n: три Postgres-вузли замість `SELECT … FROM archi_thresholds` беруть `archi_rules($company)`; `Build MiniApp Data` не змінюється;
+4. тест: два клієнти з різним `rent_drop_pp` бачать різний колір на тих самих вхідних даних (T2-розширення).
+**Відкат:** drop нових функцій (не через сесійні міграції — SQL Editor), повернути старі запити n8n (`eab0cf36`/`83f65552` у історії).
+**Масштаб:** N клієнтів без змін коду. **Борг:** W1.8 прибере решту порогів із JS (`rule('…', запасне)`), тут лише джерело значень.
+**Не перевірено:** чи є пороги, які дублюються константами в JS поза `rule()`; перевірка в W1.8.
