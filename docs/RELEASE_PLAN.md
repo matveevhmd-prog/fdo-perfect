@@ -2474,3 +2474,11 @@ P0 1 · P1 5 · P2 11; інваріанти 3/5. Живий `27350d38` = реп�
 **Спосіб перевірки (live SQL):** `archi_rules(DEMO)::jsonb` дорівнює `json_object_agg(key,value)` з `archi_thresholds` — true, 31 ключ; `archi_threshold` для невідомої компанії повертає значення за замовчуванням (`plan_year_projects` = 70); перевизначень 0. Споживачі не змінювались, поведінка екранів та сама.
 **Не зроблено:** крок 2 (сигнальні функції й `archi_plan_execution` з `company_id`) і крок 3 (три вузли n8n на `archi_rules`); тест двох клієнтів з різним `rent_drop_pp`.
 **Checkpoint:** відкрито (кроки 2–3).
+
+## 170. W1.5 крок 2: сигнали й в'ю читають пороги по компанії (04.11.2026)
+**M-пункт/вплив:** W1.5. Змінено живий Supabase за «так» власника; n8n не змінювався.
+**Що зроблено:** нові перевантаження `archi_etc_gap_signal`, `archi_flow_idx_signal`, `archi_idx_signal`, `archi_ready_gap_signal`, `archi_vac_signal`, `archi_paid_idx_signal` з `p_company` (пороги через `archi_threshold`); в'ю `archi_snapshot_history`, `archi_weekly_progress`, `archi_report_today`, `archi_plan_execution` і функції `archi_snapshot_evm`/`archi_snapshot_metrics` викликають їх з `company_id` (`sql/2026-11-04_w1_5_step2_company_signals.sql`, відкат — `…_rollback.sql`). Старі однопараметрові сигнали лишились (споживачів у БД не лишилось, n8n їх не викликає).
+**Спосіб перевірки (live SQL):** md5 рядків усіх чотирьох в'ю до і після однакові (18 / 101 / 88 / 215 рядків); старі й нові сигнали для DEMO дають однакове значення.
+**Знайдено й виправлено:** перша спроба міграції впала на `FROM (c )` у `archi_plan_execution` (нічого не застосувалось, транзакція скасована); виправлено на `FROM c`.
+**Не зроблено:** крок 3 (три вузли n8n на `archi_rules`); динамічний тест перевизначення (`sql/tests/w1_5_threshold_override.sql`, потрібен SQL Editor власника).
+**Checkpoint:** відкрито (крок 3 і тест).
