@@ -26,6 +26,6 @@ begin
   select count(*) into n from archi_report_today where company_id=D; res := res || 'DEMO усього=' || n || '; ';
   begin insert into project_metrics(project_id) values ('X-NOCO'); res := res || 'M6 без company_id: ПРОЙШОВ(ПОМИЛКА); '; exception when not_null_violation then res := res || 'M6 без company_id: відхилено OK; '; end;
   begin insert into wr_weekly_snapshots(company_id,project_id,week_start) values (A,P,'2099-01-05'),(B,P,'2099-01-05'); res := res || 'snapshots однаковий тиждень A і B: OK; '; exception when others then res := res || 'snapshots помилка: ' || sqlerrm || '; '; end;
-  begin insert into evm_packages(company_id,project_id,baseline_no,package_code) values (B,'NO-SUCH-PROJECT',1,'x'); res := res || 'FK evm: ПРОЙШОВ(ПОМИЛКА); '; exception when foreign_key_violation then res := res || 'FK evm: відхилено OK; ' when others then res := res || 'FK evm інша помилка: ' || sqlerrm || '; '; end;
+  begin insert into evm_packages(company_id,project_id,baseline_no,package_code) values (B,'NO-SUCH-PROJECT',1,'x'); res := res || 'FK evm: ПРОЙШОВ(ПОМИЛКА); '; exception when foreign_key_violation then res := res || 'FK evm: відхилено OK; '; when others then res := res || 'FK evm інша помилка: ' || sqlerrm || '; '; end;
   raise exception 'T_RESULT: %', res;
 end $$;
