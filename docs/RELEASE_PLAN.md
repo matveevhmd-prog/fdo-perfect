@@ -2467,3 +2467,10 @@ P0 1 · P1 5 · P2 11; інваріанти 3/5. Живий `27350d38` = реп�
 • FK `evm_packages` у тесті — **не перевірено запитом** (раніше спрацював NOT NULL по `stage`); за каталогом (live SQL) існує `evm_packages_project_fkey FOREIGN KEY (company_id, project_id) → project_metrics`; композитні ключі `project_metrics`, `rates`, `wr_weekly_snapshots`, `wr_plan_items` підтверджені тим самим запитом.
 **Не зроблено:** T4 (replay для двох клієнтів), T5 (мутаційний), T6 (сесії оператора); перевірка того, що n8n-запити реально віддають лише дані компанії (потрібні два клієнти й другий акаунт Telegram).
 **Checkpoint:** R-2 — частково (БД-рівень доведено, n8n-рівень не доведено); відкрито.
+
+## 169. W1.5 крок 1: пороги по компанії (04.11.2026)
+**M-пункт/вплив:** W1.5 (дизайн `W1_DESIGN` §9, `CLAUDE.md` п. 30 D4, п. 31). Змінено живий Supabase за «так» власника; n8n не змінювався.
+**Що зроблено:** таблиця `company_thresholds(company_id, key, value, note, updated_at; PK(company_id, key))` з RLS без політик; функції `archi_threshold(company, key)` і `archi_rules(company)` (`sql/2026-11-04_w1_5_step1_company_thresholds.sql`, відкат — `…_rollback.sql`, виконувати в SQL Editor).
+**Спосіб перевірки (live SQL):** `archi_rules(DEMO)::jsonb` дорівнює `json_object_agg(key,value)` з `archi_thresholds` — true, 31 ключ; `archi_threshold` для невідомої компанії повертає значення за замовчуванням (`plan_year_projects` = 70); перевизначень 0. Споживачі не змінювались, поведінка екранів та сама.
+**Не зроблено:** крок 2 (сигнальні функції й `archi_plan_execution` з `company_id`) і крок 3 (три вузли n8n на `archi_rules`); тест двох клієнтів з різним `rent_drop_pp`.
+**Checkpoint:** відкрито (кроки 2–3).
