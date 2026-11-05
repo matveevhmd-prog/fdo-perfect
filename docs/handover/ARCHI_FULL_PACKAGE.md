@@ -393,7 +393,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/02_BUSINESS_REQUIREMENTS.md sha256=611532df20f4e91860e68af1ad0bea6b9d4cee17771818b76fa8022a1d59ab45 bytes=27073 -->
+<!-- SOURCE docs/handover/02_BUSINESS_REQUIREMENTS.md sha256=66722bd7faac3ceb59c38503c4462abc9f32043aed91ec0a4a20928ba199a301 bytes=27530 -->
 **Джерело: `docs/handover/02_BUSINESS_REQUIREMENTS.md` — Бізнес-вимоги**
 
 # ARCHI — бізнес-вимоги
@@ -476,7 +476,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 | ID | Вимога | Пр. | Стан | Джерело |
 |---|---|---|---|---|
 | BR-50 | Push у Telegram пн–пт о 08:30 за Києвом; час і дні — налаштування на користувача | M | ✅ | п. 32 |
-| BR-51 | Зміст: стан портфеля, топ-5 дій на день з причиною, що горить за 7 днів; без календаря | M | ✅ | п. 32 |
+| BR-51 | Зміст: стан портфеля, топ-5 дій на день з причиною, що горить за 7 днів; без календаря. «Стан портфеля» = кількості проєктів за сигналами SQL (стоять, прострочені акти, ETC, рентабельність, без прогнозу, без звіту); загальний статус 🔴🟡🟢⛔ як в Owner View — після W1.8 | M | ✅ з 05.11.2026 (блок додано після аудиту; перший автозапуск не перевірено) | п. 32; `RELEASE_PLAN` §177 |
 | BR-52 | Наприкінці «Поради власнику»: адресат за роллю (ПМ проєкту / Фіндиректор / власник), дія (нарада 1×1, повідомлення, дзвінок, рішення), готовий текст, очікуваний результат | M | ✅ | п. 32 |
 | BR-53 | Пріоритети й числа рахує SQL; LLM лише формулює; числа в тексті перевіряє код; при недоступному LLM звіт усе одно надсилається | M | ✅ | п. 32 |
 | BR-54 | Жодних нових вхідних даних: звіт будується на наявних таблицях | M | ✅ | п. 32 |
@@ -600,7 +600,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=475e26339843c11c09c56b0b882a6f5da32fa0ed4a6c749cd35eb7fb44bd4c01 bytes=33178 -->
+<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=9cb4ecbe49174e19b669e633df4dad65959732a74408ee285363d0d6c0295094 bytes=33688 -->
 **Джерело: `docs/handover/03_TECHNICAL_CTO.md` — Технічний документ для CTO**
 
 # ARCHI — технічний документ для CTO
@@ -647,7 +647,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `cf904641`; експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
 | Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `d86d127a`; експорт `workflows/Archi_Document_Intake_RC7H.json` |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` | ручний, неактивний, 7 вузлів |
-| **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 10 вузлів, опублікований; `activeVersionId` `ae7e4e3b-eaa7-4ff6-b108-c6edec0311f4`; код `workflows/Archi_Morning_Brief.sdk.ts` |
+| **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 11 вузлів, опублікований; `activeVersionId` `cb4b50e8-1acd-457c-a37f-16647d00fcb7` (відкат — `ae7e4e3b-eaa7-4ff6-b108-c6edec0311f4`); код `workflows/Archi_Morning_Brief.sdk.ts` |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) | чужий проєкт власника |
 | Інші workflow в акаунті | 103 workflow усього (live, 05.11.2026): `Task Dispatcher` (активний), `DS Executor`, `Archi Protocol Format Helper` (неактивний, застарілий) і ~90 тимчасових `TEMP:` | **не частина ARCHI**; не змінювати без власника. ARCHI = 5 workflow: core, K6sm, RC7H, Sheets Helper, Morning Brief |
 | Supabase | `bxawceksdkqlbkdgjvyz` «matvieiev-bots» | у базі є чужі таблиці (`_bak_*`, `jarvis_*`, `shift_*`, `bot_*`, `archi_bot_semantic_memory`) — не частина ARCHI |
@@ -725,7 +725,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 ```
 Every 5 Minutes → Find Due Owners ─┐
 Manual Test → Test Recipient ──────┴─► Load Brief → Build LLM Request → Call Anthropic
-                                          → Validate And Render → Send Brief → Mark Sent
+                                          → Validate And Render → Add Portfolio Block → Send Brief → Mark Sent
 ```
 - `Find Due Owners`: `owner_prefs` з `enabled`, `isodow ∈ days`, поточний час у вікні 30 хв від `brief_time`, `last_sent_on` ≠ сьогодні.
 - `Load Brief`: `archi_morning_brief(company)` повертає jsonb: `actions[]` (rank, project_id, kind, score, facts, advice), `horizon_7d[]`, `data_updated_at`.
@@ -733,7 +733,8 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 - `advice` (адресат за роллю, режим, мета) — вираз `CASE` у SQL, не в промпті.
 - LLM (`claude-sonnet-4-6`, `temperature 0.2`) формулює `headline`, `why`, `message`; системний промпт — `docs/MORNING_BRIEF_PROMPT.txt`.
 - `Validate And Render` (Code): пункт приймається, якщо збігається `rank`, довжини в межах, немає слова «залишок», немає номерів чужих проєктів, **усі числа є серед фактів цієї дії**; інакше підставляється шаблон за метою. Звіт надсилається і при недоступному LLM.
-- Перше тестове надсилання: виконання 6953, Telegram `message_id 1774`.
+- Блок «📊 Стан портфеля» (кількості за сигналами) формує SQL (`archi_morning_brief(...)->portfolio`), вставляє вузол `Add Portfolio Block` (без LLM).
+- Перше тестове надсилання: виконання 6953, Telegram `message_id 1774`; з блоком — виконання 7054.
 
 ## 6. API й авторизація
 | Ендпоінт `/webhook/…` | Призначення | Авторизація |
@@ -783,7 +784,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 |---|---|---|
 | T-1 | Формули/пороги/кольори частково в n8n і браузері, не в SQL | W1.8 |
 | T-2 | Моноліт 191 вузол; код у JSON, а не у файлах | W8.1, W8.2 |
-| T-3 | DDL (`CREATE TABLE IF NOT EXISTS`) виконується на кожне повідомлення (`WR: Ensure Mode Table`, `WR: Ensure Plan Table`) | W1.6 |
+| T-3 | ~~DDL на кожне повідомлення~~ **усунено:** вузли `WR: Ensure Mode Table` і `WR: Ensure Plan Table` виконують лише `SELECT 1 AS ok` (експорт core `a4c89c3c`, перевірка аудитом 05.11.2026); самі вузли — зайві, можна видалити | W1.6 |
 | T-4 | 21 Postgres-вузол інтерполює `'{{ … }}'` (лише `chat.id` і регулярно перевірений `project_id`); за кодом ризик низький, параметризація не планується (рішення `RELEASE_PLAN` §117, варіант A) | W1.6 |
 | T-5 | `WR: Schedule Reminder (Fri 10:00)` без вихідних з'єднань: нагадування не надсилається (D1) | W5.3 |
 | T-6 | Гілка Doc Intake читає `$('WR: Read Mode')` з іншої гілки (клас D2) | CTO 01.11 №8 |
@@ -1122,7 +1123,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 
 ---
 
-<!-- SOURCE docs/handover/07_REVIEW_REPORT.md sha256=53935232c1dd416e58a8e642fe90fe3eb012f51c180f5d18d9e430eb8ec6693b bytes=12237 -->
+<!-- SOURCE docs/handover/07_REVIEW_REPORT.md sha256=fc3b52a6ab7b844927296405746eeae71a8db69acabe9f2da32aad0c09617697 bytes=13253 -->
 **Джерело: `docs/handover/07_REVIEW_REPORT.md` — Звіт про перевірку за планом**
 
 # ARCHI — звіт про перевірку пакета за планом
@@ -1171,7 +1172,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 | R3.9 звірка F-02, F-13, F-15 | PASS з приміткою | `actual_cost` 14/14 збіг; `cost_final_forecast` 11 з 12 (2 проєкти без прогнозу), 24-52: 2 283 122 (SQL) проти 2 283 123 (БД): різниця 1 грн, округлення; за правилом C-3 це «розбіжність», класифіковано P2 (дані, не документація) |
 | R3.10 RLS | PASS | `project_metrics`, `wr_weekly_snapshots` — RLS вимкнений; `companies`, `user_access`, `company_thresholds`, `owner_prefs`, `archi_wr_inbox`, `evm_packages` — увімкнений |
 | R4.3 тести | PASS | `tests/wr_parse_agent_output`: пройдено 29, провалено 0 |
-| R4.x скрипти | PASS | `check_report_form.py` розбіжностей 0; `check_tenant_filter.py` без `company_id`: 0 (51 Postgres-вузол core, з таблицями Archi 29) |
+| R4.x скрипти | PASS | `check_report_form.py` розбіжностей 0; `check_tenant_filter.py`: на момент перевірки 0 за вужчим списком таблиць; після розширення (DR-13) — 16 вузлів core без `company_id` і 1 у застарілому `Archi_Protocol_Format_Helper.json` |
 | Валідація V2 | PASS | 11 підкинутих дефектів з 11 виявлено (див. розділ 5) |
 
 ## 4. Реєстр дефектів
@@ -1186,6 +1187,9 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 | DR-6 | P2 | `03` §9 | Не згадано п. 3, 4, 6, 7б–12 | Додано посилання | закрито |
 | DR-7 | P2 | `01` §6.9 | Вставка дослівно скопіювала шлях запланованого файлу | Перефразовано | закрито |
 | DR-8 | P2 | дані | `cost_final_forecast` 24-52: розбіжність 1 грн із незалежним SQL | Не документація; відомо як округлення. Рекомендація CTO: з'ясувати, де округлюється | відкрито |
+| DR-11 | P1 | `02` BR-51 | Статус ✅, а блоку «стан портфеля» у брифінгу не було (знайдено зовнішнім аудитом) | Блок додано (SQL `portfolio`, вузол `Add Portfolio Block`), виконання 7054 | закрито |
+| DR-12 | P1 | `03` T-3, `TECH_SPEC` §6, §10 | Застарілі: DDL на кожне повідомлення; версія core `40abff53`, 179 вузлів | Виправлено; `check_handover.py` A10b стежить за реєстром core | закрито |
+| DR-13 | P1 | код | `archi_bot_mode_state` і `n8n_chat_histories` без `company_id` (16 вузлів core); `check_tenant_filter.py` їх не бачив | Скрипт розширено; виправлення вузлів — W1.6, потребує «так» | відкрито |
 | DR-10 | P2 | `00` §6, `04` §1 | Розшифровки МБР, ЕП, П, Р, АН у репозиторії не було | Отримано від власника 05.11.2026, внесено в `04` §1 і `TECH_SPEC` §7; рядок прибрано з чек-листу `00` §6 | закрито |
 | DR-9 | P2 | `03` §3 | Версію core підтверджено за історією, а не `activeVersionId` workflow | Пункт у розділі «Не перевірено» | відкрито |
 
@@ -1226,7 +1230,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 
 ---
 
-<!-- SOURCE docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md sha256=1098dfb8e310bf676af11387eb84bc59787eac06af767d45b8bc9cad97adb432 bytes=18377 -->
+<!-- SOURCE docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md sha256=b09d976613246f0e1ae872e8d85401fb2315e2ea691ffa7deb380789f359eea2 bytes=18905 -->
 **Джерело: `docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md` — Промпт: перевірка існуючого коду проти документації**
 
 # ARCHI — промпт: перевірка існуючого коду проти документації
@@ -1282,7 +1286,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 **Крок 3. Схема даних і багатоклієнтність (TECH_SPEC §3, W1_DESIGN)**
 - Таблиці й колонки з `TECH_SPEC` §3 і `03` §4 проти `information_schema`.
 - `company_id`: NOT NULL, ключі `(company_id, project_id)`, унікальні обмеження, тригери `archi_recalc_*`.
-- Запусти `python3 scripts/check_tenant_filter.py`; потім **вручну**: для кожного Postgres-вузла, що читає чи пише таблицю Archi, перевір, що `company_id` є у `WHERE`/`ON CONFLICT`/`INSERT` і передається параметром, а не береться з `DEFAULT`. Вузол без `company_id` — знахідка `TENANT` (P0 для запису, P1 для читання).
+- Запусти `python3 scripts/check_tenant_filter.py`; потім **вручну**: для кожного Postgres-вузла, що читає чи пише таблицю Archi, перевір, що `company_id` є у `WHERE`/`ON CONFLICT`/`INSERT` і передається параметром, а не береться з `DEFAULT`. Вузол без `company_id` — знахідка `TENANT`. Рівень: P0, якщо запис або читання може змішати дані двох клієнтів; P1, якщо ключ — id чату Telegram (`archi_bot_mode_state`, `n8n_chat_histories`) і колізія можлива лише в оператора з кількома клієнтами.
 - Резолвер компанії на 4 входах (`Telegram Trigger`, Owner View, Weekly Render, xlsx): простеж граф, чи кожен шлях до даних проходить `Resolve Company` і `Has Access`. Шлях без нього — `SEC`.
 - Ключі чернеток і пам'яті (`n8n_chat_histories.session_id`) містять `company_id`?
 - Вʼю з `security_invoker`, функції `SECURITY INVOKER`/`DEFINER`.
@@ -1317,6 +1321,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 - Перший рядок «Станом на ДД.ММ.РРРР» = `data_updated_at`, а не дата запиту.
 
 **Крок 8. Безпека (порівнювати зі SECURITY.md, не відкривати наново)**
+- Токен у живому workflow — відомий прийнятий ризик (`CLAUDE.md` п. 25): не P0, фіксується як «прийнято». Новим дефектом є лише токен в експорті репозиторію.
 - Пошук секретів: у `workflows/`, `sql/`, `docs/`, `scripts/`, `tests/` (токен Telegram `\d{8,}:AA…`, ключі `sk-`, JWT `eyJ…`, `AIza…`, приватні ключі). Результат 0, окрім заглушки `<TELEGRAM_BOT_TOKEN>`.
 - Живий core: скільки вузлів містять літерал токена (очікується 1: `M: Send Project Picker`; це відомий ризик, `CLAUDE.md` п. 25).
 - RLS: `pg_tables.rowsecurity` по таблицях Archi проти `SECURITY.md` п. 5–12 і `03` §9.
@@ -1828,7 +1833,7 @@ WBS = `docs/ROADMAP_TO_RELEASE.md` (з 02.11.2026) — головна карта
 
 ---
 
-<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=38d980a27a1a3ce6552aea1d15c90c7bb3bb8a1b76c8791c174c5d03c8de8f26 bytes=52660 -->
+<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=f11b4b5154789d0916360f05bf7b20c689f4ab68bd7407dc704812d3b754043f bytes=52740 -->
 **Джерело: `docs/ROADMAP_TO_RELEASE.md` — Єдина карта розробки до релізу**
 
 # ARCHI — ROADMAP_TO_RELEASE (WBS, єдина карта)
@@ -1949,7 +1954,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 | W5.4 Звіт АН (текст/голос) | `CLAUDE.md` п. 16, `WEEKLY_REPORT_FORM.md` §6 — спершу дизайн | ⬜ |
 | W5.5 Журнал зустрічей | `meeting_log`, живий фід, гейт | 🟡 (`TECH_SPEC` §12 п.6) |
 | W5.6 Ритм нарад: п'ятниця рефлексія, вівторок 9:30 | Образ §4.1 — організаційно | — |
-| W5.7 Ранковий брифінг власника з планом на день | push у Telegram у заданий час (власник, 04.11.2026): стан портфеля + план на день з урахуванням подій у проєктах; пріоритети рахує SQL (функція `archi_morning_brief(company)`), LLM лише формулює (числа тільки з SQL, перевірка кодом); час і дні — налаштування на користувача; залежить від W1.2, W1.5; після W1.8 правила пріоритету лежать у SQL | 🟢 реалізовано 05.11.2026 (`CLAUDE.md` п. 32; `RELEASE_PLAN` §172, §174): SQL з `advice` і `sub_blocked`, workflow n8n `J3Oqcaa2YBEsVSng`, тестове надсилання власнику (`message_id 1774`); розсилку за розкладом **ввімкнено 05.11.2026** (`RELEASE_PLAN` §175); демо-сценарій «підрядник чекає аванс» — DEMO-08; перший автозапуск не перевірено |
+| W5.7 Ранковий брифінг власника з планом на день | push у Telegram у заданий час (власник, 04.11.2026): стан портфеля + план на день з урахуванням подій у проєктах; пріоритети рахує SQL (функція `archi_morning_brief(company)`), LLM лише формулює (числа тільки з SQL, перевірка кодом); час і дні — налаштування на користувача; залежить від W1.2, W1.5; після W1.8 правила пріоритету лежать у SQL | 🟢 реалізовано 05.11.2026 (`CLAUDE.md` п. 32; `RELEASE_PLAN` §172, §174): SQL з `advice` і `sub_blocked`, workflow n8n `J3Oqcaa2YBEsVSng`, тестове надсилання власнику (`message_id 1774`); розсилку за розкладом **ввімкнено 05.11.2026** (`RELEASE_PLAN` §175); блок «Стан портфеля» (BR-51) додано 05.11.2026 (§177); демо-сценарій «підрядник чекає аванс» — DEMO-08; перший автозапуск не перевірено |
 
 ### W6 · Owner View і чат
 | Пункт | Зміст | Стан |
@@ -2084,7 +2089,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 
 ---
 
-<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=c5ed8f3c37b412900b3549a477c19b9688ab43f7d3c1908c6439521644cecf16 bytes=42897 -->
+<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=2bcffaef6062cd05d51e6ffdbaa9acf62c7af0347795229d8556a254e3e91bfa bytes=43062 -->
 **Джерело: `docs/ARCHI_TECH_SPEC_v3_1.md` — Технічна специфікація v3.1**
 
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.1
@@ -2303,7 +2308,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `40abff53-e82e-478a-b1c5-0cb628406ab2` (03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
+| Core workflow | `CKwCsGIwyw9feCY5`, `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9` (04.11.2026, 191 вузол, W1.5; раніше `40abff53` 03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64). **29.10.2026:** гілка `AN:` (7 вузлів, збережена 17.10.2026) лишалась неопублікованою (активна була `84a8e8b0` від 11.10.2026); опубліковано `f2eb3887` 29.10.2026 за рішенням власника (§135), відкат — `84a8e8b0`. Перевірка `кошторис DEMO-0X-АН` у Telegram — відкрито | **29.10.2026, §139:** `AN: Read Tab` — `onError: continueRegularOutput` (відсутня вкладка → повідомлення «Вкладку … не знайдено»), активна версія `cf904641`, відкат `f2eb3887`.
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо; live 29.10.2026 — 5 нод) |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` (ручний, inactive, 7 нод; правки Кошторису) |
@@ -2370,7 +2375,7 @@ FORMULAS §7.1, §7.5.
 - Allowlist Telegram ID зашитий у коді (`Validate InitData`, `WR-Render: Validate InitData`, `Xlsx: Validate InitData` + `WR: Hard Logic Engine`).
 - Токен бота в живому workflow — 1 вузол (`M: Send Project Picker`); три `Validate InitData` токена не мають (підпис Telegram перевіряється публічним ключем). У репозиторії токен замінюється на `<TELEGRAM_BOT_TOKEN>` (SECURITY.md п. 1). RLS вимкнений на більшості таблиць.
 - SQL, куди йде вільний текст ПМа, параметризовано (RELEASE_PLAN §116 і §118) у 6 вузлах: `WR: Inbox Add`, `Import: Insert Time Rows`, `Import: Insert Money Rows`, `Meeting: Insert Rows`, `WR: Save Weekly Snapshot`, `WR: Save Next Week Plan` (`$1…$n`, `queryReplacement`). Інвентар 28.10.2026: вузлів Postgres 47 — з параметрами 13, з інтерполяцією `'{{ … }}'` 21, статичних 13. 21 вузол інтерполює лише `chat.id` (число) і `project_id` (регулярки з класом `[a-zа-яіїєґ0-9_-]`, без лапок) — за кодом ризик низький, параметризація не планується (RELEASE_PLAN §117, варіант A).
-- DDL (`CREATE TABLE IF NOT EXISTS`) виконується на кожне повідомлення (`WR: Ensure Mode Table`, `WR: Ensure Plan Table`).
+- ~~DDL (`CREATE TABLE IF NOT EXISTS`) на кожне повідомлення~~ — усунено (перевірка експорту `a4c89c3c`, 05.11.2026): `WR: Ensure Mode Table` і `WR: Ensure Plan Table` виконують лише `SELECT 1 AS ok`.
 - Запити Mini App читають усі рядки без фільтра компанії; `Fetch All Weekly Snapshots` без `WHERE` і `LIMIT` (Факт, код 02.11.2026). Навантажувального тесту немає.
 Для другого клієнта потрібні: `company_id` + фільтри, права доступу з таблиці,
 окремий бот/токен із сховища секретів, RLS-policies, параметризовані запити.

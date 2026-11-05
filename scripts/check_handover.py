@@ -141,6 +141,13 @@ for n, t in docs.items():
     for m in re.finditer(r"a4c89c3c[-0-9a-f]*", t):
         if len(m.group(0)) > 8 and m.group(0) != vid:
             bad10.append((n, m.group(0)))
+# A10b: канонічні документи не містять застарілої версії core (лише в рядках про поточний стан)
+stale = []
+for f in ["docs/ARCHI_TECH_SPEC_v3_1.md", "README.md"]:
+    for i, l in enumerate(read(ROOT / f).splitlines(), 1):
+        if re.search(r"\| Core workflow \|", l) and "a4c89c3c" not in l:
+            stale.append("%s:%d" % (f, i))
+rec("A10b", "FAIL" if stale else "PASS", "реєстр середовища з застарілою версією core: %s" % stale if stale else "реєстр core у TECH_SPEC = поточна версія")
 rec("A10", "FAIL" if bad10 else "PASS", "розбіжності з експортом core (вузлів %d, версія %s): %s" % (n_nodes, vid[:8], bad10) if bad10 else "кількість вузлів (%d) і версія core (%s) у пакеті = експорт" % (n_nodes, vid[:8]))
 
 # ---------- A11 таблиці markdown: однакова кількість колонок

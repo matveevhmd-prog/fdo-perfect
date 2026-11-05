@@ -5,7 +5,7 @@
 
 ## 1. Живий стан (02.11.2026)
 
-**Доповнення 05.11.2026:** другий workflow «ARCHI: Morning Brief» `J3Oqcaa2YBEsVSng` (10 вузлів, опублікований, розсилка ввімкнена, W5.7, `RELEASE_PLAN` §174); core `a4c89c3c`, 191 вузол — без змін.
+**Доповнення 05.11.2026:** другий workflow «ARCHI: Morning Brief» `J3Oqcaa2YBEsVSng` (11 вузлів, опублікований, розсилка ввімкнена, W5.7, `RELEASE_PLAN` §174); core `a4c89c3c`, 191 вузол — без змін.
 - **n8n core** `CKwCsGIwyw9feCY5`: `activeVersionId a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9`, 191 вузол (колір hero-карток 04.11.2026; перед тим W1 M5 `eab0cf36`, 03.11.2026; відкат до M5 — `eab0cf36`); K6sm `23c5765e`, RC7H `6a8d9dbe`, збігається з `workflows/DEMO_Archi_Agent_Core.json` (звірено 03.11.2026). Остання публікація 03.11.2026 (`RELEASE_PLAN` §160, виправлено `WR: Detect Doc Type`); попередня `bc449cbd` — ID відкату. Sub-workflow K6sm `K6smBd5xWZLWx9rr` — активна `cf904641` (звірено 01.11); у git його немає.
 - **Supabase** `bxawceksdkqlbkdgjvyz`: нове з 01.11.2026 — `evm_packages` (100 демо-пакетів), `evm_package_done` (порожня), функції `evm_classic_indices`, `evm_classic_at`, в'ю `evm_classic_today`; `project_metrics` 18 рядків; `wr_weekly_snapshots` 101 рядок (`live SQL`).
 - **Репозиторій** `matveevhmd-prog/fdo-perfect`, `main`.

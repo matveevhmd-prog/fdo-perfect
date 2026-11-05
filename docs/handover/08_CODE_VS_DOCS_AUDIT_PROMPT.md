@@ -51,7 +51,7 @@
 **Крок 3. Схема даних і багатоклієнтність (TECH_SPEC §3, W1_DESIGN)**
 - Таблиці й колонки з `TECH_SPEC` §3 і `03` §4 проти `information_schema`.
 - `company_id`: NOT NULL, ключі `(company_id, project_id)`, унікальні обмеження, тригери `archi_recalc_*`.
-- Запусти `python3 scripts/check_tenant_filter.py`; потім **вручну**: для кожного Postgres-вузла, що читає чи пише таблицю Archi, перевір, що `company_id` є у `WHERE`/`ON CONFLICT`/`INSERT` і передається параметром, а не береться з `DEFAULT`. Вузол без `company_id` — знахідка `TENANT` (P0 для запису, P1 для читання).
+- Запусти `python3 scripts/check_tenant_filter.py`; потім **вручну**: для кожного Postgres-вузла, що читає чи пише таблицю Archi, перевір, що `company_id` є у `WHERE`/`ON CONFLICT`/`INSERT` і передається параметром, а не береться з `DEFAULT`. Вузол без `company_id` — знахідка `TENANT`. Рівень: P0, якщо запис або читання може змішати дані двох клієнтів; P1, якщо ключ — id чату Telegram (`archi_bot_mode_state`, `n8n_chat_histories`) і колізія можлива лише в оператора з кількома клієнтами.
 - Резолвер компанії на 4 входах (`Telegram Trigger`, Owner View, Weekly Render, xlsx): простеж граф, чи кожен шлях до даних проходить `Resolve Company` і `Has Access`. Шлях без нього — `SEC`.
 - Ключі чернеток і пам'яті (`n8n_chat_histories.session_id`) містять `company_id`?
 - Вʼю з `security_invoker`, функції `SECURITY INVOKER`/`DEFINER`.
@@ -86,6 +86,7 @@
 - Перший рядок «Станом на ДД.ММ.РРРР» = `data_updated_at`, а не дата запиту.
 
 **Крок 8. Безпека (порівнювати зі SECURITY.md, не відкривати наново)**
+- Токен у живому workflow — відомий прийнятий ризик (`CLAUDE.md` п. 25): не P0, фіксується як «прийнято». Новим дефектом є лише токен в експорті репозиторію.
 - Пошук секретів: у `workflows/`, `sql/`, `docs/`, `scripts/`, `tests/` (токен Telegram `\d{8,}:AA…`, ключі `sk-`, JWT `eyJ…`, `AIza…`, приватні ключі). Результат 0, окрім заглушки `<TELEGRAM_BOT_TOKEN>`.
 - Живий core: скільки вузлів містять літерал токена (очікується 1: `M: Send Project Picker`; це відомий ризик, `CLAUDE.md` п. 25).
 - RLS: `pg_tables.rowsecurity` по таблицях Archi проти `SECURITY.md` п. 5–12 і `03` §9.

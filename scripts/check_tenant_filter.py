@@ -11,7 +11,8 @@ import json, re, sys, glob, os
 TENANT = ["project_metrics","time_log","money_log","payment_schedule","meeting_log","kp_log","rates",
           "wr_weekly_snapshots","wr_plan_items","archi_wr_inbox","archi_thresholds",
           "evm_packages","evm_package_done","archi_report_today","archi_snapshot_history",
-          "archi_weekly_progress","archi_plan_execution","evm_classic_today"]
+          "archi_weekly_progress","archi_plan_execution","evm_classic_today",
+          "archi_bot_mode_state","n8n_chat_histories"]  # з 05.11.2026 (аудит): ключ — chat id; без company_id ризик лише для оператора з кількома клієнтами (W1.6)
 root = os.path.join(os.path.dirname(__file__), "..")
 strict = "--strict" in sys.argv
 bad_total = 0
