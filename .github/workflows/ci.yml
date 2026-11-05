@@ -1,0 +1,36 @@
+name: ARCHI checks
+# Перевірки документації й коду, що не потребують доступу до живих систем (n8n, Supabase).
+# Живі перевірки (версії workflow, схема БД, брифінг) виконує аудит за docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md.
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: "Документація: індекс, нумерація, версії, посилання"
+        run: python3 scripts/check_docs.py
+      - name: "Пакет передачі: 15 перевірок"
+        run: python3 scripts/check_handover.py
+      - name: "Пакет передачі: збірка в один файл актуальна"
+        run: |
+          python3 scripts/build_handover_bundle.py
+          git diff --exit-code docs/handover/ARCHI_FULL_PACKAGE.md
+      - name: "Схема БД у документі = знімок"
+        run: python3 scripts/gen_db_schema.py --check
+      - name: "Форма звіту: підписи й нумерація пп. 1–12"
+        run: python3 scripts/check_report_form.py
+      - name: "Ізоляція клієнтів у запитах n8n (базова лінія, без --strict)"
+        run: python3 scripts/check_tenant_filter.py
+      - name: "Тести розбору звіту ПМа"
+        run: node tests/wr_parse_agent_output/run.js
+      - name: "Валідація перевірок: підкинуті дефекти"
+        run: python3 scripts/seed_test_check_handover.py

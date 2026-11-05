@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: ARCHI Mini App API
+  version: "2026-11-05"
+  description: >
+    Контракт за кодом core workflow a4c89c3c (n8n). Деталі й обмеження: docs/handover/11_API_CONTRACT.md.
+    Усі ендпоінти GET; дані потребують initData Telegram WebApp у query. Форма вкладених об'єктів описана неповно (див. розділ 9 контракту).
+servers:
+  - url: https://osbbcopilot.app.n8n.cloud/webhook
+paths:
+  /demo-archi-owner-view:
+    get:
+      summary: Сторінка Owner View (HTML)
+      responses:
+        "200": { description: HTML, content: { text/html: { schema: { type: string } } } }
+  /demo-archi-owner-view-data:
+    get:
+      summary: Дані Owner View
+      parameters: [ { $ref: "#/components/parameters/initData" } ]
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/OwnerViewData" } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /demo-archi-weekly-render:
+    get:
+      summary: Сторінка Weekly Render (HTML)
+      responses:
+        "200": { description: HTML, content: { text/html: { schema: { type: string } } } }
+  /demo-archi-weekly-render-data:
+    get:
+      summary: Дані Weekly Render (без грошових сум)
+      parameters: [ { $ref: "#/components/parameters/initData" } ]
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/WeeklyRenderData" } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /demo-archi-export:
+    get:
+      summary: Історія по тижнях (xlsx, аркуш «Історія»)
+      parameters: [ { $ref: "#/components/parameters/initData" } ]
+      responses:
+        "200": { description: archi_weekly_history.xlsx, content: { application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: { schema: { type: string, format: binary } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+components:
+  parameters:
+    initData:
+      name: initData
+      in: query
+      required: true
+      description: Рядок initData Telegram WebApp (підпис Ed25519, auth_date < 24 год)
+      schema: { type: string }
+  responses:
+    Unauthorized:
+      description: Немає або недійсний initData, або користувача немає в user_access
+      content: { application/json: { schema: { type: object, properties: { error: { type: string, example: invalid or missing initData } } } } }
+  schemas:
+    OwnerViewData:
+      type: object
+      required: [asOf, projects, counts, pfc, rules, views]
+      properties:
+        asOf: { type: string, description: "ДД.ММ.РРРР або —" }
+        projects: { type: array, items: { $ref: "#/components/schemas/Project" } }
+        attention: { type: array, items: { type: object } }
+        counts:
+          type: object
+          properties: { red: { type: integer }, yellow: { type: integer }, green: { type: integer }, blocked: { type: integer } }
+        totalContract: { type: number, nullable: true }
+        totalContractFmt: { type: string }
+        pfc: { type: object, additionalProperties: true, description: Показники портфеля, див. 11_API_CONTRACT §4 }
+        rules: { type: object, additionalProperties: { type: number, nullable: true } }
+        views: { type: object, additionalProperties: true }
+    Project:
+      type: object
+      required: [id, status]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        dataUpdated: { type: string }
+        status: { type: string, enum: [red, yellow, green] }
+        signals: { type: array, items: { type: object } }
+        cls: { type: object, additionalProperties: { type: string } }
+        wr: { type: object, nullable: true, additionalProperties: true }
+        blocker: { type: object, nullable: true, additionalProperties: true }
+        contract: { type: number, nullable: true }
+        rentPlan: { type: number, nullable: true, description: частка від одиниці }
+        rentForecast: { type: number, nullable: true, description: частка від одиниці; null = прогноз відсутній }
+        noForecast: { type: boolean }
+        profitPlan: { type: number, nullable: true }
+        profitForecast: { type: number, nullable: true }
+        profitFact: { type: number, nullable: true }
+        etc: { type: number, nullable: true }
+        planHrs: { type: number, nullable: true }
+        factHrs: { type: number, nullable: true }
+      additionalProperties: true
+    WeeklyRenderData:
+      type: object
+      required: [asOf, weekLabels, projects]
+      properties:
+        asOf: { type: string }
+        weekLabels: { type: array, items: { type: string } }
+        projects:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              dataUpdated: { type: string }
+              columns: { type: array, items: { type: object, nullable: true, additionalProperties: true } }

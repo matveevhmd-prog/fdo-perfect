@@ -13,8 +13,8 @@ ARCHI — це **контроль майбутньої рентабельнос�
 |---|---|---|
 | Product Manager | `01_PRODUCT_BRIEF.md`, потім `02_BUSINESS_REQUIREMENTS.md` | бачення, користувачі, кілер-фічі, каталог фіч зі статусами, вимоги, критерії релізу |
 | CTO / техлід | `03_TECHNICAL_CTO.md`, потім `04_METHODOLOGY_FOR_DEVELOPERS.md` | архітектура, дані, потоки, безпека, борг, ризики, перші кроки |
-| Розробник | `04_METHODOLOGY_FOR_DEVELOPERS.md`, `docs/FORMULAS.md`, `docs/NODE_MAP.md` | предметна область, формули, правила кольору, карта вузлів |
-| QA | `02_BUSINESS_REQUIREMENTS.md` §6, `docs/OWNER_MORNING_TEST.md`, `docs/CTO_CHECKPOINT_PROMPT.md` | критерії приймання, сценарії перевірки |
+| Розробник | `04_METHODOLOGY_FOR_DEVELOPERS.md`, `10_DATABASE_SCHEMA.md`, `11_API_CONTRACT.md`, `13_USER_FLOWS.md`, `docs/FORMULAS.md`, `docs/NODE_MAP.md` | предметна область, схема БД, API, потоки, формули, карта вузлів |
+| QA | `15_USER_STORIES.md`, `12_ERROR_AND_EDGE_CASES.md`, `02_BUSINESS_REQUIREMENTS.md` §6, `docs/OWNER_MORNING_TEST.md` | сценарії приймання, помилки й крайні випадки |
 
 ## 3. Порядок читання першого дня (для всіх)
 1. Цей файл.
@@ -34,6 +34,12 @@ ARCHI — це **контроль майбутньої рентабельнос�
 | `04_METHODOLOGY_FOR_DEVELOPERS.md` | предметна область і формули простою мовою, правила кольору й верстки |
 | `05…07` | план перевірки пакета CTO, план валідації, звіт про перевірку |
 | `08_CODE_VS_DOCS_AUDIT_PROMPT.md` | промпт: перевірка коду й живих систем проти документації |
+| `10_DATABASE_SCHEMA.md` | схема БД (згенеровано з живої бази): типи, обмеження, індекси, RLS, ER |
+| `11_API_CONTRACT.md`, `openapi.yaml` | API-контракт 5 вебхуків і форма відповідей |
+| `12_ERROR_AND_EDGE_CASES.md` | помилки, порожні стани, крайні випадки «як є» |
+| `13_USER_FLOWS.md` | потоки користувача (діаграми Mermaid) |
+| `14_THREAT_MODEL.md` | модель загроз STRIDE |
+| `15_USER_STORIES.md` | 55 User Stories з Acceptance Criteria |
 
 ### 4.2 Канонічні документи репозиторію (джерела, на які посилається пакет)
 | Файл | Призначення |

@@ -158,6 +158,9 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | Незалежна звірка F-02/F-13/F-15 | 14/14 збіг (15.10 і 01.11.2026) |
 **Немає:** тестів `Build Request Body`, `Build MiniApp Data` (G4); моніторингу помилок; резервних копій за розкладом; відкату автоматизованого (відкат — ручний за `activeVersionId` і `*_rollback.sql`); навантажувального тесту.
 
+### 8.1 CI (GitHub Actions, `.github/workflows/ci.yml`)
+На кожен PR і push у `main` без доступу до живих систем виконуються: `check_docs`, `check_handover`, перевірка актуальності єдиного файлу пакета, `gen_db_schema --check`, `check_report_form`, `check_tenant_filter` (базова лінія), `tests/wr_parse_agent_output`, seed-тест перевірок. Живі перевірки (версії workflow, схема БД, брифінг) — аудит за `08`. Довідники схеми БД і API: `10_DATABASE_SCHEMA.md` (генерується зі знімка `sql/schema/`), `11_API_CONTRACT.md` + `openapi.yaml`; помилки й крайні випадки — `12`; потоки — `13`; загрози — `14`.
+
 ## 9. Безпека
 Джерело — `SECURITY.md` (12 пунктів). Рішення власника: **не виправляти самостійно**, поки він не скаже.
 | Ризик | Стан | Рішення власника |
