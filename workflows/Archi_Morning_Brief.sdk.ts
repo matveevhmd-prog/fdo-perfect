@@ -94,6 +94,16 @@ const renderBrief = node({
   }
 });
 
+const addPortfolio = node({
+  type: 'n8n-nodes-base.code',
+  version: 2,
+  config: {
+    name: 'Add Portfolio Block',
+    parameters: { mode: 'runOnceForEachItem', language: 'javaScript', jsCode: "const brief = $('Load Brief').item.json.brief || {};\nconst p = brief.portfolio || {};\nconst rows = [['⛔ Проєкти стоять', p.blocked], ['💰 Субпідрядник чекає аванс', p.sub_blocked], ['🔴 Прострочені акти', p.acts_overdue], ['🟡 Акти в найближчі 7 днів', p.acts_soon], ['🔴 ETC_прогноз більший за ETC_факт', p.etc_red], ['🔴 Рентабельність прогнозу нижче плану', p.rent_below], ['🔴 Немає прогнозу ПМа', p.no_forecast], ['🟡 Немає звіту за поточний тиждень', p.no_report]];\nconst lines = ['• Проєктів у роботі: ' + (brief.projects_total == null ? '—' : brief.projects_total)];\nrows.forEach(function (r) { if (Number(r[1]) > 0) lines.push('• ' + r[0] + ': ' + r[1]); });\nconst block = '📊 <b>Стан портфеля</b>\\n' + lines.join('\\n');\nconst marker = '<b>План дій на день</b>';\nlet text = String($json.text || '');\nconst next = text.indexOf(marker) >= 0 ? text.replace(marker, block + '\\n\\n' + marker) : text;\nif (next.length <= 4000) text = next;\nreturn { json: Object.assign({}, $json, { text: text, portfolio_block: next.length <= 4000 }) };\n" },
+    output: [{ chat_id: '304884647', company_id: '00000000-0000-4000-8000-000000000001', force: true, text: 'Станом на 01.11.2026', portfolio_block: true }]
+  }
+});
+
 const sendBrief = node({
   type: 'n8n-nodes-base.telegram',
   version: 1.2,
@@ -134,6 +144,7 @@ export default workflow('archi-morning-brief', 'ARCHI: Morning Brief')
   .to(buildRequest)
   .to(callAnthropic)
   .to(renderBrief)
+  .to(addPortfolio)
   .to(sendBrief)
   .to(markSent)
   .add(manualTest)

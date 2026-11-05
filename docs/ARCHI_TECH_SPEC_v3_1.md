@@ -214,7 +214,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `40abff53-e82e-478a-b1c5-0cb628406ab2` (03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
+| Core workflow | `CKwCsGIwyw9feCY5`, `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9` (04.11.2026, 191 вузол, W1.5; раніше `40abff53` 03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64). **29.10.2026:** гілка `AN:` (7 вузлів, збережена 17.10.2026) лишалась неопублікованою (активна була `84a8e8b0` від 11.10.2026); опубліковано `f2eb3887` 29.10.2026 за рішенням власника (§135), відкат — `84a8e8b0`. Перевірка `кошторис DEMO-0X-АН` у Telegram — відкрито | **29.10.2026, §139:** `AN: Read Tab` — `onError: continueRegularOutput` (відсутня вкладка → повідомлення «Вкладку … не знайдено»), активна версія `cf904641`, відкат `f2eb3887`.
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо; live 29.10.2026 — 5 нод) |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` (ручний, inactive, 7 нод; правки Кошторису) |
@@ -281,7 +281,7 @@ FORMULAS §7.1, §7.5.
 - Allowlist Telegram ID зашитий у коді (`Validate InitData`, `WR-Render: Validate InitData`, `Xlsx: Validate InitData` + `WR: Hard Logic Engine`).
 - Токен бота в живому workflow — 1 вузол (`M: Send Project Picker`); три `Validate InitData` токена не мають (підпис Telegram перевіряється публічним ключем). У репозиторії токен замінюється на `<TELEGRAM_BOT_TOKEN>` (SECURITY.md п. 1). RLS вимкнений на більшості таблиць.
 - SQL, куди йде вільний текст ПМа, параметризовано (RELEASE_PLAN §116 і §118) у 6 вузлах: `WR: Inbox Add`, `Import: Insert Time Rows`, `Import: Insert Money Rows`, `Meeting: Insert Rows`, `WR: Save Weekly Snapshot`, `WR: Save Next Week Plan` (`$1…$n`, `queryReplacement`). Інвентар 28.10.2026: вузлів Postgres 47 — з параметрами 13, з інтерполяцією `'{{ … }}'` 21, статичних 13. 21 вузол інтерполює лише `chat.id` (число) і `project_id` (регулярки з класом `[a-zа-яіїєґ0-9_-]`, без лапок) — за кодом ризик низький, параметризація не планується (RELEASE_PLAN §117, варіант A).
-- DDL (`CREATE TABLE IF NOT EXISTS`) виконується на кожне повідомлення (`WR: Ensure Mode Table`, `WR: Ensure Plan Table`).
+- ~~DDL (`CREATE TABLE IF NOT EXISTS`) на кожне повідомлення~~ — усунено (перевірка експорту `a4c89c3c`, 05.11.2026): `WR: Ensure Mode Table` і `WR: Ensure Plan Table` виконують лише `SELECT 1 AS ok`.
 - Запити Mini App читають усі рядки без фільтра компанії; `Fetch All Weekly Snapshots` без `WHERE` і `LIMIT` (Факт, код 02.11.2026). Навантажувального тесту немає.
 Для другого клієнта потрібні: `company_id` + фільтри, права доступу з таблиці,
 окремий бот/токен із сховища секретів, RLS-policies, параметризовані запити.

@@ -42,7 +42,7 @@
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `cf904641`; експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
 | Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `d86d127a`; експорт `workflows/Archi_Document_Intake_RC7H.json` |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` | ручний, неактивний, 7 вузлів |
-| **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 10 вузлів, опублікований; `activeVersionId` `ae7e4e3b-eaa7-4ff6-b108-c6edec0311f4`; код `workflows/Archi_Morning_Brief.sdk.ts` |
+| **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 11 вузлів, опублікований; `activeVersionId` `cb4b50e8-1acd-457c-a37f-16647d00fcb7` (відкат — `ae7e4e3b-eaa7-4ff6-b108-c6edec0311f4`); код `workflows/Archi_Morning_Brief.sdk.ts` |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) | чужий проєкт власника |
 | Інші workflow в акаунті | 103 workflow усього (live, 05.11.2026): `Task Dispatcher` (активний), `DS Executor`, `Archi Protocol Format Helper` (неактивний, застарілий) і ~90 тимчасових `TEMP:` | **не частина ARCHI**; не змінювати без власника. ARCHI = 5 workflow: core, K6sm, RC7H, Sheets Helper, Morning Brief |
 | Supabase | `bxawceksdkqlbkdgjvyz` «matvieiev-bots» | у базі є чужі таблиці (`_bak_*`, `jarvis_*`, `shift_*`, `bot_*`, `archi_bot_semantic_memory`) — не частина ARCHI |
@@ -120,7 +120,7 @@
 ```
 Every 5 Minutes → Find Due Owners ─┐
 Manual Test → Test Recipient ──────┴─► Load Brief → Build LLM Request → Call Anthropic
-                                          → Validate And Render → Send Brief → Mark Sent
+                                          → Validate And Render → Add Portfolio Block → Send Brief → Mark Sent
 ```
 - `Find Due Owners`: `owner_prefs` з `enabled`, `isodow ∈ days`, поточний час у вікні 30 хв від `brief_time`, `last_sent_on` ≠ сьогодні.
 - `Load Brief`: `archi_morning_brief(company)` повертає jsonb: `actions[]` (rank, project_id, kind, score, facts, advice), `horizon_7d[]`, `data_updated_at`.
@@ -128,7 +128,8 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 - `advice` (адресат за роллю, режим, мета) — вираз `CASE` у SQL, не в промпті.
 - LLM (`claude-sonnet-4-6`, `temperature 0.2`) формулює `headline`, `why`, `message`; системний промпт — `docs/MORNING_BRIEF_PROMPT.txt`.
 - `Validate And Render` (Code): пункт приймається, якщо збігається `rank`, довжини в межах, немає слова «залишок», немає номерів чужих проєктів, **усі числа є серед фактів цієї дії**; інакше підставляється шаблон за метою. Звіт надсилається і при недоступному LLM.
-- Перше тестове надсилання: виконання 6953, Telegram `message_id 1774`.
+- Блок «📊 Стан портфеля» (кількості за сигналами) формує SQL (`archi_morning_brief(...)->portfolio`), вставляє вузол `Add Portfolio Block` (без LLM).
+- Перше тестове надсилання: виконання 6953, Telegram `message_id 1774`; з блоком — виконання 7054.
 
 ## 6. API й авторизація
 | Ендпоінт `/webhook/…` | Призначення | Авторизація |
@@ -178,7 +179,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 |---|---|---|
 | T-1 | Формули/пороги/кольори частково в n8n і браузері, не в SQL | W1.8 |
 | T-2 | Моноліт 191 вузол; код у JSON, а не у файлах | W8.1, W8.2 |
-| T-3 | DDL (`CREATE TABLE IF NOT EXISTS`) виконується на кожне повідомлення (`WR: Ensure Mode Table`, `WR: Ensure Plan Table`) | W1.6 |
+| T-3 | ~~DDL на кожне повідомлення~~ **усунено:** вузли `WR: Ensure Mode Table` і `WR: Ensure Plan Table` виконують лише `SELECT 1 AS ok` (експорт core `a4c89c3c`, перевірка аудитом 05.11.2026); самі вузли — зайві, можна видалити | W1.6 |
 | T-4 | 21 Postgres-вузол інтерполює `'{{ … }}'` (лише `chat.id` і регулярно перевірений `project_id`); за кодом ризик низький, параметризація не планується (рішення `RELEASE_PLAN` §117, варіант A) | W1.6 |
 | T-5 | `WR: Schedule Reminder (Fri 10:00)` без вихідних з'єднань: нагадування не надсилається (D1) | W5.3 |
 | T-6 | Гілка Doc Intake читає `$('WR: Read Mode')` з іншої гілки (клас D2) | CTO 01.11 №8 |
