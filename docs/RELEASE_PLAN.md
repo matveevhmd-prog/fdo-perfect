@@ -2550,3 +2550,12 @@ P0 1 · P1 5 · P2 11; інваріанти 3/5. Живий `27350d38` = реп�
 **Не перевірено:** автозапуск о 08:30; загальний статус 🔴🟡🟢⛔ портфеля у брифінгу (він у `Build MiniApp Data`, не в SQL; після W1.8).
 **Checkpoint:** BR-51 виконано; розбір аудиту завершено; рішення (2)–(4) відкриті.
 
+## 178. Технічні довідники для розробників: схема БД, API, помилки, потоки, загрози, User Stories, CI (05.11.2026)
+**M-пункт/вплив:** пакет передачі (рішення власника: «ніхто не знає проєкт краще за мене… робимо 1–5, далі п. 6»); лише документація, скрипти й CI; n8n і Supabase не змінювались (SQL лише читався).
+**Що зроблено:** `docs/handover/10_DATABASE_SCHEMA.md` (генерується `scripts/gen_db_schema.py` зі знімка `sql/schema/schema_dump_2026-11-05.json`; запит — `sql/schema/dump_query.sql`; 19 таблиць, 7 вʼю, 57 обмежень, 39 індексів, 14 тригерів, 31 функція); `11_API_CONTRACT.md` + `openapi.yaml` (5 вебхуків, `initData`, форма відповідей із коду); `12_ERROR_AND_EDGE_CASES.md` («як є»: 15 помилок, 9 порожніх станів, 17 крайніх випадків); `13_USER_FLOWS.md` (6 потоків Mermaid); `14_THREAT_MODEL.md` (20 загроз STRIDE); `15_USER_STORIES.md` (55 User Stories з AC для всіх фіч каталогу); `.github/workflows/ci.yml` (8 кроків); `check_handover.py` розширено на 10–15.
+**Знайдено при складанні (факти за експортом core `a4c89c3c` і живим SQL):** лише 3 вузли з `onError` і 2 з `retryOnFail`; LLM-вузли (`Call Anthropic`, `WR: OpenAI Chat Model`, `WR: Transcribe`, `WR: Analyze Image`) без обробки помилок і таймауту; Error Workflow не задано (DR-14); FK у БД лише на `companies`; `company_id` NULL у `archi_bot_mode_state`; `n8n_chat_histories` без `company_id`; RLS вимкнений на 10 таблицях і увімкнений без політик на 9; `wr_plan_items_legacy` відсутня; секретний токен вебхука Telegram не перевірено (DR-15).
+**Спосіб перевірки:** `gen_db_schema.py --check` збігається зі знімком; `check_handover.py` PASS 15; `check_docs` 0 помилок; `openapi.yaml` і `ci.yml` розібрано як YAML; seed-тест 11/11; CI на GitHub **ще не запускався** (файл щойно доданий).
+**Не перевірено:** живі відповіді вебхуків (потрібен підписаний `initData`); `Build MiniApp Data` на порожньому портфелі; поведінка оператора FDO на вебхуках; точні підписи кнопок меню Weekly Render.
+**Рішення, що чекають слова власника:** п. 7 — NFR (питання нижче в чаті); fallback чату й Error Workflow (живий n8n); EC-01, EC-10, EC-11 з `12`.
+**Checkpoint:** довідники створено; CI не запускався; DR-14, DR-15 відкриті.
+

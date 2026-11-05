@@ -27,7 +27,7 @@ def read(p):
 
 
 def handover_files():
-    return sorted(p for p in H.glob("0*.md"))
+    return sorted(list(H.glob("0*.md")) + list(H.glob("1[0-9]_*.md")))
 
 
 # ---------- A1 наявність файлів
@@ -126,7 +126,7 @@ rec("A8", "FAIL" if hits else "PASS", "знайдено схожі на секр
 lines = []
 for n, t in docs.items():
     for i, l in enumerate(t.splitlines(), 1):
-        if re.search(r"залишок(?!\s+(?:коштів|на\s+рахунк))", l, re.I) and not re.search(r"заборон|не вживає|колонк|назва|історичн|не прогнозу|не використов|«залишок»", l, re.I):
+        if re.search(r"залишок(?!\s+(?:коштів|на\s+рахунк)|_)", l, re.I) and not re.search(r"заборон|не вживає|колонк|назва|історичн|не прогнозу|не використов|«залишок»", l, re.I):
             lines.append("%s:%d" % (n, i))
 rec("A9", "FAIL" if lines else "PASS", "«залишок» поза контекстом заборони: %s" % lines if lines else "термін «залишок» лише в контексті заборони/історичної колонки")
 

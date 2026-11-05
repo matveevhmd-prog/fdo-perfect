@@ -1,0 +1,4226 @@
+{
+ "columns": [
+  {
+   "c": "session_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "archi_bot_mode_state",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "mode",
+   "def": "'idle'::text",
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "archi_bot_mode_state",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "updated_at",
+   "def": "now()",
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "archi_bot_mode_state",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "archi_bot_mode_state",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "context",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "archi_bot_mode_state",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "archi_bot_mode_state",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "week_start",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "total",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "done",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "not_done",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "no_answer",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "pending",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "max_carry",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "exec_pct",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "signal",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "archi_plan_execution",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "data_updated_at",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "rent_plan_pct",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "rent_forecast_pct",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "planned_hours",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "actual_hours",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_plan_hours",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_fact_hours",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_forecast_hours",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "eac_hours_pct",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cpi",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "act_date",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "act_prob",
+   "def": null,
+   "len": null,
+   "n": 13,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "doc_date",
+   "def": null,
+   "len": null,
+   "n": 14,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "doc_prob",
+   "def": null,
+   "len": null,
+   "n": 15,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_gap_hours",
+   "def": null,
+   "len": null,
+   "n": 16,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_gap_signal",
+   "def": null,
+   "len": null,
+   "n": 17,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "spent_pct",
+   "def": null,
+   "len": null,
+   "n": 18,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_pm_pct",
+   "def": null,
+   "len": null,
+   "n": 19,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_fc_pct",
+   "def": null,
+   "len": null,
+   "n": 20,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_gap_pp",
+   "def": null,
+   "len": null,
+   "n": 21,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_gap_signal",
+   "def": null,
+   "len": null,
+   "n": 22,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "eff_hours_idx",
+   "def": null,
+   "len": null,
+   "n": 23,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "eff_signal",
+   "def": null,
+   "len": null,
+   "n": 24,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "acts_to_ev",
+   "def": null,
+   "len": null,
+   "n": 25,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "paid_to_acts",
+   "def": null,
+   "len": null,
+   "n": 26,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "acts_to_ev_signal",
+   "def": null,
+   "len": null,
+   "n": 27,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "paid_to_acts_signal",
+   "def": null,
+   "len": null,
+   "n": 28,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "exec_idx",
+   "def": null,
+   "len": null,
+   "n": 29,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "exec_signal",
+   "def": null,
+   "len": null,
+   "n": 30,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "acts_due",
+   "def": null,
+   "len": null,
+   "n": 31,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "acts_done",
+   "def": null,
+   "len": null,
+   "n": 32,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "acts_plan_idx",
+   "def": null,
+   "len": null,
+   "n": 33,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "acts_plan_signal",
+   "def": null,
+   "len": null,
+   "n": 34,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "etc_gap_pct_bac",
+   "def": null,
+   "len": null,
+   "n": 35,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "stage_etc_signal",
+   "def": null,
+   "len": null,
+   "n": 36,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 37,
+   "null": "YES",
+   "t": "archi_report_today",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "week_start",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "rent_plan_pct",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "rent_forecast_pct",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "eac_hours_pct",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cpi",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_plan_hours",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_fact_hours",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_forecast_hours",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_gap_hours",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_gap_signal",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "spent_pct",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_pm_pct",
+   "def": null,
+   "len": null,
+   "n": 13,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_fc_pct",
+   "def": null,
+   "len": null,
+   "n": 14,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_gap_pp",
+   "def": null,
+   "len": null,
+   "n": 15,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_gap_signal",
+   "def": null,
+   "len": null,
+   "n": 16,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "eff_hours_idx",
+   "def": null,
+   "len": null,
+   "n": 17,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "eff_signal",
+   "def": null,
+   "len": null,
+   "n": 18,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "acts_to_ev",
+   "def": null,
+   "len": null,
+   "n": 19,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "paid_to_acts",
+   "def": null,
+   "len": null,
+   "n": 20,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "acts_to_ev_signal",
+   "def": null,
+   "len": null,
+   "n": 21,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "paid_to_acts_signal",
+   "def": null,
+   "len": null,
+   "n": 22,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "exec_idx",
+   "def": null,
+   "len": null,
+   "n": 23,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "exec_signal",
+   "def": null,
+   "len": null,
+   "n": 24,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "acts_due",
+   "def": null,
+   "len": null,
+   "n": 25,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "acts_done",
+   "def": null,
+   "len": null,
+   "n": 26,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "acts_plan_idx",
+   "def": null,
+   "len": null,
+   "n": 27,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "acts_plan_signal",
+   "def": null,
+   "len": null,
+   "n": 28,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 29,
+   "null": "YES",
+   "t": "archi_snapshot_history",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "key",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "archi_thresholds",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "value",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "archi_thresholds",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "note",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "archi_thresholds",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "week_start",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "prev_week",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "ready_prev_pct",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ready_pct",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "d_ready_pp",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "hours",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cost_uah",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "contract_amount",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "value_uah",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "result_uah",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "idx",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "signal",
+   "def": null,
+   "len": null,
+   "n": 13,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "budget_uah",
+   "def": null,
+   "len": null,
+   "n": 14,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "customer_money_uah",
+   "def": null,
+   "len": null,
+   "n": 15,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "owner_money_uah",
+   "def": null,
+   "len": null,
+   "n": 16,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 17,
+   "null": "YES",
+   "t": "archi_weekly_progress",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": "nextval('archi_wr_inbox_id_seq'::regclass)",
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "archi_wr_inbox",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "session_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "archi_wr_inbox",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "archi_wr_inbox",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "source_type",
+   "def": "'text'::text",
+   "len": null,
+   "n": 4,
+   "null": "NO",
+   "t": "archi_wr_inbox",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "content",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "archi_wr_inbox",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 6,
+   "null": "NO",
+   "t": "archi_wr_inbox",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "NO",
+   "t": "archi_wr_inbox",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "company_id",
+   "def": "gen_random_uuid()",
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "companies",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "code",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "companies",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "name",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "companies",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "kind",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "NO",
+   "t": "companies",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "companies",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "company_thresholds",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "key",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "company_thresholds",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "value",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "company_thresholds",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "note",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "company_thresholds",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "updated_at",
+   "def": "now()",
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "company_thresholds",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "as_of",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "has_baseline",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "boolean",
+   "udt": "bool"
+  },
+  {
+   "c": "baseline_no",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "packages",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "bac",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "pv",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ev",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ac",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cv",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "sv",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cpi",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "spi",
+   "def": null,
+   "len": null,
+   "n": 13,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "eac",
+   "def": null,
+   "len": null,
+   "n": 14,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc",
+   "def": null,
+   "len": null,
+   "n": 15,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "vac",
+   "def": null,
+   "len": null,
+   "n": 16,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "tcpi",
+   "def": null,
+   "len": null,
+   "n": 17,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 18,
+   "null": "YES",
+   "t": "evm_classic_today",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "evm_package_done",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "package_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "evm_package_done",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "event",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "evm_package_done",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "event_date",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "NO",
+   "t": "evm_package_done",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "confirmed_by",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "evm_package_done",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "evidence",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "evm_package_done",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "source",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "NO",
+   "t": "evm_package_done",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 8,
+   "null": "NO",
+   "t": "evm_package_done",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "NO",
+   "t": "evm_package_done",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "baseline_no",
+   "def": "1",
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "stage",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "package_code",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "title",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "budget_uah",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "budget_src",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "evm_packages",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "rule",
+   "def": "'0/100'::text",
+   "len": null,
+   "n": 9,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "planned_start",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "evm_packages",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "planned_finish",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "source",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 13,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "created_by",
+   "def": null,
+   "len": null,
+   "n": 14,
+   "null": "YES",
+   "t": "evm_packages",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 15,
+   "null": "NO",
+   "t": "evm_packages",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": "nextval('kp_log_id_seq'::regclass)",
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "kp_log",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "logged_at",
+   "def": "now()",
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "kp_log",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "count",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "kp_log",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "telegram_user_id",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "kp_log",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "kp_log",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "meeting_log",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "meeting_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "дата",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "meeting_log",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "учасники",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "meeting_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "рішення_дія",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "meeting_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "відповідальний",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "meeting_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "дедлайн",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "meeting_log",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "source",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "meeting_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "raw_payload",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "meeting_log",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "meeting_log",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "NO",
+   "t": "meeting_log",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "money_log",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "money_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "дата",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "money_log",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "стадія",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "money_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "контрагент",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "money_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "сума",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "money_log",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "тип",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "money_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "статус",
+   "def": "'logged'::text",
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "money_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "source",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "money_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "raw_payload",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "money_log",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "money_log",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "NO",
+   "t": "money_log",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": "nextval('n8n_chat_histories_id_seq'::regclass)",
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "n8n_chat_histories",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "session_id",
+   "def": null,
+   "len": 255,
+   "n": 2,
+   "null": "NO",
+   "t": "n8n_chat_histories",
+   "ty": "character varying",
+   "udt": "varchar"
+  },
+  {
+   "c": "message",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "n8n_chat_histories",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "telegram_user_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "owner_prefs",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "owner_prefs",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "brief_time",
+   "def": "'08:30:00'::time without time zone",
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "owner_prefs",
+   "ty": "time without time zone",
+   "udt": "time"
+  },
+  {
+   "c": "tz",
+   "def": "'Europe/Kyiv'::text",
+   "len": null,
+   "n": 4,
+   "null": "NO",
+   "t": "owner_prefs",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "days",
+   "def": "'{1,2,3,4,5}'::smallint[]",
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "owner_prefs",
+   "ty": "ARRAY",
+   "udt": "_int2"
+  },
+  {
+   "c": "enabled",
+   "def": "false",
+   "len": null,
+   "n": 6,
+   "null": "NO",
+   "t": "owner_prefs",
+   "ty": "boolean",
+   "udt": "bool"
+  },
+  {
+   "c": "last_sent_on",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "owner_prefs",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "updated_at",
+   "def": "now()",
+   "len": null,
+   "n": 8,
+   "null": "NO",
+   "t": "owner_prefs",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "id",
+   "def": "nextval('payment_schedule_id_seq'::regclass)",
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "payment_schedule",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "payment_schedule",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "стадія",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "payment_schedule",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "подія",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "NO",
+   "t": "payment_schedule",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "дата_план",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "payment_schedule",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "сума_план",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "payment_schedule",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ймовірність_план",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "payment_schedule",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "статус_план",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "payment_schedule",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "baseline_at",
+   "def": "now()",
+   "len": null,
+   "n": 9,
+   "null": "NO",
+   "t": "payment_schedule",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "NO",
+   "t": "payment_schedule",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "project_metrics",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "contract_amount",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "profitability_plan_pct",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "profit_plan",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cost_plan_team",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cost_plan_subcontract",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "planned_hours",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "actual_hours",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "hours_remaining",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "percent_execution",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "earned_value_contract",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "actual_cost",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "efficiency_contract",
+   "def": null,
+   "len": null,
+   "n": 13,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "money_received",
+   "def": null,
+   "len": null,
+   "n": 14,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "earned_value",
+   "def": null,
+   "len": null,
+   "n": 15,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "paid_volume",
+   "def": null,
+   "len": null,
+   "n": 16,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "acts_amount",
+   "def": null,
+   "len": null,
+   "n": 17,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "comparison",
+   "def": null,
+   "len": null,
+   "n": 18,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "stage_data",
+   "def": null,
+   "len": null,
+   "n": 19,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "etc_forecast_total_hours",
+   "def": null,
+   "len": null,
+   "n": 20,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "real_rate_team_hour",
+   "def": null,
+   "len": null,
+   "n": 21,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "money_to_completion_team",
+   "def": null,
+   "len": null,
+   "n": 22,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cost_final_forecast",
+   "def": null,
+   "len": null,
+   "n": 23,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "profit_forecast",
+   "def": null,
+   "len": null,
+   "n": 24,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "profitability_forecast_pct",
+   "def": null,
+   "len": null,
+   "n": 25,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "bac",
+   "def": null,
+   "len": null,
+   "n": 26,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ev_classic_evm",
+   "def": null,
+   "len": null,
+   "n": 27,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "cpi_classic_evm",
+   "def": null,
+   "len": null,
+   "n": 28,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "updated_at",
+   "def": "now()",
+   "len": null,
+   "n": 29,
+   "null": "NO",
+   "t": "project_metrics",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "money_to_completion_subcontract",
+   "def": null,
+   "len": null,
+   "n": 30,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "nearest_act_date",
+   "def": null,
+   "len": null,
+   "n": 31,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "nearest_act_probability",
+   "def": null,
+   "len": null,
+   "n": 32,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "nearest_doc_deadline",
+   "def": null,
+   "len": null,
+   "n": 33,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "doc_issuance_probability",
+   "def": null,
+   "len": null,
+   "n": 34,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "etc_plan_by_stage",
+   "def": null,
+   "len": null,
+   "n": 35,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "planned_hours_by_stage",
+   "def": null,
+   "len": null,
+   "n": 36,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "koshtorys_spreadsheet_id",
+   "def": null,
+   "len": null,
+   "n": 37,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "koshtorys_sheet",
+   "def": null,
+   "len": null,
+   "n": 38,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "baseline_at",
+   "def": null,
+   "len": null,
+   "n": 39,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "baseline_by",
+   "def": null,
+   "len": null,
+   "n": 40,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "contract_file_url",
+   "def": null,
+   "len": null,
+   "n": 41,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "forecast_confirmed_pct",
+   "def": null,
+   "len": null,
+   "n": 42,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "forecast_confirmed_week",
+   "def": null,
+   "len": null,
+   "n": 43,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "contract_type",
+   "def": "'stages'::text",
+   "len": null,
+   "n": 44,
+   "null": "NO",
+   "t": "project_metrics",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "parent_project_id",
+   "def": null,
+   "len": null,
+   "n": 45,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "visits_plan",
+   "def": null,
+   "len": null,
+   "n": 46,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "visit_price",
+   "def": null,
+   "len": null,
+   "n": 47,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "visit_hours",
+   "def": null,
+   "len": null,
+   "n": 48,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "visits_done",
+   "def": null,
+   "len": null,
+   "n": 49,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "data_updated_at",
+   "def": null,
+   "len": null,
+   "n": 50,
+   "null": "YES",
+   "t": "project_metrics",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 51,
+   "null": "NO",
+   "t": "project_metrics",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "contract_amount",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "planned_hours",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "actual_hours",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "percent_execution",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "earned_value_contract",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "actual_cost",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "efficiency_contract",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "comparison",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "project_metrics_live",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "posada",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "rates",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "stavka_grn_god",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "rates",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "nakladni_grn_god",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "rates",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "razom_grn_god",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "rates",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "rates",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "YES",
+   "t": "rates_coverage_check",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "posada_bez_stavky",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "YES",
+   "t": "rates_coverage_check",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "rates_coverage_check",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "time_log",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "time_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "дата",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "time_log",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "стадія",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "time_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "виконавець",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "time_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "завдання_розділ",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "time_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "години",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "time_log",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "статус",
+   "def": "'logged'::text",
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "time_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "source",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "time_log",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "raw_payload",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "time_log",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "time_log",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "NO",
+   "t": "time_log",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": null,
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "user_access",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "telegram_user_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "user_access",
+   "ty": "bigint",
+   "udt": "int8"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "YES",
+   "t": "user_access",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "role",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "NO",
+   "t": "user_access",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "user_access",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "created_by",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "user_access",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "id",
+   "def": "nextval('wr_plan_items_id_seq'::regclass)",
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "week_start",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "item_number",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "item_text",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "status",
+   "def": "'pending'::text",
+   "len": null,
+   "n": 6,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 7,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "origin_week",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "wr_plan_items",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "carry_count",
+   "def": "0",
+   "len": null,
+   "n": 9,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "NO",
+   "t": "wr_plan_items",
+   "ty": "uuid",
+   "udt": "uuid"
+  },
+  {
+   "c": "id",
+   "def": "nextval('wr_weekly_snapshots_id_seq'::regclass)",
+   "len": null,
+   "n": 1,
+   "null": "NO",
+   "t": "wr_weekly_snapshots",
+   "ty": "integer",
+   "udt": "int4"
+  },
+  {
+   "c": "project_id",
+   "def": null,
+   "len": null,
+   "n": 2,
+   "null": "NO",
+   "t": "wr_weekly_snapshots",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "week_start",
+   "def": null,
+   "len": null,
+   "n": 3,
+   "null": "NO",
+   "t": "wr_weekly_snapshots",
+   "ty": "date",
+   "udt": "date"
+  },
+  {
+   "c": "session_id",
+   "def": null,
+   "len": null,
+   "n": 4,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "готовність_pct",
+   "def": null,
+   "len": null,
+   "n": 5,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "залишок_прогноз_год",
+   "def": null,
+   "len": null,
+   "n": 6,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ймовірність_акту",
+   "def": null,
+   "len": null,
+   "n": 7,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "ймовірність_документації",
+   "def": null,
+   "len": null,
+   "n": 8,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "numeric",
+   "udt": "numeric"
+  },
+  {
+   "c": "plans_next_week",
+   "def": null,
+   "len": null,
+   "n": 9,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "problems",
+   "def": null,
+   "len": null,
+   "n": 10,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "help_needed",
+   "def": null,
+   "len": null,
+   "n": 11,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "pm_comment",
+   "def": null,
+   "len": null,
+   "n": 12,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "final_message",
+   "def": null,
+   "len": null,
+   "n": 13,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "text",
+   "udt": "text"
+  },
+  {
+   "c": "item_statuses",
+   "def": null,
+   "len": null,
+   "n": 14,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "created_at",
+   "def": "now()",
+   "len": null,
+   "n": 15,
+   "null": "NO",
+   "t": "wr_weekly_snapshots",
+   "ty": "timestamp with time zone",
+   "udt": "timestamptz"
+  },
+  {
+   "c": "залишок_прогноз_по_стадіях",
+   "def": null,
+   "len": null,
+   "n": 16,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "дедлайн_прогноз_по_стадіях",
+   "def": null,
+   "len": null,
+   "n": 17,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "блокер",
+   "def": null,
+   "len": null,
+   "n": 18,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "розбіжність_готовності",
+   "def": null,
+   "len": null,
+   "n": 19,
+   "null": "YES",
+   "t": "wr_weekly_snapshots",
+   "ty": "jsonb",
+   "udt": "jsonb"
+  },
+  {
+   "c": "company_id",
+   "def": null,
+   "len": null,
+   "n": 20,
+   "null": "NO",
+   "t": "wr_weekly_snapshots",
+   "ty": "uuid",
+   "udt": "uuid"
+  }
+ ],
+ "constraints": [
+  {
+   "def": "UNIQUE (code)",
+   "name": "companies_code_key",
+   "t": "companies",
+   "type": "u"
+  },
+  {
+   "def": "CHECK ((kind = ANY (ARRAY['demo'::text, 'client'::text])))",
+   "name": "companies_kind_check",
+   "t": "companies",
+   "type": "c"
+  },
+  {
+   "def": "PRIMARY KEY (company_id)",
+   "name": "companies_pkey",
+   "t": "companies",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "user_access_company_id_fkey",
+   "t": "user_access",
+   "type": "f"
+  },
+  {
+   "def": "CHECK (((role = 'operator'::text) = (company_id IS NULL)))",
+   "name": "user_access_operator_global",
+   "t": "user_access",
+   "type": "c"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "user_access_pkey",
+   "t": "user_access",
+   "type": "p"
+  },
+  {
+   "def": "CHECK ((role = ANY (ARRAY['owner'::text, 'pm'::text, 'gap'::text, 'executor'::text, 'operator'::text])))",
+   "name": "user_access_role_check",
+   "t": "user_access",
+   "type": "c"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "company_thresholds_company_id_fkey",
+   "t": "company_thresholds",
+   "type": "f"
+  },
+  {
+   "def": "FOREIGN KEY (key) REFERENCES archi_thresholds(key)",
+   "name": "company_thresholds_key_fkey",
+   "t": "company_thresholds",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (company_id, key)",
+   "name": "company_thresholds_pkey",
+   "t": "company_thresholds",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "owner_prefs_company_id_fkey",
+   "t": "owner_prefs",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (telegram_user_id, company_id)",
+   "name": "owner_prefs_pkey",
+   "t": "owner_prefs",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "project_metrics_company_id_fkey",
+   "t": "project_metrics",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (company_id, project_id)",
+   "name": "project_metrics_pkey",
+   "t": "project_metrics",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "wr_weekly_snapshots_company_id_fkey",
+   "t": "wr_weekly_snapshots",
+   "type": "f"
+  },
+  {
+   "def": "UNIQUE (company_id, project_id, week_start)",
+   "name": "wr_weekly_snapshots_company_project_week_key",
+   "t": "wr_weekly_snapshots",
+   "type": "u"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "wr_weekly_snapshots_pkey",
+   "t": "wr_weekly_snapshots",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "wr_plan_items_company_id_fkey",
+   "t": "wr_plan_items",
+   "type": "f"
+  },
+  {
+   "def": "UNIQUE (company_id, project_id, week_start, item_number)",
+   "name": "wr_plan_items_company_project_week_item_key",
+   "t": "wr_plan_items",
+   "type": "u"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "wr_plan_items_pkey",
+   "t": "wr_plan_items",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "archi_wr_inbox_company_id_fkey",
+   "t": "archi_wr_inbox",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "archi_wr_inbox_pkey",
+   "t": "archi_wr_inbox",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "time_log_company_id_fkey",
+   "t": "time_log",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "time_log_pkey",
+   "t": "time_log",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "money_log_company_id_fkey",
+   "t": "money_log",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "money_log_pkey",
+   "t": "money_log",
+   "type": "p"
+  },
+  {
+   "def": "CHECK (((\"подія\" <> 'акт'::text) OR (\"стадія\" IS NOT NULL)))",
+   "name": "payment_schedule_check",
+   "t": "payment_schedule",
+   "type": "c"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "payment_schedule_company_id_fkey",
+   "t": "payment_schedule",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "payment_schedule_pkey",
+   "t": "payment_schedule",
+   "type": "p"
+  },
+  {
+   "def": "CHECK (((\"ймовірність_план\" IS NULL) OR ((\"ймовірність_план\" >= 1) AND (\"ймовірність_план\" <= 10))))",
+   "name": "payment_schedule_ймовірність_план_check",
+   "t": "payment_schedule",
+   "type": "c"
+  },
+  {
+   "def": "CHECK ((\"подія\" = ANY (ARRAY['акт'::text, 'документація'::text])))",
+   "name": "payment_schedule_подія_check",
+   "t": "payment_schedule",
+   "type": "c"
+  },
+  {
+   "def": "CHECK (((\"стадія\" IS NULL) OR (\"стадія\" = ANY (ARRAY['МБР'::text, 'ЕП'::text, 'П'::text, 'Р'::text, 'АН'::text]))))",
+   "name": "payment_schedule_стадія_check",
+   "t": "payment_schedule",
+   "type": "c"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "rates_company_id_fkey",
+   "t": "rates",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (company_id, posada)",
+   "name": "rates_pkey",
+   "t": "rates",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "meeting_log_company_id_fkey",
+   "t": "meeting_log",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "meeting_log_pkey",
+   "t": "meeting_log",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "kp_log_company_id_fkey",
+   "t": "kp_log",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "kp_log_pkey",
+   "t": "kp_log",
+   "type": "p"
+  },
+  {
+   "def": "PRIMARY KEY (key)",
+   "name": "archi_thresholds_pkey",
+   "t": "archi_thresholds",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "archi_bot_mode_state_company_id_fkey",
+   "t": "archi_bot_mode_state",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (session_id)",
+   "name": "archi_bot_mode_state_pkey",
+   "t": "archi_bot_mode_state",
+   "type": "p"
+  },
+  {
+   "def": "CHECK ((baseline_no >= 1))",
+   "name": "evm_packages_baseline_no_check",
+   "t": "evm_packages",
+   "type": "c"
+  },
+  {
+   "def": "CHECK ((budget_uah > (0)::numeric))",
+   "name": "evm_packages_budget_uah_check",
+   "t": "evm_packages",
+   "type": "c"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "evm_packages_company_id_fkey",
+   "t": "evm_packages",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "evm_packages_pkey",
+   "t": "evm_packages",
+   "type": "p"
+  },
+  {
+   "def": "FOREIGN KEY (company_id, project_id) REFERENCES project_metrics(company_id, project_id)",
+   "name": "evm_packages_project_fkey",
+   "t": "evm_packages",
+   "type": "f"
+  },
+  {
+   "def": "CHECK ((rule = '0/100'::text))",
+   "name": "evm_packages_rule_check",
+   "t": "evm_packages",
+   "type": "c"
+  },
+  {
+   "def": "CHECK ((source = ANY (ARRAY['koshtorys'::text, 'demo'::text])))",
+   "name": "evm_packages_source_check",
+   "t": "evm_packages",
+   "type": "c"
+  },
+  {
+   "def": "CHECK ((stage = ANY (ARRAY['МБР'::text, 'ЕП'::text, 'П'::text, 'Р'::text])))",
+   "name": "evm_packages_stage_check",
+   "t": "evm_packages",
+   "type": "c"
+  },
+  {
+   "def": "CHECK (((planned_start IS NULL) OR (planned_start <= planned_finish)))",
+   "name": "evm_packages_start_le_finish",
+   "t": "evm_packages",
+   "type": "c"
+  },
+  {
+   "def": "UNIQUE (company_id, project_id, baseline_no, package_code)",
+   "name": "evm_packages_uq",
+   "t": "evm_packages",
+   "type": "u"
+  },
+  {
+   "def": "FOREIGN KEY (company_id) REFERENCES companies(company_id)",
+   "name": "evm_package_done_company_id_fkey",
+   "t": "evm_package_done",
+   "type": "f"
+  },
+  {
+   "def": "CHECK ((event = ANY (ARRAY['started'::text, 'done'::text, 'cancelled'::text])))",
+   "name": "evm_package_done_event_check",
+   "t": "evm_package_done",
+   "type": "c"
+  },
+  {
+   "def": "FOREIGN KEY (package_id) REFERENCES evm_packages(id) ON DELETE RESTRICT",
+   "name": "evm_package_done_package_id_fkey",
+   "t": "evm_package_done",
+   "type": "f"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "evm_package_done_pkey",
+   "t": "evm_package_done",
+   "type": "p"
+  },
+  {
+   "def": "CHECK ((source = ANY (ARRAY['bot'::text, 'koshtorys'::text, 'demo'::text])))",
+   "name": "evm_package_done_source_check",
+   "t": "evm_package_done",
+   "type": "c"
+  },
+  {
+   "def": "PRIMARY KEY (id)",
+   "name": "n8n_chat_histories_pkey",
+   "t": "n8n_chat_histories",
+   "type": "p"
+  }
+ ],
+ "functions": [
+  {
+   "args": "p_project text DEFAULT NULL::text",
+   "name": "archi_recalc",
+   "ret": "integer",
+   "sec": false
+  },
+  {
+   "args": "",
+   "name": "archi_recalc_trg",
+   "ret": "trigger",
+   "sec": false
+  },
+  {
+   "args": "p numeric",
+   "name": "archi_paid_idx_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_project text DEFAULT NULL::text",
+   "name": "archi_recalc_visit",
+   "ret": "integer",
+   "sec": false
+  },
+  {
+   "args": "p_project text, p_week date, p_rd jsonb, p_et jsonb",
+   "name": "archi_snapshot_metrics",
+   "ret": "TABLE(rent_plan_pct numeric, rent_forecast_pct numeric, eac_hours_pct numeric, cpi numeric, etc_plan_hours numeric, etc_fact_hours numeric, etc_forecast_hours numeric, etc_gap_hours numeric, etc_gap_signal text)",
+   "sec": false
+  },
+  {
+   "args": "p numeric",
+   "name": "archi_idx_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_pp numeric",
+   "name": "archi_ready_gap_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_fact numeric, p_forecast numeric",
+   "name": "archi_etc_gap_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p numeric",
+   "name": "archi_flow_idx_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_gap numeric, p_bac numeric",
+   "name": "archi_vac_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_project text, p_asof date",
+   "name": "archi_acts_plan",
+   "ret": "TABLE(acts_due integer, acts_done integer, acts_plan_idx numeric)",
+   "sec": false
+  },
+  {
+   "args": "p_bac numeric, p_pv numeric, p_ev numeric, p_ac numeric",
+   "name": "evm_classic_indices",
+   "ret": "TABLE(cv numeric, sv numeric, cpi numeric, spi numeric, eac numeric, etc numeric, vac numeric, tcpi numeric)",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_project text",
+   "name": "archi_recalc_stages",
+   "ret": "integer",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_project text",
+   "name": "archi_recalc_visit",
+   "ret": "integer",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_project text",
+   "name": "archi_recalc",
+   "ret": "integer",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_project text, p_asof date",
+   "name": "archi_acts_plan",
+   "ret": "TABLE(acts_due integer, acts_done integer, acts_plan_idx numeric)",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_project text, p_t date",
+   "name": "evm_classic_at",
+   "ret": "TABLE(company_id uuid, project_id text, as_of date, has_baseline boolean, baseline_no integer, packages integer, bac numeric, pv numeric, ev numeric, ac numeric, cv numeric, sv numeric, cpi numeric, spi numeric, eac numeric, etc numeric, vac numeric, tcpi numeric)",
+   "sec": false
+  },
+  {
+   "args": "p_project text DEFAULT NULL::text",
+   "name": "archi_recalc_stages",
+   "ret": "integer",
+   "sec": false
+  },
+  {
+   "args": "p_project text, p_week date, p_rd jsonb, p_et jsonb",
+   "name": "archi_snapshot_evm",
+   "ret": "TABLE(spent_pct numeric, ready_pm_pct numeric, ready_fc_pct numeric, ready_gap_pp numeric, ready_gap_signal text, eff_hours_idx numeric, eff_signal text, acts_to_ev numeric, paid_to_acts numeric)",
+   "sec": false
+  },
+  {
+   "args": "p_project text, p_t date",
+   "name": "evm_classic_at",
+   "ret": "TABLE(project_id text, as_of date, has_baseline boolean, baseline_no integer, packages integer, bac numeric, pv numeric, ev numeric, ac numeric, cv numeric, sv numeric, cpi numeric, spi numeric, eac numeric, etc numeric, vac numeric, tcpi numeric)",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_key text",
+   "name": "archi_threshold",
+   "ret": "numeric",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid",
+   "name": "archi_rules",
+   "ret": "json",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_fact numeric, p_forecast numeric",
+   "name": "archi_etc_gap_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p numeric",
+   "name": "archi_flow_idx_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p numeric",
+   "name": "archi_idx_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_pp numeric",
+   "name": "archi_ready_gap_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_gap numeric, p_bac numeric",
+   "name": "archi_vac_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p numeric",
+   "name": "archi_paid_idx_signal",
+   "ret": "text",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_project text, p_week date, p_rd jsonb, p_et jsonb",
+   "name": "archi_snapshot_evm",
+   "ret": "TABLE(spent_pct numeric, ready_pm_pct numeric, ready_fc_pct numeric, ready_gap_pp numeric, ready_gap_signal text, eff_hours_idx numeric, eff_signal text, acts_to_ev numeric, paid_to_acts numeric)",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_project text, p_week date, p_rd jsonb, p_et jsonb",
+   "name": "archi_snapshot_metrics",
+   "ret": "TABLE(rent_plan_pct numeric, rent_forecast_pct numeric, eac_hours_pct numeric, cpi numeric, etc_plan_hours numeric, etc_fact_hours numeric, etc_forecast_hours numeric, etc_gap_hours numeric, etc_gap_signal text)",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'::text))::date",
+   "name": "archi_morning_brief",
+   "ret": "jsonb",
+   "sec": false
+  }
+ ],
+ "indexes": [
+  {
+   "def": "CREATE UNIQUE INDEX companies_pkey ON public.companies USING btree (company_id)",
+   "name": "companies_pkey",
+   "t": "companies"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX companies_code_key ON public.companies USING btree (code)",
+   "name": "companies_code_key",
+   "t": "companies"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX user_access_pkey ON public.user_access USING btree (id)",
+   "name": "user_access_pkey",
+   "t": "user_access"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX user_access_uq ON public.user_access USING btree (telegram_user_id, COALESCE(company_id, '00000000-0000-0000-0000-000000000000'::uuid))",
+   "name": "user_access_uq",
+   "t": "user_access"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX company_thresholds_pkey ON public.company_thresholds USING btree (company_id, key)",
+   "name": "company_thresholds_pkey",
+   "t": "company_thresholds"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX owner_prefs_pkey ON public.owner_prefs USING btree (telegram_user_id, company_id)",
+   "name": "owner_prefs_pkey",
+   "t": "owner_prefs"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX project_metrics_pkey ON public.project_metrics USING btree (company_id, project_id)",
+   "name": "project_metrics_pkey",
+   "t": "project_metrics"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX wr_weekly_snapshots_pkey ON public.wr_weekly_snapshots USING btree (id)",
+   "name": "wr_weekly_snapshots_pkey",
+   "t": "wr_weekly_snapshots"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX wr_weekly_snapshots_company_project_week_key ON public.wr_weekly_snapshots USING btree (company_id, project_id, week_start)",
+   "name": "wr_weekly_snapshots_company_project_week_key",
+   "t": "wr_weekly_snapshots"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX wr_plan_items_pkey ON public.wr_plan_items USING btree (id)",
+   "name": "wr_plan_items_pkey",
+   "t": "wr_plan_items"
+  },
+  {
+   "def": "CREATE INDEX idx_wr_plan_items_proj_week ON public.wr_plan_items USING btree (project_id, week_start)",
+   "name": "idx_wr_plan_items_proj_week",
+   "t": "wr_plan_items"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX wr_plan_items_company_project_week_item_key ON public.wr_plan_items USING btree (company_id, project_id, week_start, item_number)",
+   "name": "wr_plan_items_company_project_week_item_key",
+   "t": "wr_plan_items"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX archi_wr_inbox_pkey ON public.archi_wr_inbox USING btree (id)",
+   "name": "archi_wr_inbox_pkey",
+   "t": "archi_wr_inbox"
+  },
+  {
+   "def": "CREATE INDEX archi_wr_inbox_sess_proj ON public.archi_wr_inbox USING btree (session_id, project_id, id)",
+   "name": "archi_wr_inbox_sess_proj",
+   "t": "archi_wr_inbox"
+  },
+  {
+   "def": "CREATE INDEX idx_archi_wr_inbox_company_sess ON public.archi_wr_inbox USING btree (company_id, session_id, project_id, id)",
+   "name": "idx_archi_wr_inbox_company_sess",
+   "t": "archi_wr_inbox"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX time_log_pkey ON public.time_log USING btree (id)",
+   "name": "time_log_pkey",
+   "t": "time_log"
+  },
+  {
+   "def": "CREATE INDEX idx_time_log_project ON public.time_log USING btree (project_id)",
+   "name": "idx_time_log_project",
+   "t": "time_log"
+  },
+  {
+   "def": "CREATE INDEX idx_time_log_date ON public.time_log USING btree (\"дата\")",
+   "name": "idx_time_log_date",
+   "t": "time_log"
+  },
+  {
+   "def": "CREATE INDEX idx_time_log_company_project ON public.time_log USING btree (company_id, project_id)",
+   "name": "idx_time_log_company_project",
+   "t": "time_log"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX money_log_pkey ON public.money_log USING btree (id)",
+   "name": "money_log_pkey",
+   "t": "money_log"
+  },
+  {
+   "def": "CREATE INDEX idx_money_log_project ON public.money_log USING btree (project_id)",
+   "name": "idx_money_log_project",
+   "t": "money_log"
+  },
+  {
+   "def": "CREATE INDEX idx_money_log_date ON public.money_log USING btree (\"дата\")",
+   "name": "idx_money_log_date",
+   "t": "money_log"
+  },
+  {
+   "def": "CREATE INDEX idx_money_log_company_project ON public.money_log USING btree (company_id, project_id)",
+   "name": "idx_money_log_company_project",
+   "t": "money_log"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX payment_schedule_pkey ON public.payment_schedule USING btree (id)",
+   "name": "payment_schedule_pkey",
+   "t": "payment_schedule"
+  },
+  {
+   "def": "CREATE INDEX ix_payment_schedule_proj ON public.payment_schedule USING btree (project_id, \"подія\", \"дата_план\")",
+   "name": "ix_payment_schedule_proj",
+   "t": "payment_schedule"
+  },
+  {
+   "def": "CREATE INDEX idx_payment_schedule_company_project ON public.payment_schedule USING btree (company_id, project_id)",
+   "name": "idx_payment_schedule_company_project",
+   "t": "payment_schedule"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX rates_pkey ON public.rates USING btree (company_id, posada)",
+   "name": "rates_pkey",
+   "t": "rates"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX meeting_log_pkey ON public.meeting_log USING btree (id)",
+   "name": "meeting_log_pkey",
+   "t": "meeting_log"
+  },
+  {
+   "def": "CREATE INDEX idx_meeting_log_project ON public.meeting_log USING btree (project_id)",
+   "name": "idx_meeting_log_project",
+   "t": "meeting_log"
+  },
+  {
+   "def": "CREATE INDEX idx_meeting_log_date ON public.meeting_log USING btree (\"дата\")",
+   "name": "idx_meeting_log_date",
+   "t": "meeting_log"
+  },
+  {
+   "def": "CREATE INDEX idx_meeting_log_company_project ON public.meeting_log USING btree (company_id, project_id)",
+   "name": "idx_meeting_log_company_project",
+   "t": "meeting_log"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX kp_log_pkey ON public.kp_log USING btree (id)",
+   "name": "kp_log_pkey",
+   "t": "kp_log"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX archi_thresholds_pkey ON public.archi_thresholds USING btree (key)",
+   "name": "archi_thresholds_pkey",
+   "t": "archi_thresholds"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX archi_bot_mode_state_pkey ON public.archi_bot_mode_state USING btree (session_id)",
+   "name": "archi_bot_mode_state_pkey",
+   "t": "archi_bot_mode_state"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX evm_packages_pkey ON public.evm_packages USING btree (id)",
+   "name": "evm_packages_pkey",
+   "t": "evm_packages"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX evm_packages_uq ON public.evm_packages USING btree (company_id, project_id, baseline_no, package_code)",
+   "name": "evm_packages_uq",
+   "t": "evm_packages"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX evm_package_done_pkey ON public.evm_package_done USING btree (id)",
+   "name": "evm_package_done_pkey",
+   "t": "evm_package_done"
+  },
+  {
+   "def": "CREATE INDEX evm_package_done_pkg_idx ON public.evm_package_done USING btree (package_id)",
+   "name": "evm_package_done_pkg_idx",
+   "t": "evm_package_done"
+  },
+  {
+   "def": "CREATE UNIQUE INDEX n8n_chat_histories_pkey ON public.n8n_chat_histories USING btree (id)",
+   "name": "n8n_chat_histories_pkey",
+   "t": "n8n_chat_histories"
+  }
+ ],
+ "kinds": {
+  "archi_bot_mode_state": "r",
+  "archi_plan_execution": "v",
+  "archi_report_today": "v",
+  "archi_snapshot_history": "v",
+  "archi_thresholds": "r",
+  "archi_weekly_progress": "v",
+  "archi_wr_inbox": "r",
+  "companies": "r",
+  "company_thresholds": "r",
+  "evm_classic_today": "v",
+  "evm_package_done": "r",
+  "evm_packages": "r",
+  "kp_log": "r",
+  "meeting_log": "r",
+  "money_log": "r",
+  "n8n_chat_histories": "r",
+  "owner_prefs": "r",
+  "payment_schedule": "r",
+  "project_metrics": "r",
+  "project_metrics_live": "v",
+  "rates": "r",
+  "rates_coverage_check": "v",
+  "time_log": "r",
+  "user_access": "r",
+  "wr_plan_items": "r",
+  "wr_weekly_snapshots": "r"
+ },
+ "rls": {
+  "archi_bot_mode_state": {
+   "policies": 0,
+   "rls": false
+  },
+  "archi_thresholds": {
+   "policies": 0,
+   "rls": true
+  },
+  "archi_wr_inbox": {
+   "policies": 0,
+   "rls": true
+  },
+  "companies": {
+   "policies": 0,
+   "rls": true
+  },
+  "company_thresholds": {
+   "policies": 0,
+   "rls": true
+  },
+  "evm_package_done": {
+   "policies": 0,
+   "rls": true
+  },
+  "evm_packages": {
+   "policies": 0,
+   "rls": true
+  },
+  "kp_log": {
+   "policies": 0,
+   "rls": false
+  },
+  "meeting_log": {
+   "policies": 0,
+   "rls": false
+  },
+  "money_log": {
+   "policies": 0,
+   "rls": false
+  },
+  "n8n_chat_histories": {
+   "policies": 0,
+   "rls": false
+  },
+  "owner_prefs": {
+   "policies": 0,
+   "rls": true
+  },
+  "payment_schedule": {
+   "policies": 0,
+   "rls": true
+  },
+  "project_metrics": {
+   "policies": 0,
+   "rls": false
+  },
+  "rates": {
+   "policies": 0,
+   "rls": false
+  },
+  "time_log": {
+   "policies": 0,
+   "rls": false
+  },
+  "user_access": {
+   "policies": 0,
+   "rls": true
+  },
+  "wr_plan_items": {
+   "policies": 0,
+   "rls": false
+  },
+  "wr_weekly_snapshots": {
+   "policies": 0,
+   "rls": false
+  }
+ },
+ "rows": {
+  "archi_bot_mode_state": 1,
+  "archi_thresholds": 31,
+  "archi_wr_inbox": 0,
+  "companies": 1,
+  "company_thresholds": 0,
+  "evm_package_done": 0,
+  "evm_packages": 100,
+  "kp_log": 11,
+  "meeting_log": 11,
+  "money_log": 152,
+  "n8n_chat_histories": 118,
+  "owner_prefs": 1,
+  "payment_schedule": 56,
+  "project_metrics": 18,
+  "rates": 7,
+  "time_log": 476,
+  "user_access": 1,
+  "wr_plan_items": 467,
+  "wr_weekly_snapshots": 101
+ },
+ "triggers": [
+  {
+   "ev": "INSERT",
+   "name": "archi_recalc_time",
+   "t": "time_log",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "DELETE",
+   "name": "archi_recalc_time",
+   "t": "time_log",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "UPDATE",
+   "name": "archi_recalc_time",
+   "t": "time_log",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "INSERT",
+   "name": "archi_recalc_money",
+   "t": "money_log",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "DELETE",
+   "name": "archi_recalc_money",
+   "t": "money_log",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "UPDATE",
+   "name": "archi_recalc_money",
+   "t": "money_log",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "INSERT",
+   "name": "archi_recalc_wr",
+   "t": "wr_weekly_snapshots",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "DELETE",
+   "name": "archi_recalc_wr",
+   "t": "wr_weekly_snapshots",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "UPDATE",
+   "name": "archi_recalc_wr",
+   "t": "wr_weekly_snapshots",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "INSERT",
+   "name": "archi_recalc_schedule",
+   "t": "payment_schedule",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "DELETE",
+   "name": "archi_recalc_schedule",
+   "t": "payment_schedule",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "UPDATE",
+   "name": "archi_recalc_schedule",
+   "t": "payment_schedule",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "INSERT",
+   "name": "archi_recalc_plan",
+   "t": "project_metrics",
+   "timing": "AFTER"
+  },
+  {
+   "ev": "UPDATE",
+   "name": "archi_recalc_plan",
+   "t": "project_metrics",
+   "timing": "AFTER"
+  }
+ ]
+}

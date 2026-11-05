@@ -12,34 +12,41 @@
 3. `docs/handover/02_BUSINESS_REQUIREMENTS.md` — Бізнес-вимоги
 4. `docs/handover/03_TECHNICAL_CTO.md` — Технічний документ для CTO
 5. `docs/handover/04_METHODOLOGY_FOR_DEVELOPERS.md` — Методологія для розробників
+6. `docs/handover/10_DATABASE_SCHEMA.md` — Схема БД (згенеровано зі знімка)
+7. `docs/handover/11_API_CONTRACT.md` — API-контракт
+8. `docs/handover/openapi.yaml` — OpenAPI 3.0
+9. `docs/handover/12_ERROR_AND_EDGE_CASES.md` — Помилки, порожні стани, крайні випадки
+10. `docs/handover/13_USER_FLOWS.md` — Потоки користувача (Mermaid)
+11. `docs/handover/14_THREAT_MODEL.md` — Модель загроз (STRIDE)
+12. `docs/handover/15_USER_STORIES.md` — User Stories з Acceptance Criteria
 
 **ЧАСТИНА II — Перевірка пакета**
-6. `docs/handover/05_CTO_REVIEW_PLAN.md` — План перевірки пакета CTO
-7. `docs/handover/06_REVIEW_VALIDATION_PLAN.md` — План валідації результатів перевірки
-8. `docs/handover/07_REVIEW_REPORT.md` — Звіт про перевірку за планом
-9. `docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md` — Промпт: перевірка існуючого коду проти документації
+13. `docs/handover/05_CTO_REVIEW_PLAN.md` — План перевірки пакета CTO
+14. `docs/handover/06_REVIEW_VALIDATION_PLAN.md` — План валідації результатів перевірки
+15. `docs/handover/07_REVIEW_REPORT.md` — Звіт про перевірку за планом
+16. `docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md` — Промпт: перевірка існуючого коду проти документації
 
 **ЧАСТИНА III — Канон: рішення, карта, специфікації**
-10. `CLAUDE.md` — Закриті рішення власника п. 1–32, ритуал і правила сесії
-11. `docs/DECISIONS_REGISTER.md` — Реєстр закритих рішень і суперечностей
-12. `docs/ROADMAP_TO_RELEASE.md` — Єдина карта розробки до релізу
-13. `docs/ARCHI_TECH_SPEC_v3_1.md` — Технічна специфікація v3.1
-14. `docs/FORMULAS.md` — Довідник формул і порогів
-15. `SECURITY.md` — Відомі ризики безпеки
+17. `CLAUDE.md` — Закриті рішення власника п. 1–32, ритуал і правила сесії
+18. `docs/DECISIONS_REGISTER.md` — Реєстр закритих рішень і суперечностей
+19. `docs/ROADMAP_TO_RELEASE.md` — Єдина карта розробки до релізу
+20. `docs/ARCHI_TECH_SPEC_v3_1.md` — Технічна специфікація v3.1
+21. `docs/FORMULAS.md` — Довідник формул і порогів
+22. `SECURITY.md` — Відомі ризики безпеки
 
 **ЧАСТИНА IV — Додаткові специфікації й методологія**
-16. `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` — Методологія й концепція
-17. `docs/W1_DESIGN.md` — Дизайн багатоклієнтності
-18. `docs/WEEKLY_REPORT_FORM.md` — Форма звіту ПМа і Weekly Render
-19. `docs/LAYOUT_STANDARD.md` — Стандарт верстки текстів
-20. `docs/EVM_CLASSIC_PLAN.md` — План гілки «EVM (класичний)»
-21. `docs/EVM_CLASSIC_DESIGN.md` — Дизайн гілки «EVM (класичний)»
-22. `docs/OWNER_MORNING_TEST.md` — Тест для власника
-23. `docs/FEATURE_IDEAS.md` — Ідеї власника: чат проєкту, виконавці
-24. `docs/HANDOVER_CTO.md` — Пакет передачі CTO Senior (v1, 02.11.2026)
-25. `docs/CTO_CHECKPOINT_03.11.2026.md` — Останній аудит коду проти документації
-26. `docs/NODE_MAP.md` — Карта вузлів core workflow (генерується)
-27. `docs/MORNING_BRIEF_PROMPT.txt` — Системний промпт ранкового брифінгу
+23. `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` — Методологія й концепція
+24. `docs/W1_DESIGN.md` — Дизайн багатоклієнтності
+25. `docs/WEEKLY_REPORT_FORM.md` — Форма звіту ПМа і Weekly Render
+26. `docs/LAYOUT_STANDARD.md` — Стандарт верстки текстів
+27. `docs/EVM_CLASSIC_PLAN.md` — План гілки «EVM (класичний)»
+28. `docs/EVM_CLASSIC_DESIGN.md` — Дизайн гілки «EVM (класичний)»
+29. `docs/OWNER_MORNING_TEST.md` — Тест для власника
+30. `docs/FEATURE_IDEAS.md` — Ідеї власника: чат проєкту, виконавці
+31. `docs/HANDOVER_CTO.md` — Пакет передачі CTO Senior (v1, 02.11.2026)
+32. `docs/CTO_CHECKPOINT_03.11.2026.md` — Останній аудит коду проти документації
+33. `docs/NODE_MAP.md` — Карта вузлів core workflow (генерується)
+34. `docs/MORNING_BRIEF_PROMPT.txt` — Системний промпт ранкового брифінгу
 
 ---
 
@@ -48,7 +55,7 @@
 
 ---
 
-<!-- SOURCE docs/handover/00_START_HERE.md sha256=2f56cc22aecac80d72cdba2d79fe25060ec692fdf31efdc3d4657e2a80bebcfe bytes=12395 -->
+<!-- SOURCE docs/handover/00_START_HERE.md sha256=a546a235e4706155eeb6607f3360ddb30560d8d1dee782e45121fb537a6fab00 bytes=13095 -->
 **Джерело: `docs/handover/00_START_HERE.md` — Навігація, стан, чек-лист передачі**
 
 # ARCHI — пакет передачі розробки IT-компанії
@@ -66,8 +73,8 @@ ARCHI — це **контроль майбутньої рентабельнос�
 |---|---|---|
 | Product Manager | `01_PRODUCT_BRIEF.md`, потім `02_BUSINESS_REQUIREMENTS.md` | бачення, користувачі, кілер-фічі, каталог фіч зі статусами, вимоги, критерії релізу |
 | CTO / техлід | `03_TECHNICAL_CTO.md`, потім `04_METHODOLOGY_FOR_DEVELOPERS.md` | архітектура, дані, потоки, безпека, борг, ризики, перші кроки |
-| Розробник | `04_METHODOLOGY_FOR_DEVELOPERS.md`, `docs/FORMULAS.md`, `docs/NODE_MAP.md` | предметна область, формули, правила кольору, карта вузлів |
-| QA | `02_BUSINESS_REQUIREMENTS.md` §6, `docs/OWNER_MORNING_TEST.md`, `docs/CTO_CHECKPOINT_PROMPT.md` | критерії приймання, сценарії перевірки |
+| Розробник | `04_METHODOLOGY_FOR_DEVELOPERS.md`, `10_DATABASE_SCHEMA.md`, `11_API_CONTRACT.md`, `13_USER_FLOWS.md`, `docs/FORMULAS.md`, `docs/NODE_MAP.md` | предметна область, схема БД, API, потоки, формули, карта вузлів |
+| QA | `15_USER_STORIES.md`, `12_ERROR_AND_EDGE_CASES.md`, `02_BUSINESS_REQUIREMENTS.md` §6, `docs/OWNER_MORNING_TEST.md` | сценарії приймання, помилки й крайні випадки |
 
 ## 3. Порядок читання першого дня (для всіх)
 1. Цей файл.
@@ -87,6 +94,12 @@ ARCHI — це **контроль майбутньої рентабельнос�
 | `04_METHODOLOGY_FOR_DEVELOPERS.md` | предметна область і формули простою мовою, правила кольору й верстки |
 | `05…07` | план перевірки пакета CTO, план валідації, звіт про перевірку |
 | `08_CODE_VS_DOCS_AUDIT_PROMPT.md` | промпт: перевірка коду й живих систем проти документації |
+| `10_DATABASE_SCHEMA.md` | схема БД (згенеровано з живої бази): типи, обмеження, індекси, RLS, ER |
+| `11_API_CONTRACT.md`, `openapi.yaml` | API-контракт 5 вебхуків і форма відповідей |
+| `12_ERROR_AND_EDGE_CASES.md` | помилки, порожні стани, крайні випадки «як є» |
+| `13_USER_FLOWS.md` | потоки користувача (діаграми Mermaid) |
+| `14_THREAT_MODEL.md` | модель загроз STRIDE |
+| `15_USER_STORIES.md` | 55 User Stories з Acceptance Criteria |
 
 ### 4.2 Канонічні документи репозиторію (джерела, на які посилається пакет)
 | Файл | Призначення |
@@ -600,7 +613,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=9cb4ecbe49174e19b669e633df4dad65959732a74408ee285363d0d6c0295094 bytes=33688 -->
+<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=0f67a3e3f8c6313a3b1a6c01de0ca72f9a827dfec5ae28d6ee91e951fe350512 bytes=34512 -->
 **Джерело: `docs/handover/03_TECHNICAL_CTO.md` — Технічний документ для CTO**
 
 # ARCHI — технічний документ для CTO
@@ -762,6 +775,9 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | `docs/CTO_CHECKPOINT_PROMPT.md` | повний аудит коду проти документації; останній 03.11.2026: P0 0 · P1 0 · P2 13 |
 | Незалежна звірка F-02/F-13/F-15 | 14/14 збіг (15.10 і 01.11.2026) |
 **Немає:** тестів `Build Request Body`, `Build MiniApp Data` (G4); моніторингу помилок; резервних копій за розкладом; відкату автоматизованого (відкат — ручний за `activeVersionId` і `*_rollback.sql`); навантажувального тесту.
+
+### 8.1 CI (GitHub Actions, `.github/workflows/ci.yml`)
+На кожен PR і push у `main` без доступу до живих систем виконуються: `check_docs`, `check_handover`, перевірка актуальності єдиного файлу пакета, `gen_db_schema --check`, `check_report_form`, `check_tenant_filter` (базова лінія), `tests/wr_parse_agent_output`, seed-тест перевірок. Живі перевірки (версії workflow, схема БД, брифінг) — аудит за `08`. Довідники схеми БД і API: `10_DATABASE_SCHEMA.md` (генерується зі знімка `sql/schema/`), `11_API_CONTRACT.md` + `openapi.yaml`; помилки й крайні випадки — `12`; потоки — `13`; загрози — `14`.
 
 ## 9. Безпека
 Джерело — `SECURITY.md` (12 пунктів). Рішення власника: **не виправляти самостійно**, поки він не скаже.
@@ -930,6 +946,1923 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 8. Змішувати назви методологій; додавати жовтий для відхилень від плану.
 9. Видавати числа макета за живі; перевіряти вибірково, а не по всіх рядках.
 10. Змінювати вигляд Weekly Render без запиту власника й без правки специфікації.
+
+
+---
+
+<!-- SOURCE docs/handover/10_DATABASE_SCHEMA.md sha256=4c36681de594da3fff1ee121eb5ad8ace1c173c05338ef2a7e392bc3fb58d06c bytes=51651 -->
+**Джерело: `docs/handover/10_DATABASE_SCHEMA.md` — Схема БД (згенеровано зі знімка)**
+
+# ARCHI — схема бази даних (згенеровано)
+
+Згенеровано `scripts/gen_db_schema.py` зі знімка `sql/schema/schema_dump_2026-11-05.json` (живий Supabase `bxawceksdkqlbkdgjvyz`, схема `public`). **Не редагувати вручну:** змінюється знімок → перегенерувати → закомітити разом.
+Перевірка відповідності: `python3 scripts/gen_db_schema.py --check`. Оновлення знімка: `sql/schema/dump_query.sql`.
+Охоплено 19 таблиць і 7 вʼю ARCHI. Чужі таблиці в тій самій базі (`_bak_*`, `jarvis_*`, `shift_*`, `bot_*`, `archi_bot_semantic_memory`) не входять.
+
+## 1. Огляд
+
+| Об'єкт | Тип | Рядків | RLS | Політик | Призначення | Клас даних |
+|---|---|---|---|---|---|---|
+| `companies` | таблиця | 1 | так | 0 | клієнти (тенанти); `DEMO` — демо-компанія | службові |
+| `user_access` | таблиця | 1 | так | 0 | ролі користувачів Telegram у компанії; `operator` ⇔ `company_id IS NULL` | PII: Telegram id |
+| `company_thresholds` | таблиця | 0 | так | 0 | перевизначення порогів методології по компанії | конфігурація |
+| `archi_thresholds` | таблиця | 31 | так | 0 | пороги й план бюро за замовчуванням (31 ключ) | конфігурація |
+| `owner_prefs` | таблиця | 1 | так | 0 | налаштування ранкового брифінгу власника | PII: Telegram id |
+| `project_metrics` | таблиця | 18 | ні | 0 | один рядок на проєкт: план і розрахункові поля | фінансові, комерційна таємниця |
+| `wr_weekly_snapshots` | таблиця | 101 | ні | 0 | знімок тижневого звіту ПМа | ділові тексти ПМа (можливі ПІБ) |
+| `wr_plan_items` | таблиця | 467 | ні | 0 | пункти плану тижня зі статусами й перенесенням | ділові тексти ПМа |
+| `archi_wr_inbox` | таблиця | 0 | так | 0 | черга повідомлень ПМа до «Відправити» | вільний текст, можливі ПІБ |
+| `time_log` | таблиця | 476 | ні | 0 | відпрацьовані години (`confirmed` після «Фінал») | PII-lite: виконавець, години |
+| `money_log` | таблиця | 152 | ні | 0 | акти, надходження, оплати субпідрядникам | фінансові |
+| `payment_schedule` | таблиця | 56 | так | 0 | графік актів і документації | фінансові |
+| `rates` | таблиця | 7 | ні | 0 | ставки по посадах (глобально, W3.6) | фінансові |
+| `meeting_log` | таблиця | 11 | ні | 0 | журнал зустрічей і домовленостей | вільний текст |
+| `kp_log` | таблиця | 11 | ні | 0 | облік комерційних пропозицій | комерційні |
+| `archi_bot_mode_state` | таблиця | 1 | ні | 0 | режим діалогу бота й обраний проєкт; ключ — id чату | службові |
+| `n8n_chat_histories` | таблиця | 118 | ні | 0 | пам'ять LLM-агентів звіту, імпорту, зустрічі | вільний текст, можливі ПІБ |
+| `evm_packages` | таблиця | 100 | так | 0 | гілка «EVM (класичний)»: базовий план пакетів | фінансові |
+| `evm_package_done` | таблиця | 0 | так | 0 | гілка «EVM (класичний)»: факт виконання пакетів | фінансові |
+| `archi_report_today` | вʼю | — | — | — | вʼю: колонка «Сьогодні» звіту (ETC, рентабельність, ймовірності) | похідні |
+| `archi_snapshot_history` | вʼю | — | — | — | вʼю: історія знімків із сигналами (H-01, H-02, E-*) | похідні |
+| `archi_plan_execution` | вʼю | — | — | — | вʼю: виконання плану тижня (PX-01) | похідні |
+| `archi_weekly_progress` | вʼю | — | — | — | вʼю: приріст готовності проти витрат (P-10) | похідні, фінансові |
+| `evm_classic_today` | вʼю | — | — | — | вʼю: класичні показники на сьогодні | похідні |
+| `project_metrics_live` | вʼю | — | — | — | застаріле вʼю: лінійна оцінка за годинами; **не використовувати** | похідні |
+| `rates_coverage_check` | вʼю | — | — | — | діагностика: пари проєкт–виконавець без ставки | службові |
+
+Рядків — оцінка `pg_stat_user_tables.n_live_tup` на дату знімка. Усі дані демо (`CLAUDE.md` п. 18).
+n8n підключається прямим з'єднанням Postgres і **обходить RLS**; ізоляцію клієнтів тримає фільтр `company_id` у запитах (`docs/W1_DESIGN.md` §4).
+
+## 2. Зв'язки (ER)
+
+Зовнішні ключі (FK) у базі є **лише** на `companies`. Між рештою таблиць зв'язок логічний через `(company_id, project_id)` без FK; це відомий борг (W1.1: «FK для логів не додані»).
+
+```mermaid
+erDiagram
+  user_access }o--|| companies : "company_id"
+  company_thresholds }o--|| companies : "company_id"
+  company_thresholds }o--|| archi_thresholds : "key"
+  owner_prefs }o--|| companies : "company_id"
+  project_metrics }o--|| companies : "company_id"
+  wr_weekly_snapshots }o--|| companies : "company_id"
+  wr_plan_items }o--|| companies : "company_id"
+  archi_wr_inbox }o--|| companies : "company_id"
+  time_log }o--|| companies : "company_id"
+  money_log }o--|| companies : "company_id"
+  payment_schedule }o--|| companies : "company_id"
+  rates }o--|| companies : "company_id"
+  meeting_log }o--|| companies : "company_id"
+  kp_log }o--|| companies : "company_id"
+  archi_bot_mode_state }o--|| companies : "company_id"
+  evm_packages }o--|| companies : "company_id"
+  evm_packages }o--|| project_metrics : "company_id, project_id"
+  evm_package_done }o--|| companies : "company_id"
+  evm_package_done }o--|| evm_packages : "package_id"
+  companies ||--o{ project_metrics : "company_id (логічно)"
+  project_metrics ||--o{ wr_weekly_snapshots : "(company_id, project_id)"
+  project_metrics ||--o{ wr_plan_items : "(company_id, project_id)"
+  project_metrics ||--o{ time_log : "(company_id, project_id)"
+  project_metrics ||--o{ money_log : "(company_id, project_id)"
+  project_metrics ||--o{ payment_schedule : "(company_id, project_id)"
+  project_metrics ||--o{ meeting_log : "(company_id, project_id)"
+  project_metrics ||--o{ evm_packages : "(company_id, project_id)"
+  evm_packages ||--o{ evm_package_done : "(company_id, project_id, package)"
+```
+
+Позначка «логічно» — зв'язок без FK у БД. Кожна FK: `user_access` → `companies(company_id)`, `company_thresholds` → `companies(company_id)`, `company_thresholds` → `archi_thresholds(key)`, `owner_prefs` → `companies(company_id)`, `project_metrics` → `companies(company_id)`, `wr_weekly_snapshots` → `companies(company_id)`, `wr_plan_items` → `companies(company_id)`, `archi_wr_inbox` → `companies(company_id)`, `time_log` → `companies(company_id)`, `money_log` → `companies(company_id)`, `payment_schedule` → `companies(company_id)`, `rates` → `companies(company_id)`, `meeting_log` → `companies(company_id)`, `kp_log` → `companies(company_id)`, `archi_bot_mode_state` → `companies(company_id)`, `evm_packages` → `companies(company_id)`, `evm_packages` → `project_metrics(company_id, project_id)`, `evm_package_done` → `companies(company_id)`, `evm_package_done` → `evm_packages(id) ON DELETE RESTRICT`.
+
+## 3. Клієнти, доступ, конфігурація
+
+### `companies`
+
+- Призначення: клієнти (тенанти); `DEMO` — демо-компанія.
+- Хто пише: міграції, оператор.
+- Хто читає: n8n (резолвер).
+- Клас даних: службові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `company_id` | uuid | **ні** | `gen_random_uuid()` |
+| 2 | `code` | text | **ні** |  |
+| 3 | `name` | text | **ні** |  |
+| 4 | `kind` | text | **ні** |  |
+| 5 | `created_at` | timestamp with time zone | **ні** | `now()` |
+
+Обмеження:
+- CHECK `companies_kind_check`: `CHECK ((kind = ANY (ARRAY['demo'::text, 'client'::text])))`
+- PRIMARY KEY `companies_pkey`: `PRIMARY KEY (company_id)`
+- UNIQUE `companies_code_key`: `UNIQUE (code)`
+
+Індекси:
+- `companies_code_key`: `CREATE UNIQUE INDEX companies_code_key ON public.companies USING btree (code)`
+- `companies_pkey`: `CREATE UNIQUE INDEX companies_pkey ON public.companies USING btree (company_id)`
+
+### `user_access`
+
+- Призначення: ролі користувачів Telegram у компанії; `operator` ⇔ `company_id IS NULL`.
+- Хто пише: оператор, міграції.
+- Хто читає: n8n (резолвер на 4 входах).
+- Клас даних: PII: Telegram id.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** |  |
+| 2 | `telegram_user_id` | bigint | **ні** |  |
+| 3 | `company_id` | uuid | так |  |
+| 4 | `role` | text | **ні** |  |
+| 5 | `created_at` | timestamp with time zone | **ні** | `now()` |
+| 6 | `created_by` | text | так |  |
+
+Обмеження:
+- CHECK `user_access_operator_global`: `CHECK (((role = 'operator'::text) = (company_id IS NULL)))`
+- CHECK `user_access_role_check`: `CHECK ((role = ANY (ARRAY['owner'::text, 'pm'::text, 'gap'::text, 'executor'::text, 'operator'::text])))`
+- FOREIGN KEY `user_access_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `user_access_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `user_access_pkey`: `CREATE UNIQUE INDEX user_access_pkey ON public.user_access USING btree (id)`
+- `user_access_uq`: `CREATE UNIQUE INDEX user_access_uq ON public.user_access USING btree (telegram_user_id, COALESCE(company_id, '00000000-0000-0000-0000-000000000000'::uuid))`
+
+### `company_thresholds`
+
+- Призначення: перевизначення порогів методології по компанії.
+- Хто пише: оператор.
+- Хто читає: `archi_rules`, `archi_threshold`.
+- Клас даних: конфігурація.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `company_id` | uuid | **ні** |  |
+| 2 | `key` | text | **ні** |  |
+| 3 | `value` | numeric | **ні** |  |
+| 4 | `note` | text | так |  |
+| 5 | `updated_at` | timestamp with time zone | **ні** | `now()` |
+
+Обмеження:
+- FOREIGN KEY `company_thresholds_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- FOREIGN KEY `company_thresholds_key_fkey`: `FOREIGN KEY (key) REFERENCES archi_thresholds(key)`
+- PRIMARY KEY `company_thresholds_pkey`: `PRIMARY KEY (company_id, key)`
+
+Індекси:
+- `company_thresholds_pkey`: `CREATE UNIQUE INDEX company_thresholds_pkey ON public.company_thresholds USING btree (company_id, key)`
+
+### `archi_thresholds`
+
+- Призначення: пороги й план бюро за замовчуванням (31 ключ).
+- Хто пише: міграції.
+- Хто читає: `archi_rules`, `archi_threshold`.
+- Клас даних: конфігурація.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `key` | text | **ні** |  |
+| 2 | `value` | numeric | **ні** |  |
+| 3 | `note` | text | так |  |
+
+Обмеження:
+- PRIMARY KEY `archi_thresholds_pkey`: `PRIMARY KEY (key)`
+
+Індекси:
+- `archi_thresholds_pkey`: `CREATE UNIQUE INDEX archi_thresholds_pkey ON public.archi_thresholds USING btree (key)`
+
+### `owner_prefs`
+
+- Призначення: налаштування ранкового брифінгу власника.
+- Хто пише: оператор (вручну).
+- Хто читає: workflow Morning Brief.
+- Клас даних: PII: Telegram id.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `telegram_user_id` | bigint | **ні** |  |
+| 2 | `company_id` | uuid | **ні** |  |
+| 3 | `brief_time` | time without time zone | **ні** | `'08:30:00'::time without time zone` |
+| 4 | `tz` | text | **ні** | `'Europe/Kyiv'::text` |
+| 5 | `days` | int2[] | **ні** | `'{1,2,3,4,5}'::smallint[]` |
+| 6 | `enabled` | boolean | **ні** | `false` |
+| 7 | `last_sent_on` | date | так |  |
+| 8 | `updated_at` | timestamp with time zone | **ні** | `now()` |
+
+Обмеження:
+- FOREIGN KEY `owner_prefs_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `owner_prefs_pkey`: `PRIMARY KEY (telegram_user_id, company_id)`
+
+Індекси:
+- `owner_prefs_pkey`: `CREATE UNIQUE INDEX owner_prefs_pkey ON public.owner_prefs USING btree (telegram_user_id, company_id)`
+
+## 4. Проєкти й тижневий ритм
+
+### `project_metrics`
+
+- Призначення: один рядок на проєкт: план і розрахункові поля.
+- Хто пише: план — Кошторис/міграції; розрахунок — лише `archi_recalc`.
+- Хто читає: усі екрани, чат, брифінг.
+- Клас даних: фінансові, комерційна таємниця.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `project_id` | text | **ні** |  |
+| 2 | `contract_amount` | numeric | так |  |
+| 3 | `profitability_plan_pct` | numeric | так |  |
+| 4 | `profit_plan` | numeric | так |  |
+| 5 | `cost_plan_team` | numeric | так |  |
+| 6 | `cost_plan_subcontract` | numeric | так |  |
+| 7 | `planned_hours` | numeric | так |  |
+| 8 | `actual_hours` | numeric | так |  |
+| 9 | `hours_remaining` | numeric | так |  |
+| 10 | `percent_execution` | numeric | так |  |
+| 11 | `earned_value_contract` | numeric | так |  |
+| 12 | `actual_cost` | numeric | так |  |
+| 13 | `efficiency_contract` | numeric | так |  |
+| 14 | `money_received` | numeric | так |  |
+| 15 | `earned_value` | numeric | так |  |
+| 16 | `paid_volume` | numeric | так |  |
+| 17 | `acts_amount` | numeric | так |  |
+| 18 | `comparison` | numeric | так |  |
+| 19 | `stage_data` | jsonb | так |  |
+| 20 | `etc_forecast_total_hours` | numeric | так |  |
+| 21 | `real_rate_team_hour` | numeric | так |  |
+| 22 | `money_to_completion_team` | numeric | так |  |
+| 23 | `cost_final_forecast` | numeric | так |  |
+| 24 | `profit_forecast` | numeric | так |  |
+| 25 | `profitability_forecast_pct` | numeric | так |  |
+| 26 | `bac` | numeric | так |  |
+| 27 | `ev_classic_evm` | numeric | так |  |
+| 28 | `cpi_classic_evm` | numeric | так |  |
+| 29 | `updated_at` | timestamp with time zone | **ні** | `now()` |
+| 30 | `money_to_completion_subcontract` | numeric | так |  |
+| 31 | `nearest_act_date` | date | так |  |
+| 32 | `nearest_act_probability` | numeric | так |  |
+| 33 | `nearest_doc_deadline` | date | так |  |
+| 34 | `doc_issuance_probability` | numeric | так |  |
+| 35 | `etc_plan_by_stage` | jsonb | так |  |
+| 36 | `planned_hours_by_stage` | jsonb | так |  |
+| 37 | `koshtorys_spreadsheet_id` | text | так |  |
+| 38 | `koshtorys_sheet` | text | так |  |
+| 39 | `baseline_at` | timestamp with time zone | так |  |
+| 40 | `baseline_by` | bigint | так |  |
+| 41 | `contract_file_url` | text | так |  |
+| 42 | `forecast_confirmed_pct` | numeric | так |  |
+| 43 | `forecast_confirmed_week` | date | так |  |
+| 44 | `contract_type` | text | **ні** | `'stages'::text` |
+| 45 | `parent_project_id` | text | так |  |
+| 46 | `visits_plan` | integer | так |  |
+| 47 | `visit_price` | numeric | так |  |
+| 48 | `visit_hours` | numeric | так |  |
+| 49 | `visits_done` | integer | так |  |
+| 50 | `data_updated_at` | timestamp with time zone | так |  |
+| 51 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `project_metrics_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `project_metrics_pkey`: `PRIMARY KEY (company_id, project_id)`
+
+Індекси:
+- `project_metrics_pkey`: `CREATE UNIQUE INDEX project_metrics_pkey ON public.project_metrics USING btree (company_id, project_id)`
+
+Тригери: `archi_recalc_plan` (AFTER INSERT), `archi_recalc_plan` (AFTER UPDATE).
+
+### `wr_weekly_snapshots`
+
+- Призначення: знімок тижневого звіту ПМа.
+- Хто пише: потік «Фінал».
+- Хто читає: Weekly Render, `archi_report_today`, `archi_snapshot_history`.
+- Клас даних: ділові тексти ПМа (можливі ПІБ).
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | integer | **ні** | `nextval('wr_weekly_snapshots_id_seq'::regclass)` |
+| 2 | `project_id` | text | **ні** |  |
+| 3 | `week_start` | date | **ні** |  |
+| 4 | `session_id` | text | так |  |
+| 5 | `готовність_pct` | jsonb | так |  |
+| 6 | `залишок_прогноз_год` | numeric | так |  |
+| 7 | `ймовірність_акту` | numeric | так |  |
+| 8 | `ймовірність_документації` | numeric | так |  |
+| 9 | `plans_next_week` | text | так |  |
+| 10 | `problems` | text | так |  |
+| 11 | `help_needed` | text | так |  |
+| 12 | `pm_comment` | text | так |  |
+| 13 | `final_message` | text | так |  |
+| 14 | `item_statuses` | jsonb | так |  |
+| 15 | `created_at` | timestamp with time zone | **ні** | `now()` |
+| 16 | `залишок_прогноз_по_стадіях` | jsonb | так |  |
+| 17 | `дедлайн_прогноз_по_стадіях` | jsonb | так |  |
+| 18 | `блокер` | jsonb | так |  |
+| 19 | `розбіжність_готовності` | jsonb | так |  |
+| 20 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `wr_weekly_snapshots_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `wr_weekly_snapshots_pkey`: `PRIMARY KEY (id)`
+- UNIQUE `wr_weekly_snapshots_company_project_week_key`: `UNIQUE (company_id, project_id, week_start)`
+
+Індекси:
+- `wr_weekly_snapshots_company_project_week_key`: `CREATE UNIQUE INDEX wr_weekly_snapshots_company_project_week_key ON public.wr_weekly_snapshots USING btree (company_id, project_id, week_start)`
+- `wr_weekly_snapshots_pkey`: `CREATE UNIQUE INDEX wr_weekly_snapshots_pkey ON public.wr_weekly_snapshots USING btree (id)`
+
+Тригери: `archi_recalc_wr` (AFTER DELETE), `archi_recalc_wr` (AFTER INSERT), `archi_recalc_wr` (AFTER UPDATE).
+
+### `wr_plan_items`
+
+- Призначення: пункти плану тижня зі статусами й перенесенням.
+- Хто пише: потік звіту.
+- Хто читає: `archi_plan_execution`.
+- Клас даних: ділові тексти ПМа.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | integer | **ні** | `nextval('wr_plan_items_id_seq'::regclass)` |
+| 2 | `project_id` | text | **ні** |  |
+| 3 | `week_start` | date | **ні** |  |
+| 4 | `item_number` | integer | **ні** |  |
+| 5 | `item_text` | text | **ні** |  |
+| 6 | `status` | text | **ні** | `'pending'::text` |
+| 7 | `created_at` | timestamp with time zone | **ні** | `now()` |
+| 8 | `origin_week` | date | так |  |
+| 9 | `carry_count` | integer | **ні** | `0` |
+| 10 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `wr_plan_items_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `wr_plan_items_pkey`: `PRIMARY KEY (id)`
+- UNIQUE `wr_plan_items_company_project_week_item_key`: `UNIQUE (company_id, project_id, week_start, item_number)`
+
+Індекси:
+- `idx_wr_plan_items_proj_week`: `CREATE INDEX idx_wr_plan_items_proj_week ON public.wr_plan_items USING btree (project_id, week_start)`
+- `wr_plan_items_company_project_week_item_key`: `CREATE UNIQUE INDEX wr_plan_items_company_project_week_item_key ON public.wr_plan_items USING btree (company_id, project_id, week_start, item_number)`
+- `wr_plan_items_pkey`: `CREATE UNIQUE INDEX wr_plan_items_pkey ON public.wr_plan_items USING btree (id)`
+
+### `archi_wr_inbox`
+
+- Призначення: черга повідомлень ПМа до «Відправити».
+- Хто пише: `WR: Inbox Add`.
+- Хто читає: `WR: Fetch Inbox`, `WR: Inbox Consume`.
+- Клас даних: вільний текст, можливі ПІБ.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** | `nextval('archi_wr_inbox_id_seq'::regclass)` |
+| 2 | `session_id` | text | **ні** |  |
+| 3 | `project_id` | text | **ні** |  |
+| 4 | `source_type` | text | **ні** | `'text'::text` |
+| 5 | `content` | text | **ні** |  |
+| 6 | `created_at` | timestamp with time zone | **ні** | `now()` |
+| 7 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `archi_wr_inbox_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `archi_wr_inbox_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `archi_wr_inbox_pkey`: `CREATE UNIQUE INDEX archi_wr_inbox_pkey ON public.archi_wr_inbox USING btree (id)`
+- `archi_wr_inbox_sess_proj`: `CREATE INDEX archi_wr_inbox_sess_proj ON public.archi_wr_inbox USING btree (session_id, project_id, id)`
+- `idx_archi_wr_inbox_company_sess`: `CREATE INDEX idx_archi_wr_inbox_company_sess ON public.archi_wr_inbox USING btree (company_id, session_id, project_id, id)`
+
+## 5. Факт: години, гроші, графік
+
+### `time_log`
+
+- Призначення: відпрацьовані години (`confirmed` після «Фінал»).
+- Хто пише: імпорт ботом.
+- Хто читає: `archi_recalc`, P-10.
+- Клас даних: PII-lite: виконавець, години.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** |  |
+| 2 | `project_id` | text | **ні** |  |
+| 3 | `дата` | date | **ні** |  |
+| 4 | `стадія` | text | так |  |
+| 5 | `виконавець` | text | так |  |
+| 6 | `завдання_розділ` | text | так |  |
+| 7 | `години` | numeric | так |  |
+| 8 | `статус` | text | так | `'logged'::text` |
+| 9 | `source` | text | так |  |
+| 10 | `raw_payload` | jsonb | так |  |
+| 11 | `created_at` | timestamp with time zone | так | `now()` |
+| 12 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `time_log_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `time_log_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `idx_time_log_company_project`: `CREATE INDEX idx_time_log_company_project ON public.time_log USING btree (company_id, project_id)`
+- `idx_time_log_date`: `CREATE INDEX idx_time_log_date ON public.time_log USING btree ("дата")`
+- `idx_time_log_project`: `CREATE INDEX idx_time_log_project ON public.time_log USING btree (project_id)`
+- `time_log_pkey`: `CREATE UNIQUE INDEX time_log_pkey ON public.time_log USING btree (id)`
+
+Тригери: `archi_recalc_time` (AFTER DELETE), `archi_recalc_time` (AFTER INSERT), `archi_recalc_time` (AFTER UPDATE).
+
+### `money_log`
+
+- Призначення: акти, надходження, оплати субпідрядникам.
+- Хто пише: імпорт ботом (лише ПМ).
+- Хто читає: `archi_recalc`.
+- Клас даних: фінансові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** |  |
+| 2 | `project_id` | text | **ні** |  |
+| 3 | `дата` | date | **ні** |  |
+| 4 | `стадія` | text | так |  |
+| 5 | `контрагент` | text | так |  |
+| 6 | `сума` | numeric | так |  |
+| 7 | `тип` | text | так |  |
+| 8 | `статус` | text | так | `'logged'::text` |
+| 9 | `source` | text | так |  |
+| 10 | `raw_payload` | jsonb | так |  |
+| 11 | `created_at` | timestamp with time zone | так | `now()` |
+| 12 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `money_log_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `money_log_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `idx_money_log_company_project`: `CREATE INDEX idx_money_log_company_project ON public.money_log USING btree (company_id, project_id)`
+- `idx_money_log_date`: `CREATE INDEX idx_money_log_date ON public.money_log USING btree ("дата")`
+- `idx_money_log_project`: `CREATE INDEX idx_money_log_project ON public.money_log USING btree (project_id)`
+- `money_log_pkey`: `CREATE UNIQUE INDEX money_log_pkey ON public.money_log USING btree (id)`
+
+Тригери: `archi_recalc_money` (AFTER DELETE), `archi_recalc_money` (AFTER INSERT), `archi_recalc_money` (AFTER UPDATE).
+
+### `payment_schedule`
+
+- Призначення: графік актів і документації.
+- Хто пише: Кошторис, міграції.
+- Хто читає: `archi_recalc`, брифінг.
+- Клас даних: фінансові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** | `nextval('payment_schedule_id_seq'::regclass)` |
+| 2 | `project_id` | text | **ні** |  |
+| 3 | `стадія` | text | так |  |
+| 4 | `подія` | text | **ні** |  |
+| 5 | `дата_план` | date | **ні** |  |
+| 6 | `сума_план` | numeric | так |  |
+| 7 | `ймовірність_план` | integer | так |  |
+| 8 | `статус_план` | text | так |  |
+| 9 | `baseline_at` | timestamp with time zone | **ні** | `now()` |
+| 10 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- CHECK `payment_schedule_check`: `CHECK ((("подія" <> 'акт'::text) OR ("стадія" IS NOT NULL)))`
+- CHECK `payment_schedule_ймовірність_план_check`: `CHECK ((("ймовірність_план" IS NULL) OR (("ймовірність_план" >= 1) AND ("ймовірність_план" <= 10))))`
+- CHECK `payment_schedule_подія_check`: `CHECK (("подія" = ANY (ARRAY['акт'::text, 'документація'::text])))`
+- CHECK `payment_schedule_стадія_check`: `CHECK ((("стадія" IS NULL) OR ("стадія" = ANY (ARRAY['МБР'::text, 'ЕП'::text, 'П'::text, 'Р'::text, 'АН'::text]))))`
+- FOREIGN KEY `payment_schedule_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `payment_schedule_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `idx_payment_schedule_company_project`: `CREATE INDEX idx_payment_schedule_company_project ON public.payment_schedule USING btree (company_id, project_id)`
+- `ix_payment_schedule_proj`: `CREATE INDEX ix_payment_schedule_proj ON public.payment_schedule USING btree (project_id, "подія", "дата_план")`
+- `payment_schedule_pkey`: `CREATE UNIQUE INDEX payment_schedule_pkey ON public.payment_schedule USING btree (id)`
+
+Тригери: `archi_recalc_schedule` (AFTER DELETE), `archi_recalc_schedule` (AFTER INSERT), `archi_recalc_schedule` (AFTER UPDATE).
+
+### `rates`
+
+- Призначення: ставки по посадах (глобально, W3.6).
+- Хто пише: вручну.
+- Хто читає: F-02, P-10.
+- Клас даних: фінансові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `posada` | text | **ні** |  |
+| 2 | `stavka_grn_god` | numeric | **ні** |  |
+| 3 | `nakladni_grn_god` | numeric | **ні** |  |
+| 4 | `razom_grn_god` | numeric | так |  |
+| 5 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `rates_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `rates_pkey`: `PRIMARY KEY (company_id, posada)`
+
+Індекси:
+- `rates_pkey`: `CREATE UNIQUE INDEX rates_pkey ON public.rates USING btree (company_id, posada)`
+
+## 6. Журнали й стан бота
+
+### `meeting_log`
+
+- Призначення: журнал зустрічей і домовленостей.
+- Хто пише: бот (режим «Зустріч»).
+- Хто читає: чат (Q10), брифінг.
+- Клас даних: вільний текст.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** |  |
+| 2 | `project_id` | text | **ні** |  |
+| 3 | `дата` | date | **ні** |  |
+| 4 | `учасники` | text | так |  |
+| 5 | `рішення_дія` | text | так |  |
+| 6 | `відповідальний` | text | так |  |
+| 7 | `дедлайн` | date | так |  |
+| 8 | `source` | text | так |  |
+| 9 | `raw_payload` | jsonb | так |  |
+| 10 | `created_at` | timestamp with time zone | так | `now()` |
+| 11 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `meeting_log_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `meeting_log_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `idx_meeting_log_company_project`: `CREATE INDEX idx_meeting_log_company_project ON public.meeting_log USING btree (company_id, project_id)`
+- `idx_meeting_log_date`: `CREATE INDEX idx_meeting_log_date ON public.meeting_log USING btree ("дата")`
+- `idx_meeting_log_project`: `CREATE INDEX idx_meeting_log_project ON public.meeting_log USING btree (project_id)`
+- `meeting_log_pkey`: `CREATE UNIQUE INDEX meeting_log_pkey ON public.meeting_log USING btree (id)`
+
+### `kp_log`
+
+- Призначення: облік комерційних пропозицій.
+- Хто пише: бот `КП: N`.
+- Хто читає: Owner View.
+- Клас даних: комерційні.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** | `nextval('kp_log_id_seq'::regclass)` |
+| 2 | `logged_at` | timestamp with time zone | **ні** | `now()` |
+| 3 | `count` | integer | **ні** |  |
+| 4 | `telegram_user_id` | bigint | так |  |
+| 5 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- FOREIGN KEY `kp_log_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `kp_log_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `kp_log_pkey`: `CREATE UNIQUE INDEX kp_log_pkey ON public.kp_log USING btree (id)`
+
+### `archi_bot_mode_state`
+
+- Призначення: режим діалогу бота й обраний проєкт; ключ — id чату.
+- Хто пише: n8n.
+- Хто читає: n8n.
+- Клас даних: службові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `session_id` | text | **ні** |  |
+| 2 | `mode` | text | **ні** | `'idle'::text` |
+| 3 | `updated_at` | timestamp with time zone | **ні** | `now()` |
+| 4 | `project_id` | text | так |  |
+| 5 | `context` | jsonb | так |  |
+| 6 | `company_id` | uuid | так |  |
+
+Обмеження:
+- FOREIGN KEY `archi_bot_mode_state_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- PRIMARY KEY `archi_bot_mode_state_pkey`: `PRIMARY KEY (session_id)`
+
+Індекси:
+- `archi_bot_mode_state_pkey`: `CREATE UNIQUE INDEX archi_bot_mode_state_pkey ON public.archi_bot_mode_state USING btree (session_id)`
+
+### `n8n_chat_histories`
+
+- Призначення: пам'ять LLM-агентів звіту, імпорту, зустрічі.
+- Хто пише: n8n (LangChain).
+- Хто читає: n8n.
+- Клас даних: вільний текст, можливі ПІБ.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | integer | **ні** | `nextval('n8n_chat_histories_id_seq'::regclass)` |
+| 2 | `session_id` | character varying(255) | **ні** |  |
+| 3 | `message` | jsonb | **ні** |  |
+
+Обмеження:
+- PRIMARY KEY `n8n_chat_histories_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `n8n_chat_histories_pkey`: `CREATE UNIQUE INDEX n8n_chat_histories_pkey ON public.n8n_chat_histories USING btree (id)`
+
+## 7. EVM (класичний)
+
+### `evm_packages`
+
+- Призначення: гілка «EVM (класичний)»: базовий план пакетів.
+- Хто пише: міграції.
+- Хто читає: `evm_classic_*`.
+- Клас даних: фінансові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** |  |
+| 2 | `project_id` | text | **ні** |  |
+| 3 | `baseline_no` | integer | **ні** | `1` |
+| 4 | `stage` | text | **ні** |  |
+| 5 | `package_code` | text | **ні** |  |
+| 6 | `title` | text | **ні** |  |
+| 7 | `budget_uah` | numeric | **ні** |  |
+| 8 | `budget_src` | text | так |  |
+| 9 | `rule` | text | **ні** | `'0/100'::text` |
+| 10 | `planned_start` | date | так |  |
+| 11 | `planned_finish` | date | **ні** |  |
+| 12 | `source` | text | **ні** |  |
+| 13 | `created_at` | timestamp with time zone | **ні** | `now()` |
+| 14 | `created_by` | text | так |  |
+| 15 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- CHECK `evm_packages_baseline_no_check`: `CHECK ((baseline_no >= 1))`
+- CHECK `evm_packages_budget_uah_check`: `CHECK ((budget_uah > (0)::numeric))`
+- CHECK `evm_packages_rule_check`: `CHECK ((rule = '0/100'::text))`
+- CHECK `evm_packages_source_check`: `CHECK ((source = ANY (ARRAY['koshtorys'::text, 'demo'::text])))`
+- CHECK `evm_packages_stage_check`: `CHECK ((stage = ANY (ARRAY['МБР'::text, 'ЕП'::text, 'П'::text, 'Р'::text])))`
+- CHECK `evm_packages_start_le_finish`: `CHECK (((planned_start IS NULL) OR (planned_start <= planned_finish)))`
+- FOREIGN KEY `evm_packages_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- FOREIGN KEY `evm_packages_project_fkey`: `FOREIGN KEY (company_id, project_id) REFERENCES project_metrics(company_id, project_id)`
+- PRIMARY KEY `evm_packages_pkey`: `PRIMARY KEY (id)`
+- UNIQUE `evm_packages_uq`: `UNIQUE (company_id, project_id, baseline_no, package_code)`
+
+Індекси:
+- `evm_packages_pkey`: `CREATE UNIQUE INDEX evm_packages_pkey ON public.evm_packages USING btree (id)`
+- `evm_packages_uq`: `CREATE UNIQUE INDEX evm_packages_uq ON public.evm_packages USING btree (company_id, project_id, baseline_no, package_code)`
+
+### `evm_package_done`
+
+- Призначення: гілка «EVM (класичний)»: факт виконання пакетів.
+- Хто пише: бот «Видано» (⬜).
+- Хто читає: `evm_classic_*`.
+- Клас даних: фінансові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `id` | bigint | **ні** |  |
+| 2 | `package_id` | bigint | **ні** |  |
+| 3 | `event` | text | **ні** |  |
+| 4 | `event_date` | date | **ні** |  |
+| 5 | `confirmed_by` | text | так |  |
+| 6 | `evidence` | text | так |  |
+| 7 | `source` | text | **ні** |  |
+| 8 | `created_at` | timestamp with time zone | **ні** | `now()` |
+| 9 | `company_id` | uuid | **ні** |  |
+
+Обмеження:
+- CHECK `evm_package_done_event_check`: `CHECK ((event = ANY (ARRAY['started'::text, 'done'::text, 'cancelled'::text])))`
+- CHECK `evm_package_done_source_check`: `CHECK ((source = ANY (ARRAY['bot'::text, 'koshtorys'::text, 'demo'::text])))`
+- FOREIGN KEY `evm_package_done_company_id_fkey`: `FOREIGN KEY (company_id) REFERENCES companies(company_id)`
+- FOREIGN KEY `evm_package_done_package_id_fkey`: `FOREIGN KEY (package_id) REFERENCES evm_packages(id) ON DELETE RESTRICT`
+- PRIMARY KEY `evm_package_done_pkey`: `PRIMARY KEY (id)`
+
+Індекси:
+- `evm_package_done_pkey`: `CREATE UNIQUE INDEX evm_package_done_pkey ON public.evm_package_done USING btree (id)`
+- `evm_package_done_pkg_idx`: `CREATE INDEX evm_package_done_pkg_idx ON public.evm_package_done USING btree (package_id)`
+
+## 8. Вʼю
+
+### `archi_report_today`
+
+- Призначення: вʼю: колонка «Сьогодні» звіту (ETC, рентабельність, ймовірності).
+- Хто пише: —.
+- Хто читає: Weekly Render, чат ПМа.
+- Клас даних: похідні.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `project_id` | text | так |  |
+| 2 | `data_updated_at` | timestamp with time zone | так |  |
+| 3 | `rent_plan_pct` | numeric | так |  |
+| 4 | `rent_forecast_pct` | numeric | так |  |
+| 5 | `planned_hours` | numeric | так |  |
+| 6 | `actual_hours` | numeric | так |  |
+| 7 | `etc_plan_hours` | numeric | так |  |
+| 8 | `etc_fact_hours` | numeric | так |  |
+| 9 | `etc_forecast_hours` | numeric | так |  |
+| 10 | `eac_hours_pct` | numeric | так |  |
+| 11 | `cpi` | numeric | так |  |
+| 12 | `act_date` | date | так |  |
+| 13 | `act_prob` | numeric | так |  |
+| 14 | `doc_date` | date | так |  |
+| 15 | `doc_prob` | numeric | так |  |
+| 16 | `etc_gap_hours` | numeric | так |  |
+| 17 | `etc_gap_signal` | text | так |  |
+| 18 | `spent_pct` | numeric | так |  |
+| 19 | `ready_pm_pct` | numeric | так |  |
+| 20 | `ready_fc_pct` | numeric | так |  |
+| 21 | `ready_gap_pp` | numeric | так |  |
+| 22 | `ready_gap_signal` | text | так |  |
+| 23 | `eff_hours_idx` | numeric | так |  |
+| 24 | `eff_signal` | text | так |  |
+| 25 | `acts_to_ev` | numeric | так |  |
+| 26 | `paid_to_acts` | numeric | так |  |
+| 27 | `acts_to_ev_signal` | text | так |  |
+| 28 | `paid_to_acts_signal` | text | так |  |
+| 29 | `exec_idx` | numeric | так |  |
+| 30 | `exec_signal` | text | так |  |
+| 31 | `acts_due` | integer | так |  |
+| 32 | `acts_done` | integer | так |  |
+| 33 | `acts_plan_idx` | numeric | так |  |
+| 34 | `acts_plan_signal` | text | так |  |
+| 35 | `etc_gap_pct_bac` | numeric | так |  |
+| 36 | `stage_etc_signal` | jsonb | так |  |
+| 37 | `company_id` | uuid | так |  |
+
+### `archi_snapshot_history`
+
+- Призначення: вʼю: історія знімків із сигналами (H-01, H-02, E-*).
+- Хто пише: —.
+- Хто читає: Weekly Render.
+- Клас даних: похідні.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `project_id` | text | так |  |
+| 2 | `week_start` | date | так |  |
+| 3 | `rent_plan_pct` | numeric | так |  |
+| 4 | `rent_forecast_pct` | numeric | так |  |
+| 5 | `eac_hours_pct` | numeric | так |  |
+| 6 | `cpi` | numeric | так |  |
+| 7 | `etc_plan_hours` | numeric | так |  |
+| 8 | `etc_fact_hours` | numeric | так |  |
+| 9 | `etc_forecast_hours` | numeric | так |  |
+| 10 | `etc_gap_hours` | numeric | так |  |
+| 11 | `etc_gap_signal` | text | так |  |
+| 12 | `spent_pct` | numeric | так |  |
+| 13 | `ready_pm_pct` | numeric | так |  |
+| 14 | `ready_fc_pct` | numeric | так |  |
+| 15 | `ready_gap_pp` | numeric | так |  |
+| 16 | `ready_gap_signal` | text | так |  |
+| 17 | `eff_hours_idx` | numeric | так |  |
+| 18 | `eff_signal` | text | так |  |
+| 19 | `acts_to_ev` | numeric | так |  |
+| 20 | `paid_to_acts` | numeric | так |  |
+| 21 | `acts_to_ev_signal` | text | так |  |
+| 22 | `paid_to_acts_signal` | text | так |  |
+| 23 | `exec_idx` | numeric | так |  |
+| 24 | `exec_signal` | text | так |  |
+| 25 | `acts_due` | integer | так |  |
+| 26 | `acts_done` | integer | так |  |
+| 27 | `acts_plan_idx` | numeric | так |  |
+| 28 | `acts_plan_signal` | text | так |  |
+| 29 | `company_id` | uuid | так |  |
+
+### `archi_plan_execution`
+
+- Призначення: вʼю: виконання плану тижня (PX-01).
+- Хто пише: —.
+- Хто читає: Weekly Render.
+- Клас даних: похідні.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `project_id` | text | так |  |
+| 2 | `week_start` | date | так |  |
+| 3 | `total` | integer | так |  |
+| 4 | `done` | integer | так |  |
+| 5 | `not_done` | integer | так |  |
+| 6 | `no_answer` | integer | так |  |
+| 7 | `pending` | integer | так |  |
+| 8 | `max_carry` | integer | так |  |
+| 9 | `exec_pct` | numeric | так |  |
+| 10 | `signal` | text | так |  |
+| 11 | `company_id` | uuid | так |  |
+
+### `archi_weekly_progress`
+
+- Призначення: вʼю: приріст готовності проти витрат (P-10).
+- Хто пише: —.
+- Хто читає: Owner View.
+- Клас даних: похідні, фінансові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `project_id` | text | так |  |
+| 2 | `week_start` | date | так |  |
+| 3 | `prev_week` | date | так |  |
+| 4 | `ready_prev_pct` | numeric | так |  |
+| 5 | `ready_pct` | numeric | так |  |
+| 6 | `d_ready_pp` | numeric | так |  |
+| 7 | `hours` | numeric | так |  |
+| 8 | `cost_uah` | numeric | так |  |
+| 9 | `contract_amount` | numeric | так |  |
+| 10 | `value_uah` | numeric | так |  |
+| 11 | `result_uah` | numeric | так |  |
+| 12 | `idx` | numeric | так |  |
+| 13 | `signal` | text | так |  |
+| 14 | `budget_uah` | numeric | так |  |
+| 15 | `customer_money_uah` | numeric | так |  |
+| 16 | `owner_money_uah` | numeric | так |  |
+| 17 | `company_id` | uuid | так |  |
+
+### `evm_classic_today`
+
+- Призначення: вʼю: класичні показники на сьогодні.
+- Хто пише: —.
+- Хто читає: (екрана ще немає).
+- Клас даних: похідні.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `project_id` | text | так |  |
+| 2 | `as_of` | date | так |  |
+| 3 | `has_baseline` | boolean | так |  |
+| 4 | `baseline_no` | integer | так |  |
+| 5 | `packages` | integer | так |  |
+| 6 | `bac` | numeric | так |  |
+| 7 | `pv` | numeric | так |  |
+| 8 | `ev` | numeric | так |  |
+| 9 | `ac` | numeric | так |  |
+| 10 | `cv` | numeric | так |  |
+| 11 | `sv` | numeric | так |  |
+| 12 | `cpi` | numeric | так |  |
+| 13 | `spi` | numeric | так |  |
+| 14 | `eac` | numeric | так |  |
+| 15 | `etc` | numeric | так |  |
+| 16 | `vac` | numeric | так |  |
+| 17 | `tcpi` | numeric | так |  |
+| 18 | `company_id` | uuid | так |  |
+
+### `project_metrics_live`
+
+- Призначення: застаріле вʼю: лінійна оцінка за годинами; **не використовувати**.
+- Хто пише: —.
+- Хто читає: ніхто.
+- Клас даних: похідні.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `project_id` | text | так |  |
+| 2 | `contract_amount` | numeric | так |  |
+| 3 | `planned_hours` | numeric | так |  |
+| 4 | `actual_hours` | numeric | так |  |
+| 5 | `percent_execution` | numeric | так |  |
+| 6 | `earned_value_contract` | numeric | так |  |
+| 7 | `actual_cost` | numeric | так |  |
+| 8 | `efficiency_contract` | numeric | так |  |
+| 9 | `comparison` | numeric | так |  |
+| 10 | `company_id` | uuid | так |  |
+
+### `rates_coverage_check`
+
+- Призначення: діагностика: пари проєкт–виконавець без ставки.
+- Хто пише: —.
+- Хто читає: ручна перевірка.
+- Клас даних: службові.
+
+| № | Колонка | Тип | NULL | За замовчуванням |
+|---|---|---|---|---|
+| 1 | `project_id` | text | так |  |
+| 2 | `posada_bez_stavky` | text | так |  |
+| 3 | `company_id` | uuid | так |  |
+
+## 9. Функції SQL (`archi_*`, `evm_*`)
+
+| Функція | Аргументи | Повертає | SECURITY DEFINER |
+|---|---|---|---|
+| `archi_acts_plan` | `p_company uuid, p_project text, p_asof date` | `TABLE(acts_due integer, acts_done integer, acts_plan_idx numeric)` | ні |
+| `archi_acts_plan` | `p_project text, p_asof date` | `TABLE(acts_due integer, acts_done integer, acts_plan_idx numeric)` | ні |
+| `archi_etc_gap_signal` | `p_company uuid, p_fact numeric, p_forecast numeric` | `text` | ні |
+| `archi_etc_gap_signal` | `p_fact numeric, p_forecast numeric` | `text` | ні |
+| `archi_flow_idx_signal` | `p numeric` | `text` | ні |
+| `archi_flow_idx_signal` | `p_company uuid, p numeric` | `text` | ні |
+| `archi_idx_signal` | `p numeric` | `text` | ні |
+| `archi_idx_signal` | `p_company uuid, p numeric` | `text` | ні |
+| `archi_morning_brief` | `p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'::text))::date` | `jsonb` | ні |
+| `archi_paid_idx_signal` | `p numeric` | `text` | ні |
+| `archi_paid_idx_signal` | `p_company uuid, p numeric` | `text` | ні |
+| `archi_ready_gap_signal` | `p_company uuid, p_pp numeric` | `text` | ні |
+| `archi_ready_gap_signal` | `p_pp numeric` | `text` | ні |
+| `archi_recalc` | `p_company uuid, p_project text` | `integer` | ні |
+| `archi_recalc` | `p_project text DEFAULT NULL::text` | `integer` | ні |
+| `archi_recalc_stages` | `p_company uuid, p_project text` | `integer` | ні |
+| `archi_recalc_stages` | `p_project text DEFAULT NULL::text` | `integer` | ні |
+| `archi_recalc_trg` | `—` | `trigger` | ні |
+| `archi_recalc_visit` | `p_company uuid, p_project text` | `integer` | ні |
+| `archi_recalc_visit` | `p_project text DEFAULT NULL::text` | `integer` | ні |
+| `archi_rules` | `p_company uuid` | `json` | ні |
+| `archi_snapshot_evm` | `p_company uuid, p_project text, p_week date, p_rd jsonb, p_et jsonb` | `TABLE(spent_pct numeric, ready_pm_pct numeric, ready_fc_pct numeric, ready_gap_pp numeric, ready_gap_signal text, eff_hours_idx numeric, eff_signal text, acts_to_ev numeric, paid_to_acts numeric)` | ні |
+| `archi_snapshot_evm` | `p_project text, p_week date, p_rd jsonb, p_et jsonb` | `TABLE(spent_pct numeric, ready_pm_pct numeric, ready_fc_pct numeric, ready_gap_pp numeric, ready_gap_signal text, eff_hours_idx numeric, eff_signal text, acts_to_ev numeric, paid_to_acts numeric)` | ні |
+| `archi_snapshot_metrics` | `p_company uuid, p_project text, p_week date, p_rd jsonb, p_et jsonb` | `TABLE(rent_plan_pct numeric, rent_forecast_pct numeric, eac_hours_pct numeric, cpi numeric, etc_plan_hours numeric, etc_fact_hours numeric, etc_forecast_hours numeric, etc_gap_hours numeric, etc_gap_signal text)` | ні |
+| `archi_snapshot_metrics` | `p_project text, p_week date, p_rd jsonb, p_et jsonb` | `TABLE(rent_plan_pct numeric, rent_forecast_pct numeric, eac_hours_pct numeric, cpi numeric, etc_plan_hours numeric, etc_fact_hours numeric, etc_forecast_hours numeric, etc_gap_hours numeric, etc_gap_signal text)` | ні |
+| `archi_threshold` | `p_company uuid, p_key text` | `numeric` | ні |
+| `archi_vac_signal` | `p_company uuid, p_gap numeric, p_bac numeric` | `text` | ні |
+| `archi_vac_signal` | `p_gap numeric, p_bac numeric` | `text` | ні |
+| `evm_classic_at` | `p_company uuid, p_project text, p_t date` | `TABLE(company_id uuid, project_id text, as_of date, has_baseline boolean, baseline_no integer, packages integer, bac numeric, pv numeric, ev numeric, ac numeric, cv numeric, sv numeric, cpi numeric, spi numeric, eac numeric, etc numeric, vac numeric, tcpi numeric)` | ні |
+| `evm_classic_at` | `p_project text, p_t date` | `TABLE(project_id text, as_of date, has_baseline boolean, baseline_no integer, packages integer, bac numeric, pv numeric, ev numeric, ac numeric, cv numeric, sv numeric, cpi numeric, spi numeric, eac numeric, etc numeric, vac numeric, tcpi numeric)` | ні |
+| `evm_classic_indices` | `p_bac numeric, p_pv numeric, p_ev numeric, p_ac numeric` | `TABLE(cv numeric, sv numeric, cpi numeric, spi numeric, eac numeric, etc numeric, vac numeric, tcpi numeric)` | ні |
+
+Формули й пороги, які реалізують функції, — `docs/FORMULAS.md`. Перевантаження `p_company` читають пороги по компанії (W1.5).
+
+## 10. Політики зберігання й дані особисті
+
+- Політики зберігання й видалення **не визначені** (OD-20, W10.8, W11.5). Нічого не архівується й не видаляється автоматично.
+- Дані з потенційно особистим змістом: `user_access` (Telegram id), `owner_prefs`, `time_log` (ПІБ або посада виконавця), `wr_*`, `meeting_log`, `archi_wr_inbox`, `n8n_chat_histories` (вільний текст).
+- Юридична перевірка — до першого клієнта (OD-20); юридичних висновків цей документ не дає.
+
+## 11. Відомі відхилення схеми від бажаного
+
+| № | Факт зі знімка | Наслідок | Вузол карти |
+|---|---|---|---|
+| 1 | FK є лише на `companies` | немає цілісності між `project_metrics` і логами | W1.1 |
+| 2 | `company_id` допускає NULL: `archi_bot_mode_state`, `user_access` | `user_access`: так задумано (оператор); `archi_bot_mode_state`: колізія станів бота для оператора з кількома клієнтами | W1.6 |
+| 3 | таблиці без `company_id`: `archi_thresholds`, `n8n_chat_histories` | немає прив'язки до клієнта: `archi_thresholds` — значення за замовчуванням (перевизначення в `company_thresholds`); `n8n_chat_histories` — пам'ять LLM, ізоляція лише через `session_id` | W1.6, W3.6, DR-13 |
+| 4 | RLS увімкнено, але політик немає на частині таблиць | публічний ключ нічого не читає, n8n (роль postgres) читає все | OD-4 |
+| 5 | `wr_plan_items_legacy` відсутня | дизайн D2 не виконано (245 рядків зі старими ID) | W1.1 |
+| 6 | Застарілі об'єкти: `project_metrics_live`, колонки `final_message`, `efficiency_contract`, `earned_value`, `paid_volume`, `comparison` | плутанина; видалення — рішення власника | T-12 |
+
+
+---
+
+<!-- SOURCE docs/handover/11_API_CONTRACT.md sha256=8346d9ba023d1c36fa351ee2c964c9dcd729b23b989faa92056b34fe19d8cb3e bytes=13384 -->
+**Джерело: `docs/handover/11_API_CONTRACT.md` — API-контракт**
+
+# ARCHI — API-контракт
+Версія 1 · 05.11.2026. Джерело: експорт core workflow `a4c89c3c` (вузли webhook, `Validate InitData`, `Respond …`, `Build MiniApp Data`, `Build Weekly Render Data`, `Xlsx: Build Rows`). Машинний опис — `docs/handover/openapi.yaml` (OpenAPI 3.0). Усе нижче **Факт за кодом**, окрім позначеного «не перевірено»; зразків живих відповідей немає (запит потребує підписаного `initData` Telegram). Форма відповіді береться з коду, перелік полів проєкту — з об'єкта в `Build MiniApp Data`.
+
+## 1. Огляд
+| Ендпоінт | Метод | Відповідь | Авторизація | Вузол |
+|---|---|---|---|---|
+| `/webhook/demo-archi-owner-view` | GET | `200 text/html` (сторінка Owner View) | немає | `MiniApp Page Webhook` |
+| `/webhook/demo-archi-owner-view-data` | GET | `200 application/json` або `401` | `initData` + доступ до компанії | `MiniApp Data Webhook` |
+| `/webhook/demo-archi-weekly-render` | GET | `200 text/html` (сторінка Weekly Render) | немає | `Weekly Render Page Webhook` |
+| `/webhook/demo-archi-weekly-render-data` | GET | `200 application/json` або `401` | `initData` + доступ | `Weekly Render Data Webhook` |
+| `/webhook/demo-archi-export` | GET | `200` xlsx або `401` | `initData` + доступ | `Xlsx Export Webhook` |
+Базовий URL: `https://osbbcopilot.app.n8n.cloud` (n8n Cloud). Версіонування API немає. Rate limiting у коді немає. Ідемпотентність: усі ендпоінти лише читають, повтор безпечний.
+
+## 2. Авторизація
+1. Клієнт (Telegram Mini App) передає рядок `initData` у query-параметрі: `?initData=<url-encoded initData>`. Без нього — `{valid:false, reason:'no_init_data'}` і відповідь `401`.
+2. Вузол `Validate InitData` (у кожного з 3 ендпоінтів даних є власна копія: `Validate InitData`, `WR-Render: Validate InitData`, `Xlsx: Validate InitData`) перевіряє:
+   - підпис Ed25519 від Telegram (публічний ключ Telegram), токен бота не потрібен;
+   - `auth_date` обов'язковий і не старший за 24 години;
+   - витягує `userId`.
+3. `Resolve Company (…)` шукає `userId` у `user_access` (`telegram_user_id`), повертає `company_id` і роль.
+4. `Has Access (…)`: порожній `company_id` → та сама відповідь `401` (`Respond Unauthorized`, `Respond Weekly Render Unauthorized`, `Respond Xlsx Unauthorized`).
+Помилка авторизації не розрізняє причини для клієнта: тіло завжди `{"error":"invalid or missing initData"}`.
+Сторінки HTML (`/owner-view`, `/weekly-render`) авторизації не мають: це статичний шаблон, дані клієнт запитує окремо.
+Оператор FDO (`company_id IS NULL` у `user_access`): активна компанія береться з `archi_bot_mode_state`; поведінка вебхуків для оператора **не перевірена** (потребує тесту T4–T6).
+
+## 3. `GET /webhook/demo-archi-owner-view`
+Відповідь `200`, `Content-Type: text/html; charset=utf-8`, `Cache-Control` задано у вузлі `Respond MiniApp HTML`. Тіло — одна HTML-сторінка з вбудованим скриптом, що викликає ендпоінт даних із `initData` Telegram WebApp.
+
+## 4. `GET /webhook/demo-archi-owner-view-data?initData=…`
+Відповідь `200 application/json`: об'єкт `data` з вузла `Build MiniApp Data`.
+
+| Поле | Тип | Опис |
+|---|---|---|
+| `asOf` | string | дата оновлення даних `ДД.ММ.РРРР` (F-28) або `—` |
+| `projects` | array\<Project\> | договори стадій (див. нижче) |
+| `attention` | array | перелік проєктів, що потребують уваги |
+| `counts` | object `{red, yellow, green, blocked}` | лічильники статусів |
+| `totalContract`, `totalContractFmt` | number, string | сума контрактів |
+| `pfc` | object | показники портфеля (таблиця План / Факт / Прогноз): `planProjects`, `planHours`, `planProfit`, `planRentPct`, `factRentPct`, `forecastRentPct`, `planRentContractPct`, `factRentContractPct`, `forecastRentContractPct`, `factProfit`, `forecastProfit`, `factProjects`, `forecastProjects`, `factHours`, `unpaidHours`, `forecastHours`, `kpMonthSent`, `kpYearSent`, `kpPlanYear`, `kpConversionPct`, `kpProjectedContracts`, `execIdx`, `effFcIdx`, `wp`, `fcSig`, `diff` |
+| `rules` | object | пороги в тому вигляді, в якому їх бачить клієнт: `OPT_ETC_DROP`, `OPT_READY_MAX`, `RENT_DROP_PP`, `RENT_DROP_PP_RED`, `PROFIT_YELLOW_PCT`, `PROFIT_RED_PCT`, `CPI_RED`, `CPI_YELLOW`, `ETC_RED`, `ETC_YELLOW`, `UNPAID_YELLOW`, `UNPAID_RED`, `SLIP_RED_DAYS`, `BLOCK_RED_DAYS` |
+| `views` | object | згруповані перегляди для панелі «Показник» (`rentDefs`, `profitDefs` тощо; групи `critical`/`attention`/`normal`) |
+
+**Project** (одна картка): `id`, `name`, `dataUpdated`, `status` (`red`/`yellow`/`green`), `reds`, `yellows`, `signals[]`, `cls{}` (колір по показниках), `wr{}` (звіт ПМа), `blocker`, `contract`, `contractFmt`, `rentPlan`, `rentPlanFmt`, `noForecast`, `lastConfirmedForecast`, `rentForecast`, `rentForecastFmt`, `profitPlan`, `profitPlanFmt`, `profitForecast`, `profitForecastFmt`, `profitFact`, `profitFactFmt`, `executedWorkFmt`, `receivedFmt`, `actsFmt`, `moneyToCompleteTeamFmt`, `moneyToCompleteSubFmt`, `etcPlanFmt`, `etcFactFmt`, `etcPlanTotFmt`, `etcForecastFmt`, `etc`, `cpi`, `cpiFmt`, `cpiH`, `cpiHFmt`, `rentContractPlanFmt`, `rentContractFactFmt`, `rentContractForecastFmt`, `rentCostPlanFmt`, `rentCostFactFmt`, `rentCostForecastFmt`, `planHrs`, `factHrs`, `rawQ`, `rawS`, `rawP`, `rawEtcPlan`, `rawEtcForecast`, `wp{}`.
+
+Правила значень (з коду):
+- Числа без суфікса `Fmt` — `number | null`; `null` означає «даних немає», не 0 (BR-12).
+- Поля з суфіксом `Fmt` — готові рядки для показу з розділювачем тисяч і валютою; відсутній прогноз подається як `🔴 Прогноз відсутній` (`rentForecastFmt`, `profitForecastFmt`) або `🔴 Не подано ПМом` (`etcForecastFmt`).
+- Частка поля `rentPlan`/`rentForecast` — частка від одиниці (`0.2` = 20%), не відсоток.
+- У відповіді присутні назви на кшталт `cpi`, `rentPlanFmt`: це історичні імена полів JSON, на екрані підписи інші (`CLAUDE.md` п. 14); перейменування — W1.8/W7.5.
+- Колір розраховує код вузла `Build MiniApp Data` частково через значення з SQL; повний перенос у SQL — W1.8. **Поки клієнт отримує колір у `cls` і `status`, а не рахує його сам.**
+- Статус `yellow` у структурі лишився, але за п. 15 для відхилень від плану не використовується (пороги = 0).
+
+## 5. `GET /webhook/demo-archi-weekly-render` (HTML) і `…-data?initData=…` (JSON)
+Дані (`Build Weekly Render Data`): `{ asOf: string, weekLabels: string[], projects: [{ id, dataUpdated, columns: Cell[] }] }`. `columns` = по одній комірці на тиждень зі знімка + остання комірка «Сьогодні» (`isToday: true`, `label: 'Сьогодні (Data Total)'`).
+Поля комірки: `m1 {plan, forecast}` (рентабельність), `m2 {plan, fact, forecast, gap, signal}` (ETC), `m3 {spent, pm, fc, gap, gapSignal, eff, effSignal, exec, execSig}` (ланцюжок готовності), `m7x {actsToEv, paidToActs, planIdx, planSig, due, done, paidSig}`, `stages {ЕП, П, Р}` (готовність стадій; МБР у Weekly Render не показується), `m7 {date, prob}` (акт), `m8 {date, prob}` (документація), `plan`, `problems`, `help`, `comment` (тексти ПМа), `planExec`, `textsFrom`. Повний набір полів — `Build Weekly Render Data` (≈6 КБ).
+Відповідь **без грошових сум** (BR-27): `contract_amount`, `actual_cost`, суми актів у цій відповіді не повертаються; перевірка — крок 7 аудиту (`08`).
+
+## 6. `GET /webhook/demo-archi-export?initData=…`
+Відповідь `200`, бінарний файл xlsx `archi_weekly_history.xlsx`, аркуш «Історія», перший рядок — заголовки. Рядок = проєкт (`project_id`), далі для кожного тижня знімка набір колонок з префіксом тижня: `<тиждень>_Рентабельність_прогноз_%`, `_Витрачено_часу_%`, `_Готовність_ПМа_%`, `_Готовність_за_прогнозом_%`, `_Розбіжність_готовності_пп`, `_Ефективність_годин`, `_Ефективність_виконання`, `_Акти_до_плану_на_дату`, `_Акти_виконано_з_запланованих`, `_Виставлено_до_освоєного_WIP`, `_Оплата_до_актів`, `_МБР_%`, `_ЕП_%`, `_П_%`, `_Р_%`, `_ETC_план_год`, `_ETC_факт_год`, `_ETC_прогноз_год`, `_ETC_Δ_год`, `_Ймовірність_акту`, `_Ймовірність_документації`, `_План_виконано`, `_План_виконано_%`. Якщо даних немає, повертається один рядок `project_id = «немає даних»`.
+
+## 7. Telegram (вхідні події)
+Вузол `Telegram Trigger` приймає лише `updates: ["message"]`. Не обробляються `callback_query`, `edited_message`, `channel_post`, `my_chat_member` (потрібно для W10). Типи вмісту повідомлення: текст, голос (`WR: Transcribe`), фото (`WR: Analyze Image`), документ PDF/TXT. Інший формат → `WR: Send Unsupported Format`. Користувач без запису в `user_access` → «⛔ Доступ не надано». Чи використовується секретний токен вебхука Telegram: **не перевірено** (n8n реєструє вебхук сам).
+Команди й кнопки (за підписами в вузлах): `/status`, «📋 Статус звітів», «📊 Owner View», «📝 Тижневий звіт», «❓ Питання», «📖 Довідник», «📄 Договір», «🤝 Зустріч», `кошторис <id>`, «✅ Затвердити», `КП: N`, кнопки проєктів, «📤 Відправити», «📄 Чернетка», «✅ Фінал», «🆕 Новий». Кнопка Weekly Render — у меню вмісту; точний підпис не звірено. Деталі потоків — `13_USER_FLOWS.md`.
+
+## 8. Зовнішні виклики
+| Сервіс | Вузол | Модель / призначення | Таймаут і повтор |
+|---|---|---|---|
+| Anthropic | `Call Anthropic` | `claude-sonnet-4-6`, чат; `max_tokens 2600`, `temperature 0.2` | таймаут не задано, повтору немає |
+| OpenAI | `WR: OpenAI Chat Model`, `WR: Transcribe`, `WR: Analyze Image` | `gpt-4o` звіт/імпорт/зустріч; транскрипція голосу; аналіз фото | немає |
+| Anthropic | Morning Brief `Call Anthropic` | `claude-sonnet-4-6`, брифінг; `max_tokens 2000`, `temperature 0.2`, таймаут 90 с | `onError: continueRegularOutput` (шаблони-запас) |
+| Supabase Postgres | вузли `postgres` | прямі SQL-запити (51 вузол core) | немає; `WR: Save Weekly Snapshot` — `retryOnFail` |
+| Google Drive/Sheets | K6sm, RC7H | Кошторис, договір | спадковий адаптер |
+
+## 9. Що відсутнє (борг, не вигадуємо)
+- Зразки живих відповідей (знімок `owner-view-data` для демо-компанії) — потрібен підписаний `initData`; додається разом із тестом T4–T6.
+- Контрактні тести (клієнт ↔ сервер).
+- JSON Schema поля `signals[]`, `cls{}`, `wr{}`, `views{}`: структура вкладених об'єктів описана лише кодом `Build MiniApp Data`; детальний опис — після W1.8, коли обчислення перейдуть у SQL і форма стабілізується.
+
+
+---
+
+<!-- SOURCE docs/handover/openapi.yaml sha256=d2cf84d3a5b0d6cb9b2002756da2a1213d17a63740f60277bc89277cd9891f6e bytes=5204 -->
+**Джерело: `docs/handover/openapi.yaml` — OpenAPI 3.0**
+
+openapi: 3.0.3
+info:
+  title: ARCHI Mini App API
+  version: "2026-11-05"
+  description: >
+    Контракт за кодом core workflow a4c89c3c (n8n). Деталі й обмеження: docs/handover/11_API_CONTRACT.md.
+    Усі ендпоінти GET; дані потребують initData Telegram WebApp у query. Форма вкладених об'єктів описана неповно (див. розділ 9 контракту).
+servers:
+  - url: https://osbbcopilot.app.n8n.cloud/webhook
+paths:
+  /demo-archi-owner-view:
+    get:
+      summary: Сторінка Owner View (HTML)
+      responses:
+        "200": { description: HTML, content: { text/html: { schema: { type: string } } } }
+  /demo-archi-owner-view-data:
+    get:
+      summary: Дані Owner View
+      parameters: [ { $ref: "#/components/parameters/initData" } ]
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/OwnerViewData" } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /demo-archi-weekly-render:
+    get:
+      summary: Сторінка Weekly Render (HTML)
+      responses:
+        "200": { description: HTML, content: { text/html: { schema: { type: string } } } }
+  /demo-archi-weekly-render-data:
+    get:
+      summary: Дані Weekly Render (без грошових сум)
+      parameters: [ { $ref: "#/components/parameters/initData" } ]
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/WeeklyRenderData" } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /demo-archi-export:
+    get:
+      summary: Історія по тижнях (xlsx, аркуш «Історія»)
+      parameters: [ { $ref: "#/components/parameters/initData" } ]
+      responses:
+        "200": { description: archi_weekly_history.xlsx, content: { application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: { schema: { type: string, format: binary } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+components:
+  parameters:
+    initData:
+      name: initData
+      in: query
+      required: true
+      description: Рядок initData Telegram WebApp (підпис Ed25519, auth_date < 24 год)
+      schema: { type: string }
+  responses:
+    Unauthorized:
+      description: Немає або недійсний initData, або користувача немає в user_access
+      content: { application/json: { schema: { type: object, properties: { error: { type: string, example: invalid or missing initData } } } } }
+  schemas:
+    OwnerViewData:
+      type: object
+      required: [asOf, projects, counts, pfc, rules, views]
+      properties:
+        asOf: { type: string, description: "ДД.ММ.РРРР або —" }
+        projects: { type: array, items: { $ref: "#/components/schemas/Project" } }
+        attention: { type: array, items: { type: object } }
+        counts:
+          type: object
+          properties: { red: { type: integer }, yellow: { type: integer }, green: { type: integer }, blocked: { type: integer } }
+        totalContract: { type: number, nullable: true }
+        totalContractFmt: { type: string }
+        pfc: { type: object, additionalProperties: true, description: Показники портфеля, див. 11_API_CONTRACT §4 }
+        rules: { type: object, additionalProperties: { type: number, nullable: true } }
+        views: { type: object, additionalProperties: true }
+    Project:
+      type: object
+      required: [id, status]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        dataUpdated: { type: string }
+        status: { type: string, enum: [red, yellow, green] }
+        signals: { type: array, items: { type: object } }
+        cls: { type: object, additionalProperties: { type: string } }
+        wr: { type: object, nullable: true, additionalProperties: true }
+        blocker: { type: object, nullable: true, additionalProperties: true }
+        contract: { type: number, nullable: true }
+        rentPlan: { type: number, nullable: true, description: частка від одиниці }
+        rentForecast: { type: number, nullable: true, description: частка від одиниці; null = прогноз відсутній }
+        noForecast: { type: boolean }
+        profitPlan: { type: number, nullable: true }
+        profitForecast: { type: number, nullable: true }
+        profitFact: { type: number, nullable: true }
+        etc: { type: number, nullable: true }
+        planHrs: { type: number, nullable: true }
+        factHrs: { type: number, nullable: true }
+      additionalProperties: true
+    WeeklyRenderData:
+      type: object
+      required: [asOf, weekLabels, projects]
+      properties:
+        asOf: { type: string }
+        weekLabels: { type: array, items: { type: string } }
+        projects:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              dataUpdated: { type: string }
+              columns: { type: array, items: { type: object, nullable: true, additionalProperties: true } }
+
+
+---
+
+<!-- SOURCE docs/handover/12_ERROR_AND_EDGE_CASES.md sha256=3201424fbb034bb59c6ae4c49b2cab5d6cc81d5447cd4e48cf8b8f9944dff491 bytes=16144 -->
+**Джерело: `docs/handover/12_ERROR_AND_EDGE_CASES.md` — Помилки, порожні стани, крайні випадки**
+
+# ARCHI — помилки, порожні стани, крайні випадки
+Версія 1 · 05.11.2026. Розділи 1–3 — **як є** (Факт за експортом core `a4c89c3c` і живим SQL). Колонка «Бажано» — **[Рекомендація]**, рішення за власником. Чого немає в коді, того тут не вигадано: це записано як прогалина.
+
+## 1. Що є в коді для обробки помилок (Факт)
+| Параметр | Значення | Наслідок |
+|---|---|---|
+| Вузлів із `onError` | 3: `WR: Save Weekly Snapshot` (`continueErrorOutput`), `Fetch KP Log Sum (MiniApp)` і `(Chat)` (`continueRegularOutput`) | усі інші вузли при помилці зупиняють виконання |
+| Вузлів із `retryOnFail` | 2: `WR: Send Final Report`, `WR: Save Weekly Snapshot` | решта без повтору |
+| LLM-вузли | `Call Anthropic` (чат), `WR: OpenAI Chat Model`, `WR: Transcribe`, `WR: Analyze Image`: без `onError`, без `retryOnFail`, таймаут не задано | збій провайдера = помилка виконання |
+| Error Workflow | не задано (`settings` core: `executionOrder`, `binaryMode`, `timezone`) | про збої ніхто не сповіщається |
+| Тексти помилок для користувача в core | 2: «⛔ Доступ не надано» (`Send Access Denied`) і «❗ Формат файлу не підтримується» (`WR: Send Unsupported Format`); HTTP `401` `{"error":"invalid or missing initData"}` для Mini App | решта збоїв користувач бачить як тишу |
+| Брифінг (Morning Brief) | `Call Anthropic` має `onError: continueRegularOutput`, таймаут 90 с; код підставляє шаблони | єдиний потік із fallback |
+| Спостережуваність | немає моніторингу помилок, дашборда виконань, алертів | W8.4 ⬜ |
+**Висновок:** жодна помилка зовнішнього сервісу в чаті, у звіті ПМа й в імпорті не доходить до користувача зрозумілим повідомленням. [Припущення за налаштуваннями вузлів, не перевірено відтворенням: користувач бачить мовчання бота.]
+
+## 2. Каталог помилок
+Класи: **U** — помилка користувача (виправляється діями користувача), **S** — системна, **R** — відновлювана, **N** — невідновлювана без втручання.
+| № | Ситуація | Клас | Що бачить користувач (зараз) | Що робить система (зараз) | Бажано |
+|---|---|---|---|---|---|
+| E-01 | Користувача немає в `user_access` (Telegram) | U | «⛔ Доступ не надано … Зверніться до власника ARCHI» | нічого не записує (D5) | залишити |
+| E-02 | Немає або недійсний `initData` / користувач без компанії (Mini App) | U | [Припущення: порожній екран або помилка завантаження]; HTTP `401` | відповідь `401` | показати в Mini App повідомлення «Відкрийте з Telegram» |
+| E-03 | `auth_date` старший за 24 години | U, R | як E-02 | `401` | заохочувати перезапуск Mini App |
+| E-04 | Непідтримуваний формат файлу (не PDF/TXT) | U, R | «❗ Формат файлу не підтримується • Надішліть як .txt або .pdf • Або вставте текст» | зупиняє обробку файлу | залишити |
+| E-05 | Збій Anthropic у чаті (таймаут, 429, 5xx) | S, R | тиша [Припущення] | виконання падає, без повтору | повідомлення «Сервіс відповідей тимчасово недоступний, спробуйте за хвилину»; 1–2 повтори з паузою; Error Workflow |
+| E-06 | Збій OpenAI у звіті ПМа | S, R | тиша [Припущення] | виконання падає; повідомлення лишаються в `archi_wr_inbox` (не видаляються до `Inbox Consume`) | «Звіт не оброблено, повідомлення збережено, повторіть «Відправити»» |
+| E-07 | Збій транскрипції голосу / аналізу фото | S, R | тиша [Припущення] | виконання падає | «Не вдалося розпізнати голос/фото, надішліть текстом» |
+| E-08 | Telegram API не приймає відповідь (429, 403 «бот заблокований», 400 через HTML) | S | недоступно | виконання падає; для HTML-розмітки є `Sanitize Reply` і екранування | лог + Error Workflow; для 429 — пауза й повтор |
+| E-09 | Supabase недоступний | S, R | тиша [Припущення] | усі Postgres-вузли падають | повідомлення про тимчасову недоступність; алерт |
+| E-10 | Google Drive/Sheets недоступні або вкладки Кошториса немає | S | «Вкладку … не знайдено» (K6sm: `AN: Read Tab` `continueRegularOutput`) для відсутньої вкладки АН; інші збої — тиша | | зрозуміле повідомлення |
+| E-11 | «Фінал» без статусів усіх пунктів плану минулого тижня | U | уточнення «статус пункту N?» | `WR: Parse Agent Output` (`planPending`) не пускає «Фінал» | залишити |
+| E-12 | Числа, дати чи блокер ПМа без підтвердження в тексті | U | блок «Не підтверджено вашим текстом»; «Фінал» питає знову | дані прибираються зі звіту (п. 9) | залишити |
+| E-13 | Збій збереження знімка | S | не відомо | `WR: Save Weekly Snapshot`: `retryOnFail` + `continueErrorOutput` | перевірити, що вихід помилки приводить до повідомлення ПМу [не перевірено] |
+| E-14 | Ранковий брифінг: LLM недоступна або відповідь не пройшла перевірку | S, R | брифінг приходить із шаблонними текстами | `onError` + шаблони за метою дії | залишити |
+| E-15 | Брифінг: `owner_prefs` порожня або `enabled=false` | — | нічого не надсилається | `Find Due Owners` не повертає рядків | залишити |
+
+## 3. Порожні стани (Empty States)
+У коді їх здебільшого вирішують «—», «даних немає» і шаблонні тексти; окремого дизайну екранів немає. Прогалини позначено.
+| Екран / ситуація | Що відбувається зараз | Прогалина |
+|---|---|---|
+| Прогноз ПМа відсутній | `rentForecastFmt` = «🔴 Прогноз відсутній (останній: …)», `etcForecastFmt` = «🔴 Не подано ПМом», числові поля `null`; сигнал S-01 | — |
+| Немає даних для відповіді (Q4, Q5, Q6, Q9, Q10) | чат відповідає «даних немає» і що саме потрібно | — |
+| Weekly Render: проєкт без знімків | комірка `null`, показується «—» (не 0 і не план) | текст пояснення відсутній |
+| xlsx без даних | один рядок `project_id = «немає даних»` | — |
+| Портфель без проєктів | не специфіковано; поведінка `Build MiniApp Data` на порожньому наборі **не перевірена** | потрібен тест і текст «Проєктів немає. Додайте перший проєкт» |
+| Новий клієнт із порожньою базою | не специфіковано (W9.1 онбординг ⬜) | перший екран, порожній Weekly Render, запит «Додайте план» |
+| Картка проєкту без звітів | блоки «Звіт ПМа» з «—» | немає підказки «попросіть ПМа подати звіт» |
+| КП = 0, графік оплат порожній | показується 0 / «—» | не відрізняється «порожньо» від «немає даних» |
+| Ранковий брифінг: 0 дій | «• Критичних дій на сьогодні немає» (код `Validate And Render`) | — |
+Правило відрізняти «порожньо» від «помилка»: порожній стан — це відповідь системи з даними «немає»; помилка — відсутність відповіді (E-05…E-09). Зараз їх неможливо розрізнити (тиша). **[Рекомендація]** виправити пунктами E-05…E-09.
+
+## 4. Крайні випадки (Edge Cases)
+Для кожного: що відбувається за кодом/схемою, чи перевірено, що бажано.
+| № | Випадок | Поведінка зараз | Стан перевірки | Бажано |
+|---|---|---|---|---|
+| EC-01 | Два ПМи одночасно натискають «Фінал» по одному проєкту й тижню | `wr_weekly_snapshots` має унікальну пару `(company_id, project_id, week_start)`, запис UPSERT: переможе останній, перший **перезаписується** без попередження | схема — Факт; сценарій не відтворювався | блокування або повідомлення «знімок уже збережено іншим користувачем» |
+| EC-02 | Повторне натискання «Фінал» | UPSERT за тією самою парою: ідемпотентно за даними знімка; статуси `wr_plan_items` переписуються | не відтворювалось | залишити, додати відповідь «вже збережено» |
+| EC-03 | Нові повідомлення під час обробки черги | `WR: Inbox Consume` видаляє лише `id <= max`, взятого до обробки; пізніші лишаються | за кодом | залишити |
+| EC-04 | ПМ дав ETC лише по частині стадій | `F-06 ETC_прогноз (Total)` = `NULL`, якщо не всі 4 стадії задані; показується «Не подано ПМом»; план не підставляється (рішення 10.10.2026) | Факт (`FORMULAS`) | залишити |
+| EC-05 | Один пункт плану внесено двічі | `WR: Agent` недетермінований (WD.2): дубль іноді відкидається (24-11), іноді зберігається (DEMO-07) | відкрито | детермінована дедуплікація в `WR: Parse Agent Output` |
+| EC-06 | Часові зони | Workflow `timezone = Europe/Kyiv`; розсилка брифінгу враховує `owner_prefs.tz`; формули SQL з `current_date`/`now()` залежать від часового поясу сервера БД (UTC) | не перевірено | зафіксувати правило «статусна дата = дата за Києвом» |
+| EC-07 | Великі файли (PDF 50 МБ, 1000 рядків у звіті) | обмежень у коді немає; діють ліміти Telegram і n8n Cloud [Припущення: числа лімітів не звірено] | не перевірено | поріг розміру й повідомлення користувачу |
+| EC-08 | Скасування чернетки | «🆕 Новий» очищає пам'ять LLM і чергу `archi_wr_inbox` | за кодом (`TECH_SPEC` §4.1) | залишити |
+| EC-09 | Видалення знімка | UI немає; лише SQL вручну | Факт | рішення власника: чи потрібне |
+| EC-10 | Редагування знімка заднім числом | В коді не знайдено правила «редагується лише в день звіту» (`Образ…` §5, Потік Г); повторний «Фінал» того самого тижня перезаписує знімок | Факт за пошуком у коді | рішення власника: заборонити після вівторка |
+| EC-11 | Конфлікт ролей: оператор FDO є також ПМом | Роль `operator` ⇔ `company_id IS NULL`; поєднання з роллю ПМа в клієнта не специфіковано | не специфіковано | рішення власника |
+| EC-12 | Проєкт без годин: P-10 | `бюджет приросту` без витрат; індекс `NULL`; різниця 59 976 грн в сумі портфеля (WD.4, WD.5) | відкрито | рішення власника WD.5: «годин немає» |
+| EC-13 | Зміна плану після знімків | Версій плану немає (W2.1 не спроєктовано); поля плану в `project_metrics` перезаписуються, історичні знімки зберігають лише відсотки й тексти | Факт | версія плану й журнал змін (W2) |
+| EC-14 | Дві компанії з однаковим кодом проєкту | ключ `(company_id, project_id)`; доведено тестом БД (T2/T3); у n8n не доведено; ключ чернеток і режиму бота не містить `company_id` (DR-13) | БД — Факт; n8n — не перевірено | W1.6, T4–T6 |
+| EC-15 | Користувач у Telegram-групі | `Telegram Trigger` приймає лише `message`; різниці приват/група немає | Факт | W10.2 |
+| EC-16 | Конфліктні CSV/XLSX | імпорту файлів немає (W3.10 ⬜) | — | дедуплікація, профіль колонок, гейт «Фінал» |
+| EC-17 | Права видалення клієнта | не специфіковано (OD-20) | — | юрист, політика зберігання |
+
+## 5. Рекомендації за пріоритетом [Рекомендація, рішення власника]
+1. **Fallback чату при збої Anthropic** і таймаут `Call Anthropic`: зараз мовчання. Одна правка живого n8n.
+2. **Error Workflow** для core: хоча б повідомлення оператору в Telegram про збій.
+3. Повідомлення «збережено, повторіть» для звіту ПМа при збої OpenAI (E-06).
+4. Рішення EC-01 (одночасний «Фінал»), EC-10 (редагування заднім числом), EC-11 (ролі).
+5. Тести порожніх станів (портфель без проєктів, новий клієнт).
+Усі пункти 1–3 змінюють живий n8n: лише з вашим «так».
+
+
+---
+
+<!-- SOURCE docs/handover/13_USER_FLOWS.md sha256=42a72c343421ec2bc85b11755def132abeadb558b9f37817c46bd9f0416b6936 bytes=8191 -->
+**Джерело: `docs/handover/13_USER_FLOWS.md` — Потоки користувача (Mermaid)**
+
+# ARCHI — потоки користувача (діаграми)
+Версія 1 · 05.11.2026. Діаграми Mermaid за кодом core `a4c89c3c` і документами (`TECH_SPEC` §4, `WEEKLY_REPORT_FORM`, `CLAUDE.md` п. 2, 9, 32). Вузли n8n названо як у `NODE_MAP.md`. Гілки помилок — за `12_ERROR_AND_EDGE_CASES.md`; **жирним** у підписах позначено поведінку, якої в системі зараз немає (прогалина). Кнопки й повідомлення — із коду.
+
+## 1. Тижневий звіт ПМа
+```mermaid
+sequenceDiagram
+  actor PM as ПМ
+  participant TG as Telegram
+  participant WF as n8n core
+  participant DB as Supabase
+  participant LLM as OpenAI gpt-4o
+  PM->>TG: кнопка проєкту
+  TG->>WF: message
+  WF->>DB: резолвер user_access, archi_bot_mode_state = weekly_report
+  WF-->>PM: бриф: питання звіту (стадії, ймовірності, блокер, план)
+  loop довільні відповіді
+    PM->>TG: текст / голос / фото / PDF-TXT
+    WF->>LLM: транскрипція або аналіз фото (за типом)
+    WF->>DB: archi_wr_inbox (додати)
+    WF-->>PM: «📥 Прийнято · у черзі N» (без LLM)
+  end
+  PM->>TG: «📤 Відправити»
+  WF->>DB: Fetch Inbox
+  WF->>LLM: WR: Agent (уся черга одним запитом)
+  WF->>WF: WR: Parse Agent Output (числа, дати, блокер лише з тексту ПМа; п. 9)
+  WF->>DB: Inbox Consume (id ≤ max)
+  WF-->>PM: звіт за формою + «Не підтверджено вашим текстом» + уточнення (ask)
+  PM->>TG: відповідь або «відповіді немає»
+  PM->>TG: «✅ Фінал»
+  alt усі пункти плану минулого тижня мають статус
+    WF->>DB: UPSERT wr_weekly_snapshots + статуси wr_plan_items
+    DB->>DB: тригер archi_recalc_wr → archi_recalc()
+    WF->>DB: план наступного тижня (перенесення)
+    WF-->>PM: підтвердження звіту (Send Final Report, retry)
+  else немає статусів
+    WF-->>PM: уточнення «статус пункту N?»
+  end
+```
+Гілки помилок: збій OpenAI → **немає повідомлення користувачу**, повідомлення лишаються в черзі (E-06); збій збереження знімка → `retryOnFail`, вихід помилки (E-13); повторне «Фінал» → перезапис знімка (EC-02); паралельний «Фінал» → переможе останній (EC-01).
+Режим «🆕 Новий» очищає пам'ять LLM і чергу.
+
+## 2. Owner View і Weekly Render (Mini App)
+```mermaid
+sequenceDiagram
+  actor U as Власник / стейкхолдер
+  participant TG as Telegram
+  participant UI as Mini App (HTML)
+  participant WF as n8n webhook
+  participant DB as Supabase
+  U->>TG: «📊 Owner View» (кнопка)
+  TG-->>U: повідомлення з кнопкою «📊 Відкрити Owner View»
+  U->>UI: відкриває Mini App
+  UI->>WF: GET /demo-archi-owner-view (HTML, без авторизації)
+  UI->>WF: GET /demo-archi-owner-view-data?initData=…
+  WF->>WF: Validate InitData (Ed25519, auth_date < 24 год)
+  WF->>DB: Resolve Company (user_access)
+  alt доступ є
+    WF->>DB: archi_rules(company), project_metrics, kp_log, SQL-вʼю
+    WF->>WF: Build MiniApp Data
+    WF-->>UI: 200 JSON
+    UI-->>U: портфель → група → картка → стадія → історія тижнів
+  else немає доступу
+    WF-->>UI: 401 {error: invalid or missing initData}
+  end
+```
+Weekly Render і xlsx — той самий потік із ендпоінтами `…-weekly-render-data` і `…-export`.
+Drill-down нижче стадії (виконавець, розділ, пакет, запис журналу) **не реалізовано** (R-7).
+
+## 3. Чат-агент (Archi Consult)
+```mermaid
+flowchart TD
+  A[Повідомлення в Telegram] --> B{Користувач у user_access?}
+  B -- ні --> C[⛔ Доступ не надано]
+  B -- так --> D{Режим / команда?}
+  D -- WR-потік --> E[Потоки звіт / імпорт / зустріч / Кошторис / договір / КП]
+  D -- /status, «Статус звітів» --> F[Build Status Text]
+  D -- Owner View / Weekly Render --> G[Кнопка Mini App]
+  D -- інше --> H[Fetch Project Metrics + Fetch KP Log Sum]
+  H --> I[Build MiniApp Data: сигнали, pfc]
+  I --> J[Build Request Body: детектор Q1–Q10, правила «не вигадувати»]
+  J --> K[Call Anthropic claude-sonnet-4-6]
+  K -->|успіх| L[Sanitize Reply: Markdown → HTML Telegram]
+  L --> M{Q1–Q10?}
+  M -- так --> N[Send Reply (Questions): клавіатура питань]
+  M -- ні --> O[Send Reply: головне меню]
+  K -. збій .-> P[Тиша: fallback відсутній]
+```
+Пам'яті розмови немає. Формат відповіді — Insight → Impact → Action, до 3 проєктів; «даних немає» замість вигаданих чисел.
+
+## 4. Імпорт годин і грошей (бот)
+```mermaid
+flowchart LR
+  S[Кнопка проєкту → режим «Години і гроші»] --> T[Користувач диктує/пише/надсилає скрін]
+  T --> U[Import: Agent (LLM) формує Time_Log / Money_Log]
+  U --> V[Import: Parse Agent Output]
+  V -->|неповні рядки| W[Уточнення; «Фінал» заблоковано]
+  V -->|повні| X[Чернетка]
+  X --> Y{«✅ Фінал»?}
+  Y -- так --> Z[Import: Insert Time Rows / Money Rows, статус confirmed]
+  Z --> R[Тригери archi_recalc_time / money → archi_recalc]
+  Y -- «🆕 Новий» --> N[Очистити чернетку]
+```
+Гроші вносить лише ПМ (п. 23); **перевірки ролі в коді немає** (аудит 05.11.2026). Файли xlsx/csv не імпортуються (W3.10).
+
+## 5. Ранковий брифінг власника
+```mermaid
+flowchart TD
+  A[Кожні 5 хв] --> B[Find Due Owners: enabled, день, вікно 30 хв, last_sent_on]
+  M[Manual Test] --> T[Test Recipient: оператор, DEMO]
+  B --> C[Load Brief: archi_morning_brief]
+  T --> C
+  C --> D[Build LLM Request]
+  D --> E[Call Anthropic 90 с, onError: continue]
+  E --> F[Validate And Render: перевірка чисел і структури; шаблони-запас]
+  F --> G[Add Portfolio Block: 📊 Стан портфеля]
+  G --> H[Send Brief: Telegram HTML]
+  H --> I[Mark Sent: last_sent_on, якщо не ручний тест]
+```
+`archi_morning_brief` повертає `actions[]` (топ-5), `horizon_7d[]`, `portfolio`, `data_updated_at`. Без `owner_prefs` — нічого не надсилається.
+
+## 6. Старт проєкту (поточна реалізація через Кошторис)
+```mermaid
+flowchart LR
+  A[«кошторис <id>»] --> B[K6sm: читання вкладки + Графік_оплат]
+  B --> C[Перевірки K1–K11, preview]
+  C --> D{«✅ Затвердити»?}
+  D -- так --> E[Commit: project_metrics + payment_schedule]
+  E --> F[Тригер archi_recalc_plan]
+  D -- ні --> G[Режим idle]
+```
+Доступ до команди — лише `ALLOWED` у `WR: Hard Logic Engine` (власник). Модуль плану в ARCHI (версії, GATE) — W2 ⬜.
+
+## 7. Не описані потоки (не існують)
+Онбординг нового клієнта (W9.1), видалення клієнта й даних (OD-20), перемикання компанії оператором FDO (W1.2: «клавіатура клієнт → проєкт» у дизайні, у коді не підтверджено), вихід користувача.
+
+
+---
+
+<!-- SOURCE docs/handover/14_THREAT_MODEL.md sha256=992ebd04964dbd65893e966d3c1c6822b50bfc21a17a3170b8dd1093b0c4fba9 bytes=10247 -->
+**Джерело: `docs/handover/14_THREAT_MODEL.md` — Модель загроз (STRIDE)**
+
+# ARCHI — модель загроз (STRIDE, короткий огляд)
+Версія 1 · 05.11.2026. Підстава: `SECURITY.md` п. 1–12, `03_TECHNICAL_CTO.md` §9, `10_DATABASE_SCHEMA.md`, `11_API_CONTRACT.md`, `12_ERROR_AND_EDGE_CASES.md`. Це **огляд для старту**, не повноцінний аудит і не пентест. Оцінки ймовірності/впливу — якісні (В/С/Н) за судженням автора, не виміряні. **Рішення про RLS, ротацію токена й видимість репозиторію — власника** (`CLAUDE.md` п. 25, 28); цей документ їх не змінює.
+
+## 1. Активи
+| Актив | Чому цінний |
+|---|---|
+| Фінансові дані клієнтів (`project_metrics`, `money_log`, `payment_schedule`, акти, прибуток) | комерційна таємниця, конкурентна інформація |
+| Тексти ПМів і зустрічей (`wr_*`, `meeting_log`, `n8n_chat_histories`) | можливі ПІБ замовників, підрядників, домовленості |
+| Облікові записи й ролі (`user_access`, Telegram id) | доступ до даних |
+| Токен бота, ключі Anthropic/OpenAI, ключ Supabase | повний доступ до бота й БД, витрати на LLM |
+| Методологія й формули ARCHI | ключова цінність продукту |
+| Цілісність розрахунків | довіра власника до цифр |
+
+## 2. Межі довіри
+Клієнт (Telegram, Mini App) → n8n Cloud (вебхуки, логіка) → Supabase Postgres (прямий доступ ролі postgres, RLS обходиться) → зовнішні LLM (Anthropic, OpenAI) → Google (Drive/Sheets). Публічний ключ Supabase (`anon`) діє окремо: через REST API дає доступ до таблиць без RLS.
+
+## 3. Загрози за STRIDE
+| № | Категорія | Загроза | Компонент | Поточний захист (Факт) | Залишковий ризик | Ймовір. / Вплив | Вузол карти |
+|---|---|---|---|---|---|---|---|
+| T-01 | Spoofing | Підробка користувача Mini App | вебхуки `*-data`, `export` | Ed25519 `initData`, `auth_date` < 24 год, перевірка в `user_access` | малий; тест оператора з кількома клієнтами не виконано | Н / В | T4–T6 |
+| T-02 | Spoofing | Чужий користувач пише боту | `Telegram Trigger` | резолвер `user_access`, «Доступ не надано» (W1.2); не прогнано в Telegram | середній, поки не прогнано | С / В | W1.2 |
+| T-03 | Spoofing | Підробка запиту до вебхука Telegram | Telegram → n8n | n8n реєструє вебхук; секретний токен: **не перевірено** | невідомий | Н / В | перевірити |
+| T-04 | Tampering | SQL-ін'єкція через вільний текст ПМа | 51 Postgres-вузол | параметризація 13 вузлів (включно 6 з вільним текстом); 21 вузол інтерполює лише `chat.id` і перевірений `project_id` | малий; рішення «варіант A» (`RELEASE_PLAN` §117) | Н / В | W1.6 |
+| T-05 | Tampering | Prompt injection: ПМ або документ наказує LLM змінити число/блокер | `WR: Agent`, чат, брифінг | числа, дати й блокер приймає код лише за наявності в тексті ПМа (п. 9); брифінг перевіряє числа проти фактів; тексти плану/проблем/допомоги **не перевіряються** (відома межа) | середній для текстів, малий для чисел | С / С | W4.6 |
+| T-06 | Tampering | Зміна даних іншого клієнта через збіг `project_id` | n8n запити | ключ `(company_id, project_id)`; доведено в БД; у n8n 16 вузлів без `company_id` (DR-13) | середній до закриття W1.6 | Н до другого клієнта / В | W1.6 |
+| T-07 | Repudiation | Неможливо довести, хто що змінив | `wr_weekly_snapshots`, логи | аудиту дій немає; `session_id` лише в частині таблиць | високий для оператора FDO (бачить усіх) | С / С | журнал дій оператора [рекомендація] |
+| T-08 | Information disclosure | Токен бота в живому workflow і в історії git | `M: Send Project Picker`, git | у репозиторії заглушка; чинним лишається лише новий токен; репозиторій приватний | **прийнято** до кроку ротації (п. 25) | С / В | W1.4 |
+| T-09 | Information disclosure | Публічний ключ Supabase читає таблиці без RLS (`project_metrics`, `time_log`, `money_log`, `wr_*`…) | Supabase REST | RLS вимкнений на 10 таблицях; на 9 увімкнений без політик | **прийнято** до першого платного клієнта (п. 28) | С / В | OD-4 |
+| T-10 | Information disclosure | Витік даних через чат: LLM бачить портфель із грошима | `Call Anthropic` | лише авторизований користувач; у групових чатах гроші не виводяться (W10.4, ще не реалізовано) | малий зараз; зросте з W10 | Н / В | W10.4 |
+| T-11 | Information disclosure | Дані клієнтів у логах виконань n8n і в LLM-провайдерів | n8n Cloud, Anthropic, OpenAI | умови провайдерів не досліджено; згода клієнта не оформлена | юридичний ризик | С / В | OD-20, юрист |
+| T-12 | Information disclosure | Файл Кошториса `anyone writer` | Google Drive | виводиться з обігу (п. 17), правило доступу ще діє | середній, лише демо-файл | С / С | W2.7 |
+| T-13 | Information disclosure | Email власника й сервісного акаунта в публічній git-історії | git | репозиторій приватний; email замасковано в документах, лишається в історії | малий | Н / Н | — |
+| T-14 | Denial of service | Масові запити до бота й вебхуків | n8n Cloud | rate limiting у коді немає; обмеження платформи | середній | С / С | W8.4 |
+| T-15 | Denial of service | Збій LLM/Supabase/Telegram залишає бота без відповіді | чат, звіт | fallback лише в брифінгу | середній | В / С | `12`, рекомендації 1–3 |
+| T-16 | Denial of service | Вичерпання бюджету LLM довгими повідомленнями | чат, звіт | ліміти токенів на вузлах; бюджет не контролюється | середній | С / С | W10.7 |
+| T-17 | Elevation of privilege | Виконавець вносить гроші (п. 23) | імпорт | перевірки ролі в коді немає | відкрито | С / В | W10.9 |
+| T-18 | Elevation of privilege | Оператор FDO бачить усіх клієнтів без журналу | модель ролей | роль задокументована, журналу дій немає | прийнято як модель (п. 22) | Н / В | журнал дій |
+| T-19 | Elevation of privilege | Надмірний доступ n8n (роль postgres, обходить RLS) | n8n → Supabase | ізоляція лише фільтром `company_id` у запитах | структурний ризик | Н / В | OD-4, OD-14 |
+| T-20 | Tampering | Підміна відповіді LLM (невалідний JSON, чужі номери проєктів) | брифінг | перевірка структури, довжин, чисел, чужих `project_id` | малий | Н / С | — |
+
+## 4. Прийняті ризики (рішення власника)
+- T-08 (токен): ротація — останній крок перед презентацією першому клієнту (п. 25).
+- T-09 (RLS): повернутись при першому платному клієнті (п. 28).
+- T-18 (оператор): оператор бачить усіх клієнтів (п. 22).
+
+## 5. Рекомендації (в порядку впливу) [Рекомендація]
+1. Перевірити секретний токен вебхука Telegram (T-03): одна перевірка, без змін.
+2. Закрити T-06: `company_id` у 16 вузлах і в ключі `session_id` (W1.6), тести T4–T6.
+3. Додати перевірку ролі в імпорті грошей (T-17), коли з'являться виконавці.
+4. Fallback чату й Error Workflow (T-15).
+5. Журнал дій оператора (T-07, T-18).
+6. Перевірки вмісту текстів плану/проблем/допомоги (T-05): обмеження довжини, фільтр розмітки.
+7. Юридична перевірка умов провайдерів LLM і договору клієнта (T-11).
+
+## 6. Чого немає (не вигадуємо)
+Оцінки ймовірності числами; перелік OWASP Top 10 по вузлах; DAST/SAST; секрет-сканер у CI (є лише ручна перевірка `check_handover.py` A8); політика зберігання даних (OD-20); план реагування на інциденти й runbook (не створені).
+
+
+---
+
+<!-- SOURCE docs/handover/15_USER_STORIES.md sha256=c1d73ad4166bb08e70c2addd5d97476091e110b65d8ac599c032ed2729f07470 bytes=35477 -->
+**Джерело: `docs/handover/15_USER_STORIES.md` — User Stories з Acceptance Criteria**
+
+# ARCHI — User Stories з Acceptance Criteria
+Версія 1 · 05.11.2026. Покриває **усі** фічі каталогу `01_PRODUCT_BRIEF.md` §6 і кілер-фічі K1–K12. Згенеровано з єдиного переліку, щоб формат був однорідний.
+Формат: **User Story** («Як <роль> я хочу <дія>, щоб <цінність>»), Acceptance Criteria у стилі Given / When / Then, пріоритет за MoSCoW (Must / Should / Could; узгоджено з пріоритетами M/S/C у `02_BUSINESS_REQUIREMENTS.md`), статус (✅ реалізовано · 🟡 частково · ⬜ не розпочато), зв'язок із BR-N, R-N, вузлами карти.
+Для ✅ AC описують **поточну поведінку** і є основою тестів приймання; для 🟡 і ⬜ — **цільову** з позначкою прогалини. Тривалості й оцінки не додано (немає вимірюваних даних, правило карти). Усі дані системи демо (`CLAUDE.md` п. 18).
+Кілер-фічі K1…K12 розкладено по сценаріях: K1 → US-OV-07, US-WR-07; K2 → US-WR-01…04; K3 → US-WR-05; K4 → US-OV-08; K5 → US-OV-01; K6 → US-OV-10; K7 → US-MB-01…05; K8 → US-WR-07; K9 → US-CH-02; K10 → US-WR-02, US-DT-03; K11 → US-CH-05, US-KN-01…02; K12 → US-SL-01.
+
+
+## Owner View
+
+### US-OV-01 · Must · ✅
+Як **Власник** я хочу бачити портфель таблицею План / Факт / Прогноз / Різниця, щоб одним поглядом оцінити, чи портфель іде за планом.
+
+Acceptance Criteria:
+- Given відкрито Owner View і є проєкти, When сторінка завантажена, Then показано рядки: Проєкти, Workload (год), Зроблено ÷ витрачено часу, Прибуток (грн), Рентабельність від контракту, КП надіслано, Договори підписано; колонки План, Факт, Прогноз, Різниця
+- Given Факт, When він показаний, Then текст нейтральний (чорний); колір мають лише Прогноз і Різниця: мінус 🔴 (червоний), плюс або нуль 🟢 (зелений); планові значення зелені (п. 15, п. 31)
+- Given значення відсутнє, When воно виводиться, Then показано «—», не 0 і не план (BR-12)
+- Given порівняння, When колір рахується, Then по округленому значенню, як на екрані; жовтого для відхилень від плану немає
+
+Зв'язок: BR-08, BR-09, R-1.
+
+### US-OV-02 · Must · 🟡
+Як **Власник** я хочу бачити «Дані оновлено ДД.ММ.РРРР» у шапці, щоб знати, наскільки свіжі дані.
+
+Acceptance Criteria:
+- Given є дані, When екран відкрито, Then дата = `max(data_updated_at)` по проєктах (F-28)
+- Given даних немає, When екран відкрито, Then «—»
+
+Зв'язок: BR-13, п. 26 (перевірка дати на кожному екрані не завершена).
+
+### US-OV-03 · Must · ✅
+Як **Власник** я хочу клікнути лічильник статусів (🔴 / 🟡 / 🟢 / ⛔) і побачити перелік проєктів, щоб швидко перейти до проблемних.
+
+Acceptance Criteria:
+- Given лічильник 🔴 = N, When клік, Then відкрито перелік рівно з N проєктів із причиною
+- Given ⛔ «Стоять без руху: N», When клік, Then перелік проєктів із блокером, типом, датою й днями простою
+
+Зв'язок: BR-40.
+
+### US-OV-04 · Should · ✅
+Як **Власник** я хочу перемикати показник (Рентабельність, Прибуток, Акти і гроші, Години, Ефективність) і бачити розподіл проєктів, щоб дивитись портфель під різним кутом.
+
+Acceptance Criteria:
+- Given панель «Показник», When вибрано вкладку, Then показано план і прогноз портфеля та розподіл «Нижче плану або збиток / Без відхилень» з лічильниками й проєктами
+- Given проєкти без прогнозу, When показник = Рентабельність, Then вони у групі «Нижче плану або збиток» з підписом «прогноз відсутній»
+
+Зв'язок: BR-40.
+
+### US-OV-05 · Must · ✅
+Як **Власник** я хочу бачити перелік «Потребують уваги», щоб не переглядати всі 14 проєктів.
+
+Acceptance Criteria:
+- Given проєкти зі статусом ⛔ або 🔴, When екран відкрито, Then вони у переліку, відсортовані: ⛔ першими; для кожного одна причина-рядок і лічильники 🔴/🟡
+
+Зв'язок: BR-40.
+
+### US-OV-06 · Must · ✅
+Як **Власник** я хочу відкрити картку проєкту, щоб зрозуміти причину відхилення.
+
+Acceptance Criteria:
+- Given клік по проєкту, When картка відкрита, Then по порядку: сигнали → Рентабельність (План | Факт | Прогноз; від контракту й від собівартості) → ⛔ блокер → Контракт → Роботи/акти/гроші → Прибуток (План | Факт | Прогноз) → Звіт ПМа → ETC (План | Факт | Прогноз) → Ефективність
+- Given прогноз відсутній, When картка відкрита, Then «🔴 Прогноз відсутній (останній: X%)» і ETC «🔴 Не подано ПМом», а не план
+
+Зв'язок: BR-02, BR-03, BR-12.
+
+### US-OV-07 · Must · ✅
+Як **Власник** я хочу бачити блок стадій ЕП, П, Р (готовність, ETC, ймовірність) і історію тижнів, щоб знайти стадію, де прогноз гірший за план.
+
+Acceptance Criteria:
+- Given картка, When розгорнуто стадію, Then готовність ПМа, ETC_план / ETC_факт / ETC_прогноз, різниця з кольором за п. 15, ймовірність акту і документації
+- Given історія тижнів, When вибрано проєкт, Then кожне значення тижня береться зі знімка `wr_weekly_snapshots`, нічого не затирається (п. 12)
+
+Зв'язок: BR-02, BR-05.
+
+### US-OV-08 · Must · 🟡
+Як **Власник** я хочу бачити «Приріст готовності проти витрат команди» й таблицю «за чиї гроші по тижнях», щоб знати, за чиї гроші працювала команда.
+
+Acceptance Criteria:
+- Given два останні звіти ПМа, When блок показано, Then Δготовність (п.п.), витрати команди (год × ставка), бюджет приросту (Δ × контракт), «за гроші замовника» / «за гроші власника (перевитрата)», результат періоду, індекс = бюджет ÷ витрати
+- Given таблиця по тижнях, When показана, Then по кожному тижню: бюджет, витрати, власник; перевитрата червона; портфель агрегується брутто
+- Given проєкт без годин, When агрегація, Then поведінка за рішенням власника WD.5 (відкрито: «годин немає» чи бюджет без витрат)
+
+Зв'язок: BR-05, WD.4, WD.5.
+
+### US-OV-09 · Should · ⬜
+Як **Власник** я хочу drill-down з картки до виконавця, розділу, пакета, запису журналу, щоб дійти до першопричини.
+
+Acceptance Criteria:
+- Given стадія, When клік по виконавцю/розділу/пакету, Then перелік записів журналу з датами й годинами
+- Given запис, When відкрито, Then джерело (бот, імпорт) і хто підтвердив
+
+Зв'язок: BR-40, R-7, W6.1.
+
+### US-OV-10 · Should · ⬜
+Як **Власник** я хочу вкладка «EVM (класичний)», щоб дивитись проєкт за підручником EVM окремо від методології Archi.
+
+Acceptance Criteria:
+- Given пакети й факти виконання, When відкрито вкладку, Then BAC, PV, EV, AC, CV, SV, CPI, SPI, EAC, ETC, VAC, TCPI без назв і порогів Archi (п. 13, 14)
+
+Зв'язок: BR-10, W6.4, OD-13.
+
+### US-OV-11 · Could · ⬜
+Як **Власник** я хочу відкривати Mini App без залежності від n8n-сторінки, щоб стабільний вигляд і швидкість.
+
+Acceptance Criteria:
+- Given хостинг статичної сторінки, When користувач відкриває Mini App, Then HTML віддається з окремого хостингу, n8n віддає лише JSON
+
+Зв'язок: BR-44, OD-12.
+
+### US-OV-12 · Should · ✅
+Як **Власник** я хочу отримати xlsx з історією по тижнях, щоб передати цифри в Excel без грошових сум.
+
+Acceptance Criteria:
+- Given доступ, When запит `demo-archi-export`, Then файл `archi_weekly_history.xlsx`, аркуш «Історія», рядок на проєкт, для кожного тижня 23 колонки показників
+- Given даних немає, When запит, Then один рядок «немає даних»
+
+Зв'язок: BR-28.
+
+## Archi Consult (чат)
+
+### US-CH-01 · Must · ✅
+Як **Власник** я хочу поставити одне з 10 фіксованих питань кнопкою «❓ Питання», щоб отримати стандартну відповідь без набору тексту.
+
+Acceptance Criteria:
+- Given головне меню, When натиснуто «❓ Питання», Then клавіатура з 10 питань і «Назад»
+- Given питання вибрано, When відповідь готова, Then формат Insight → Impact → Action, не більше 3 проєктів, клавіатура питань лишається
+
+Зв'язок: BR-41.
+
+### US-CH-02 · Must · ✅
+Як **Власник** я хочу отримати чесне «даних немає» там, де даних немає, щоб не приймати рішення на вигаданих цифрах.
+
+Acceptance Criteria:
+- Given питання про гроші на зарплату або касовий розрив, When відповідь, Then «даних немає» і що саме потрібно (залишок на рахунках); цифра не вигадується
+- Given Q9, When немає поняття «якірний замовник», Then «не визначено»
+
+Зв'язок: BR-42, K9.
+
+### US-CH-03 · Must · 🟡
+Як **Власник** я хочу ставити довільні питання про портфель, щоб не обмежуватись 10 питаннями.
+
+Acceptance Criteria:
+- Given вільний текст, When відповідь, Then числа лише з розрахованих кодом рядків «Сигнали (пораховано кодом)»; «залишок» у тексті не вживається
+- Given збій Anthropic, When запит, Then (бажано) повідомлення «сервіс тимчасово недоступний»; **зараз** — тиша (E-05)
+
+Зв'язок: BR-41, `12` E-05.
+
+### US-CH-04 · Could · ⬜
+Як **Власник** я хочу отримувати відповідь з пам'яттю розмови, щоб уточнювати питання без повтору контексту.
+
+Acceptance Criteria:
+- Given серія питань, When наступне питання, Then враховано попередні відповіді (зараз кожне питання окремо)
+
+Зв'язок: —.
+
+### US-CH-05 · Should · ⬜
+Як **Власник, ПМ, виконавець** я хочу запитати «що ми домовились» і отримати відповідь із цитатою, датою й автором, щоб не шукати домовленості по чатах і протоколах.
+
+Acceptance Criteria:
+- Given знання проєкту (контракт, наради, чат), When питання, Then відповідь із джерелом; без джерела — «не знайдено»; у групі лише не фінансові знання
+
+Зв'язок: BR-70…BR-72, W10.
+
+## Щотижневий ритм
+
+### US-WR-01 · Must · ✅
+Як **ПМ** я хочу натиснути кнопку проєкту й побачити перелік питань звіту, щоб знати, що саме звітувати.
+
+Acceptance Criteria:
+- Given доступ ПМа, When кнопка проєкту, Then бриф: стадії договору, ймовірність документації, план минулого тижня, проблеми, допомога, план, блокер; «відповіді немає» дозволено
+
+Зв'язок: BR-20.
+
+### US-WR-02 · Must · ✅
+Як **ПМ** я хочу відповідати довільно текстом, голосом, фото екрана, документом, щоб не заповнювати форму руками.
+
+Acceptance Criteria:
+- Given повідомлення будь-якого типу, When надіслано, Then «📥 Прийнято · у черзі N» без LLM
+- Given голос або фото, When розпізнавання успішне, Then текст у черзі; Given формат .docx, Then «❗ Формат файлу не підтримується • Надішліть як .txt або .pdf»
+
+Зв'язок: BR-21.
+
+### US-WR-03 · Must · ✅
+Як **ПМ** я хочу натиснути «📤 Відправити» і побачити структурований звіт, щоб перевірити, що система мене зрозуміла.
+
+Acceptance Criteria:
+- Given черга не порожня, When «Відправити», Then звіт у єдиній формі (пп. 1–13), чергу оброблено й очищено; нові повідомлення під час обробки не губляться
+- Given «📄 Чернетка», Then показано поточний стан без обробки черги
+
+Зв'язок: BR-22, BR-26.
+
+### US-WR-04 · Must · ✅
+Як **ПМ** я хочу отримувати уточнення й відповідати чітко або «відповіді немає», щоб щоб звіт був повним.
+
+Acceptance Criteria:
+- Given бракує даних, When звіт показано, Then перелік питань `ask`; ПМ мусить відповісти або написати «відповіді немає»
+- Given «відповіді немає», When звіт перераховано, Then відповідний показник «—», не план
+
+Зв'язок: BR-23.
+
+### US-WR-05 · Must · ✅
+Як **Власник** я хочу щоб числа, дати й блокер у звіті приймались лише з тексту ПМа, щоб звіт не містив вигаданого.
+
+Acceptance Criteria:
+- Given число або дата відсутні в тексті ПМа, When звіт обробляється, Then вони прибрані й показані в блоці «Не підтверджено вашим текстом»; «Фінал» питає знову
+- Given слово «нуль»/«немає»/«завершено», When воно не відноситься до названої стадії, Then воно не підтверджує стадію
+- Given блокер «немає», When ПМ не сказав про відсутність, Then блокер не знімається
+
+Зв'язок: BR-24, п. 9; 29/0 тестів.
+
+### US-WR-06 · Must · ✅
+Як **ПМ** я хочу зафіксувати звіт «✅ Фінал» лише після статусів усіх пунктів минулого плану, щоб план не губився.
+
+Acceptance Criteria:
+- Given є пункти минулого плану без статусу, When «Фінал», Then відмова й питання про статус; Given всі статуси, Then UPSERT знімка й оновлення `wr_plan_items`, невиконане переноситься (`carry_count`)
+- Given повторне «Фінал» того ж тижня, Then знімок перезаписується (EC-01, EC-02)
+
+Зв'язок: BR-25.
+
+### US-WR-07 · Must · ✅
+Як **Власник, ПМ, ГАП** я хочу відкрити Weekly Render для наради, щоб бачити відхилення проєктів без грошей.
+
+Acceptance Criteria:
+- Given доступ, When Weekly Render відкрито, Then рядок на проєкт, колонки тижнів + «Сьогодні»; пп. 1–12; жодних грошових сум; «—» там, де даних немає
+- Given мобільний екран ≤ 700 px, Then одна колонка тижня на свайп
+
+Зв'язок: BR-27, п. 3, п. 7.
+
+### US-WR-08 · Should · ⬜
+Як **ПМ** я хочу отримати нагадування про звіт у п'ятницю, щоб не забути.
+
+Acceptance Criteria:
+- Given п'ятниця 10:00 Europe/Kyiv, When настав час, Then кожен ПМ без звіту за тиждень отримує повідомлення особисто (рекомендація OD-23)
+- Зараз вузол без вихідних з'єднань: нагадування не надсилається (D1)
+
+Зв'язок: BR-29, W5.3, OD-23.
+
+### US-WR-09 · Must · ✅
+Як **Власник** я хочу бачити «Статус звітів» (хто подав, хто ні, у кого немає ETC_прогноз), щоб контролювати ритм.
+
+Acceptance Criteria:
+- Given кнопка «📋 Статус звітів» або `/status`, When натиснута, Then «Станом на ДД.ММ.РРРР», перелік проєктів зі звітом за тиждень, без звіту, зі звітом без ETC_прогноз і одна дія «🎯 Що зробити»
+
+Зв'язок: BR-20, LAYOUT_STANDARD.
+
+### US-WR-10 · Should · ⬜
+Як **Власник** я хочу індекс «Приріст готовності ÷ витрати» у Weekly Render без грошей, щоб наради бачили темп без сум.
+
+Acceptance Criteria:
+- Given два останні звіти, When Weekly Render, Then індекс бюджет ÷ витрати (план = 1,00), < 1,00 🔴, без грошових сум
+
+Зв'язок: п. 12.
+
+### US-WR-11 · Should · ⬜
+Як **ПМ** я хочу звітувати по АН (авторський нагляд) вільним текстом або голосом, щоб не заповнювати форму стадій для нагляду.
+
+Acceptance Criteria:
+- Given договір `<id>-АН`, When ПМ надсилає текст/голос, Then ARCHI записує, структурує й показує окремою секцією Weekly Render; спершу змінюється `WEEKLY_REPORT_FORM` §6 (п. 3)
+
+Зв'язок: BR-30, W5.4, п. 16.
+
+## Ранковий брифінг
+
+### US-MB-01 · Must · ✅
+Як **Власник** я хочу щоранку о 08:30 (пн–пт) отримувати план дій на день, щоб не шукати, що горить.
+
+Acceptance Criteria:
+- Given `owner_prefs.enabled`, день у `days`, час у вікні 30 хв, `last_sent_on` ≠ сьогодні, When тик, Then один брифінг; після відправки `last_sent_on` = сьогодні; ручний тест його не змінює
+- Given `enabled=false` або немає рядка, Then нічого не надсилається
+
+Зв'язок: BR-50, п. 32.
+
+### US-MB-02 · Must · ✅
+Як **Власник** я хочу бачити «📊 Стан портфеля» і до 5 дій, щоб одним поглядом бачити масштаб і пріоритети.
+
+Acceptance Criteria:
+- Given дані, When брифінг, Then перший блок: кількість проєктів і кількості по сигналах (стоять, прострочені акти, ETC, рентабельність, без прогнозу, без звіту), далі до 5 дій за вагою; не більше 2 дій на проєкт
+- Given 0 дій, Then «• Критичних дій на сьогодні немає»
+
+Зв'язок: BR-51.
+
+### US-MB-03 · Must · ✅
+Як **Власник** я хочу щоб кожна дія мала адресата за роллю, режим і готовий текст, щоб переслати без обдумування.
+
+Acceptance Criteria:
+- Given дія, When показана, Then «Кому: <роль> · <режим>», «Чому: …» (одна причина з фактами), ✍️ готовий текст до 300 символів із очікуваним результатом і терміном
+- Given LLM-текст не пройшов перевірку (чужий проєкт, число не з фактів, «залишок», довжина), Then шаблон за метою; брифінг надсилається навіть при збої LLM
+
+Зв'язок: BR-52, BR-53.
+
+### US-MB-04 · Must · ✅
+Як **Власник** я хочу щоб слова ПМа «субпідрядник не починає, чекає аванс / не отримав оплату» створювали дію для Фіндиректора, щоб не пропустити блокування підряду.
+
+Acceptance Criteria:
+- Given «Проблеми» останнього звіту містять тригер, When брифінг, Then дія `sub_blocked` з цитатою ПМа, адресат Фіндиректор, вага 120
+
+Зв'язок: BR-55.
+
+### US-MB-05 · Could · 🟡
+Як **Власник** я хочу змінювати час і дні брифінгу, щоб підлаштувати під графік.
+
+Acceptance Criteria:
+- Given прохання до оператора, When оновлено `owner_prefs`, Then наступний брифінг у новий час; окремої команди в боті немає (рішення п. 32)
+
+Зв'язок: BR-50.
+
+## Дані й інтеграції
+
+### US-DT-01 · Must · 🟡
+Як **ПМ** я хочу вносити години й гроші голосом/текстом/скріном у режимі «Години і гроші», щоб не вводити таблиці.
+
+Acceptance Criteria:
+- Given чернетка з неповними рядками, When «Фінал», Then блоковано; Given повні, Then рядки в `time_log`/`money_log` зі статусом `confirmed` і перерахунок `archi_recalc`
+- Гроші вносить лише ПМ (п. 23); перевірки ролі в коді немає (T-17)
+
+Зв'язок: BR-62, BR-63.
+
+### US-DT-02 · Must · ⬜
+Як **ПМ, власник** я хочу імпортувати XLSX/CSV з профілем колонок на клієнта, щоб не вносити вручну.
+
+Acceptance Criteria:
+- Given файл, When імпорт, Then відповідність колонок за профілем клієнта, дедуплікація, показ різниці, гейт «Фінал» (W3.5)
+
+Зв'язок: BR-60, BR-61, W3.10, OD-18.
+
+### US-DT-03 · Must · ⬜
+Як **Виконавець** я хочу вносити свої години й % готовності свого розділу голосом або текстом, щоб не відкривати систему обліку.
+
+Acceptance Criteria:
+- Given роль «виконавець», When внесення, Then чернетка для підтвердження ПМом (рекомендація OD-22); гроші недоступні
+
+Зв'язок: BR-63, BR-73, W3.11, W10.9.
+
+### US-DT-04 · Should · 🟡
+Як **Власник** я хочу вести журнал зустрічей, щоб пам'ятати домовленості.
+
+Acceptance Criteria:
+- Given режим «🤝 Зустріч», When текст/голос, Then записи в `meeting_log` (дія, відповідальний, термін); дедлайни з'являються в брифінгу
+
+Зв'язок: BR-31, W5.5.
+
+### US-DT-05 · Should · ✅
+Як **Власник** я хочу фіксувати КП командою «КП: N», щоб бачити конверсію й план КП.
+
+Acceptance Criteria:
+- Given «КП: N», When записано, Then Owner View показує КП за місяць і рік, конверсію 20%, план 350
+
+Зв'язок: BR-67.
+
+### US-DT-06 · Should · 🟡
+Як **ПМ** я хочу завантажити договір командою `договір <id>`, щоб мати документ у картці проєкту.
+
+Acceptance Criteria:
+- Given файл або посилання, When обробка, Then файл у Google Drive, URL у `contract_file_url`; непідтримуваний формат → повідомлення
+
+Зв'язок: BR-66, W3.8.
+
+### US-DT-07 · Must · ⬜
+Як **Власник** я хочу вести план проєкту й зміни по ходу в ARCHI, щоб не залежати від Google Sheets.
+
+Acceptance Criteria:
+- Given модуль плану, When введено розклад (проєкт, стадія, розділ, виконавець, години, бюджет), Then версія плану, журнал змін (причина, Δ годин, бюджет), фіксація рентабельності
+- Given GATE, When планова рентабельність не затверджена власником, Then статус «не затверджено» і команда не списує час
+
+Зв'язок: BR-64, W2, OD-8, OD-9.
+
+### US-DT-08 · Should · ✅
+Як **ПМ** я хочу затвердити план командою `кошторис <id>` (поточний адаптер), щоб запустити проєкт.
+
+Acceptance Criteria:
+- Given вкладка Кошториса, When `кошторис <id>`, Then перевірки K1–K11 і preview; «✅ Затвердити» → запис у `project_metrics` і `payment_schedule`; інакше idle
+
+Зв'язок: BR-65 (адаптер виводиться з обігу).
+
+### US-DT-09 · Should · ✅
+Як **Власник** я хочу мати договори АН «оплата за виїзд» окремим рядком, щоб окремо рахувати нагляд.
+
+Acceptance Criteria:
+- Given `contract_type='visit'`, When перерахунок, Then договір = `visits_plan × visit_price`, план годин = `visits_plan × visit_hours`; у Weekly Render АН не входить
+
+Зв'язок: BR-68, F-27.
+
+## Платформа
+
+### US-PL-01 · Must · 🟡
+Як **Власник клієнта** я хочу бачити лише свої дані, щоб довіряти ізоляції.
+
+Acceptance Criteria:
+- Given два клієнти з однаковим кодом проєкту, When запит, Then кожен бачить лише своє; доведено в БД (T2/T3); у n8n — тести T4–T6 (⬜)
+
+Зв'язок: BR-80, BR-81, R-2.
+
+### US-PL-02 · Must · 🟡
+Як **Власник** я хочу щоб доступ визначався таблицею `user_access`, щоб додавати користувачів без зміни коду.
+
+Acceptance Criteria:
+- Given Telegram id не в таблиці, When запит до бота або Mini App, Then «Доступ не надано» / `401`, нічого не записується; Given оператор, Then бачить усіх клієнтів
+
+Зв'язок: BR-82, BR-83, BR-84.
+
+### US-PL-03 · Must · ✅
+Як **Оператор FDO** я хочу мати власні пороги на клієнта, щоб підлаштовувати методологію.
+
+Acceptance Criteria:
+- Given перевизначення в `company_thresholds`, When `archi_rules(company)`, Then значення клієнта; інакше за замовчуванням (31 ключ)
+
+Зв'язок: BR-85.
+
+### US-PL-04 · Must · 🟡
+Як **Власник** я хочу щоб формули й кольори рахувались лише в SQL, щоб цифри збігались на всіх екранах.
+
+Acceptance Criteria:
+- Given показник, When він виводиться, Then значення й колір з SQL; n8n і браузер лише відображають; різниця між екранами = 0
+
+Зв'язок: BR-07, W1.8.
+
+### US-PL-05 · Must · ⬜
+Як **Власник** я хочу окремий бот і токен у сховищі секретів на клієнта, щоб безпека і брендинг.
+
+Acceptance Criteria:
+- Given клієнт, When підключення, Then окремий бот, токен у credential n8n, не в коді; ротація токена — останній крок розробки
+
+Зв'язок: BR-86, W1.4.
+
+### US-PL-06 · Must · ⬜
+Як **Оператор FDO** я хочу онбординг нового клієнта від порожньої бази до першого Weekly Render, щоб підключати клієнтів без розробників.
+
+Acceptance Criteria:
+- Given порожня компанія, When виконано чек-лист, Then є користувачі, проєкти, план, перший звіт і Weekly Render; порожні екрани мають пояснення (`12` §3)
+
+Зв'язок: BR-94, R-10, W9.1.
+
+### US-PL-07 · Must · ⬜
+Як **Оператор FDO** я хочу бачити помилки й падіння, щоб реагувати до скарги користувача.
+
+Acceptance Criteria:
+- Given збій у workflow, When він стався, Then сповіщення оператору (Error Workflow); дашборд виконань; резервні копії й відкат
+
+Зв'язок: BR-91, W8.4.
+
+## EVM (класичний)
+
+### US-EV-01 · Should · ⬜
+Як **Власник** я хочу вносити факт виконання пакетів («Видано») ботом, щоб мати класичний EV незалежно від оцінки ПМа.
+
+Acceptance Criteria:
+- Given пакет і правило виконання (напр. 0/100 по аркушах), When внесено факт, Then запис в `evm_package_done`, перерахунок EV, SPI, CPI
+
+Зв'язок: W7.2, п. 13.
+
+## Знання проєкту
+
+### US-KN-01 · Should · ⬜
+Як **Адмін чату** я хочу додати бота в проєктний чат і прив'язати до проєкту, щоб збирати знання з чату.
+
+Acceptance Criteria:
+- Given бот-адмін і згода чату, When прив'язка, Then `chat_bindings`, повідомлення групи обробляються (текст, голос, фото, PDF/TXT); бот повідомляє чат про ведення нотаток
+
+Зв'язок: BR-71, W10.2, OD-19.
+
+### US-KN-02 · Could · ⬜
+Як **Власник** я хочу витяг подій з чатів (рішення, ризики, зміни обсягу, дедлайни) як пропозиції, щоб ПМ підтверджував.
+
+Acceptance Criteria:
+- Given повідомлення групи, When виявлено подію, Then пропозиція ПМу на підтвердження; підтверджена потрапляє в `knowledge_items`
+
+Зв'язок: W10.5.
+
+### US-KN-03 · Could · ⬜
+Як **Виконавець** я хочу отримати «поставь мене в курс справ»: контракт без сум, дедлайни, готовність, ETC, домовленості, щоб швидко включитись у проєкт.
+
+Acceptance Criteria:
+- Given роль «виконавець», When команда, Then відповідь без грошових даних; джерела вказано
+
+Зв'язок: W10.10, `FEATURE_IDEAS`.
+
+### US-KN-04 · Could · ⬜
+Як **Виконавець** я хочу щотижня отримувати свої записи на підтвердження, щоб виправити помилки.
+
+Acceptance Criteria:
+- Given тиждень закінчено, When звіт виконавцю, Then перелік його записів стовпчиком; підтвердити або виправити
+
+Зв'язок: W3.7.
+
+## Самонавчання
+
+### US-SL-01 · Could · ⬜
+Як **Власник і Claude** я хочу фіксувати кейси й знеособлені патерни, щоб покращувати відповіді ARCHI між клієнтами.
+
+Acceptance Criteria:
+- Given кейс (тип проєкту, стадія, відхилення, причина, рішення, результат), When внесено, Then знеособлений патерн без назв клієнта й проєкту, відносні величини; згода клієнта в договорі; сирі дані ізольовані
+
+Зв'язок: BR-74, BR-75, W11, OD-20.
+
+## Зведення
+
+| Пріоритет | ✅ | 🟡 | ⬜ |
+|---|---|---|---|
+| Must | 20 | 7 | 6 |
+| Should | 5 | 2 | 8 |
+| Could | 0 | 1 | 6 |
+
+Усього User Stories: 55.
 
 
 # ЧАСТИНА II — Перевірка пакета
@@ -1123,7 +3056,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 
 ---
 
-<!-- SOURCE docs/handover/07_REVIEW_REPORT.md sha256=fc3b52a6ab7b844927296405746eeae71a8db69acabe9f2da32aad0c09617697 bytes=13253 -->
+<!-- SOURCE docs/handover/07_REVIEW_REPORT.md sha256=3df1cc049356a8cb9ee1fb94f718de678d98f7c86b1a4d9520ab7ae010f13301 bytes=13922 -->
 **Джерело: `docs/handover/07_REVIEW_REPORT.md` — Звіт про перевірку за планом**
 
 # ARCHI — звіт про перевірку пакета за планом
@@ -1190,6 +3123,8 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 | DR-11 | P1 | `02` BR-51 | Статус ✅, а блоку «стан портфеля» у брифінгу не було (знайдено зовнішнім аудитом) | Блок додано (SQL `portfolio`, вузол `Add Portfolio Block`), виконання 7054 | закрито |
 | DR-12 | P1 | `03` T-3, `TECH_SPEC` §6, §10 | Застарілі: DDL на кожне повідомлення; версія core `40abff53`, 179 вузлів | Виправлено; `check_handover.py` A10b стежить за реєстром core | закрито |
 | DR-13 | P1 | код | `archi_bot_mode_state` і `n8n_chat_histories` без `company_id` (16 вузлів core); `check_tenant_filter.py` їх не бачив | Скрипт розширено; виправлення вузлів — W1.6, потребує «так» | відкрито |
+| DR-14 | P1 | код | Чат (`Call Anthropic`), `WR: Agent`, транскрипція й аналіз фото без `onError`, повтору й таймауту; Error Workflow не задано; користувач не бачить помилок (виявлено при складанні `12`) | Описано в `12` §1–§2; виправлення живого n8n — за «так» власника | відкрито |
+| DR-15 | P2 | безпека | Не перевірено, чи використовує вебхук Telegram секретний токен (T-03 у `14`) | Додано в рекомендації `14` §5 | відкрито |
 | DR-10 | P2 | `00` §6, `04` §1 | Розшифровки МБР, ЕП, П, Р, АН у репозиторії не було | Отримано від власника 05.11.2026, внесено в `04` §1 і `TECH_SPEC` §7; рядок прибрано з чек-листу `00` §6 | закрито |
 | DR-9 | P2 | `03` §3 | Версію core підтверджено за історією, а не `activeVersionId` workflow | Пункт у розділі «Не перевірено» | відкрито |
 
@@ -1833,7 +3768,7 @@ WBS = `docs/ROADMAP_TO_RELEASE.md` (з 02.11.2026) — головна карта
 
 ---
 
-<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=f11b4b5154789d0916360f05bf7b20c689f4ab68bd7407dc704812d3b754043f bytes=52740 -->
+<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=19da8a30ac409473241470158ccded28ba6325fecf61726c3e61d444a658f28c bytes=52963 -->
 **Джерело: `docs/ROADMAP_TO_RELEASE.md` — Єдина карта розробки до релізу**
 
 # ARCHI — ROADMAP_TO_RELEASE (WBS, єдина карта)
@@ -1979,7 +3914,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 | W8.1 Код великих вузлів у файлах (джерело істини) + збірка в JSON (G2) | ⬜ |
 | W8.2 Розбиття монолітного workflow на підпроцеси (179 вузлів) | ⬜ ⛔ OD-14 (G5: n8n чи власний бекенд — з критеріями: клієнти, підтримка, ролі/RLS, навантаження) |
 | W8.3 K6sm і RC7H експортувати в git | ✅ 02.11.2026: `workflows/Archi_Koshtorys_Ingest_K6sm.json` (`cf904641`, 16 вузлів), `workflows/Archi_Document_Intake_RC7H.json` (`d86d127a`, 5 вузлів); `RELEASE_PLAN` §158. Лишається: Sheets Helper `nGcSyWfuMO7vjTn6` (не експортовано) |
-| W8.4 Моніторинг помилок, резервні копії, відкат | ⬜ |
+| W8.4 Моніторинг помилок, резервні копії, відкат | 🟡 05.11.2026: CI документації й скриптів (`.github/workflows/ci.yml`, `RELEASE_PLAN` §178); моніторингу виконань n8n, Error Workflow, резервних копій немає (DR-14) |
 | W8.5 `NODE_MAP`, `TECH_SPEC` | `NODE_MAP` генерується; `TECH_SPEC` v3.1 ✅ 02.11.2026 (змінено лише перевірене; розділи 4, 5, 7 — зміст v3.0, звірка S-/P-/R-check лишається в W0.3) | 🟡 |
 
 ### W9 · Релізна операційка

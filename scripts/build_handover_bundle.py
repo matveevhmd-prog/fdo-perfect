@@ -18,6 +18,13 @@ PARTS = [
         ("docs/handover/02_BUSINESS_REQUIREMENTS.md", "Бізнес-вимоги"),
         ("docs/handover/03_TECHNICAL_CTO.md", "Технічний документ для CTO"),
         ("docs/handover/04_METHODOLOGY_FOR_DEVELOPERS.md", "Методологія для розробників"),
+        ("docs/handover/10_DATABASE_SCHEMA.md", "Схема БД (згенеровано зі знімка)"),
+        ("docs/handover/11_API_CONTRACT.md", "API-контракт"),
+        ("docs/handover/openapi.yaml", "OpenAPI 3.0"),
+        ("docs/handover/12_ERROR_AND_EDGE_CASES.md", "Помилки, порожні стани, крайні випадки"),
+        ("docs/handover/13_USER_FLOWS.md", "Потоки користувача (Mermaid)"),
+        ("docs/handover/14_THREAT_MODEL.md", "Модель загроз (STRIDE)"),
+        ("docs/handover/15_USER_STORIES.md", "User Stories з Acceptance Criteria"),
     ]),
     ("ЧАСТИНА II — Перевірка пакета", [
         ("docs/handover/05_CTO_REVIEW_PLAN.md", "План перевірки пакета CTO"),

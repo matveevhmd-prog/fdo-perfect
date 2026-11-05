@@ -1,0 +1,13 @@
+-- ARCHI: знімок схеми для scripts/gen_db_schema.py. Виконати в Supabase SQL Editor (без останнього стовпця pad), зберегти значення стовпця j
+-- як sql/schema/schema_dump_<РРРР-ММ-ДД>.json, потім python3 scripts/gen_db_schema.py.
+with t(name) as (values ('companies'),('user_access'),('company_thresholds'),('owner_prefs'),('project_metrics'),('wr_weekly_snapshots'),('wr_plan_items'),('archi_wr_inbox'),('time_log'),('money_log'),('payment_schedule'),('rates'),('meeting_log'),('kp_log'),('archi_thresholds'),('archi_bot_mode_state'),('evm_packages'),('evm_package_done'),('n8n_chat_histories'),('archi_report_today'),('archi_snapshot_history'),('archi_plan_execution'),('archi_weekly_progress'),('evm_classic_today'),('project_metrics_live'),('rates_coverage_check'))
+select jsonb_build_object(
+ 'columns', (select jsonb_agg(jsonb_build_object('t',c.table_name,'n',c.ordinal_position,'c',c.column_name,'ty',c.data_type,'udt',c.udt_name,'len',c.character_maximum_length,'null',c.is_nullable,'def',c.column_default) order by c.table_name,c.ordinal_position) from information_schema.columns c join t on t.name=c.table_name where c.table_schema='public'),
+ 'kinds', (select jsonb_object_agg(c.relname, c.relkind) from pg_class c join pg_namespace n on n.oid=c.relnamespace join t on t.name=c.relname where n.nspname='public'),
+ 'constraints', (select jsonb_agg(jsonb_build_object('t',cl.relname,'name',co.conname,'type',co.contype,'def',pg_get_constraintdef(co.oid))) from pg_constraint co join pg_class cl on cl.oid=co.conrelid join pg_namespace n on n.oid=cl.relnamespace join t on t.name=cl.relname where n.nspname='public'),
+ 'indexes', (select jsonb_agg(jsonb_build_object('t',tablename,'name',indexname,'def',indexdef)) from pg_indexes join t on t.name=tablename where schemaname='public'),
+ 'rls', (select jsonb_object_agg(c.relname, jsonb_build_object('rls',c.relrowsecurity,'policies',(select count(*) from pg_policy p where p.polrelid=c.oid))) from pg_class c join pg_namespace n on n.oid=c.relnamespace join t on t.name=c.relname where n.nspname='public' and c.relkind='r'),
+ 'triggers', (select jsonb_agg(jsonb_build_object('t',event_object_table,'name',trigger_name,'ev',event_manipulation,'timing',action_timing)) from information_schema.triggers join t on t.name=event_object_table where trigger_schema='public'),
+ 'functions', (select jsonb_agg(jsonb_build_object('name',p.proname,'args',pg_get_function_arguments(p.oid),'ret',pg_get_function_result(p.oid),'sec',p.prosecdef)) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and (p.proname like 'archi\_%' or p.proname like 'evm\_%')),
+ 'rows', (select jsonb_object_agg(relname, n_live_tup) from pg_stat_user_tables join t on t.name=relname)
+) j;
