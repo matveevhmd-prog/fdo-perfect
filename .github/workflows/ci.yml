@@ -24,6 +24,8 @@ jobs:
         run: |
           python3 scripts/build_handover_bundle.py
           git diff --exit-code docs/handover/ARCHI_FULL_PACKAGE.md
+      - name: "WBS від фіналу = карта"
+        run: python3 scripts/gen_wbs.py --check
       - name: "Схема БД у документі = знімок"
         run: python3 scripts/gen_db_schema.py --check
       - name: "Форма звіту: підписи й нумерація пп. 1–12"

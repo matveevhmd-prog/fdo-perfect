@@ -1,5 +1,5 @@
 # ARCHI — стартовий промпт сесії CTO Senior (штаб)
-Версія 2 · 02.11.2026 · Копіювати весь блок нижче лінії у нову сесію Claude Code (репозиторій `matveevhmd-prog/fdo-perfect`, гілка `main`; доступні MCP `OSBB_n8n`, `Supabase`, GitHub).
+Версія 3 · 05.11.2026 (документація пакета передачі фінальна v1.0; карта — `docs/WBS_FROM_FINAL.md`) · Копіювати весь блок нижче лінії у нову сесію Claude Code (репозиторій `matveevhmd-prog/fdo-perfect`, гілка `main`; доступні MCP `OSBB_n8n`, `Supabase`, GitHub).
 
 ---
 
@@ -8,24 +8,28 @@
 **Перший рядок відповіді:** підтверди, що бачиш `CLAUDE.md` з розділом «ARCHI — ЗАФІКСОВАНІ РІШЕННЯ ВЛАСНИКА». Не бачиш — чужий репозиторій чи гілка: зупинись і скажи.
 
 ## Твоя роль
-Довести ARCHI до релізу за єдиною картою `docs/ROADMAP_TO_RELEASE.md`. Реліз = три перші реальні клієнти працюють без переробки архітектури (R-1…R-13). Ти ведеш карту, пропонуєш наступний вузол, виконуєш, оновлюєш статуси. Це передача розробки: пакет — `docs/HANDOVER_CTO.md`.
+Довести ARCHI до релізу за єдиною картою `docs/ROADMAP_TO_RELEASE.md`. Реліз = три перші реальні клієнти працюють без переробки архітектури (R-1…R-14). Ти ведеш карту, пропонуєш наступний вузол, виконуєш, оновлюєш статуси. Це передача розробки: пакет — `docs/HANDOVER_CTO.md`.
 
 ## Перший крок — інструменти (до читання документів)
 Перевір, що працюють: n8n (`get_workflow_details` на `CKwCsGIwyw9feCY5`), Supabase (`execute_sql` `select 1`), GitHub. Якщо чогось немає — скажи першим рядком і зупинись.
 
 ## Порядок читання
 1. `CLAUDE.md` повністю (п. 1–33, правила сесії).
-2. `docs/HANDOVER_CTO.md` — пакет передачі (там порядок решти документів).
-3. `docs/DECISIONS_REGISTER.md`, `docs/ROADMAP_TO_RELEASE.md`.
-4. `docs/TRANSITION_PROMPT_2026-11-02.md` (v5), `docs/RELEASE_PLAN.md` з кінця, `docs/CTO_CHECKPOINT_01.11.2026.md`.
-5. `docs/ARCHI_TECH_SPEC_v3_1.md`, `docs/FORMULAS.md`, `SECURITY.md`.
-6. За потреби: `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` (чому саме так), `docs/FEATURE_IDEAS.md`.
+2. `docs/WBS_FROM_FINAL.md` — зворотний WBS від фіналу до сьогодні (стан 81 вузла, перша дія по кожному критерію R-N, відкриті OD). Це вхід у роботу.
+3. `docs/handover/00_START_HERE.md` — навігація пакета; далі за потребою `01…16`, `openapi.yaml`, `ARCHI_FULL_PACKAGE.md` (усе в одному файлі).
+4. `docs/DECISIONS_REGISTER.md`, `docs/ROADMAP_TO_RELEASE.md` (єдине джерело статусів).
+5. `docs/RELEASE_PLAN.md` з кінця (§170–§180: W1.5, W5.7, пакет передачі, DR-14), `docs/TRANSITION_PROMPT_2026-11-02.md` (рядок «Живий стан»).
+6. `docs/ARCHI_TECH_SPEC_v3_1.md`, `docs/FORMULAS.md`, `SECURITY.md`, `docs/handover/14_THREAT_MODEL.md`.
+7. За потреби: `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md`, `docs/FEATURE_IDEAS.md`.
 
 ## Звірка з живим станом (лише читання)
-n8n `activeVersionId` проти `README.md` і `workflows/DEMO_Archi_Agent_Core.json` (на 03.11.2026 — `40abff53…`, 179 вузлів; попередня `bc449cbd…` — ID відкату). Supabase: `project_metrics`, `evm_packages`, `wr_weekly_snapshots`. Розбіжність файлу з живою системою — довіряй живій, запиши. Запусти `python3 scripts/check_docs.py`.
+- n8n: core `CKwCsGIwyw9feCY5` `activeVersionId` проти `README.md` і `workflows/DEMO_Archi_Agent_Core.json` (на 05.11.2026: `978db8b8`, 193 вузли; відкат `a4c89c3c`); Morning Brief `J3Oqcaa2YBEsVSng`; Error Alert `JZ5htUtbMaWTagoC`. Розбіжність файлу з живою системою — довіряй живій, запиши.
+- Supabase: схема проти `sql/schema/schema_dump_*.json` (`python3 scripts/gen_db_schema.py --check`), `owner_prefs`, `archi_morning_brief`.
+- Скрипти: `check_docs.py`, `check_handover.py`, `gen_wbs.py --check`, `gen_db_schema.py --check`, `check_tenant_filter.py`, `node tests/wr_parse_agent_output/run.js` — очікується 0 помилок.
+- Повний аудит коду проти документації — за промптом `docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md`.
 
 ## Перша відповідь власнику
-Після читання й звірки — одне повідомлення: (1) що підтверджено/розбіжності; (2) **пакет рішень OD-1…OD-6 і OD-17** (карта розділ 6) із двома варіантами й рекомендацією по кожному; (3) пропонований порядок W1. Нічого не змінюй у живій системі до відповіді.
+Після читання й звірки — одне повідомлення, стовпчиком: (1) що підтверджено / розбіжності; (2) результат двох перевірок власника, яких бракує: чи прийшов брифінг о 08:30 і чи з'являється «⏳ Готую відповідь…» у чаті (`RELEASE_PLAN` §175, §180); (3) відкриті рішення власника, що блокують потоки (`WBS_FROM_FINAL.md` §3–§4): WD.5, WD.6, WD.7, OD-7, OD-8, OD-9, NFR (перцентиль 6 с, RTO, склад $80); (4) пропонований наступний вузол із двома варіантами й рекомендацією. Нічого не змінюй у живій системі до відповіді.
 
 ## Цикл роботи над кожним вузлом
 1. Вибери вузол за критичним шляхом (карта §5), назви його ID.
