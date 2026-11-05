@@ -44,6 +44,7 @@
 | Sheets Helper | `nGcSyWfuMO7vjTn6` | ручний, неактивний, 7 вузлів |
 | **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 10 вузлів, опублікований; `activeVersionId` `ae7e4e3b-eaa7-4ff6-b108-c6edec0311f4`; код `workflows/Archi_Morning_Brief.sdk.ts` |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) | чужий проєкт власника |
+| Інші workflow в акаунті | 103 workflow усього (live, 05.11.2026): `Task Dispatcher` (активний), `DS Executor`, `Archi Protocol Format Helper` (неактивний, застарілий) і ~90 тимчасових `TEMP:` | **не частина ARCHI**; не змінювати без власника. ARCHI = 5 workflow: core, K6sm, RC7H, Sheets Helper, Morning Brief |
 | Supabase | `bxawceksdkqlbkdgjvyz` «matvieiev-bots» | у базі є чужі таблиці (`_bak_*`, `jarvis_*`, `shift_*`, `bot_*`, `archi_bot_semantic_memory`) — не частина ARCHI |
 | Telegram-бот | `@archi_demo_bot` | credential n8n `Telegram account 4` |
 | Credentials n8n (імена) | `Postgres account`, `Telegram account 4`, `Anthropic account`, OpenAI account(s), Google Drive/Sheets/Docs | значення не в репозиторії |
@@ -81,9 +82,9 @@
 
 ### 4.2 Ключі й тенантність (W1)
 - Ключ проєкту — `(company_id, project_id)`; `project_id` — людський код, унікальний у межах клієнта (OD-2).
-- `company_id` NOT NULL у таблицях Archi й `evm_*`; міграції M0–M6 застосовано 03.11.2026 з відкатами (`sql/2026-11-03_w1_*`).
+- `company_id` NOT NULL у таблицях Archi й `evm_*` (live SQL 05.11.2026: 10 з 11 перевірених таблиць; **виняток — `archi_bot_mode_state`, де `company_id` допускає NULL**, бо стан режиму бота веде й оператор без компанії); міграції M0–M6 застосовано 03.11.2026 з відкатами (`sql/2026-11-03_w1_*`).
 - Ізоляцію доведено на рівні БД: тест T2/T3 — однаковий код проєкту у трьох компаніях, `ON CONFLICT` не чіпає чужі рядки, вʼю повертають рядки лише своєї компанії, вставка без `company_id` відхиляється (`sql/tests/w1_isolation_T2_T3.sql`).
-- **Не доведено:** ізоляцію на рівні n8n (потрібен другий Telegram-акаунт, тести T4–T6); 245 рядків `wr_plan_items` зі старими ID перенесено в `wr_plan_items_legacy` за дизайном D2 і ще потребують фіналізації; FK для логів не додані (`ROADMAP` W1.1).
+- **Не доведено:** ізоляцію на рівні n8n (потрібен другий Telegram-акаунт, тести T4–T6); 245 рядків `wr_plan_items` зі старими ID (`ARCH-…`, `ARCH2-…`): дизайн D2 передбачає перенесення в `wr_plan_items_legacy` з відкатом, **але таблиці `wr_plan_items_legacy` у базі ще немає** (live SQL 05.11.2026), тобто крок не виконано; FK для логів не додані (`ROADMAP` W1.1).
 - n8n підключається до Postgres прямим з'єднанням, що **обходить RLS**; ізоляцію тримає фільтр `company_id` у запитах. Перевірка наявності фільтра: `scripts/check_tenant_filter.py`.
 
 ### 4.3 Демо-дані (п. 18)
@@ -161,11 +162,14 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | Ризик | Стан | Рішення власника |
 |---|---|---|
 | Токен бота в живому workflow (1 вузол `M: Send Project Picker`) і в історії git | у репозиторії заглушка; чинним лишається лише новий токен | ротація й перенесення в credential — **останній крок розробки перед презентацією першому клієнтові** (п. 25) |
-| RLS вимкнений на більшості таблиць Archi; публічний ключ Supabase дає повний доступ | відкрито | повернутись при першому платному клієнті (п. 28, OD-4); R-2 і R-11 до цього не виконуються |
+| RLS вимкнений на більшості таблиць Archi (live 05.11.2026: `project_metrics` і `wr_weekly_snapshots` — вимкнений; `companies`, `user_access`, `company_thresholds`, `owner_prefs`, `archi_wr_inbox`, `evm_packages` — увімкнений, у частини без політик); публічний ключ Supabase дає повний доступ до таблиць без RLS | відкрито | повернутись при першому платному клієнті (п. 28, OD-4); R-2 і R-11 до цього не виконуються |
 | Mini App HTML-вебхуки без авторизації | сторінка статична, дані за initData | прийнято |
+| Weekly Render Data Webhook без авторизації (`SECURITY.md` п. 2) | **виправлено 13.09.2026**, підтверджено виконаннями 5512 (без initData — відмова) і 5513 (з initData — дані) | закрито |
+| Бот відкритий для будь-якого користувача Telegram (`SECURITY.md` п. 7) | резолвер `user_access` реалізовано 03.11.2026 (W1.2); у Telegram не прогнано; у `SECURITY.md` статус лишається «не виправлено» до перевірки | рішення D5, п. 30 |
 | Google Sheets `anyone writer` на файлі Кошториса | виводиться з обігу | W2.7 |
 | Нові таблиці/вʼю без RLS | `owner_prefs`, `evm_*` — RLS без політик; інші — без RLS | кожен новий об'єкт — з RLS за можливості (R-11) |
 | Репозиторій | приватний (власник підтвердив) | п. 25, дію в GitHub виконує власник |
+Інші пункти `SECURITY.md` (п. 3 credentials Sheets і Postgres, п. 4 Anthropic API, п. 6 і 7б–12 нові таблиці, вʼю й функції без RLS або з RLS без політик) — у файлі `SECURITY.md`; кожен новий об'єкт БД дописується туди тим самим комітом.
 Правило: **CTO не вмикає RLS і не ротує токен без власника.**
 
 ## 10. Відомий технічний борг
