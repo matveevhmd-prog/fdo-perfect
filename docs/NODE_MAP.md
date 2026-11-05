@@ -1,7 +1,7 @@
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9`, вузлів: 191, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId 978db8b8-1193-4db9-acb7-84cd21d61214`, вузлів: 193, груп за префіксом: 11.
 
 ## Типи вузлів
 
@@ -9,7 +9,7 @@
 |---|---|
 | `postgres` | 51 |
 | `code` | 40 |
-| `telegram` | 37 |
+| `telegram` | 39 |
 | `if` | 24 |
 | `respondToWebhook` | 8 |
 | `webhook` | 5 |
@@ -210,7 +210,7 @@
 | Xlsx: Is Valid InitData | `if` | Xlsx: Validate InitData | [0] Resolve Company (Xlsx), [1] Respond Xlsx Unauthorized |
 | Xlsx: Validate InitData | `code` | Xlsx Export Webhook | Xlsx: Is Valid InitData |
 
-## (без префікса) (57)
+## (без префікса) (59)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
@@ -218,11 +218,11 @@
 | Attach Meeting Log | `code` | Fetch Meeting Log (Chat) | Build Request Body |
 | Build MiniApp Data | `code` | AN: Split Stage Rows | AN: Attach Block |
 | Build MiniApp HTML | `code` | MiniApp Page Webhook | AN: Patch HTML |
-| Build Request Body | `code` | Attach Meeting Log | Call Anthropic |
+| Build Request Body | `code` | Attach Meeting Log | Send Thinking Ack, Call Anthropic |
 | Build Status Text | `code` | Fetch Status Metrics | Send Status Reply |
 | Build Weekly Render Data | `code` | Fetch Weekly Snapshots For Grid | Respond Weekly Render Data |
 | Build Weekly Render HTML | `code` | Weekly Render Page Webhook | Respond Weekly Render HTML |
-| Call Anthropic | `httpRequest` | Build Request Body | Sanitize Reply |
+| Call Anthropic | `httpRequest` | Build Request Body | [0] Sanitize Reply, [1] Send LLM Fallback |
 | Fetch All Project Metrics | `postgres` | Has Access (Weekly Render) | Fetch Weekly Snapshots For Grid |
 | Fetch All Weekly Snapshots | `postgres` | Has Access (Xlsx) | Xlsx: Build Rows |
 | Fetch KP Log Sum (Chat) | `postgres` | Is Owner View Request? | Fetch Project Metrics (Chat) |
@@ -260,11 +260,13 @@
 | Respond Xlsx Unauthorized | `respondToWebhook` | Has Access (Xlsx), Xlsx: Is Valid InitData | — |
 | Sanitize Reply | `code` | Call Anthropic | Is Fixed Question? |
 | Send Access Denied | `telegram` | Has Access (Telegram) | — |
+| Send LLM Fallback | `telegram` | Call Anthropic | — |
 | Send MiniApp Open Button | `telegram` | Is Owner View Request? | — |
 | Send Questions Menu | `telegram` | Is Questions Menu? | — |
 | Send Reply | `telegram` | Is Fixed Question? | — |
 | Send Reply (Questions) | `telegram` | Is Fixed Question? | — |
 | Send Status Reply | `telegram` | Build Status Text | — |
+| Send Thinking Ack | `telegram` | Build Request Body | — |
 | Send Weekly Render Button | `telegram` | Is Weekly Render Request? | — |
 | Telegram Trigger | `telegramTrigger` | — | Resolve Company (Telegram) |
 | Validate InitData | `code` | MiniApp Data Webhook | Is Valid InitData |

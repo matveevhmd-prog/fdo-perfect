@@ -56,7 +56,7 @@
 
 ---
 
-<!-- SOURCE docs/handover/00_START_HERE.md sha256=174dcf3905bf652aeb328bcb30fe8caf6fe09d7b74bf561b7aa1cc661729595c bytes=13215 -->
+<!-- SOURCE docs/handover/00_START_HERE.md sha256=daef1dfec288b4707184fdeade8cd270465e27671d5b48bf28e3f7a107a05f41 bytes=13217 -->
 **Джерело: `docs/handover/00_START_HERE.md` — Навігація, стан, чек-лист передачі**
 
 # ARCHI — пакет передачі розробки IT-компанії
@@ -115,7 +115,7 @@ ARCHI — це **контроль майбутньої рентабельнос�
 | `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` | методологія й концепція |
 | `docs/W1_DESIGN.md` | дизайн багатоклієнтності (company_id, ролі, пороги на клієнта) |
 | `docs/EVM_CLASSIC_PLAN.md`, `docs/EVM_CLASSIC_DESIGN.md` | окрема гілка «EVM (класичний)» |
-| `docs/NODE_MAP.md` | карта 191 вузла core workflow (генерується скриптом) |
+| `docs/NODE_MAP.md` | карта 193 вузлів core workflow (генерується скриптом) |
 | `docs/FEATURE_IDEAS.md` | ідеї власника: ARCHI у чаті проєкту, виконавці |
 | `docs/OWNER_MORNING_TEST.md` | тест для власника: 4 дії + 10 питань |
 | `SECURITY.md` | відомі ризики безпеки й прийняті рішення |
@@ -131,7 +131,7 @@ ARCHI — це **контроль майбутньої рентабельнос�
 |---|---|---|
 | Фаза | Робочий прототип на демо-даних; **реальних клієнтів немає**. Мета — три перші клієнти без переробки архітектури | `CLAUDE.md` п. 20 |
 | Дані в системі | Усі вигадані демо-дані з арифметично порахованими значеннями (SQL); це свідомий актив для показів, не дефект | `CLAUDE.md` п. 18 |
-| Стек | n8n Cloud (логіка, 191 вузол у core), Supabase Postgres (дані й обчислення), Telegram (бот і Mini App), Anthropic Claude (чат, брифінг), OpenAI gpt-4o (звіти, імпорт, фото, голос) | `TECH_SPEC` §6 |
+| Стек | n8n Cloud (логіка, 193 вузли у core), Supabase Postgres (дані й обчислення), Telegram (бот і Mini App), Anthropic Claude (чат, брифінг), OpenAI gpt-4o (звіти, імпорт, фото, голос) | `TECH_SPEC` §6 |
 | Багатоклієнтність | База готова (`company_id`, ключ `(company_id, project_id)`, ролі в `user_access`, пороги на клієнта). **Ізоляцію доведено тестом на рівні БД; на рівні n8n — ні.** RLS свідомо вимкнений до першого платного клієнта | `RELEASE_PLAN` §165–§171, `CLAUDE.md` п. 28 |
 | Безпека | Відкриті свідомі ризики: токен бота в живому workflow, RLS вимкнений. Авторизація з таблиці `user_access` реалізована в n8n 03.11.2026, але в Telegram не прогнана (до цього чат і WR-бот були без allowlist, `SECURITY.md` п. 7). Рішення власника: токен міняти останнім кроком перед презентацією першому клієнтові | `SECURITY.md`, `CLAUDE.md` п. 25, 28 |
 | Реліз | Дат релізів і показів немає (скасовано власником) | `CLAUDE.md` п. 24, 26 |
@@ -151,7 +151,7 @@ ARCHI — це **контроль майбутньої рентабельнос�
 | 8 | Юрист: пункт договору про згоду на знеособлені патерни, строки зберігання знань із чатів | `CLAUDE.md` п. 28, OD-20 |
 
 ## 7. Як перевірити, що середовище живе (перші 2 години)
-1. Відкрити `docs/NODE_MAP.md` і порівняти з живим core workflow `CKwCsGIwyw9feCY5` у n8n (`activeVersionId` `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9`, 191 вузол на 05.11.2026). Якщо розходяться — довіряти живому n8n, експорт перезробити (правило `CLAUDE.md`).
+1. Відкрити `docs/NODE_MAP.md` і порівняти з живим core workflow `CKwCsGIwyw9feCY5` у n8n (`activeVersionId` `978db8b8-1193-4db9-acb7-84cd21d61214`, 193 вузли на 05.11.2026). Якщо розходяться — довіряти живому n8n, експорт перезробити (правило `CLAUDE.md`).
 2. У боті `@archi_demo_bot` пройти `docs/OWNER_MORNING_TEST.md` (15 хв).
 3. Запустити `python3 scripts/check_docs.py` — очікується 0 помилок.
 4. Запустити незалежну звірку F-02, F-13, F-15 з сирих таблиць проти `project_metrics` (запит у `docs/CTO_CHECKPOINT_PROMPT.md`, перевірка C-3).
@@ -408,7 +408,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/02_BUSINESS_REQUIREMENTS.md sha256=cf43fe51d465e602b520de7d4018c8ac156355a2cea376a2b0b761756e06c748 bytes=27932 -->
+<!-- SOURCE docs/handover/02_BUSINESS_REQUIREMENTS.md sha256=e0744af54a605c53d7486f21ee61838ab8a9ec4725f7da9bcda1ed79d6084970 bytes=27932 -->
 **Джерело: `docs/handover/02_BUSINESS_REQUIREMENTS.md` — Бізнес-вимоги**
 
 # ARCHI — бізнес-вимоги
@@ -588,7 +588,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 |---|---|---|---|
 | RK-1 | Реальних клієнтів ще не було: вимір ефекту, ціни й навантаження невідомі | висока невизначеність | [Припущення] ціна $500/міс. не перевірена ринком |
 | RK-2 | Токен бота в живому n8n; RLS вимкнений; резолвер ролей `user_access` у n8n не прогнаний у Telegram | витік або неавторизований доступ | свідомо прийнято до першого платного клієнта (п. 25, 28) |
-| RK-3 | Монолітний workflow (191 вузол) складно тестувати й супроводжувати | швидкість змін, регресії | OD-14 |
+| RK-3 | Монолітний workflow (193 вузли) складно тестувати й супроводжувати | швидкість змін, регресії | OD-14 |
 | RK-4 | Якість прогнозу = якість звіту ПМа; без свіжого звіту прогнозу немає | знижується цінність | сигналу немає; показується дата оновлення |
 | RK-5 | Залежність від LLM (Anthropic, OpenAI): вартість, зміна поведінки | якість звітів і брифінгу | кодова валідація чисел, шаблони-запас |
 | RK-6 | Персональні дані у знаннях із чатів (замовник, підрядники) | юридичний ризик | потрібен юрист до першого клієнта (OD-20) |
@@ -616,7 +616,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=0f67a3e3f8c6313a3b1a6c01de0ca72f9a827dfec5ae28d6ee91e951fe350512 bytes=34512 -->
+<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=264fa2698258a9a630b02603e4cb4de667cc879f65c11580c50595fae949e23b bytes=34939 -->
 **Джерело: `docs/handover/03_TECHNICAL_CTO.md` — Технічний документ для CTO**
 
 # ARCHI — технічний документ для CTO
@@ -626,12 +626,12 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 | Питання | Відповідь |
 |---|---|
 | Що це | Оркестраційний шар над проєктними даними: план + факт + прогноз → метрики, сигнали, відповіді |
-| Де логіка | n8n Cloud: core workflow на 191 вузол, плюс 3 допоміжні workflow. Обчислення — в SQL (Supabase Postgres) і частково в Code-вузлах n8n |
+| Де логіка | n8n Cloud: core workflow на 193 вузли, плюс 3 допоміжні workflow. Обчислення — в SQL (Supabase Postgres) і частково в Code-вузлах n8n |
 | Де дані | Supabase проєкт `bxawceksdkqlbkdgjvyz`, схема `public` |
 | Клієнтські канали | Telegram-бот (чат, звіт, імпорт, брифінг), Telegram Mini App (Owner View, Weekly Render), xlsx |
 | LLM | Anthropic `claude-sonnet-4-6` (чат, брифінг), OpenAI `gpt-4o` (звіт, імпорт, зустрічі, фото), OpenAI transcribe (голос) |
 | Стан | Прототип на демо-даних; один демо-тенант; безпека — свідомі прийняті ризики (розділ 9) |
-| Найбільші технічні питання | Моноліт на 191 вузол в n8n (OD-14); частина формул ще поза SQL (W1.8); безпека (токен, RLS); відсутність автотестів на більшості вузлів; відсутність моніторингу |
+| Найбільші технічні питання | Моноліт на 193 вузли в n8n (OD-14); частина формул ще поза SQL (W1.8); безпека (токен, RLS); відсутність автотестів на більшості вузлів; відсутність моніторингу |
 | Перша рекомендація | Розділ 12 |
 
 ## 2. Архітектура
@@ -659,9 +659,10 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 | Компонент | Ідентифікатор | Примітка |
 |---|---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` | хмарний; проєкт власника |
-| Core workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent» | `activeVersionId` `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9`, 191 вузол (05.11.2026) |
+| Core workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent» | `activeVersionId` `978db8b8-1193-4db9-acb7-84cd21d61214`, 193 вузли (DR-14, 05.11.2026; відкат — попередня версія `a4c89c3c`, на 2 вузли менше) (05.11.2026) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `cf904641`; експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
 | Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `d86d127a`; експорт `workflows/Archi_Document_Intake_RC7H.json` |
+| **Error Alert** | `JZ5htUtbMaWTagoC` «ARCHI: Error Alert» | 2 вузли (`Error Trigger` → `Alert Operator`), опублікований; Error Workflow для core і Morning Brief; надсилає оператору workflow, вузол, помилку (до 300 символів), id виконання |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` | ручний, неактивний, 7 вузлів |
 | **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 11 вузлів, опублікований; `activeVersionId` `cb4b50e8-1acd-457c-a37f-16647d00fcb7` (відкат — `ae7e4e3b-eaa7-4ff6-b108-c6edec0311f4`); код `workflows/Archi_Morning_Brief.sdk.ts` |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) | чужий проєкт власника |
@@ -802,7 +803,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | № | Борг | Вузол карти |
 |---|---|---|
 | T-1 | Формули/пороги/кольори частково в n8n і браузері, не в SQL | W1.8 |
-| T-2 | Моноліт 191 вузол; код у JSON, а не у файлах | W8.1, W8.2 |
+| T-2 | Моноліт 193 вузли; код у JSON, а не у файлах | W8.1, W8.2 |
 | T-3 | ~~DDL на кожне повідомлення~~ **усунено:** вузли `WR: Ensure Mode Table` і `WR: Ensure Plan Table` виконують лише `SELECT 1 AS ok` (експорт core `a4c89c3c`, перевірка аудитом 05.11.2026); самі вузли — зайві, можна видалити | W1.6 |
 | T-4 | 21 Postgres-вузол інтерполює `'{{ … }}'` (лише `chat.id` і регулярно перевірений `project_id`); за кодом ризик низький, параметризація не планується (рішення `RELEASE_PLAN` §117, варіант A) | W1.6 |
 | T-5 | `WR: Schedule Reminder (Fri 10:00)` без вихідних з'єднань: нагадування не надсилається (D1) | W5.3 |
@@ -835,7 +836,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 4. Запустити `sql/tests/w1_5_threshold_override.sql` у SQL Editor.
 5. Перевірити автозапуск ранкового брифінгу 08:30 за київським часом (`executions` workflow `J3Oqcaa2YBEsVSng`, `owner_prefs.last_sent_on`).
 **Далі за залежностями карти:** W1.8 (формули в SQL) → W1.2/W1.4 завершення → W2 (модуль плану в ARCHI) → W3.10 (імпорт XLSX/CSV) → W4.5/W8 (інженерія, продуктивність) → W6.1/W6.4 (drill-down, вкладка EVM) → W10 (знання проєкту) → W11. Порядок обґрунтовано: усе, що зберігає дані клієнтів, залежить від W1.
-**Рішення OD-14 (n8n чи власний бекенд).** Рекомендація: не вирішувати до завершення W1–W3. Критерії для рішення (G5): кількість клієнтів, вартість підтримки, ролі й RLS, навантаження, тестованість, прив'язка до вендора. Аргументи за міграцію, відомі з коду: 191 вузол у одному workflow, код у JSON, DDL на кожне повідомлення, обмежена тестованість. Аргументи проти: працююча бізнес-логіка зашита у вузлах, а SQL-ядро (`archi_*`, `evm_*`) переносимо без змін. [Припущення] SQL-ядро — найцінніша переносима частина.
+**Рішення OD-14 (n8n чи власний бекенд).** Рекомендація: не вирішувати до завершення W1–W3. Критерії для рішення (G5): кількість клієнтів, вартість підтримки, ролі й RLS, навантаження, тестованість, прив'язка до вендора. Аргументи за міграцію, відомі з коду: 193 вузли в одному workflow, код у JSON, DDL на кожне повідомлення, обмежена тестованість. Аргументи проти: працююча бізнес-логіка зашита у вузлах, а SQL-ядро (`archi_*`, `evm_*`) переносимо без змін. [Припущення] SQL-ядро — найцінніша переносима частина.
 **Що переносимо найпершим:** `archi_recalc*`, вʼю й функції — вони вже в Postgres і не залежать від n8n.
 
 
@@ -1874,11 +1875,11 @@ erDiagram
 
 ---
 
-<!-- SOURCE docs/handover/11_API_CONTRACT.md sha256=8346d9ba023d1c36fa351ee2c964c9dcd729b23b989faa92056b34fe19d8cb3e bytes=13384 -->
+<!-- SOURCE docs/handover/11_API_CONTRACT.md sha256=e1070350e84b9a6f3649cd9abddc7bf2be9af311d529a7bc502f0d4c02631335 bytes=13483 -->
 **Джерело: `docs/handover/11_API_CONTRACT.md` — API-контракт**
 
 # ARCHI — API-контракт
-Версія 1 · 05.11.2026. Джерело: експорт core workflow `a4c89c3c` (вузли webhook, `Validate InitData`, `Respond …`, `Build MiniApp Data`, `Build Weekly Render Data`, `Xlsx: Build Rows`). Машинний опис — `docs/handover/openapi.yaml` (OpenAPI 3.0). Усе нижче **Факт за кодом**, окрім позначеного «не перевірено»; зразків живих відповідей немає (запит потребує підписаного `initData` Telegram). Форма відповіді береться з коду, перелік полів проєкту — з об'єкта в `Build MiniApp Data`.
+Версія 1 · 05.11.2026. Джерело: експорт core workflow `978db8b8` (вузли webhook, `Validate InitData`, `Respond …`, `Build MiniApp Data`, `Build Weekly Render Data`, `Xlsx: Build Rows`). Машинний опис — `docs/handover/openapi.yaml` (OpenAPI 3.0). Усе нижче **Факт за кодом**, окрім позначеного «не перевірено»; зразків живих відповідей немає (запит потребує підписаного `initData` Telegram). Форма відповіді береться з коду, перелік полів проєкту — з об'єкта в `Build MiniApp Data`.
 
 ## 1. Огляд
 | Ендпоінт | Метод | Відповідь | Авторизація | Вузол |
@@ -1944,7 +1945,7 @@ erDiagram
 ## 8. Зовнішні виклики
 | Сервіс | Вузол | Модель / призначення | Таймаут і повтор |
 |---|---|---|---|
-| Anthropic | `Call Anthropic` | `claude-sonnet-4-6`, чат; `max_tokens 2600`, `temperature 0.2` | таймаут не задано, повтору немає |
+| Anthropic | `Call Anthropic` | `claude-sonnet-4-6`, чат; `max_tokens 2600`, `temperature 0.2` | таймаут 45 с, 2 спроби (пауза 2 с); збій → «⚠️ Відповідь тимчасово недоступна» (DR-14, 05.11.2026) |
 | OpenAI | `WR: OpenAI Chat Model`, `WR: Transcribe`, `WR: Analyze Image` | `gpt-4o` звіт/імпорт/зустріч; транскрипція голосу; аналіз фото | немає |
 | Anthropic | Morning Brief `Call Anthropic` | `claude-sonnet-4-6`, брифінг; `max_tokens 2000`, `temperature 0.2`, таймаут 90 с | `onError: continueRegularOutput` (шаблони-запас) |
 | Supabase Postgres | вузли `postgres` | прямі SQL-запити (51 вузол core) | немає; `WR: Save Weekly Snapshot` — `retryOnFail` |
@@ -2071,23 +2072,23 @@ components:
 
 ---
 
-<!-- SOURCE docs/handover/12_ERROR_AND_EDGE_CASES.md sha256=3201424fbb034bb59c6ae4c49b2cab5d6cc81d5447cd4e48cf8b8f9944dff491 bytes=16144 -->
+<!-- SOURCE docs/handover/12_ERROR_AND_EDGE_CASES.md sha256=d1597b1b4f6391fba5817361d66eec861b9c09daf9b2eccbeda7b6b5fcac5021 bytes=17035 -->
 **Джерело: `docs/handover/12_ERROR_AND_EDGE_CASES.md` — Помилки, порожні стани, крайні випадки**
 
 # ARCHI — помилки, порожні стани, крайні випадки
-Версія 1 · 05.11.2026. Розділи 1–3 — **як є** (Факт за експортом core `a4c89c3c` і живим SQL). Колонка «Бажано» — **[Рекомендація]**, рішення за власником. Чого немає в коді, того тут не вигадано: це записано як прогалина.
+Версія 1 · 05.11.2026. Розділи 1–3 — **як є** (Факт за експортом core `978db8b8` (до DR-14 — `a4c89c3c`) і живим SQL). Колонка «Бажано» — **[Рекомендація]**, рішення за власником. Чого немає в коді, того тут не вигадано: це записано як прогалина.
 
 ## 1. Що є в коді для обробки помилок (Факт)
 | Параметр | Значення | Наслідок |
 |---|---|---|
-| Вузлів із `onError` | 3: `WR: Save Weekly Snapshot` (`continueErrorOutput`), `Fetch KP Log Sum (MiniApp)` і `(Chat)` (`continueRegularOutput`) | усі інші вузли при помилці зупиняють виконання |
-| Вузлів із `retryOnFail` | 2: `WR: Send Final Report`, `WR: Save Weekly Snapshot` | решта без повтору |
-| LLM-вузли | `Call Anthropic` (чат), `WR: OpenAI Chat Model`, `WR: Transcribe`, `WR: Analyze Image`: без `onError`, без `retryOnFail`, таймаут не задано | збій провайдера = помилка виконання |
-| Error Workflow | не задано (`settings` core: `executionOrder`, `binaryMode`, `timezone`) | про збої ніхто не сповіщається |
-| Тексти помилок для користувача в core | 2: «⛔ Доступ не надано» (`Send Access Denied`) і «❗ Формат файлу не підтримується» (`WR: Send Unsupported Format`); HTTP `401` `{"error":"invalid or missing initData"}` для Mini App | решта збоїв користувач бачить як тишу |
+| Вузлів із `onError` | 6: `WR: Save Weekly Snapshot` (`continueErrorOutput`), `Fetch KP Log Sum (MiniApp)` і `(Chat)`, `Send Thinking Ack`, `Send LLM Fallback` (`continueRegularOutput`), `Call Anthropic` (`continueErrorOutput`, з 05.11.2026, DR-14) | усі інші вузли при помилці зупиняють виконання |
+| Вузлів із `retryOnFail` | 3: `WR: Send Final Report`, `WR: Save Weekly Snapshot`, `Call Anthropic` (2 спроби, пауза 2 с) | решта без повтору |
+| LLM-вузли | `Call Anthropic` (чат): таймаут 45 с, 2 спроби, error output → `Send LLM Fallback` (DR-14, 05.11.2026). `WR: OpenAI Chat Model`, `WR: Transcribe`, `WR: Analyze Image`: без `onError`, без `retryOnFail`, таймаут не задано | збій OpenAI = помилка виконання (оператор отримує сповіщення, користувач ПМ — ні) |
+| Error Workflow | `JZ5htUtbMaWTagoC` «ARCHI: Error Alert» для core і Morning Brief (з 05.11.2026): оператору в Telegram надходять workflow, вузол, помилка, id виконання. **Не перевірено наживо** (потрібен збій) | оператор дізнається про збій; користувач — лише для чату |
+| Тексти помилок для користувача в core | 3 (з DR-14): «⛔ Доступ не надано» (`Send Access Denied`) і «❗ Формат файлу не підтримується» (`WR: Send Unsupported Format`); HTTP `401` `{"error":"invalid or missing initData"}` для Mini App | решта збоїв користувач бачить як тишу |
 | Брифінг (Morning Brief) | `Call Anthropic` має `onError: continueRegularOutput`, таймаут 90 с; код підставляє шаблони | єдиний потік із fallback |
 | Спостережуваність | немає моніторингу помилок, дашборда виконань, алертів | W8.4 ⬜ |
-**Висновок:** жодна помилка зовнішнього сервісу в чаті, у звіті ПМа й в імпорті не доходить до користувача зрозумілим повідомленням. [Припущення за налаштуваннями вузлів, не перевірено відтворенням: користувач бачить мовчання бота.]
+**Висновок:** після DR-14 збій Anthropic у чаті доходить до користувача повідомленням «⚠️ Відповідь тимчасово недоступна», а оператор отримує сповіщення про будь-який збій core. У звіті ПМа (OpenAI), транскрипції й аналізі фото користувач досі нічого не бачить. [Припущення за налаштуваннями вузлів, не перевірено відтворенням: користувач бачить мовчання бота.]
 
 ## 2. Каталог помилок
 Класи: **U** — помилка користувача (виправляється діями користувача), **S** — системна, **R** — відновлювана, **N** — невідновлювана без втручання.
@@ -2097,7 +2098,7 @@ components:
 | E-02 | Немає або недійсний `initData` / користувач без компанії (Mini App) | U | [Припущення: порожній екран або помилка завантаження]; HTTP `401` | відповідь `401` | показати в Mini App повідомлення «Відкрийте з Telegram» |
 | E-03 | `auth_date` старший за 24 години | U, R | як E-02 | `401` | заохочувати перезапуск Mini App |
 | E-04 | Непідтримуваний формат файлу (не PDF/TXT) | U, R | «❗ Формат файлу не підтримується • Надішліть як .txt або .pdf • Або вставте текст» | зупиняє обробку файлу | залишити |
-| E-05 | Збій Anthropic у чаті (таймаут, 429, 5xx) | S, R | тиша [Припущення] | виконання падає, без повтору | повідомлення «Сервіс відповідей тимчасово недоступний, спробуйте за хвилину»; 1–2 повтори з паузою; Error Workflow |
+| E-05 | Збій Anthropic у чаті (таймаут, 429, 5xx) | S, R | **«⚠️ Відповідь тимчасово недоступна • Сервіс відповідей не відповів • Спробуйте ще раз за хвилину»** (DR-14, 05.11.2026; не перевірено наживо) | таймаут 45 с, 2 спроби, error output → `Send LLM Fallback`; оператору — сповіщення (Error Workflow спрацьовує лише на збої, що зупинили виконання) | залишити |
 | E-06 | Збій OpenAI у звіті ПМа | S, R | тиша [Припущення] | виконання падає; повідомлення лишаються в `archi_wr_inbox` (не видаляються до `Inbox Consume`) | «Звіт не оброблено, повідомлення збережено, повторіть «Відправити»» |
 | E-07 | Збій транскрипції голосу / аналізу фото | S, R | тиша [Припущення] | виконання падає | «Не вдалося розпізнати голос/фото, надішліть текстом» |
 | E-08 | Telegram API не приймає відповідь (429, 403 «бот заблокований», 400 через HTML) | S | недоступно | виконання падає; для HTML-розмітки є `Sanitize Reply` і екранування | лог + Error Workflow; для 429 — пауза й повтор |
@@ -2147,8 +2148,7 @@ components:
 | EC-17 | Права видалення клієнта | не специфіковано (OD-20) | — | юрист, політика зберігання |
 
 ## 5. Рекомендації за пріоритетом [Рекомендація, рішення власника]
-1. **Fallback чату при збої Anthropic** і таймаут `Call Anthropic`: зараз мовчання. Одна правка живого n8n.
-2. **Error Workflow** для core: хоча б повідомлення оператору в Telegram про збій.
+1–2 виконано 05.11.2026 (DR-14): fallback чату з таймаутом і повтором, Error Workflow. Лишається:
 3. Повідомлення «збережено, повторіть» для звіту ПМа при збої OpenAI (E-06).
 4. Рішення EC-01 (одночасний «Фінал»), EC-10 (редагування заднім числом), EC-11 (ролі).
 5. Тести порожніх станів (портфель без проєктів, новий клієнт).
@@ -2157,11 +2157,11 @@ components:
 
 ---
 
-<!-- SOURCE docs/handover/13_USER_FLOWS.md sha256=42a72c343421ec2bc85b11755def132abeadb558b9f37817c46bd9f0416b6936 bytes=8191 -->
+<!-- SOURCE docs/handover/13_USER_FLOWS.md sha256=54841043a48c2908b805270532363b5efbd5cfce41d5bcfe1b60007298e8e8e0 bytes=8530 -->
 **Джерело: `docs/handover/13_USER_FLOWS.md` — Потоки користувача (Mermaid)**
 
 # ARCHI — потоки користувача (діаграми)
-Версія 1 · 05.11.2026. Діаграми Mermaid за кодом core `a4c89c3c` і документами (`TECH_SPEC` §4, `WEEKLY_REPORT_FORM`, `CLAUDE.md` п. 2, 9, 32). Вузли n8n названо як у `NODE_MAP.md`. Гілки помилок — за `12_ERROR_AND_EDGE_CASES.md`; **жирним** у підписах позначено поведінку, якої в системі зараз немає (прогалина). Кнопки й повідомлення — із коду.
+Версія 1 · 05.11.2026. Діаграми Mermaid за кодом core `978db8b8` (до DR-14 — `a4c89c3c`) і документами (`TECH_SPEC` §4, `WEEKLY_REPORT_FORM`, `CLAUDE.md` п. 2, 9, 32). Вузли n8n названо як у `NODE_MAP.md`. Гілки помилок — за `12_ERROR_AND_EDGE_CASES.md`; **жирним** у підписах позначено поведінку, якої в системі зараз немає (прогалина). Кнопки й повідомлення — із коду.
 
 ## 1. Тижневий звіт ПМа
 ```mermaid
@@ -2245,9 +2245,10 @@ flowchart TD
   L --> M{Q1–Q10?}
   M -- так --> N[Send Reply (Questions): клавіатура питань]
   M -- ні --> O[Send Reply: головне меню]
-  K -. збій .-> P[Тиша: fallback відсутній]
+  K -. збій після 2 спроб .-> P[Send LLM Fallback: ⚠️ Відповідь тимчасово недоступна]
+  H2[Build Request Body] --> Q[Send Thinking Ack: ⏳ Готую відповідь…]
 ```
-Пам'яті розмови немає. Формат відповіді — Insight → Impact → Action, до 3 проєктів; «даних немає» замість вигаданих чисел.
+Перед викликом LLM кожне запитання отримує повідомлення «⏳ Готую відповідь…» (DR-14). Пам'яті розмови немає. Формат відповіді — Insight → Impact → Action, до 3 проєктів; «даних немає» замість вигаданих чисел.
 
 ## 4. Імпорт годин і грошей (бот)
 ```mermaid
@@ -2298,7 +2299,7 @@ flowchart LR
 
 ---
 
-<!-- SOURCE docs/handover/14_THREAT_MODEL.md sha256=992ebd04964dbd65893e966d3c1c6822b50bfc21a17a3170b8dd1093b0c4fba9 bytes=10247 -->
+<!-- SOURCE docs/handover/14_THREAT_MODEL.md sha256=c076ca7569d84caf5c8a90727768c2a91226c86c63897894c403248370c0c460 bytes=10630 -->
 **Джерело: `docs/handover/14_THREAT_MODEL.md` — Модель загроз (STRIDE)**
 
 # ARCHI — модель загроз (STRIDE, короткий огляд)
@@ -2334,7 +2335,7 @@ flowchart LR
 | T-12 | Information disclosure | Файл Кошториса `anyone writer` | Google Drive | виводиться з обігу (п. 17), правило доступу ще діє | середній, лише демо-файл | С / С | W2.7 |
 | T-13 | Information disclosure | Email власника й сервісного акаунта в публічній git-історії | git | репозиторій приватний; email замасковано в документах, лишається в історії | малий | Н / Н | — |
 | T-14 | Denial of service | Масові запити до бота й вебхуків | n8n Cloud | rate limiting у коді немає; обмеження платформи | середній | С / С | W8.4 |
-| T-15 | Denial of service | Збій LLM/Supabase/Telegram залишає бота без відповіді | чат, звіт | fallback лише в брифінгу | середній | В / С | `12`, рекомендації 1–3 |
+| T-15 | Denial of service | Збій LLM/Supabase/Telegram залишає бота без відповіді | чат, звіт | fallback чату (таймаут 45 с, 2 спроби, повідомлення) і Error Workflow з 05.11.2026; звіт ПМа, транскрипція, фото — без повідомлення користувачу | середній для звіту, малий для чату | С / С | `12` §5 |
 | T-16 | Denial of service | Вичерпання бюджету LLM довгими повідомленнями | чат, звіт | ліміти токенів на вузлах; бюджет не контролюється | середній | С / С | W10.7 |
 | T-17 | Elevation of privilege | Виконавець вносить гроші (п. 23) | імпорт | перевірки ролі в коді немає | відкрито | С / В | W10.9 |
 | T-18 | Elevation of privilege | Оператор FDO бачить усіх клієнтів без журналу | модель ролей | роль задокументована, журналу дій немає | прийнято як модель (п. 22) | Н / В | журнал дій |
@@ -2350,7 +2351,7 @@ flowchart LR
 1. Перевірити секретний токен вебхука Telegram (T-03): одна перевірка, без змін.
 2. Закрити T-06: `company_id` у 16 вузлах і в ключі `session_id` (W1.6), тести T4–T6.
 3. Додати перевірку ролі в імпорті грошей (T-17), коли з'являться виконавці.
-4. Fallback чату й Error Workflow (T-15).
+4. ~~Fallback чату й Error Workflow (T-15)~~ — виконано 05.11.2026 (DR-14); лишається повідомлення ПМу при збої звіту, транскрипції й аналізу фото.
 5. Журнал дій оператора (T-07, T-18).
 6. Перевірки вмісту текстів плану/проблем/допомоги (T-05): обмеження довжини, фільтр розмітки.
 7. Юридична перевірка умов провайдерів LLM і договору клієнта (T-11).
@@ -2361,7 +2362,7 @@ flowchart LR
 
 ---
 
-<!-- SOURCE docs/handover/15_USER_STORIES.md sha256=c1d73ad4166bb08e70c2addd5d97476091e110b65d8ac599c032ed2729f07470 bytes=35477 -->
+<!-- SOURCE docs/handover/15_USER_STORIES.md sha256=67fd65af4903e5b24075121c49f8d062aaf7eed1fed29fb2bda2c4136fbf8bdc bytes=35592 -->
 **Джерело: `docs/handover/15_USER_STORIES.md` — User Stories з Acceptance Criteria**
 
 # ARCHI — User Stories з Acceptance Criteria
@@ -2506,7 +2507,7 @@ Acceptance Criteria:
 
 Acceptance Criteria:
 - Given вільний текст, When відповідь, Then числа лише з розрахованих кодом рядків «Сигнали (пораховано кодом)»; «залишок» у тексті не вживається
-- Given збій Anthropic, When запит, Then (бажано) повідомлення «сервіс тимчасово недоступний»; **зараз** — тиша (E-05)
+- Given збій Anthropic, When запит, Then після 2 спроб і таймауту 45 с повідомлення «⚠️ Відповідь тимчасово недоступна», оператору — сповіщення (DR-14, 05.11.2026; не перевірено наживо)
 
 Зв'язок: BR-41, `12` E-05.
 
@@ -2870,7 +2871,7 @@ Acceptance Criteria:
 
 ---
 
-<!-- SOURCE docs/handover/16_NFR.md sha256=0b77471eecbf5cd3f2a6b61fa8e5be043923e4bf0f39b058652baf8b6c6892cd bytes=9902 -->
+<!-- SOURCE docs/handover/16_NFR.md sha256=fab77b26a9421e189d64fa943269fa9e2bebcb3fef8b12cc9c1739688d09135d bytes=10075 -->
 **Джерело: `docs/handover/16_NFR.md` — Нефункціональні вимоги: цілі власника й стан**
 
 # ARCHI — нефункціональні вимоги (NFR)
@@ -2922,7 +2923,7 @@ Acceptance Criteria:
 | A. Детерміновані | кнопки, `/status`, «Статус звітів», JSON Mini App, «📥 Прийнято · у черзі N» | ≤ 6 с (NFR-10, перцентиль — розділ 7) |
 | B. З LLM, інтерактивні | чат Q1–Q10 і вільні питання, «Відправити» звіт ПМа, імпорт | перше повідомлення «⏳ Готую відповідь» ≤ 6 с; сама відповідь — окрема ціль [X] |
 | C. Планові | ранковий брифінг | не залежить від користувача; окрема ціль [X], напр. завершення виконання в межах вікна 30 хв |
-Клас B потребує зміни живого n8n (проміжне повідомлення, `onError`, таймаут). Рішення — розділ 7.
+Клас B: проміжне повідомлення «⏳ Готую відповідь…», таймаут 45 с і fallback для чату **реалізовано 05.11.2026 (DR-14)**; для звіту ПМа (`WR: Agent`) і імпорту — ще ні. Ціль самої відповіді класу B — розділ 7.
 
 ## 5. Як перевіряти кожну вимогу
 | ID | Метод | Критерій | Стан |
@@ -3140,7 +3141,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 
 ---
 
-<!-- SOURCE docs/handover/07_REVIEW_REPORT.md sha256=7a2d7f2333bb910034e8b79f9434793072612a36dbb3d2724c48d2f0f2b2f0da bytes=14414 -->
+<!-- SOURCE docs/handover/07_REVIEW_REPORT.md sha256=4aeec33253c77af5d47cce6b399c4cd62e7dd1f535373047bf3ad8837c10a11b bytes=14685 -->
 **Джерело: `docs/handover/07_REVIEW_REPORT.md` — Звіт про перевірку за планом**
 
 # ARCHI — звіт про перевірку пакета за планом
@@ -3207,7 +3208,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 | DR-11 | P1 | `02` BR-51 | Статус ✅, а блоку «стан портфеля» у брифінгу не було (знайдено зовнішнім аудитом) | Блок додано (SQL `portfolio`, вузол `Add Portfolio Block`), виконання 7054 | закрито |
 | DR-12 | P1 | `03` T-3, `TECH_SPEC` §6, §10 | Застарілі: DDL на кожне повідомлення; версія core `40abff53`, 179 вузлів | Виправлено; `check_handover.py` A10b стежить за реєстром core | закрито |
 | DR-13 | P1 | код | `archi_bot_mode_state` і `n8n_chat_histories` без `company_id` (16 вузлів core); `check_tenant_filter.py` їх не бачив | Скрипт розширено; виправлення вузлів — W1.6, потребує «так» | відкрито |
-| DR-14 | P1 | код | Чат (`Call Anthropic`), `WR: Agent`, транскрипція й аналіз фото без `onError`, повтору й таймауту; Error Workflow не задано; користувач не бачить помилок (виявлено при складанні `12`) | Описано в `12` §1–§2; виправлення живого n8n — за «так» власника | відкрито |
+| DR-14 | P1 | код | Чат (`Call Anthropic`), `WR: Agent`, транскрипція й аналіз фото без `onError`, повтору й таймауту; Error Workflow не задано; користувач не бачить помилок (виявлено при складанні `12`) | **Виправлено частково 05.11.2026 (`RELEASE_PLAN` §180):** чат — ack, таймаут 45 с, 2 спроби, fallback; Error Workflow `JZ5htUtbMaWTagoC` для core і брифінгу. Лишається: звіт ПМа, транскрипція, фото (користувач нічого не бачить); перевірка наживо | закрито частково |
 | DR-15 | P2 | безпека | Не перевірено, чи використовує вебхук Telegram секретний токен (T-03 у `14`) | Додано в рекомендації `14` §5 | відкрито |
 | DR-16 | P1 | `16_NFR.md` | Ціль «6 с» не виконується для відповідей LLM (4 з 100 виконань core довші за 6 с, брифінг 17–22 с); RPO 24 год і доступність 98,89% не гарантовані: резервних копій за розкладом і моніторингу немає | Описано в `16` §3–§4; рішення власника в `16` §7; виправлення W8.4, W4.5 | відкрито |
 | DR-10 | P2 | `00` §6, `04` §1 | Розшифровки МБР, ЕП, П, Р, АН у репозиторії не було | Отримано від власника 05.11.2026, внесено в `04` §1 і `TECH_SPEC` §7; рядок прибрано з чек-листу `00` §6 | закрито |
@@ -3856,7 +3857,7 @@ WBS = `docs/ROADMAP_TO_RELEASE.md` (з 02.11.2026) — головна карта
 
 ---
 
-<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=19da8a30ac409473241470158ccded28ba6325fecf61726c3e61d444a658f28c bytes=52963 -->
+<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=4a9e126d3ddf9d5e184df114b871dd317ab12577f7fa7219fce3ed07e5e04648 bytes=53077 -->
 **Джерело: `docs/ROADMAP_TO_RELEASE.md` — Єдина карта розробки до релізу**
 
 # ARCHI — ROADMAP_TO_RELEASE (WBS, єдина карта)
@@ -4002,7 +4003,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 | W8.1 Код великих вузлів у файлах (джерело істини) + збірка в JSON (G2) | ⬜ |
 | W8.2 Розбиття монолітного workflow на підпроцеси (179 вузлів) | ⬜ ⛔ OD-14 (G5: n8n чи власний бекенд — з критеріями: клієнти, підтримка, ролі/RLS, навантаження) |
 | W8.3 K6sm і RC7H експортувати в git | ✅ 02.11.2026: `workflows/Archi_Koshtorys_Ingest_K6sm.json` (`cf904641`, 16 вузлів), `workflows/Archi_Document_Intake_RC7H.json` (`d86d127a`, 5 вузлів); `RELEASE_PLAN` §158. Лишається: Sheets Helper `nGcSyWfuMO7vjTn6` (не експортовано) |
-| W8.4 Моніторинг помилок, резервні копії, відкат | 🟡 05.11.2026: CI документації й скриптів (`.github/workflows/ci.yml`, `RELEASE_PLAN` §178); моніторингу виконань n8n, Error Workflow, резервних копій немає (DR-14) |
+| W8.4 Моніторинг помилок, резервні копії, відкат | 🟡 05.11.2026: CI документації й скриптів (`.github/workflows/ci.yml`, `RELEASE_PLAN` §178); Error Workflow `JZ5htUtbMaWTagoC` і fallback чату з 05.11.2026 (`RELEASE_PLAN` §180); дашборда виконань, uptime-моніторингу, резервних копій за розкладом немає |
 | W8.5 `NODE_MAP`, `TECH_SPEC` | `NODE_MAP` генерується; `TECH_SPEC` v3.1 ✅ 02.11.2026 (змінено лише перевірене; розділи 4, 5, 7 — зміст v3.0, звірка S-/P-/R-check лишається в W0.3) | 🟡 |
 
 ### W9 · Релізна операційка
@@ -4112,7 +4113,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 
 ---
 
-<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=2bcffaef6062cd05d51e6ffdbaa9acf62c7af0347795229d8556a254e3e91bfa bytes=43062 -->
+<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=0172cff2cc208df7de5290fe99d657cc793bfad18f47b75af93ff2991cf14c42 bytes=43154 -->
 **Джерело: `docs/ARCHI_TECH_SPEC_v3_1.md` — Технічна специфікація v3.1**
 
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.1
@@ -4331,7 +4332,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9` (04.11.2026, 191 вузол, W1.5; раніше `40abff53` 03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
+| Core workflow | `CKwCsGIwyw9feCY5`, `978db8b8-1193-4db9-acb7-84cd21d61214` (05.11.2026, 193 вузли, DR-14; раніше `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9` 04.11.2026, 191 вузол, W1.5; ще раніше `40abff53` 03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64). **29.10.2026:** гілка `AN:` (7 вузлів, збережена 17.10.2026) лишалась неопублікованою (активна була `84a8e8b0` від 11.10.2026); опубліковано `f2eb3887` 29.10.2026 за рішенням власника (§135), відкат — `84a8e8b0`. Перевірка `кошторис DEMO-0X-АН` у Telegram — відкрито | **29.10.2026, §139:** `AN: Read Tab` — `onError: continueRegularOutput` (відсутня вкладка → повідомлення «Вкладку … не знайдено»), активна версія `cf904641`, відкат `f2eb3887`.
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо; live 29.10.2026 — 5 нод) |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` (ручний, inactive, 7 нод; правки Кошторису) |
@@ -6268,13 +6269,13 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 
 ---
 
-<!-- SOURCE docs/NODE_MAP.md sha256=0b62b570f7c32c42aba93adfb5f86e0fe2dd8afed0263a985a00cdf485ba5d01 bytes=19423 -->
+<!-- SOURCE docs/NODE_MAP.md sha256=b8701fc0f5f56740eedfe78f81958813c050bade2d90114fa38eaafe1aeb2e11 bytes=19589 -->
 **Джерело: `docs/NODE_MAP.md` — Карта вузлів core workflow (генерується)**
 
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9`, вузлів: 191, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId 978db8b8-1193-4db9-acb7-84cd21d61214`, вузлів: 193, груп за префіксом: 11.
 
 ## Типи вузлів
 
@@ -6282,7 +6283,7 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 |---|---|
 | `postgres` | 51 |
 | `code` | 40 |
-| `telegram` | 37 |
+| `telegram` | 39 |
 | `if` | 24 |
 | `respondToWebhook` | 8 |
 | `webhook` | 5 |
@@ -6483,7 +6484,7 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | Xlsx: Is Valid InitData | `if` | Xlsx: Validate InitData | [0] Resolve Company (Xlsx), [1] Respond Xlsx Unauthorized |
 | Xlsx: Validate InitData | `code` | Xlsx Export Webhook | Xlsx: Is Valid InitData |
 
-## (без префікса) (57)
+## (без префікса) (59)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
@@ -6491,11 +6492,11 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | Attach Meeting Log | `code` | Fetch Meeting Log (Chat) | Build Request Body |
 | Build MiniApp Data | `code` | AN: Split Stage Rows | AN: Attach Block |
 | Build MiniApp HTML | `code` | MiniApp Page Webhook | AN: Patch HTML |
-| Build Request Body | `code` | Attach Meeting Log | Call Anthropic |
+| Build Request Body | `code` | Attach Meeting Log | Send Thinking Ack, Call Anthropic |
 | Build Status Text | `code` | Fetch Status Metrics | Send Status Reply |
 | Build Weekly Render Data | `code` | Fetch Weekly Snapshots For Grid | Respond Weekly Render Data |
 | Build Weekly Render HTML | `code` | Weekly Render Page Webhook | Respond Weekly Render HTML |
-| Call Anthropic | `httpRequest` | Build Request Body | Sanitize Reply |
+| Call Anthropic | `httpRequest` | Build Request Body | [0] Sanitize Reply, [1] Send LLM Fallback |
 | Fetch All Project Metrics | `postgres` | Has Access (Weekly Render) | Fetch Weekly Snapshots For Grid |
 | Fetch All Weekly Snapshots | `postgres` | Has Access (Xlsx) | Xlsx: Build Rows |
 | Fetch KP Log Sum (Chat) | `postgres` | Is Owner View Request? | Fetch Project Metrics (Chat) |
@@ -6533,11 +6534,13 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | Respond Xlsx Unauthorized | `respondToWebhook` | Has Access (Xlsx), Xlsx: Is Valid InitData | — |
 | Sanitize Reply | `code` | Call Anthropic | Is Fixed Question? |
 | Send Access Denied | `telegram` | Has Access (Telegram) | — |
+| Send LLM Fallback | `telegram` | Call Anthropic | — |
 | Send MiniApp Open Button | `telegram` | Is Owner View Request? | — |
 | Send Questions Menu | `telegram` | Is Questions Menu? | — |
 | Send Reply | `telegram` | Is Fixed Question? | — |
 | Send Reply (Questions) | `telegram` | Is Fixed Question? | — |
 | Send Status Reply | `telegram` | Build Status Text | — |
+| Send Thinking Ack | `telegram` | Build Request Body | — |
 | Send Weekly Render Button | `telegram` | Is Weekly Render Request? | — |
 | Telegram Trigger | `telegramTrigger` | — | Resolve Company (Telegram) |
 | Validate InitData | `code` | MiniApp Data Webhook | Is Valid InitData |
