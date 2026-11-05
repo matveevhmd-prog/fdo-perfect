@@ -33,11 +33,11 @@ def handover_files():
 # ---------- A1 наявність файлів
 need = ["00_START_HERE.md", "01_PRODUCT_BRIEF.md", "02_BUSINESS_REQUIREMENTS.md", "03_TECHNICAL_CTO.md",
         "04_METHODOLOGY_FOR_DEVELOPERS.md", "05_CTO_REVIEW_PLAN.md", "06_REVIEW_VALIDATION_PLAN.md",
-        "07_REVIEW_REPORT.md"]
+        "07_REVIEW_REPORT.md", "08_CODE_VS_DOCS_AUDIT_PROMPT.md"]
 miss = [n for n in need if not (H / n).exists()]
 rec("A1", "FAIL" if miss else "PASS", "відсутні файли: %s" % miss if miss else "усі %d файлів пакета є" % len(need))
 
-META = {"05_CTO_REVIEW_PLAN.md", "06_REVIEW_VALIDATION_PLAN.md", "07_REVIEW_REPORT.md"}  # описують перевірки й підкинуті дефекти
+META = {"05_CTO_REVIEW_PLAN.md", "06_REVIEW_VALIDATION_PLAN.md", "07_REVIEW_REPORT.md", "08_CODE_VS_DOCS_AUDIT_PROMPT.md"}  # описують перевірки й підкинуті дефекти
 alldocs = {p.name: read(p) for p in handover_files()}
 docs = {k: v for k, v in alldocs.items() if k not in META}  # зміст перевіряється лише у 00–04
 allh = "\n".join(docs.values())

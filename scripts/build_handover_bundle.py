@@ -23,6 +23,7 @@ PARTS = [
         ("docs/handover/05_CTO_REVIEW_PLAN.md", "План перевірки пакета CTO"),
         ("docs/handover/06_REVIEW_VALIDATION_PLAN.md", "План валідації результатів перевірки"),
         ("docs/handover/07_REVIEW_REPORT.md", "Звіт про перевірку за планом"),
+        ("docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md", "Промпт: перевірка існуючого коду проти документації"),
     ]),
     ("ЧАСТИНА III — Канон: рішення, карта, специфікації", [
         ("CLAUDE.md", "Закриті рішення власника п. 1–32, ритуал і правила сесії"),
