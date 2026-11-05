@@ -25,6 +25,7 @@ PARTS = [
         ("docs/handover/13_USER_FLOWS.md", "Потоки користувача (Mermaid)"),
         ("docs/handover/14_THREAT_MODEL.md", "Модель загроз (STRIDE)"),
         ("docs/handover/15_USER_STORIES.md", "User Stories з Acceptance Criteria"),
+        ("docs/handover/16_NFR.md", "Нефункціональні вимоги: цілі власника й стан"),
     ]),
     ("ЧАСТИНА II — Перевірка пакета", [
         ("docs/handover/05_CTO_REVIEW_PLAN.md", "План перевірки пакета CTO"),
@@ -33,7 +34,7 @@ PARTS = [
         ("docs/handover/08_CODE_VS_DOCS_AUDIT_PROMPT.md", "Промпт: перевірка існуючого коду проти документації"),
     ]),
     ("ЧАСТИНА III — Канон: рішення, карта, специфікації", [
-        ("CLAUDE.md", "Закриті рішення власника п. 1–32, ритуал і правила сесії"),
+        ("CLAUDE.md", "Закриті рішення власника п. 1–33, ритуал і правила сесії"),
         ("docs/DECISIONS_REGISTER.md", "Реєстр закритих рішень і суперечностей"),
         ("docs/ROADMAP_TO_RELEASE.md", "Єдина карта розробки до релізу"),
         ("docs/ARCHI_TECH_SPEC_v3_1.md", "Технічна специфікація v3.1"),
