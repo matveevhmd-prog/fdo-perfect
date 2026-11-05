@@ -14,7 +14,7 @@
 Перевір, що працюють: n8n (`get_workflow_details` на `CKwCsGIwyw9feCY5`), Supabase (`execute_sql` `select 1`), GitHub. Якщо чогось немає — скажи першим рядком і зупинись.
 
 ## Порядок читання
-1. `CLAUDE.md` повністю (п. 1–33, правила сесії).
+1. `CLAUDE.md` повністю (п. 1–34, правила сесії).
 2. `docs/WBS_FROM_FINAL.md` — зворотний WBS від фіналу до сьогодні (стан 81 вузла, перша дія по кожному критерію R-N, відкриті OD). Це вхід у роботу.
 3. `docs/handover/00_START_HERE.md` — навігація пакета; далі за потребою `01…16`, `openapi.yaml`, `ARCHI_FULL_PACKAGE.md` (усе в одному файлі).
 4. `docs/DECISIONS_REGISTER.md`, `docs/ROADMAP_TO_RELEASE.md` (єдине джерело статусів).
