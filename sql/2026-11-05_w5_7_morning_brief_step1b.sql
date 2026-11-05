@@ -1,6 +1,6 @@
 -- Статус: ЗАСТОСОВАНО в Supabase 05.11.2026 (apply_migration), перевірено на DEMO.
 -- ARCHI W5.7, крок 1b (05.11.2026). Доповнення до 2026-11-05_w5_7_morning_brief_step1.sql (CREATE OR REPLACE тієї ж функції).
--- + правило sub_blocked (власник 05.11.2026): у «Проблемах» останнього звіту ПМа «підрядник не починає роботу, чекає аванс» або «підрядник не отримав оплату, не віддає роботу» (регулярні вирази; вага 85)
+-- + правило sub_blocked (власник 05.11.2026): у «Проблемах» останнього звіту ПМа «підрядник не починає роботу, чекає аванс» або «підрядник не отримав оплату, не віддає роботу» (регулярні вирази; вага 120 — після кроку 1b збільшено з 85, щоб кейс потрапляв у топ-5)
 -- + advice на кожну дію: адресат за роллю, режим (нарада 1×1 / повідомлення / дзвінок / рішення), код мети (правила «подія → адресат і дія»).
 -- Відкат: повторити CREATE OR REPLACE з 2026-11-05_w5_7_morning_brief_step1.sql (без advice і sub_blocked).
 CREATE OR REPLACE FUNCTION public.archi_morning_brief(p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'))::date)
@@ -35,7 +35,7 @@ WITH pm AS (
     FROM meeting_log m JOIN pm USING (project_id)
    WHERE m.company_id = p_company AND m."дедлайн" BETWEEN p_asof - 14 AND p_asof + 2
   UNION ALL
-  SELECT s.project_id, 'sub_blocked', 85::numeric,
+  SELECT s.project_id, 'sub_blocked', 120::numeric,
          jsonb_build_object('week_start', s.week_start, 'quote', left(s.problems, 240),
            'case', CASE WHEN s.problems ~* '(підрядн|субпідрядн)[^.;\n]{0,80}(не\s+почин|чека[єе]\s+аванс|аванс)' THEN 'wait_advance' ELSE 'unpaid_no_delivery' END)
     FROM snap s
