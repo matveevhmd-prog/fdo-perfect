@@ -30,7 +30,7 @@ ARCHI — це в першу чергу **контроль майбутньої 
 | 14 | `docs/README.md` | індекс усіх документів і правила їх оновлення |
 
 ## 4. Поточний стан (02.11.2026)
-**Core workflow n8n** `CKwCsGIwyw9feCY5` («DEMO Archi Agent»): `activeVersionId 40abff53-e82e-478a-b1c5-0cb628406ab2` (03.11.2026; попередня `bc449cbd`), **179 вузлів** (Факт: збігається з експортом у репо, CTO 01.11). Типи: postgres 47, code 37, telegram 36, if 20, respondToWebhook 8, webhook 5, set 4, memoryPostgresChat 3 (Факт, код).
+**Core workflow n8n** `CKwCsGIwyw9feCY5` («DEMO Archi Agent»): `activeVersionId 978db8b8-1193-4db9-acb7-84cd21d61214` (05.11.2026; попередня `a4c89c3c`), **193 вузли** (Факт: збігається з експортом у репо, CTO 01.11). Типи: postgres 47, code 37, telegram 36, if 20, respondToWebhook 8, webhook 5, set 4, memoryPostgresChat 3 (Факт, код).
 **Sub-workflow:** K6sm `K6smBd5xWZLWx9rr` (читає Кошторис, активна `cf904641`) і RC7H `RC7HNVlJtuPLtvYV` (договір, `d86d127a`) експортовано в git 02.11.2026 (`workflows/`, W8.3); Sheets Helper `nGcSyWfuMO7vjTn6` у git немає. `Representative Bot I3K5tBj0FWF1dbWb` — не чіпати.
 **Supabase** `bxawceksdkqlbkdgjvyz` (`live SQL` 02.11.2026): `project_metrics` 18 рядків (14 `stages` + 4 `visit`), 50 колонок; `wr_weekly_snapshots` 101 рядок (8 тижнів); `time_log` 476; `money_log` 152; `payment_schedule` 56; `wr_plan_items` 467; `meeting_log` 11; `evm_packages` 100; `evm_package_done` 0. Розширення `vector` 0.8.0 встановлено.
 **Моделі:** Claude `claude-sonnet-4-6` (чат); OpenAI `gpt-4o` (звіти, імпорт, зустрічі, фото), OpenAI transcribe (голос).
@@ -52,7 +52,7 @@ ARCHI — це в першу чергу **контроль майбутньої 
 | 2 | **Авторизація в коді:** allowlist Telegram ID зашитий у 4 вузли; чат і WR-бот відкриті будь-кому | `TECH_SPEC` §5, §10; `SECURITY.md` п. 7 |
 | 3 | **RLS** вимкнений на `project_metrics`, `time_log`, `money_log`, `rates`, `kp_log`, `meeting_log`, `wr_*` | `live SQL`; `SECURITY.md` п. 5 |
 | 4 | **Токен бота** в одному вузлі core; репозиторій публічний; токен був у git-історії 17–25.10; суперечність документів про ротацію | `SECURITY.md` п. 1; `DECISIONS_REGISTER` C-1 |
-| 5 | **Моноліт 179 вузлів**, великі вузли з кодом лише в n8n; K6sm, RC7H не в git | CTO 01.11 №9; ROADMAP W8 |
+| 5 | **Моноліт 193 вузли**, великі вузли з кодом лише в n8n; K6sm, RC7H не в git | CTO 01.11 №9; ROADMAP W8 |
 | 6 | **Свіжість прогнозу:** 10 з 14 проєктів без свіжого звіту, сигналу застарілості немає | CTO 01.11 №1; ROADMAP W4.3 |
 | 7 | **Дублювання порогів** у `AN: Attach Block` поза `Build MiniApp Data` | CTO 30.10 №4, 01.11 №3 |
 | 8 | **Навантаження не вимірювалось:** `CREATE TABLE` на кожне повідомлення; запити без `WHERE`/`LIMIT` | `TECH_SPEC` §10; код |

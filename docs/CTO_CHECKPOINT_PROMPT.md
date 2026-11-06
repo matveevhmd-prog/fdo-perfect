@@ -91,17 +91,20 @@ for n in w['nodes']:
 - **R-check:** `WR: Build WR Prompt`, `WR: Parse Agent Output` — R-01…R-06.
 - **C-3 Еталонна звірка даних (обов'язково):**
 ```sql
-with h as (select t.project_id, sum(t."години"*coalesce(r.razom_grn_god, m.real_rate_team_hour)) cost
-  from time_log t join project_metrics m using(project_id) left join rates r on r.posada=t."виконавець"
-  where t."статус"='confirmed' group by 1),
-mo as (select project_id, sum("сума") filter (where "тип"='оплата_субпідряднику') sub
-  from money_log where "статус"='confirmed' group by 1)
-select m.project_id,
+with h as (select t.company_id, t.project_id, sum(t."години"*coalesce(r.razom_grn_god, m.real_rate_team_hour)) cost
+  from time_log t join project_metrics m on m.company_id=t.company_id and m.project_id=t.project_id
+  left join rates r on r.company_id=t.company_id and r.posada=t."виконавець"
+  where t."статус"='confirmed' group by 1,2),
+mo as (select company_id, project_id, sum("сума") filter (where "тип"='оплата_субпідряднику') sub
+  from money_log where "статус"='confirmed' group by 1,2)
+select m.company_id, m.project_id,
   round(coalesce(h.cost,0)+coalesce(mo.sub,0)) ac_indep, round(m.actual_cost) ac_db,
   round(coalesce(h.cost,0)+coalesce(mo.sub,0)+m.etc_forecast_total_hours*m.real_rate_team_hour
         +greatest(coalesce(m.cost_plan_subcontract,0)-coalesce(mo.sub,0),0)) cf_indep,
   round(m.cost_final_forecast) cf_db, m.profitability_forecast_pct rent_db
-from project_metrics m left join h using(project_id) left join mo using(project_id) order by 1;
+from project_metrics m
+left join h on h.company_id=m.company_id and h.project_id=m.project_id
+left join mo on mo.company_id=m.company_id and mo.project_id=m.project_id order by 1,2;
 ```
   Будь-яка розбіжність `ac_indep≠ac_db` або `cf_indep≠cf_db` — знахідка DATA (P0).
 - **C-4 Свіжість:** `select project_id, max(week_start), current_date-max(week_start)
