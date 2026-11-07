@@ -3866,7 +3866,7 @@ WBS = `docs/ROADMAP_TO_RELEASE.md` (з 02.11.2026) — головна карта
 
 ---
 
-<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=3b9c2e543e12312a326cb35114aeb0f05e37c18a1ab39ba58e534aa986910e5d bytes=53786 -->
+<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=ddd3e5d94b5e6b75625c54620ae4eb1eae9337fb240f5592d4462f4f7f1426cf bytes=53808 -->
 **Джерело: `docs/ROADMAP_TO_RELEASE.md` — Єдина карта розробки до релізу**
 
 # ARCHI — ROADMAP_TO_RELEASE (WBS, єдина карта)
@@ -3938,7 +3938,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 | W1.4 Секрети й токени на клієнта | окремий бот/токен із сховища секретів; ротація (`SECURITY.md` п. 1, 7); для виконавців — окремий Performer Bot (варіант Б, `CLAUDE.md` п. 23); суперечність про ротацію знято (C-1) | 🟡 OD-5: власник 03.11.2026 приймає ризик; ротація і перенесення токена з вузла `M: Send Project Picker` у credential — **останній крок розробки перед презентацією клієнту** (`CLAUDE.md` п. 25, 26); окремий бот на клієнта — цільова архітектура |
 | W1.5 Параметри методології на клієнта | `archi_thresholds`, `plan_year_*` (річний план бюро) — зараз глобальні | 🟡 кроки 1–3 зроблено 04.11.2026 (`RELEASE_PLAN` §169–§171); лишається динамічний тест перевизначення і екранна перевірка |
 | W1.6 Параметризація SQL | вузли з `{{ }}` (21 вузол, безпечні за CTO 01.11) → єдиний шаблон; DDL на кожне повідомлення прибрати; `company_id` у кожному запиті (перевірка `scripts/check_tenant_filter.py`: база 03.11.2026 — 46 вузлів без `company_id`; `docs/W1_DESIGN.md` §4–§6) | 🟡 `company_id` у всіх запитах (--strict = 0, 03.11.2026); лишились `{{ }}` у частині вузлів, T2–T6 |
-| W1.8 Усі формули, пороги і кольори — лише в SQL (борг A-1, D14, `FORMULAS` §7.2) | перенести з `Build MiniApp Data` (n8n), `AN: Attach Block` і браузера (`Build MiniApp HTML`: різниці, знак, колір) у SQL-вʼю/функції; n8n і Mini App лише відображають; вимога власника 04.11.2026 («серце Archi — формули — в SQL»); масштабується на N клієнтів (пороги з `archi_thresholds` по `company_id`, W1.5) | ⬜ запропоновано 04.11.2026, потребує «так» власника на обсяг і порядок |
+| W1.8 Усі формули, пороги і кольори — лише в SQL (борг A-1, D14, `FORMULAS` §7.2) | перенести з `Build MiniApp Data` (n8n), `AN: Attach Block` і браузера (`Build MiniApp HTML`: різниці, знак, колір) у SQL-вʼю/функції; n8n і Mini App лише відображають; вимога власника 04.11.2026 («серце Archi — формули — в SQL»); масштабується на N клієнтів (пороги з `archi_thresholds` по `company_id`, W1.5) | 🟡 крок 1 виконано 07.11.2026 (SQL `archi_project_signals`, `RELEASE_PLAN` §184); кроки 2–4 — `docs/W1_8_DESIGN.md` §4 |
 | W1.7 Видимість репозиторію | репозиторій публічний (`README.md`) | 🟡 OD-6 закрито 02.11.2026 (варіант А, `CLAUDE.md` п. 25): зробити приватним; змінює власник у GitHub Settings; стан після зміни перевірити |
 
 ### W2 · Кошторис-модуль у ARCHI (план, наживо)
@@ -5065,7 +5065,7 @@ Archi (основна) — формули цього довідника від �
 
 ---
 
-<!-- SOURCE SECURITY.md sha256=b4d2026a62a4997a3b6effadbd7477ad4ff77bbcefb46dcac516071290207672 bytes=25093 -->
+<!-- SOURCE SECURITY.md sha256=a9c9986b5c5ada5bbbcb66afe271f7e1e84bbb5b4ad4d936967616f07df7b956 bytes=25722 -->
 **Джерело: `SECURITY.md` — Відомі ризики безпеки**
 
 # Відомі проблеми безпеки — ARCHI
@@ -5255,6 +5255,8 @@ Call Anthropic → Send Reply` перевірки відправника не м
 **04.11.2026 (W1.5 крок 1):** нова таблиця `company_thresholds` — RLS увімкнено без політик (як `companies`, `user_access`); читає й пише лише n8n (роль postgres) і SQL Editor. Публічний ключ за RLS без політик доступу не повинен мати (запитом з anon-ключем не перевірено).
 
 **05.11.2026 (W5.7 крок 1):** нова таблиця `owner_prefs` — RLS увімкнено без політик (як `companies`, `user_access`, `company_thresholds`); читає й пише лише n8n (роль postgres) і SQL Editor. Публічний ключ за RLS без політик доступу не повинен мати (запитом з anon-ключем не перевірено).
+
+**07.11.2026 (W1.8 крок 1):** нові функції `archi_threshold_req`, `archi_project_signals` — `SECURITY INVOKER`, `search_path = public`; читають `project_metrics`, `wr_weekly_snapshots` та інші таблиці без RLS (п. 5); `EXECUTE` за замовчуванням у PUBLIC (як у інших `archi_*`); нових даних вони не відкривають, але `anon` може викликати їх з довільним `company_id` (ізоляція — як у п. 5, рішення власника OD-4). Відкликати `EXECUTE` — рішення власника.
 
 
 # ЧАСТИНА IV — Додаткові специфікації й методологія

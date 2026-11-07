@@ -185,3 +185,5 @@ Call Anthropic → Send Reply` перевірки відправника не м
 **04.11.2026 (W1.5 крок 1):** нова таблиця `company_thresholds` — RLS увімкнено без політик (як `companies`, `user_access`); читає й пише лише n8n (роль postgres) і SQL Editor. Публічний ключ за RLS без політик доступу не повинен мати (запитом з anon-ключем не перевірено).
 
 **05.11.2026 (W5.7 крок 1):** нова таблиця `owner_prefs` — RLS увімкнено без політик (як `companies`, `user_access`, `company_thresholds`); читає й пише лише n8n (роль postgres) і SQL Editor. Публічний ключ за RLS без політик доступу не повинен мати (запитом з anon-ключем не перевірено).
+
+**07.11.2026 (W1.8 крок 1):** нові функції `archi_threshold_req`, `archi_project_signals` — `SECURITY INVOKER`, `search_path = public`; читають `project_metrics`, `wr_weekly_snapshots` та інші таблиці без RLS (п. 5); `EXECUTE` за замовчуванням у PUBLIC (як у інших `archi_*`); нових даних вони не відкривають, але `anon` може викликати їх з довільним `company_id` (ізоляція — як у п. 5, рішення власника OD-4). Відкликати `EXECUTE` — рішення власника.
