@@ -1,7 +1,7 @@
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId 5968867c-f783-4624-b812-0a9994d5fcfd`, вузлів: 193, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId d3fa185e-9191-4851-ad3a-65af0d98a1ae`, вузлів: 193, груп за префіксом: 11.
 
 ## Типи вузлів
 
