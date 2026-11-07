@@ -20,7 +20,7 @@
 4. `docs/handover/audits/CODE_AUDIT_2026-11-05.md` — відомі знахідки (особливо знах. 3: жовтий у `Build MiniApp Data`; рішення 2А ще не застосоване).
 
 ## Звірка з живим станом (лише читання)
-- n8n: `activeVersionId` core проти `README.md` і `workflows/DEMO_Archi_Agent_Core.json` (на 07.11.2026: `978db8b8`, 193 вузли); Morning Brief `J3Oqcaa2YBEsVSng` (`cb4b50e8`).
+- n8n: `activeVersionId` core проти `README.md` і `workflows/DEMO_Archi_Agent_Core.json` (на 07.11.2026 після V5: `5968867c`, 193 вузли; до V5 `978db8b8`); Morning Brief `J3Oqcaa2YBEsVSng` (`cb4b50e8`).
 - Supabase: функції `archi_project_signals`, `archi_threshold_req` є; `owner_prefs.last_sent_on`.
 - Скрипти: `check_docs.py`, `check_handover.py`, `gen_wbs.py --check`, `gen_db_schema.py --check` — 0 помилок.
 
