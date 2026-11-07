@@ -124,10 +124,10 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
                                           → Validate And Render → Add Portfolio Block → Send Brief → Mark Sent
 ```
 - `Find Due Owners`: `owner_prefs` з `enabled`, `isodow ∈ days`, поточний час у вікні 30 хв від `brief_time`, `last_sent_on` ≠ сьогодні.
-- `Load Brief`: `archi_morning_brief(company)` повертає jsonb: `actions[]` (rank, project_id, kind, score, facts, advice), `horizon_7d[]`, `data_updated_at`.
+- `Load Brief`: `archi_morning_brief(company)` повертає jsonb: `actions[]` (rank, project_id, kind, score, facts, advice{to_role, mode, purpose, action_type}), `portfolio`, `data_updated_at` (`horizon_7d[]` лишається в jsonb, брифінг його не показує).
 - Правила й вага (score): блокер 100 + дні; `sub_blocked` 120; акт 90 − днів до дати (статус «заплановано», вікно −30…+7 днів); дедлайн документації 75 − днів; дія з наради 65 − днів; ETC перевитрата (`etc_red`) 70 + % від BAC; рентабельність нижче плану 55 + різниця; немає звіту 60 (з четверга); немає прогнозу 50. Не більше 2 дій на проєкт, топ-5.
 - `advice` (адресат за роллю, режим, мета) — вираз `CASE` у SQL, не в промпті.
-- LLM (`claude-sonnet-4-6`, `temperature 0.2`) формулює `headline`, `why`, `message`; системний промпт — `docs/MORNING_BRIEF_PROMPT.txt`.
+- LLM (`claude-sonnet-4-6`, `temperature 0.2`) формулює `headline`, `insight`, `impact`, `message` (з 07.11.2026; раніше `headline`, `why`, `message`); системний промпт — `docs/MORNING_BRIEF_PROMPT.txt`.
 - `Validate And Render` (Code): пункт приймається, якщо збігається `rank`, довжини в межах, немає слова «залишок», немає номерів чужих проєктів, **усі числа є серед фактів цієї дії**; інакше підставляється шаблон за метою. Звіт надсилається і при недоступному LLM.
 - Блок «📊 Стан портфеля» (кількості за сигналами) формує SQL (`archi_morning_brief(...)->portfolio`), вставляє вузол `Add Portfolio Block` (без LLM).
 - Перше тестове надсилання: виконання 6953, Telegram `message_id 1774`; з блоком — виконання 7054.
