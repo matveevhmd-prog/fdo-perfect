@@ -22,7 +22,7 @@ SECURITY.md                          — відомі ризики безпек�
 workflows/
   DEMO_Archi_Agent_Core.json         — головний n8n workflow (id CKwCsGIwyw9feCY5,
                                         n8n instance osbbcopilot.app.n8n.cloud),
-                                        activeVersionId d3fa185e-9191-4851-ad3a-65af0d98a1ae,
+                                        activeVersionId eb57069b-a23e-4879-959f-9c0516c178d9,
                                         193 вузли (експорт 07.11.2026). Токен бота замінено
                                         на `<TELEGRAM_BOT_TOKEN>`. Файл застаріє після
                                         наступної публікації в n8n: звіряти versionId з живим.
