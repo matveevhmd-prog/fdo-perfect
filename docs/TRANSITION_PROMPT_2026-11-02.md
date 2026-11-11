@@ -5,7 +5,9 @@
 
 ## 1. Живий стан (02.11.2026)
 
-**Доповнення 11.11.2026:** core `eb57069b` (V5 формат чисел Weekly Render і Owner View; V9: 1А 2А 3Б 4Б; відкат `d3fa185e`, до V5 `229f011a`); Supabase — `company_thresholds` для DEMO (план ×0,2, `sql/2026-11-08_v9_demo_plan_scale*.sql`); `CLAUDE.md` п. 36 і потік W12 «Фінансова ліквідність власника» (oneBfinance, касовий розрив, Q4–Q6) — лише зафіксовано на карті (§192), не реалізовано; відкрито: п. 7 V4 (підписи Weekly Render), V3, V6–V8 (акаунт власника).
+**Доповнення 11.11.2026 (`RELEASE_PLAN` §190):** core `CKwCsGIwyw9feCY5` — `activeVersionId 4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, 197 вузлів (V10: onError/повтор/запасні повідомлення, temperature 0.2; відкат `eb57069b-a23e-4879-959f-9c0516c178d9`); Morning Brief `911fa93b-b2df-4af5-89fc-1e7bded18803` (відкат `a3324b54-fd60-4e38-a5b7-60e18f18408d`); новий workflow «ARCHI: LLM Health Check» `Sna7JWxq3BpRDJIs` (щодня 07:30). Рядок core `978db8b8` нижче застарів.
+
+**Доповнення 11.11.2026:** входить у core `4a5df71b`: V5 ( формат чисел Weekly Render і Owner View; V9: 1А 2А 3Б 4Б; відкат `d3fa185e`, до V5 `229f011a`); Supabase — `company_thresholds` для DEMO (план ×0,2, `sql/2026-11-08_v9_demo_plan_scale*.sql`); `CLAUDE.md` п. 36 і потік W12 «Фінансова ліквідність власника» (oneBfinance, касовий розрив, Q4–Q6) — лише зафіксовано на карті (§193), не реалізовано; відкрито: п. 7 V4 (підписи Weekly Render), V3, V6–V8 (акаунт власника).
 **Доповнення 07.11.2026:** Morning Brief `J3Oqcaa2YBEsVSng` — формат v2 (Insight → Impact → Action), `activeVersionId a3324b54-fd60-4e38-a5b7-60e18f18408d`, відкат `cb4b50e8-1acd-457c-a37f-16647d00fcb7` (`RELEASE_PLAN` §186); Supabase — міграція `w5_7_brief_action_types`.
 **Доповнення 07.11.2026 (п. 35):** пауза W1; пріоритет — демо-відео, `docs/DEMO_VIDEO_PLAN_2026-11-07.md`, старт нової сесії — `docs/START_PROMPT_DEMO.md`.
 **Доповнення 07.11.2026:** Supabase — міграція W1.8 крок 1 (`archi_project_signals`, `archi_threshold_req`, `RELEASE_PLAN` §184); n8n без змін.

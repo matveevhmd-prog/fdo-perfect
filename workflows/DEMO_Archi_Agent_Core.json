@@ -3,12 +3,12 @@
   "name": "DEMO Archi Agent (Core: Chat + MiniApp)",
   "active": true,
   "isArchived": false,
-  "versionId": "eb57069b-a23e-4879-959f-9c0516c178d9",
-  "activeVersionId": "eb57069b-a23e-4879-959f-9c0516c178d9",
+  "versionId": "4a5df71b-ba97-42a8-bbdd-179ce53fdfeb",
+  "activeVersionId": "4a5df71b-ba97-42a8-bbdd-179ce53fdfeb",
   "triggerCount": 7,
-  "nodeCount": 193,
+  "nodeCount": 197,
   "createdAt": "2026-08-23T06:55:20.331Z",
-  "updatedAt": "2026-11-08T05:49:35.553Z",
+  "updatedAt": "2026-11-11T07:13:25.514Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true,
@@ -199,6 +199,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "WR: Send Media Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -218,6 +225,13 @@
         [
           {
             "node": "WR: Normalize Vision",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WR: Send Media Error",
             "type": "main",
             "index": 0
           }
@@ -306,6 +320,13 @@
         [
           {
             "node": "WR: Parse Agent Output",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WR: Send LLM Error",
             "type": "main",
             "index": 0
           }
@@ -630,6 +651,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Import: Send LLM Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -699,6 +727,13 @@
         [
           {
             "node": "Meeting: Parse Agent Output",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Meeting: Send LLM Error",
             "type": "main",
             "index": 0
           }
@@ -2677,6 +2712,10 @@
         1344,
         880
       ],
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 2000,
       "credentials": {
         "openAiApi": {
           "id": "9qDhoEmmVrxSI3JS",
@@ -2753,6 +2792,10 @@
         1408,
         1088
       ],
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 2000,
       "credentials": {
         "openAiApi": {
           "id": "9qDhoEmmVrxSI3JS",
@@ -3417,7 +3460,11 @@
           "value": "gpt-4o"
         },
         "responsesApiEnabled": false,
-        "options": {}
+        "options": {
+          "maxRetries": 2,
+          "temperature": 0.2,
+          "timeout": 60000
+        }
       },
       "id": "a59dda41-2e90-4d4f-9c8d-8ba63427d9cf",
       "name": "WR: OpenAI Chat Model",
@@ -3470,7 +3517,8 @@
       "position": [
         2688,
         1280
-      ]
+      ],
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -4540,7 +4588,8 @@
         },
         "promptType": "define",
         "text": "={{ $('Import: Build Prompt').item.json.payload }}"
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "id": "ad7eb04f-6522-4f40-9685-30f58811d9ee",
@@ -4893,7 +4942,8 @@
         },
         "promptType": "define",
         "text": "={{ $('Meeting: Build Prompt').item.json.payload }}"
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "id": "04aa490c-39fe-46a5-b708-891a8e83fffa",
@@ -8495,10 +8545,112 @@
           "name": "Telegram account 4"
         }
       }
+    },
+    {
+      "id": "1aefbc7e-3e8a-4ef6-a8b4-d7285b2c3574",
+      "name": "WR: Send LLM Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2912,
+        1440
+      ],
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "⚠️ <b>Не вдалося обробити звіт</b>\n\nПовідомлення збережено в черзі, нічого не втрачено.\n\n🎯 Натисніть «📤 Відправити» ще раз через кілька хвилин"
+      },
+      "webhookId": "772f77f3-3d67-44da-b247-1e489f70246f",
+      "credentials": {
+        "telegramApi": {
+          "id": "jDGC5deJSU6Bjk2J",
+          "name": "Telegram account 4"
+        }
+      }
+    },
+    {
+      "id": "8386733e-8705-4780-85c3-42550ba84f0b",
+      "name": "Import: Send LLM Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2912,
+        1760
+      ],
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "⚠️ <b>Не вдалося обробити імпорт</b>\n\n🎯 Надішліть повідомлення ще раз через кілька хвилин"
+      },
+      "webhookId": "da0fa802-7fcc-4afd-b9fd-65bf1577866a",
+      "credentials": {
+        "telegramApi": {
+          "id": "jDGC5deJSU6Bjk2J",
+          "name": "Telegram account 4"
+        }
+      }
+    },
+    {
+      "id": "376d45cf-fe4a-4ca7-a088-9f8ab56b0d5f",
+      "name": "Meeting: Send LLM Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2912,
+        2440
+      ],
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "⚠️ <b>Не вдалося обробити запис наради</b>\n\n🎯 Надішліть повідомлення ще раз через кілька хвилин"
+      },
+      "webhookId": "e76c6d80-a158-4c13-ab3f-02eb7c824c55",
+      "credentials": {
+        "telegramApi": {
+          "id": "jDGC5deJSU6Bjk2J",
+          "name": "Telegram account 4"
+        }
+      }
+    },
+    {
+      "id": "520d4658-7f00-4380-9d73-3aee7d365563",
+      "name": "WR: Send Media Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1568,
+        980
+      ],
+      "parameters": {
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        },
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "⚠️ <b>Не вдалося розпізнати голос або фото</b>\n\n🎯 Надішліть те саме текстом"
+      },
+      "webhookId": "1e19b246-16a7-4b45-994e-98ba9fbf02b6",
+      "credentials": {
+        "telegramApi": {
+          "id": "jDGC5deJSU6Bjk2J",
+          "name": "Telegram account 4"
+        }
+      }
     }
   ],
   "nodeGroups": [],
-  "activeVersion": null,
+  "activeVersion": {
+    "sameAsDraft": true
+  },
   "meta": {
     "aiBuilderAssisted": true,
     "builderVariant": "mcp"
