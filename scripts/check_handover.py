@@ -88,10 +88,10 @@ rec("A4b", "WARN" if (used_d - ts_d) else "PASS", "D-номери без ряд�
 unc = sorted(road_w - used_w, key=lambda x: [int(i) for i in x[1:].split(".")])
 rec("A13", "FAIL" if unc else "PASS", "вузли карти без згадки в пакеті: %s" % unc if unc else "усі %d вузлів W карти згадані в пакеті" % len(road_w))
 
-# ---------- A5 критерії R-1…R-14 у вимогах
+# ---------- A5 критерії R-1…R-15 у вимогах
 brd = docs["02_BUSINESS_REQUIREMENTS.md"]
-missr = [f"R-{i}" for i in range(1, 15) if not re.search(rf"\| R-{i} \|", brd)]
-rec("A5", "FAIL" if missr else "PASS", "критерії без рядка в 02 §6: %s" % missr if missr else "усі R-1…R-14 є в 02 §6")
+missr = [f"R-{i}" for i in range(1, 16) if not re.search(rf"\| R-{i} \|", brd)]
+rec("A5", "FAIL" if missr else "PASS", "критерії без рядка в 02 §6: %s" % missr if missr else "усі R-1…R-15 є в 02 §6")
 
 # ---------- A6 відкриті OD з карти є в 02 §8
 sec8 = brd[brd.index("## 8. Відкриті рішення"):]

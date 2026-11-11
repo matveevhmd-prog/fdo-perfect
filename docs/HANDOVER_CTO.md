@@ -14,7 +14,7 @@ ARCHI — це в першу чергу **контроль майбутньої 
 ## 3. Пакет документів (читати в цьому порядку)
 | № | Файл | Навіщо |
 |---|---|---|
-| 1 | `CLAUDE.md` | закриті рішення власника (п. 1–35), ритуал старту, правила сесії |
+| 1 | `CLAUDE.md` | закриті рішення власника (п. 1–36), ритуал старту, правила сесії |
 | 2 | `docs/DECISIONS_REGISTER.md` | усі закриті рішення, включно з тими, чий канон поза `CLAUDE.md`; суперечності між документами |
 | 3 | `docs/ROADMAP_TO_RELEASE.md` | єдина карта: критерії релізу, потоки W0–W10, залежності, рішення власника OD-1…OD-24 |
 | 4 | `docs/ARCHI_TECH_SPEC_v3_1.md` | архітектура, інваріант єдиного обчислення, схема даних, авторизація, дефекти |
@@ -30,7 +30,7 @@ ARCHI — це в першу чергу **контроль майбутньої 
 | 14 | `docs/README.md` | індекс усіх документів і правила їх оновлення |
 
 ## 4. Поточний стан (02.11.2026)
-**Core workflow n8n** `CKwCsGIwyw9feCY5` («DEMO Archi Agent»): `activeVersionId 978db8b8-1193-4db9-acb7-84cd21d61214` (05.11.2026; попередня `a4c89c3c`), **193 вузли** (Факт: збігається з експортом у репо, CTO 01.11). Типи: postgres 47, code 37, telegram 36, if 20, respondToWebhook 8, webhook 5, set 4, memoryPostgresChat 3 (Факт, код).
+**Core workflow n8n** `CKwCsGIwyw9feCY5` («DEMO Archi Agent»): `activeVersionId eb57069b-a23e-4879-959f-9c0516c178d9` (07.11.2026, V5; попередня `978db8b8`, відкат `229f011a`), **193 вузли** (Факт: збігається з експортом у репо, CTO 01.11). Типи: postgres 47, code 37, telegram 36, if 20, respondToWebhook 8, webhook 5, set 4, memoryPostgresChat 3 (Факт, код).
 **Sub-workflow:** K6sm `K6smBd5xWZLWx9rr` (читає Кошторис, активна `cf904641`) і RC7H `RC7HNVlJtuPLtvYV` (договір, `d86d127a`) експортовано в git 02.11.2026 (`workflows/`, W8.3); Sheets Helper `nGcSyWfuMO7vjTn6` у git немає. `Representative Bot I3K5tBj0FWF1dbWb` — не чіпати.
 **Supabase** `bxawceksdkqlbkdgjvyz` (`live SQL` 02.11.2026): `project_metrics` 18 рядків (14 `stages` + 4 `visit`), 50 колонок; `wr_weekly_snapshots` 101 рядок (8 тижнів); `time_log` 476; `money_log` 152; `payment_schedule` 56; `wr_plan_items` 467; `meeting_log` 11; `evm_packages` 100; `evm_package_done` 0. Розширення `vector` 0.8.0 встановлено.
 **Моделі:** Claude `claude-sonnet-4-6` (чат); OpenAI `gpt-4o` (звіти, імпорт, зустрічі, фото), OpenAI transcribe (голос).
