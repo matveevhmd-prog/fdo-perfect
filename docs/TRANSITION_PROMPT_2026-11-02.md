@@ -5,6 +5,7 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 11.11.2026:** core `eb57069b` (V5 формат чисел Weekly Render і Owner View; V9: 1А 2А 3Б 4Б; відкат `d3fa185e`, до V5 `229f011a`); Supabase — `company_thresholds` для DEMO (план ×0,2, `sql/2026-11-08_v9_demo_plan_scale*.sql`); `CLAUDE.md` п. 36 і потік W12 «Фінансова ліквідність власника» (oneBfinance, касовий розрив, Q4–Q6) — лише зафіксовано на карті (§188), не реалізовано; відкрито: п. 7 V4 (підписи Weekly Render), V3, V6–V8 (акаунт власника).
 **Доповнення 07.11.2026 (п. 35):** пауза W1; пріоритет — демо-відео, `docs/DEMO_VIDEO_PLAN_2026-11-07.md`, старт нової сесії — `docs/START_PROMPT_DEMO.md`.
 **Доповнення 07.11.2026:** Supabase — міграція W1.8 крок 1 (`archi_project_signals`, `archi_threshold_req`, `RELEASE_PLAN` §184); n8n без змін.
 **Доповнення 05.11.2026:** другий workflow «ARCHI: Morning Brief» `J3Oqcaa2YBEsVSng` (11 вузлів, опублікований, розсилка ввімкнена, W5.7, `RELEASE_PLAN` §174); core `a4c89c3c`, 191 вузол — без змін.
