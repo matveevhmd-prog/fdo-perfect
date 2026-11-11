@@ -1,15 +1,15 @@
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId 978db8b8-1193-4db9-acb7-84cd21d61214`, вузлів: 193, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId 4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, вузлів: 197, груп за префіксом: 11.
 
 ## Типи вузлів
 
 | Тип | Кількість |
 |---|---|
 | `postgres` | 51 |
+| `telegram` | 43 |
 | `code` | 40 |
-| `telegram` | 39 |
 | `if` | 24 |
 | `respondToWebhook` | 8 |
 | `webhook` | 5 |
@@ -55,11 +55,11 @@
 | Doc Intake: Write Link URL | `postgres` | Doc Intake: Extract Drive Link | Doc Intake: Send Link Confirmation |
 | Doc Intake: Write Mode | `postgres` | Doc Intake: Extract Set Project | Doc Intake: Send Set Confirmation |
 
-## Import (16)
+## Import (17)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| Import: Agent | `agent` | Import: Build Prompt, Import: Postgres Chat Memory, WR: OpenAI Chat Model | Import: Parse Agent Output |
+| Import: Agent | `agent` | Import: Build Prompt, Import: Postgres Chat Memory, WR: OpenAI Chat Model | [0] Import: Parse Agent Output, [1] Import: Send LLM Error |
 | Import: Build Prompt | `code` | WR: Route | Import: Agent |
 | Import: Clear Draft After Final | `postgres` | Import: Send Final Confirmation | — |
 | Import: Insert Money Rows | `postgres` | Import: Split Money Rows | — |
@@ -70,6 +70,7 @@
 | Import: Reset Draft | `postgres` | WR: Route | Import: Send Reset Confirmation |
 | Import: Send Draft Reply | `telegram` | Import: Is Final? | — |
 | Import: Send Final Confirmation | `telegram` | Import: Is Final? | Import: Clear Draft After Final |
+| Import: Send LLM Error | `telegram` | Import: Agent | — |
 | Import: Send Project Confirmation | `telegram` | Import: Write Project Mode | — |
 | Import: Send Reset Confirmation | `telegram` | Import: Reset Draft | — |
 | Import: Split Money Rows | `code` | Import: Is Final? | Import: Insert Money Rows |
@@ -108,11 +109,11 @@
 | M: Fetch Project List | `postgres` | WR: Route | M: Build Project Keyboard |
 | M: Send Project Picker | `httpRequest` | M: Build Project Keyboard | — |
 
-## Meeting (14)
+## Meeting (15)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| Meeting: Agent | `agent` | Meeting: Build Prompt, Meeting: Postgres Chat Memory, WR: OpenAI Chat Model | Meeting: Parse Agent Output |
+| Meeting: Agent | `agent` | Meeting: Build Prompt, Meeting: Postgres Chat Memory, WR: OpenAI Chat Model | [0] Meeting: Parse Agent Output, [1] Meeting: Send LLM Error |
 | Meeting: Build Prompt | `code` | WR: Route | Meeting: Agent |
 | Meeting: Clear Draft After Final | `postgres` | Meeting: Send Confirmation | — |
 | Meeting: Insert Rows | `postgres` | Meeting: Split Items | — |
@@ -122,17 +123,18 @@
 | Meeting: Reset Draft | `postgres` | WR: Route | Meeting: Send Reset Confirmation |
 | Meeting: Send Confirmation | `telegram` | Meeting: Is Final? | Meeting: Clear Draft After Final |
 | Meeting: Send Draft Reply | `telegram` | Meeting: Is Final? | — |
+| Meeting: Send LLM Error | `telegram` | Meeting: Agent | — |
 | Meeting: Send Project Confirmation | `telegram` | Meeting: Write Project Mode | — |
 | Meeting: Send Reset Confirmation | `telegram` | Meeting: Reset Draft | — |
 | Meeting: Split Items | `code` | Meeting: Is Final? | Meeting: Insert Rows |
 | Meeting: Write Project Mode | `postgres` | WR: Route | Meeting: Send Project Confirmation |
 
-## WR (62)
+## WR (64)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| WR: Agent | `agent` | WR: Build WR Prompt, WR: OpenAI Chat Model, WR: Postgres Chat Memory | WR: Parse Agent Output |
-| WR: Analyze Image | `openAi` | WR: Download Photo | WR: Normalize Vision |
+| WR: Agent | `agent` | WR: Build WR Prompt, WR: OpenAI Chat Model, WR: Postgres Chat Memory | [0] WR: Parse Agent Output, [1] WR: Send LLM Error |
+| WR: Analyze Image | `openAi` | WR: Download Photo | [0] WR: Normalize Vision, [1] WR: Send Media Error |
 | WR: Build Status Text | `code` | WR: Fetch Report Status | WR: Send Status |
 | WR: Build WR Prompt | `code` | WR: Final Has Data? | WR: Agent |
 | WR: Clear Draft After Final | `postgres` | WR: Send Final Report | — |
@@ -183,6 +185,8 @@
 | WR: Send Final No Data | `telegram` | WR: Final Has Data? | — |
 | WR: Send Final Report | `telegram` | WR: Is Final (Render)? | WR: Clear Draft After Final |
 | WR: Send Inbox Ack | `telegram` | WR: Inbox Add | — |
+| WR: Send LLM Error | `telegram` | WR: Agent | — |
+| WR: Send Media Error | `telegram` | WR: Analyze Image, WR: Transcribe | — |
 | WR: Send Need Project | `telegram` | WR: Route | — |
 | WR: Send Project Confirmation | `telegram` | WR: Format Plan For Project Confirm | — |
 | WR: Send Reference Stub | `telegram` | WR: Write Reference Mode | — |
@@ -190,7 +194,7 @@
 | WR: Send Status | `telegram` | WR: Build Status Text | — |
 | WR: Send Unsupported Format | `telegram` | WR: Detect Doc Type | — |
 | WR: Split New Plan Items | `code` | WR: Merge Carryover | WR: Save Next Week Plan |
-| WR: Transcribe | `openAi` | WR: Download Audio | WR: Normalize Audio |
+| WR: Transcribe | `openAi` | WR: Download Audio | [0] WR: Normalize Audio, [1] WR: Send Media Error |
 | WR: Write Project Mode | `postgres` | WR: Route | WR: Fetch Plan For Project Confirm |
 | WR: Write Reference Mode | `postgres` | WR: Route | WR: Send Reference Stub |
 

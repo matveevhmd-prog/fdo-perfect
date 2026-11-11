@@ -57,7 +57,7 @@
 
 ---
 
-<!-- SOURCE docs/handover/00_START_HERE.md sha256=22fa8bb50b29f92a730e5ff00c0572f71ad7ab478fa9d5abbeded5e93e8b360b bytes=13396 -->
+<!-- SOURCE docs/handover/00_START_HERE.md sha256=caaeebf6c7841728dc15f9e9713147756a6686d8338527f704dcb7e71b83c4fa bytes=13407 -->
 **Джерело: `docs/handover/00_START_HERE.md` — Навігація, стан, чек-лист передачі**
 
 # ARCHI — пакет передачі розробки IT-компанії
@@ -116,7 +116,7 @@ ARCHI — це **контроль майбутньої рентабельнос�
 | `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` | методологія й концепція |
 | `docs/W1_DESIGN.md` | дизайн багатоклієнтності (company_id, ролі, пороги на клієнта) |
 | `docs/EVM_CLASSIC_PLAN.md`, `docs/EVM_CLASSIC_DESIGN.md` | окрема гілка «EVM (класичний)» |
-| `docs/NODE_MAP.md` | карта 193 вузлів core workflow (генерується скриптом) |
+| `docs/NODE_MAP.md` | карта 197 вузлів core workflow (генерується скриптом) |
 | `docs/FEATURE_IDEAS.md` | ідеї власника: ARCHI у чаті проєкту, виконавці |
 | `docs/OWNER_MORNING_TEST.md` | тест для власника: 4 дії + 10 питань |
 | `SECURITY.md` | відомі ризики безпеки й прийняті рішення |
@@ -132,7 +132,7 @@ ARCHI — це **контроль майбутньої рентабельнос�
 |---|---|---|
 | Фаза | Робочий прототип на демо-даних; **реальних клієнтів немає**. Мета — три перші клієнти без переробки архітектури | `CLAUDE.md` п. 20 |
 | Дані в системі | Усі вигадані демо-дані з арифметично порахованими значеннями (SQL); це свідомий актив для показів, не дефект | `CLAUDE.md` п. 18 |
-| Стек | n8n Cloud (логіка, 193 вузли у core), Supabase Postgres (дані й обчислення), Telegram (бот і Mini App), Anthropic Claude (чат, брифінг), OpenAI gpt-4o (звіти, імпорт, фото, голос) | `TECH_SPEC` §6 |
+| Стек | n8n Cloud (логіка, 197 вузлів у core), Supabase Postgres (дані й обчислення), Telegram (бот і Mini App), Anthropic Claude (чат, брифінг), OpenAI gpt-4o (звіти, імпорт, фото, голос) | `TECH_SPEC` §6 |
 | Багатоклієнтність | База готова (`company_id`, ключ `(company_id, project_id)`, ролі в `user_access`, пороги на клієнта). **Ізоляцію доведено тестом на рівні БД; на рівні n8n — ні.** RLS свідомо вимкнений до першого платного клієнта | `RELEASE_PLAN` §165–§171, `CLAUDE.md` п. 28 |
 | Безпека | Відкриті свідомі ризики: токен бота в живому workflow, RLS вимкнений. Авторизація з таблиці `user_access` реалізована в n8n 03.11.2026, але в Telegram не прогнана (до цього чат і WR-бот були без allowlist, `SECURITY.md` п. 7). Рішення власника: токен міняти останнім кроком перед презентацією першому клієнтові | `SECURITY.md`, `CLAUDE.md` п. 25, 28 |
 | Реліз | Дат релізів і показів немає (скасовано власником) | `CLAUDE.md` п. 24, 26 |
@@ -152,7 +152,7 @@ ARCHI — це **контроль майбутньої рентабельнос�
 | 8 | Юрист: пункт договору про згоду на знеособлені патерни, строки зберігання знань із чатів | `CLAUDE.md` п. 28, OD-20 |
 
 ## 7. Як перевірити, що середовище живе (перші 2 години)
-1. Відкрити `docs/NODE_MAP.md` і порівняти з живим core workflow `CKwCsGIwyw9feCY5` у n8n (`activeVersionId` `978db8b8-1193-4db9-acb7-84cd21d61214`, 193 вузли на 05.11.2026). Якщо розходяться — довіряти живому n8n, експорт перезробити (правило `CLAUDE.md`).
+1. Відкрити `docs/NODE_MAP.md` і порівняти з живим core workflow `CKwCsGIwyw9feCY5` у n8n (`activeVersionId` `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, 197 вузлів на 11.11.2026, §190). Якщо розходяться — довіряти живому n8n, експорт перезробити (правило `CLAUDE.md`).
 2. У боті `@archi_demo_bot` пройти `docs/OWNER_MORNING_TEST.md` (15 хв).
 3. Запустити `python3 scripts/check_docs.py` — очікується 0 помилок.
 4. Запустити незалежну звірку F-02, F-13, F-15 з сирих таблиць проти `project_metrics` (запит у `docs/CTO_CHECKPOINT_PROMPT.md`, перевірка C-3).
@@ -427,7 +427,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/02_BUSINESS_REQUIREMENTS.md sha256=4abcb8c2559d2ef78b80337f2f63448516584618b9ea12230f5e4b24c446aabe bytes=28270 -->
+<!-- SOURCE docs/handover/02_BUSINESS_REQUIREMENTS.md sha256=8d7d5fb3c30438f0d30c405bc28a75ef0c334fa10ea76ebf08623384e1441475 bytes=28272 -->
 **Джерело: `docs/handover/02_BUSINESS_REQUIREMENTS.md` — Бізнес-вимоги**
 
 # ARCHI — бізнес-вимоги
@@ -607,7 +607,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 |---|---|---|---|
 | RK-1 | Реальних клієнтів ще не було: вимір ефекту, ціни й навантаження невідомі | висока невизначеність | [Припущення] ціна $500/міс. не перевірена ринком |
 | RK-2 | Токен бота в живому n8n; RLS вимкнений; резолвер ролей `user_access` у n8n не прогнаний у Telegram | витік або неавторизований доступ | свідомо прийнято до першого платного клієнта (п. 25, 28) |
-| RK-3 | Монолітний workflow (193 вузли) складно тестувати й супроводжувати | швидкість змін, регресії | OD-14 |
+| RK-3 | Монолітний workflow (197 вузлів) складно тестувати й супроводжувати | швидкість змін, регресії | OD-14 |
 | RK-4 | Якість прогнозу = якість звіту ПМа; без свіжого звіту прогнозу немає | знижується цінність | сигналу немає; показується дата оновлення |
 | RK-5 | Залежність від LLM (Anthropic, OpenAI): вартість, зміна поведінки | якість звітів і брифінгу | кодова валідація чисел, шаблони-запас |
 | RK-6 | Персональні дані у знаннях із чатів (замовник, підрядники) | юридичний ризик | потрібен юрист до першого клієнта (OD-20) |
@@ -635,7 +635,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=a322aa1ac4ca08b793c00418a59d485e33be1cf06ba0ce83a78152f9641f8cf6 bytes=36573 -->
+<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=d8e8b061f388c8715841e754260e53d864739e28677d95779d037004f789c927 bytes=36800 -->
 **Джерело: `docs/handover/03_TECHNICAL_CTO.md` — Технічний документ для CTO**
 
 # ARCHI — технічний документ для CTO
@@ -645,12 +645,12 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 | Питання | Відповідь |
 |---|---|
 | Що це | Оркестраційний шар над проєктними даними: план + факт + прогноз → метрики, сигнали, відповіді |
-| Де логіка | n8n Cloud: core workflow на 193 вузли, плюс 3 допоміжні workflow. Обчислення — в SQL (Supabase Postgres) і частково в Code-вузлах n8n |
+| Де логіка | n8n Cloud: core workflow на 197 вузлів, плюс 3 допоміжні workflow. Обчислення — в SQL (Supabase Postgres) і частково в Code-вузлах n8n |
 | Де дані | Supabase проєкт `bxawceksdkqlbkdgjvyz`, схема `public` |
 | Клієнтські канали | Telegram-бот (чат, звіт, імпорт, брифінг), Telegram Mini App (Owner View, Weekly Render), xlsx |
 | LLM | Anthropic `claude-sonnet-4-6` (чат, брифінг), OpenAI `gpt-4o` (звіт, імпорт, зустрічі, фото), OpenAI transcribe (голос) |
 | Стан | Прототип на демо-даних; один демо-тенант; безпека — свідомі прийняті ризики (розділ 9) |
-| Найбільші технічні питання | Моноліт на 193 вузли в n8n (OD-14); частина формул ще поза SQL (W1.8); безпека (токен, RLS); відсутність автотестів на більшості вузлів; відсутність моніторингу |
+| Найбільші технічні питання | Моноліт на 197 вузлів в n8n (OD-14); частина формул ще поза SQL (W1.8); безпека (токен, RLS); відсутність автотестів на більшості вузлів; відсутність моніторингу |
 | Перша рекомендація | Розділ 12 |
 
 ## 2. Архітектура
@@ -680,7 +680,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 | Компонент | Ідентифікатор | Примітка |
 |---|---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` | хмарний; проєкт власника |
-| Core workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent» | `activeVersionId` `978db8b8-1193-4db9-acb7-84cd21d61214`, 193 вузли (DR-14, 05.11.2026; відкат — попередня версія `a4c89c3c`, на 2 вузли менше) (05.11.2026) |
+| Core workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent» | `activeVersionId` `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, 197 вузлів (V10, 11.11.2026, §190; раніше 978db8b8 DR-14; відкат — попередня версія `a4c89c3c`, на 2 вузли менше) (05.11.2026) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `cf904641`; експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
 | Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `d86d127a`; експорт `workflows/Archi_Document_Intake_RC7H.json` |
 | **Error Alert** | `JZ5htUtbMaWTagoC` «ARCHI: Error Alert» | 2 вузли (`Error Trigger` → `Alert Operator`), опублікований; Error Workflow для core і Morning Brief; надсилає оператору workflow, вузол, помилку (до 300 символів), id виконання |
@@ -824,7 +824,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | № | Борг | Вузол карти |
 |---|---|---|
 | T-1 | Формули/пороги/кольори частково в n8n і браузері, не в SQL | W1.8 |
-| T-2 | Моноліт 193 вузли; код у JSON, а не у файлах | W8.1, W8.2 |
+| T-2 | Моноліт 197 вузлів; код у JSON, а не у файлах | W8.1, W8.2 |
 | T-3 | ~~DDL на кожне повідомлення~~ **усунено:** вузли `WR: Ensure Mode Table` і `WR: Ensure Plan Table` виконують лише `SELECT 1 AS ok` (експорт core `a4c89c3c`, перевірка аудитом 05.11.2026); самі вузли — зайві, можна видалити | W1.6 |
 | T-4 | 21 Postgres-вузол інтерполює `'{{ … }}'` (лише `chat.id` і регулярно перевірений `project_id`); за кодом ризик низький, параметризація не планується (рішення `RELEASE_PLAN` §117, варіант A) | W1.6 |
 | T-5 | `WR: Schedule Reminder (Fri 10:00)` без вихідних з'єднань: нагадування не надсилається (D1) | W5.3 |
@@ -835,7 +835,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | T-10 | Дві суми «бюджет приросту» в Owner View (59 976 грн різниці через проєкт без годин, WD.4–WD.5) | W4.2 |
 | T-11 | Колонки з історичними назвами `ev_classic_evm`, `cpi_classic_evm` (це методологія Archi, не класичний EVM) — перейменувати разом із вкладкою EVM | W7.5 |
 | T-12 | Застарілі сутності в БД: `project_metrics_live`, `final_message`, колонки `efficiency_contract`, `earned_value`, `paid_volume`, `comparison` | рішення власника |
-| T-13 | `WR: Agent`, `Import: Agent`, `Meeting: Agent`, `WR: Transcribe`, `WR: Analyze Image` без повтору, таймауту й запасного повідомлення користувачу (Факт, live core `978db8b8`, 07.11.2026); збій OpenAI під час звіту ПМа лишає ПМа без відповіді | W8.6 |
+| T-13 | `WR: Agent`, `Import: Agent`, `Meeting: Agent`, `WR: Transcribe`, `WR: Analyze Image` без повтору, таймауту й запасного повідомлення користувачу (Факт, live core `978db8b8`, 07.11.2026); збій OpenAI під час звіту ПМа лишає ПМа без відповіді | W8.6 | <!-- 11.11.2026 (§190): onError, повтор, запасні повідомлення впроваджено (core 4a5df71b), не перевірено на живому збої -->
 | T-14 | Константи не в одному місці: URL n8n у 4 вузлах, BOT_ID у 3 вузлах `Validate InitData`, `KP_CONVERSION_PCT`, `MAX_AGE_SECONDS`, перелік стадій у 15 місцях 7 Code-вузлів (Факт, 07.11.2026) | W8.7 |
 | T-15 | `WR: Save Weekly Snapshot` перезаписує знімок за той самий тиждень (`DO UPDATE`), історії виправлень немає; запис плану при повторі скидає `status` | W8.9 ⛔ рішення власника |
 | T-16 | Кириличні назви колонок БД (`готовність_pct`, `дедлайн_прогноз_по_стадіях`, історична `залишок_прогноз_по_стадіях`); міграція велика, без рішення власника не чіпати | W8.10 ⛔ рішення власника |
@@ -861,7 +861,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 4. Запустити `sql/tests/w1_5_threshold_override.sql` у SQL Editor.
 5. Перевірити автозапуск ранкового брифінгу 08:30 за київським часом (`executions` workflow `J3Oqcaa2YBEsVSng`, `owner_prefs.last_sent_on`).
 **Далі за залежностями карти:** W1.8 (формули в SQL) → W1.2/W1.4 завершення → W2 (модуль плану в ARCHI) → W3.10 (імпорт XLSX/CSV) → W4.5/W8 (інженерія, продуктивність) → W6.1/W6.4 (drill-down, вкладка EVM) → W10 (знання проєкту) → W11. Порядок обґрунтовано: усе, що зберігає дані клієнтів, залежить від W1.
-**Рішення OD-14 (n8n чи власний бекенд).** Рекомендація: не вирішувати до завершення W1–W3. Критерії для рішення (G5): кількість клієнтів, вартість підтримки, ролі й RLS, навантаження, тестованість, прив'язка до вендора. Аргументи за міграцію, відомі з коду: 193 вузли в одному workflow, код у JSON, DDL на кожне повідомлення, обмежена тестованість. Аргументи проти: працююча бізнес-логіка зашита у вузлах, а SQL-ядро (`archi_*`, `evm_*`) переносимо без змін. [Припущення] SQL-ядро — найцінніша переносима частина.
+**Рішення OD-14 (n8n чи власний бекенд).** Рекомендація: не вирішувати до завершення W1–W3. Критерії для рішення (G5): кількість клієнтів, вартість підтримки, ролі й RLS, навантаження, тестованість, прив'язка до вендора. Аргументи за міграцію, відомі з коду: 197 вузли в одному workflow, код у JSON, DDL на кожне повідомлення, обмежена тестованість. Аргументи проти: працююча бізнес-логіка зашита у вузлах, а SQL-ядро (`archi_*`, `evm_*`) переносимо без змін. [Припущення] SQL-ядро — найцінніша переносима частина.
 **Що переносимо найпершим:** `archi_recalc*`, вʼю й функції — вони вже в Postgres і не залежать від n8n.
 
 
@@ -2097,7 +2097,7 @@ components:
 
 ---
 
-<!-- SOURCE docs/handover/12_ERROR_AND_EDGE_CASES.md sha256=05eb3538075186d83b657e064ccb3c478a4b5589231321b92a246a0f2f219d6e bytes=18425 -->
+<!-- SOURCE docs/handover/12_ERROR_AND_EDGE_CASES.md sha256=c0a74de2b928c63915e396abc15c35a9f39b6a3c29663a508cf2c4e921e61117 bytes=18869 -->
 **Джерело: `docs/handover/12_ERROR_AND_EDGE_CASES.md` — Помилки, порожні стани, крайні випадки**
 
 # ARCHI — помилки, порожні стани, крайні випадки
@@ -2124,8 +2124,8 @@ components:
 | E-03 | `auth_date` старший за 24 години | U, R | як E-02 | `401` | заохочувати перезапуск Mini App |
 | E-04 | Непідтримуваний формат файлу (не PDF/TXT) | U, R | «❗ Формат файлу не підтримується • Надішліть як .txt або .pdf • Або вставте текст» | зупиняє обробку файлу | залишити |
 | E-05 | Збій Anthropic у чаті (таймаут, 429, 5xx) | S, R | **«⚠️ Відповідь тимчасово недоступна • Сервіс відповідей не відповів • Спробуйте ще раз за хвилину»** (DR-14, 05.11.2026; не перевірено наживо) | таймаут 45 с, 2 спроби, error output → `Send LLM Fallback`; оператору — сповіщення (Error Workflow спрацьовує лише на збої, що зупинили виконання) | залишити |
-| E-06 | Збій OpenAI у звіті ПМа, імпорті чи зустрічі (`WR: Agent`, `Import: Agent`, `Meeting: Agent`) | S, R | тиша: немає гілки помилки, повтору й запасного повідомлення (за кодом; живим збоєм не перевірено) | виконання падає; повідомлення лишаються в `archi_wr_inbox` (не видаляються до `Inbox Consume`) | «Звіт не оброблено, повідомлення збережено, повторіть «Відправити»» |
-| E-07 | Збій транскрипції голосу / аналізу фото (`WR: Transcribe`, `WR: Analyze Image`) | S, R | тиша: немає `onError`, повтору й таймауту (за кодом; живим збоєм не перевірено) | виконання падає | «Не вдалося розпізнати голос/фото, надішліть текстом» |
+| E-06 | Збій OpenAI у звіті ПМа, імпорті чи зустрічі (`WR: Agent`, `Import: Agent`, `Meeting: Agent`) | S, R | тиша: немає гілки помилки, повтору й запасного повідомлення (за кодом; живим збоєм не перевірено) | виконання падає; повідомлення лишаються в `archi_wr_inbox` (не видаляються до `Inbox Consume`) | «Звіт не оброблено, повідомлення збережено, повторіть «Відправити»» | <!-- 11.11.2026 (§190): onError → повідомлення ПМу (E-06) / «надішліть текстом» (E-07), повтор 2 спроби для E-07; не перевірено на живому збої -->
+| E-07 | Збій транскрипції голосу / аналізу фото (`WR: Transcribe`, `WR: Analyze Image`) | S, R | тиша: немає `onError`, повтору й таймауту (за кодом; живим збоєм не перевірено) | виконання падає | «Не вдалося розпізнати голос/фото, надішліть текстом» | <!-- 11.11.2026 (§190): onError → повідомлення ПМу (E-06) / «надішліть текстом» (E-07), повтор 2 спроби для E-07; не перевірено на живому збої -->
 | E-08 | Telegram API не приймає відповідь (429, 403 «бот заблокований», 400 через HTML) | S | недоступно | виконання падає; для HTML-розмітки є `Sanitize Reply` і екранування | лог + Error Workflow; для 429 — пауза й повтор |
 | E-09 | Supabase недоступний | S, R | тиша [Припущення] | усі Postgres-вузли падають | повідомлення про тимчасову недоступність; алерт |
 | E-10 | Google Drive/Sheets недоступні або вкладки Кошториса немає | S | «Вкладку … не знайдено» (K6sm: `AN: Read Tab` `continueRegularOutput`) для відсутньої вкладки АН; інші збої — тиша | | зрозуміле повідомлення |
@@ -3897,7 +3897,7 @@ WBS = `docs/ROADMAP_TO_RELEASE.md` (з 02.11.2026) — головна карта
 
 ---
 
-<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=8673e8849dbd102de1f8edc537dbe135e6a7e569b6b9103773e2c05bb925d23a bytes=62918 -->
+<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=f91c921da505fde58129ed989d2f46558eed4c2b52205e3a9df784de91af48f3 bytes=63348 -->
 **Джерело: `docs/ROADMAP_TO_RELEASE.md` — Єдина карта розробки до релізу**
 
 # ARCHI — ROADMAP_TO_RELEASE (WBS, єдина карта)
@@ -4053,14 +4053,14 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 | W8.3 K6sm і RC7H експортувати в git | ✅ 02.11.2026: `workflows/Archi_Koshtorys_Ingest_K6sm.json` (`cf904641`, 16 вузлів), `workflows/Archi_Document_Intake_RC7H.json` (`d86d127a`, 5 вузлів); `RELEASE_PLAN` §158. Лишається: Sheets Helper `nGcSyWfuMO7vjTn6` (не експортовано) |
 | W8.4 Моніторинг помилок, резервні копії, відкат | 🟡 05.11.2026: CI документації й скриптів (`.github/workflows/ci.yml`, `RELEASE_PLAN` §178); Error Workflow `JZ5htUtbMaWTagoC` і fallback чату з 05.11.2026 (`RELEASE_PLAN` §180); дашборда виконань, uptime-моніторингу, резервних копій за розкладом немає |
 | W8.5 `NODE_MAP`, `TECH_SPEC` | `NODE_MAP` генерується; `TECH_SPEC` v3.1 ✅ 02.11.2026 (змінено лише перевірене; розділи 4, 5, 7 — зміст v3.0, звірка S-/P-/R-check лишається в W0.3) | 🟡 |
-| W8.6 Надійність LLM- і медіа-вузлів звіту | `WR: Agent`, `Import: Agent`, `Meeting: Agent`, `WR: Transcribe`, `WR: Analyze Image` без `onError`, повтору й таймауту (live core `978db8b8`, звірено 07.11.2026); збій OpenAI = ПМ не отримує відповіді, лише Error Workflow сповіщає оператора. Додати повтор, таймаут і запасне повідомлення ПМу (за зразком `Call Anthropic`, `Send LLM Fallback`). Критично для запису відео. Джерело: зовнішній ШІ-аналіз 07.11.2026, перевірено кодом | ⬜ |
+| W8.6 Надійність LLM- і медіа-вузлів звіту | `WR: Agent`, `Import: Agent`, `Meeting: Agent`, `WR: Transcribe`, `WR: Analyze Image` без `onError`, повтору й таймауту (live core `978db8b8`, звірено 07.11.2026); збій OpenAI = ПМ не отримує відповіді, лише Error Workflow сповіщає оператора. Додати повтор, таймаут і запасне повідомлення ПМу (за зразком `Call Anthropic`, `Send LLM Fallback`). Критично для запису відео. Джерело: зовнішній ШІ-аналіз 07.11.2026, перевірено кодом | 🟡 11.11.2026: впроваджено (core `4a5df71b`, `RELEASE_PLAN` §190): onError + повідомлення ПМу, повтор Transcribe/Analyze Image; не перевірено на живому збої; ще немає перевірки, що відповідь агента не порожня |
 | W8.7 Константи в одному місці | URL n8n у 4 вузлах (`Send MiniApp Open Button`, `Build MiniApp HTML`, `Send Weekly Render Button`, `Build Weekly Render HTML`), BOT_ID у 3 вузлах `Validate InitData`, `KP_CONVERSION_PCT`, `MAX_AGE_SECONDS`, перелік стадій у 15 місцях 7 Code-вузлів (+ SQL); n8n не має спільних модулів у Code-вузлах — варіанти: змінні середовища, sub-workflow, SQL | ⬜ |
 | W8.8 Захист від prompt-injection у текстах ПМа | тексти «Проблеми», «Допомога», `quote` потрапляють у брифінг і чат власника; числа перевіряє код (п. 9), текст — ні; розмітка входу й перевірка виходу | ⬜ ідея 07.11.2026; пауза до відео |
 | W8.9 Версіонування знімка звіту за той самий тиждень | `WR: Save Weekly Snapshot` має `ON CONFLICT … DO UPDATE`: повторний «Фінал» перезаписує знімок без історії; запис плану тижня при повторі скидає `status` у `pending`. Н-кандидат (правило 10 сесії): співвідношення з п. 12 («нічого не затирається») — рішення власника; ідея `pm_corrections` (виправлення ПМа числа чи дати — зберігати) | ⛔ рішення власника |
 | W8.10 Кириличні назви колонок БД | `готовність_pct`, `залишок_прогноз_по_стадіях` (історична колонка), `дедлайн_прогноз_по_стадіях`: ускладнюють `pg_dump`, ORM, нових розробників; міграція велика, ризикова; без рішення власника не чіпати | ⛔ рішення власника |
 | W8.11 Набір фікстур і оцінка LLM-вузлів | фікстури зі слів ПМа (`DEMO_REPORT_TEXTS_2026-10-30.md` і реальні), прогін кожної N разів: валідність JSON, точність витягу полів, стабільність між прогонами; критерій прийняття змін промтів; основа рішення OD-26 (`AGENTS_AND_RELIABILITY_DESIGN.md` §5–§6) | ⬜ пауза до відео |
 | W8.12 Перевірка чисел у відповідях чату | чат власника (Q1–Q10, вільні питання): числа лише з фактів, за зразком `numbersOk` брифінгу; запасний шаблонний текст; зараз `Sanitize Reply` чисел не перевіряє | ⬜ |
-| W8.13 Параметри й структурований вихід OpenAI-агентів | температура (зараз не задано), JSON-схема виходу, прибрати тихий `DRAFT ask: String(raw)` при помилці розбору; перша ступінь варіанту B (OD-26) | ⬜ мала зміна, до запису відео [Рекомендація] |
+| W8.13 Параметри й структурований вихід OpenAI-агентів | температура (зараз не задано), JSON-схема виходу, прибрати тихий `DRAFT ask: String(raw)` при помилці розбору; перша ступінь варіанту B (OD-26) | 🟡 11.11.2026: temperature 0.2, timeout 60 с, maxRetries 2 на `WR: OpenAI Chat Model` (§190); JSON-схема й прибирання `DRAFT ask` — не зроблено [Рекомендація] |
 | W8.14 Декомпозиція `WR: Agent` | дизайн варіанта A: вузький екстрактор за схемою + код (стан, перелік питань, чернетка, перевірка п. 9) | ⛔ рішення власника OD-26 |
 | W8.15 Регресійні тести кольорів і сигналів SQL | зберегти в `tests/` тест еквівалентності W1.8 (07.11.2026: 11 з 14 збігаються, 3 — лише через 2А) і знімок результатів `archi_project_signals`; запускати перед кожною зміною порогів чи функцій | ⬜ разом із кроком 3 W1.8 |
 | W8.16 Журнал LLM-викликів | вузол, модель, тривалість, результат (успіх, збій, запасний шаблон, перевірка чисел пройдена чи ні); без тексту повідомлень; для вимірювання частки збоїв | ⬜ |
@@ -4177,7 +4177,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 
 ---
 
-<!-- SOURCE docs/WBS_FROM_FINAL.md sha256=dad72aad820f11ab80ed98c09272d331bc7e387b58a1bb418d81e54491022a46 bytes=24227 -->
+<!-- SOURCE docs/WBS_FROM_FINAL.md sha256=64b3c8b7b0ac2447b9c5786911a844afe00af027ba8e8161be8db4423993c10e bytes=24229 -->
 **Джерело: `docs/WBS_FROM_FINAL.md` — Зворотний WBS від фіналу до сьогодні (згенеровано)**
 
 # ARCHI — WBS від фіналу до сьогодні
@@ -4193,8 +4193,8 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 | Статус | Вузлів |
 |---|---|
 | ✅ зроблено | 13 |
-| 🟡 частково | 21 |
-| ⬜ не розпочато | 63 |
+| 🟡 частково | 23 |
+| ⬜ не розпочато | 61 |
 | з них ⛔ чекають рішення власника | 16 |
 
 ## 2. Дерево: критерій релізу → пакети робіт → перша дія
@@ -4319,7 +4319,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 
 ### R-9 — Інженерія: код у файлах у git (джерело істини), тести на ключових вузлах, K6sm і RC7H у git, моніторинг помилок, резервні копії, відкат.
 
-Стан: ✅ 1 · 🟡 4 · ⬜ 15 (з 20).
+Стан: ✅ 1 · 🟡 6 · ⬜ 13 (з 20).
 
 | Вузол | Назва | Статус |
 |---|---|---|
@@ -4332,14 +4332,14 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 | W8.3 | K6sm і RC7H експортувати в git | ✅ |
 | W8.4 | Моніторинг помилок, резервні копії, відкат | 🟡 |
 | W8.5 | `NODE_MAP`, `TECH_SPEC` | 🟡 |
-| W8.6 | Надійність LLM- і медіа-вузлів звіту | ⬜ |
+| W8.6 | Надійність LLM- і медіа-вузлів звіту | 🟡 |
 | W8.7 | Константи в одному місці | ⬜ |
 | W8.8 | Захист від prompt-injection у текстах ПМа | ⬜ |
 | W8.9 | Версіонування знімка звіту за той самий тиждень | ⬜ ⛔ |
 | W8.10 | Кириличні назви колонок БД | ⬜ ⛔ |
 | W8.11 | Набір фікстур і оцінка LLM-вузлів | ⬜ |
 | W8.12 | Перевірка чисел у відповідях чату | ⬜ |
-| W8.13 | Параметри й структурований вихід OpenAI-агентів | ⬜ |
+| W8.13 | Параметри й структурований вихід OpenAI-агентів | 🟡 |
 | W8.14 | Декомпозиція `WR: Agent` | ⬜ ⛔ |
 | W8.15 | Регресійні тести кольорів і сигналів SQL | ⬜ |
 | W8.16 | Журнал LLM-викликів | ⬜ |
@@ -4514,7 +4514,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 
 ---
 
-<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=0172cff2cc208df7de5290fe99d657cc793bfad18f47b75af93ff2991cf14c42 bytes=43154 -->
+<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=4b99d5727af0a190bfb9aaafb6e94b2659b1c363bae668f6691f4a3a1d4823d3 bytes=43232 -->
 **Джерело: `docs/ARCHI_TECH_SPEC_v3_1.md` — Технічна специфікація v3.1**
 
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.1
@@ -4733,7 +4733,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `978db8b8-1193-4db9-acb7-84cd21d61214` (05.11.2026, 193 вузли, DR-14; раніше `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9` 04.11.2026, 191 вузол, W1.5; ще раніше `40abff53` 03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
+| Core workflow | `CKwCsGIwyw9feCY5`, `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb` (11.11.2026, 197 вузлів, V10, §190; раніше `978db8b8-1193-4db9-acb7-84cd21d61214` 05.11.2026, DR-14; раніше `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9` 04.11.2026, 191 вузол, W1.5; ще раніше `40abff53` 03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64). **29.10.2026:** гілка `AN:` (7 вузлів, збережена 17.10.2026) лишалась неопублікованою (активна була `84a8e8b0` від 11.10.2026); опубліковано `f2eb3887` 29.10.2026 за рішенням власника (§135), відкат — `84a8e8b0`. Перевірка `кошторис DEMO-0X-АН` у Telegram — відкрито | **29.10.2026, §139:** `AN: Read Tab` — `onError: continueRegularOutput` (відсутня вкладка → повідомлення «Вкладку … не знайдено»), активна версія `cf904641`, відкат `f2eb3887`.
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо; live 29.10.2026 — 5 нод) |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` (ручний, inactive, 7 нод; правки Кошторису) |
@@ -6674,21 +6674,21 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 
 ---
 
-<!-- SOURCE docs/NODE_MAP.md sha256=b8701fc0f5f56740eedfe78f81958813c050bade2d90114fa38eaafe1aeb2e11 bytes=19589 -->
+<!-- SOURCE docs/NODE_MAP.md sha256=c6440463b4511749d80ce1c795a0cee227625e5308492722e3e5f69752c81a5c bytes=20002 -->
 **Джерело: `docs/NODE_MAP.md` — Карта вузлів core workflow (генерується)**
 
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId 978db8b8-1193-4db9-acb7-84cd21d61214`, вузлів: 193, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId 4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, вузлів: 197, груп за префіксом: 11.
 
 ## Типи вузлів
 
 | Тип | Кількість |
 |---|---|
 | `postgres` | 51 |
+| `telegram` | 43 |
 | `code` | 40 |
-| `telegram` | 39 |
 | `if` | 24 |
 | `respondToWebhook` | 8 |
 | `webhook` | 5 |
@@ -6734,11 +6734,11 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | Doc Intake: Write Link URL | `postgres` | Doc Intake: Extract Drive Link | Doc Intake: Send Link Confirmation |
 | Doc Intake: Write Mode | `postgres` | Doc Intake: Extract Set Project | Doc Intake: Send Set Confirmation |
 
-## Import (16)
+## Import (17)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| Import: Agent | `agent` | Import: Build Prompt, Import: Postgres Chat Memory, WR: OpenAI Chat Model | Import: Parse Agent Output |
+| Import: Agent | `agent` | Import: Build Prompt, Import: Postgres Chat Memory, WR: OpenAI Chat Model | [0] Import: Parse Agent Output, [1] Import: Send LLM Error |
 | Import: Build Prompt | `code` | WR: Route | Import: Agent |
 | Import: Clear Draft After Final | `postgres` | Import: Send Final Confirmation | — |
 | Import: Insert Money Rows | `postgres` | Import: Split Money Rows | — |
@@ -6749,6 +6749,7 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | Import: Reset Draft | `postgres` | WR: Route | Import: Send Reset Confirmation |
 | Import: Send Draft Reply | `telegram` | Import: Is Final? | — |
 | Import: Send Final Confirmation | `telegram` | Import: Is Final? | Import: Clear Draft After Final |
+| Import: Send LLM Error | `telegram` | Import: Agent | — |
 | Import: Send Project Confirmation | `telegram` | Import: Write Project Mode | — |
 | Import: Send Reset Confirmation | `telegram` | Import: Reset Draft | — |
 | Import: Split Money Rows | `code` | Import: Is Final? | Import: Insert Money Rows |
@@ -6787,11 +6788,11 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | M: Fetch Project List | `postgres` | WR: Route | M: Build Project Keyboard |
 | M: Send Project Picker | `httpRequest` | M: Build Project Keyboard | — |
 
-## Meeting (14)
+## Meeting (15)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| Meeting: Agent | `agent` | Meeting: Build Prompt, Meeting: Postgres Chat Memory, WR: OpenAI Chat Model | Meeting: Parse Agent Output |
+| Meeting: Agent | `agent` | Meeting: Build Prompt, Meeting: Postgres Chat Memory, WR: OpenAI Chat Model | [0] Meeting: Parse Agent Output, [1] Meeting: Send LLM Error |
 | Meeting: Build Prompt | `code` | WR: Route | Meeting: Agent |
 | Meeting: Clear Draft After Final | `postgres` | Meeting: Send Confirmation | — |
 | Meeting: Insert Rows | `postgres` | Meeting: Split Items | — |
@@ -6801,17 +6802,18 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | Meeting: Reset Draft | `postgres` | WR: Route | Meeting: Send Reset Confirmation |
 | Meeting: Send Confirmation | `telegram` | Meeting: Is Final? | Meeting: Clear Draft After Final |
 | Meeting: Send Draft Reply | `telegram` | Meeting: Is Final? | — |
+| Meeting: Send LLM Error | `telegram` | Meeting: Agent | — |
 | Meeting: Send Project Confirmation | `telegram` | Meeting: Write Project Mode | — |
 | Meeting: Send Reset Confirmation | `telegram` | Meeting: Reset Draft | — |
 | Meeting: Split Items | `code` | Meeting: Is Final? | Meeting: Insert Rows |
 | Meeting: Write Project Mode | `postgres` | WR: Route | Meeting: Send Project Confirmation |
 
-## WR (62)
+## WR (64)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| WR: Agent | `agent` | WR: Build WR Prompt, WR: OpenAI Chat Model, WR: Postgres Chat Memory | WR: Parse Agent Output |
-| WR: Analyze Image | `openAi` | WR: Download Photo | WR: Normalize Vision |
+| WR: Agent | `agent` | WR: Build WR Prompt, WR: OpenAI Chat Model, WR: Postgres Chat Memory | [0] WR: Parse Agent Output, [1] WR: Send LLM Error |
+| WR: Analyze Image | `openAi` | WR: Download Photo | [0] WR: Normalize Vision, [1] WR: Send Media Error |
 | WR: Build Status Text | `code` | WR: Fetch Report Status | WR: Send Status |
 | WR: Build WR Prompt | `code` | WR: Final Has Data? | WR: Agent |
 | WR: Clear Draft After Final | `postgres` | WR: Send Final Report | — |
@@ -6862,6 +6864,8 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | WR: Send Final No Data | `telegram` | WR: Final Has Data? | — |
 | WR: Send Final Report | `telegram` | WR: Is Final (Render)? | WR: Clear Draft After Final |
 | WR: Send Inbox Ack | `telegram` | WR: Inbox Add | — |
+| WR: Send LLM Error | `telegram` | WR: Agent | — |
+| WR: Send Media Error | `telegram` | WR: Analyze Image, WR: Transcribe | — |
 | WR: Send Need Project | `telegram` | WR: Route | — |
 | WR: Send Project Confirmation | `telegram` | WR: Format Plan For Project Confirm | — |
 | WR: Send Reference Stub | `telegram` | WR: Write Reference Mode | — |
@@ -6869,7 +6873,7 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 | WR: Send Status | `telegram` | WR: Build Status Text | — |
 | WR: Send Unsupported Format | `telegram` | WR: Detect Doc Type | — |
 | WR: Split New Plan Items | `code` | WR: Merge Carryover | WR: Save Next Week Plan |
-| WR: Transcribe | `openAi` | WR: Download Audio | WR: Normalize Audio |
+| WR: Transcribe | `openAi` | WR: Download Audio | [0] WR: Normalize Audio, [1] WR: Send Media Error |
 | WR: Write Project Mode | `postgres` | WR: Route | WR: Fetch Plan For Project Confirm |
 | WR: Write Reference Mode | `postgres` | WR: Route | WR: Send Reference Stub |
 

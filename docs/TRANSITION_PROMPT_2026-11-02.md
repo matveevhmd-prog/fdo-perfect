@@ -5,6 +5,8 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 11.11.2026 (`RELEASE_PLAN` §190):** core `CKwCsGIwyw9feCY5` — `activeVersionId 4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, 197 вузлів (V10: onError/повтор/запасні повідомлення, temperature 0.2; відкат `eb57069b-a23e-4879-959f-9c0516c178d9`); Morning Brief `911fa93b-b2df-4af5-89fc-1e7bded18803` (відкат `a3324b54-fd60-4e38-a5b7-60e18f18408d`); новий workflow «ARCHI: LLM Health Check» `Sna7JWxq3BpRDJIs` (щодня 07:30). Рядок core `978db8b8` нижче застарів.
+
 **Доповнення 07.11.2026:** Morning Brief `J3Oqcaa2YBEsVSng` — формат v2 (Insight → Impact → Action), `activeVersionId a3324b54-fd60-4e38-a5b7-60e18f18408d`, відкат `cb4b50e8-1acd-457c-a37f-16647d00fcb7` (`RELEASE_PLAN` §186); Supabase — міграція `w5_7_brief_action_types`.
 **Доповнення 07.11.2026 (п. 35):** пауза W1; пріоритет — демо-відео, `docs/DEMO_VIDEO_PLAN_2026-11-07.md`, старт нової сесії — `docs/START_PROMPT_DEMO.md`.
 **Доповнення 07.11.2026:** Supabase — міграція W1.8 крок 1 (`archi_project_signals`, `archi_threshold_req`, `RELEASE_PLAN` §184); n8n без змін.
