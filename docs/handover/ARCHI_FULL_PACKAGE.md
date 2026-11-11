@@ -3441,7 +3441,7 @@ R0 → R5 (швидкі) → R1, R2 → R3 → R4 → R6 → вердикт. Т�
 
 ---
 
-<!-- SOURCE CLAUDE.md sha256=2812e9ed5347257f2393b05d69b3d9c54fc702de9c2d8e294562bb67dfbb97d2 bytes=70664 -->
+<!-- SOURCE CLAUDE.md sha256=c49f1f670d1499c5b47eb10f49f5c16618b9a093bb73570565ed018f7759c612 bytes=72316 -->
 **Джерело: `CLAUDE.md` — Закриті рішення власника п. 1–36, ритуал і правила сесії**
 
 # ARCHI — ЗАФІКСОВАНІ РІШЕННЯ ВЛАСНИКА (закриті, НЕ перепитувати)
@@ -3829,6 +3829,10 @@ WBS = `docs/ROADMAP_TO_RELEASE.md` (з 02.11.2026) — головна карта
 10. **Недолік методології — підсвітити і запропонувати рішення (власник, 31.10.2026).** Знайдена невідповідність методології Archi чи EVM подається як «Н-N: факт → чому порушення → рішення», без мовчазного виправлення; виконання — після «так» власника.
 
 11. **Credentials після створення workflow через SDK — перевіряти завжди (власник, 05.11.2026: «так додай правило»).** Автопідстановка credential при `create_workflow_from_code` помиляється: тричі 05.11.2026 на Telegram-вузол стала бот `Telegram account` замість `Telegram account 4` (`jDGC5deJSU6Bjk2J`, бот ARCHI), а на HTTP-вузол (Anthropic) credential не підставився зовсім. Після створення й перед публікацією: `get_workflow_details`, звірити `credentials` кожного вузла з очікуваними (`Postgres account` `9RgEysuE2hzWIIQq`, `Telegram account 4` `jDGC5deJSU6Bjk2J`, `Anthropic account` `U5Ts0Bmqulc3foVf`) і виправити `update_workflow` (`setNodeCredential`) до `publish_workflow`.
+
+12. **Перед PR — звірити `main` (самонавчання, 11.11.2026; власник: «Ти сам запишеш?»).** За сесію `main` може піти вперед (11.11.2026: чотири PR #148–#151 з тими самими нумераціями OD-26 і §186–§189). Перед створенням PR: `git fetch origin main`, `git log HEAD..origin/main`; якщо є коміти — злити `main` у гілку, розв'язати конфлікти нумерації (розділи `RELEASE_PLAN`, OD-N, `gen_wbs.py`), перегенерувати `docs/WBS_FROM_FINAL.md`, `docs/NODE_MAP.md`, `docs/handover/ARCHI_FULL_PACKAGE.md` (`build_handover_bundle.py`; згенеровані файли не зливати вручну) і прогнати `check_docs.py`, `check_handover.py`, `gen_wbs.py --check`.
+
+13. **Код Code-вузла через `update_workflow` — лише `updateNodeParameters` з `replace: true` або `setNodeParameter` зі шляхом `/jsCode` (самонавчання, 11.11.2026).** Шлях `/parameters/jsCode` створює зайве вкладене поле, а код лишається без змін (трапилось 07.11.2026, виявлено звіркою до публікації). Після кожної передачі — `get_workflow_version` нової чернетки і побайтове порівняння з патчем (`jsCode`, ключі `parameters`, решта вузлів, `connections`) до `publish_workflow`. Великий вузол (понад 30 КБ) передавати лише за цією звіркою.
 
 
 ---
