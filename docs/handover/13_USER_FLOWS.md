@@ -117,7 +117,7 @@ flowchart TD
   G --> H[Send Brief: Telegram HTML]
   H --> I[Mark Sent: last_sent_on, якщо не ручний тест]
 ```
-`archi_morning_brief` повертає `actions[]` (топ-5), `horizon_7d[]`, `portfolio`, `data_updated_at`. Без `owner_prefs` — нічого не надсилається.
+`archi_morning_brief` повертає `actions[]` (топ-5, у `advice` є `action_type`: command / propose / call), `portfolio`, `data_updated_at`; Telegram-текст картки: Insight, Impact, Action з готовим текстом у `<pre>` (копіюється натисканням). Без `owner_prefs` — нічого не надсилається.
 
 ## 6. Старт проєкту (поточна реалізація через Кошторис)
 ```mermaid
