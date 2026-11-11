@@ -31,6 +31,8 @@
 - Колір і поріг рахує лише SQL (`CLAUDE.md` п. 7).
 - **Відомі порушення (борг):** частину сигналів і агрегатів портфеля ще рахує код вузла `Build MiniApp Data` в n8n; `AN: Attach Block` має власні `rule()` і кольори; браузер рахує різниці й знаки (`TECH_SPEC` §2.1, D14, `FORMULAS` §7.2). Усунення — вузол карти **W1.8**, власник вирішив зробити це після W1.5 («серце ARCHI — формули — має бути в SQL», п. 31).
 
+> Інвентар LLM-викликів, місця обчислень і розбір ідей зі сторонніх аналізів: `docs/AGENTS_AND_RELIABILITY_DESIGN.md`.
+
 ### 2.3 Перерахунок
 `public.archi_recalc(p_project text DEFAULT NULL)` (+ `archi_recalc_stages()`, `archi_recalc_visit()`). Тригери: `archi_recalc_time` (time_log), `archi_recalc_money` (money_log), `archi_recalc_wr` (wr_weekly_snapshots), `archi_recalc_schedule` (payment_schedule), `archi_recalc_plan` (project_metrics). Workflow `archi_recalc` не викликає.
 
