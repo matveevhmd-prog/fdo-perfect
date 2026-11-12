@@ -3807,6 +3807,18 @@
    "sec": false
   },
   {
+   "args": "p_company uuid, p_key text",
+   "name": "archi_threshold_req",
+   "ret": "numeric",
+   "sec": false
+  },
+  {
+   "args": "p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'::text))::date",
+   "name": "archi_project_signals",
+   "ret": "jsonb",
+   "sec": false
+  },
+  {
    "args": "p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'::text))::date",
    "name": "archi_morning_brief",
    "ret": "jsonb",
@@ -4121,13 +4133,13 @@
   "archi_thresholds": 31,
   "archi_wr_inbox": 0,
   "companies": 1,
-  "company_thresholds": 0,
+  "company_thresholds": 4,
   "evm_package_done": 0,
   "evm_packages": 100,
   "kp_log": 11,
   "meeting_log": 11,
   "money_log": 152,
-  "n8n_chat_histories": 118,
+  "n8n_chat_histories": 122,
   "owner_prefs": 1,
   "payment_schedule": 56,
   "project_metrics": 18,

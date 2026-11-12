@@ -1,6 +1,6 @@
 # ARCHI — схема бази даних (згенеровано)
 
-Згенеровано `scripts/gen_db_schema.py` зі знімка `sql/schema/schema_dump_2026-11-05.json` (живий Supabase `bxawceksdkqlbkdgjvyz`, схема `public`). **Не редагувати вручну:** змінюється знімок → перегенерувати → закомітити разом.
+Згенеровано `scripts/gen_db_schema.py` зі знімка `sql/schema/schema_dump_2026-11-12.json` (живий Supabase `bxawceksdkqlbkdgjvyz`, схема `public`). **Не редагувати вручну:** змінюється знімок → перегенерувати → закомітити разом.
 Перевірка відповідності: `python3 scripts/gen_db_schema.py --check`. Оновлення знімка: `sql/schema/dump_query.sql`.
 Охоплено 19 таблиць і 7 вʼю ARCHI. Чужі таблиці в тій самій базі (`_bak_*`, `jarvis_*`, `shift_*`, `bot_*`, `archi_bot_semantic_memory`) не входять.
 
@@ -10,7 +10,7 @@
 |---|---|---|---|---|---|---|
 | `companies` | таблиця | 1 | так | 0 | клієнти (тенанти); `DEMO` — демо-компанія | службові |
 | `user_access` | таблиця | 1 | так | 0 | ролі користувачів Telegram у компанії; `operator` ⇔ `company_id IS NULL` | PII: Telegram id |
-| `company_thresholds` | таблиця | 0 | так | 0 | перевизначення порогів методології по компанії | конфігурація |
+| `company_thresholds` | таблиця | 4 | так | 0 | перевизначення порогів методології по компанії | конфігурація |
 | `archi_thresholds` | таблиця | 31 | так | 0 | пороги й план бюро за замовчуванням (31 ключ) | конфігурація |
 | `owner_prefs` | таблиця | 1 | так | 0 | налаштування ранкового брифінгу власника | PII: Telegram id |
 | `project_metrics` | таблиця | 18 | ні | 0 | один рядок на проєкт: план і розрахункові поля | фінансові, комерційна таємниця |
@@ -24,7 +24,7 @@
 | `meeting_log` | таблиця | 11 | ні | 0 | журнал зустрічей і домовленостей | вільний текст |
 | `kp_log` | таблиця | 11 | ні | 0 | облік комерційних пропозицій | комерційні |
 | `archi_bot_mode_state` | таблиця | 1 | ні | 0 | режим діалогу бота й обраний проєкт; ключ — id чату | службові |
-| `n8n_chat_histories` | таблиця | 118 | ні | 0 | пам'ять LLM-агентів звіту, імпорту, зустрічі | вільний текст, можливі ПІБ |
+| `n8n_chat_histories` | таблиця | 122 | ні | 0 | пам'ять LLM-агентів звіту, імпорту, зустрічі | вільний текст, можливі ПІБ |
 | `evm_packages` | таблиця | 100 | так | 0 | гілка «EVM (класичний)»: базовий план пакетів | фінансові |
 | `evm_package_done` | таблиця | 0 | так | 0 | гілка «EVM (класичний)»: факт виконання пакетів | фінансові |
 | `archi_report_today` | вʼю | — | — | — | вʼю: колонка «Сьогодні» звіту (ETC, рентабельність, ймовірності) | похідні |
@@ -873,6 +873,7 @@ erDiagram
 | `archi_morning_brief` | `p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'::text))::date` | `jsonb` | ні |
 | `archi_paid_idx_signal` | `p numeric` | `text` | ні |
 | `archi_paid_idx_signal` | `p_company uuid, p numeric` | `text` | ні |
+| `archi_project_signals` | `p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'::text))::date` | `jsonb` | ні |
 | `archi_ready_gap_signal` | `p_company uuid, p_pp numeric` | `text` | ні |
 | `archi_ready_gap_signal` | `p_pp numeric` | `text` | ні |
 | `archi_recalc` | `p_company uuid, p_project text` | `integer` | ні |
@@ -888,6 +889,7 @@ erDiagram
 | `archi_snapshot_metrics` | `p_company uuid, p_project text, p_week date, p_rd jsonb, p_et jsonb` | `TABLE(rent_plan_pct numeric, rent_forecast_pct numeric, eac_hours_pct numeric, cpi numeric, etc_plan_hours numeric, etc_fact_hours numeric, etc_forecast_hours numeric, etc_gap_hours numeric, etc_gap_signal text)` | ні |
 | `archi_snapshot_metrics` | `p_project text, p_week date, p_rd jsonb, p_et jsonb` | `TABLE(rent_plan_pct numeric, rent_forecast_pct numeric, eac_hours_pct numeric, cpi numeric, etc_plan_hours numeric, etc_fact_hours numeric, etc_forecast_hours numeric, etc_gap_hours numeric, etc_gap_signal text)` | ні |
 | `archi_threshold` | `p_company uuid, p_key text` | `numeric` | ні |
+| `archi_threshold_req` | `p_company uuid, p_key text` | `numeric` | ні |
 | `archi_vac_signal` | `p_company uuid, p_gap numeric, p_bac numeric` | `text` | ні |
 | `archi_vac_signal` | `p_gap numeric, p_bac numeric` | `text` | ні |
 | `evm_classic_at` | `p_company uuid, p_project text, p_t date` | `TABLE(company_id uuid, project_id text, as_of date, has_baseline boolean, baseline_no integer, packages integer, bac numeric, pv numeric, ev numeric, ac numeric, cv numeric, sv numeric, cpi numeric, spi numeric, eac numeric, etc numeric, vac numeric, tcpi numeric)` | ні |

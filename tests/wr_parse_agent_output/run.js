@@ -23,7 +23,15 @@ function run(opts) {
   const $ = function (name) { return { first: function () { return { json: data[name] || {} }; }, all: function () { return []; } }; };
   const $now = { startOf: function () { return { plus: function () { return { toFormat: function () { return '2026-10-26'; } }; } }; } };
   const $input = { first: function () { return { json: { output: JSON.stringify(opts.out) } }; } };
-  return new Function('$', '$input', '$now', CODE)($, $input, $now)[0].json;
+  // «Сьогодні» зафіксовано (28.10.2026, тиждень фікстур 26.10): вузол порівнює прогнозні дати з new Date(),
+  // без фіксації тест 11a падав після 06.11.2026 (Due Diligence 12.11.2026, G-15).
+  const RealDate = Date;
+  const FIXED = '2026-10-28T09:00:00Z';
+  class FixedDate extends RealDate {
+    constructor(...a) { if (a.length) { super(...a); } else { super(FIXED); } }
+    static now() { return new RealDate(FIXED).getTime(); }
+  }
+  return new Function('$', '$input', '$now', 'Date', CODE)($, $input, $now, FixedDate)[0].json;
 }
 const clone = function (o) { return JSON.parse(JSON.stringify(o)); };
 function unsupported(r) {

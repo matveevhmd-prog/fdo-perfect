@@ -5,7 +5,7 @@
 | Питання | Відповідь |
 |---|---|
 | Що це | Оркестраційний шар над проєктними даними: план + факт + прогноз → метрики, сигнали, відповіді |
-| Де логіка | n8n Cloud: core workflow на 197 вузлів, плюс 3 допоміжні workflow. Обчислення — в SQL (Supabase Postgres) і частково в Code-вузлах n8n |
+| Де логіка | n8n Cloud: core workflow на 197 вузлів, плюс 6 workflow ARCHI (K6sm, RC7H, Morning Brief, Error Alert, LLM Health Check, Sheets Helper). Обчислення — в SQL (Supabase Postgres) і частково в Code-вузлах n8n |
 | Де дані | Supabase проєкт `bxawceksdkqlbkdgjvyz`, схема `public` |
 | Клієнтські канали | Telegram-бот (чат, звіт, імпорт, брифінг), Telegram Mini App (Owner View, Weekly Render), xlsx |
 | LLM | Anthropic `claude-sonnet-4-6` (чат, брифінг), OpenAI `gpt-4o` (звіт, імпорт, зустрічі, фото), OpenAI transcribe (голос) |
@@ -41,13 +41,14 @@
 |---|---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` | хмарний; проєкт власника |
 | Core workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent» | `activeVersionId` `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, 197 вузлів (V10, 11.11.2026, §190; раніше 978db8b8 DR-14; відкат — попередня версія `a4c89c3c`, на 2 вузли менше) (05.11.2026) |
-| Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `cf904641`; експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
-| Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `d86d127a`; експорт `workflows/Archi_Document_Intake_RC7H.json` |
+| Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `23c5765e-0c7b-49fb-9f95-f34893f240f6` (live n8n 12.11.2026; у файлі експорту поле `activeVersionId` лишилось `cf904641`, `versionId` — `23c5765e`); експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
+| Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `6a8d9dbe-e76b-4bb2-81fa-9be6ab687daa` (live n8n 12.11.2026); експорт `workflows/Archi_Document_Intake_RC7H.json` |
 | **Error Alert** | `JZ5htUtbMaWTagoC` «ARCHI: Error Alert» | 2 вузли (`Error Trigger` → `Alert Operator`), опублікований; Error Workflow для core і Morning Brief; надсилає оператору workflow, вузол, помилку (до 300 символів), id виконання |
-| Sheets Helper | `nGcSyWfuMO7vjTn6` | ручний, неактивний, 7 вузлів |
-| **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 11 вузлів, опублікований; `activeVersionId` `cb4b50e8-1acd-457c-a37f-16647d00fcb7` (відкат — `ae7e4e3b-eaa7-4ff6-b108-c6edec0311f4`); код `workflows/Archi_Morning_Brief.sdk.ts` |
+| Sheets Helper | `nGcSyWfuMO7vjTn6` | ручний, неактивний, 7 вузлів; у git не експортовано (W8.3) |
+| **LLM Health Check** | `Sna7JWxq3BpRDJIs` «ARCHI: LLM Health Check» | опублікований 11.11.2026 (§190); щоденна перевірка доступності Anthropic і OpenAI, сповіщення оператору; код `workflows/Archi_LLM_Health_Check.sdk.ts` |
+| **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 11 вузлів, опублікований; `activeVersionId` `911fa93b-b2df-4af5-89fc-1e7bded18803` (live n8n 12.11.2026, §190; попередня — `cb4b50e8-1acd-457c-a37f-16647d00fcb7`); тригер — кожні 5 хвилин, надсилання за часом з `owner_prefs`; код `workflows/Archi_Morning_Brief.sdk.ts` |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) | чужий проєкт власника |
-| Інші workflow в акаунті | 103 workflow усього (live, 05.11.2026): `Task Dispatcher` (активний), `DS Executor`, `Archi Protocol Format Helper` (неактивний, застарілий) і ~90 тимчасових `TEMP:` | **не частина ARCHI**; не змінювати без власника. ARCHI = 5 workflow: core, K6sm, RC7H, Sheets Helper, Morning Brief |
+| Інші workflow в акаунті | 103 workflow усього (live, 05.11.2026): `Task Dispatcher` (активний), `DS Executor`, `Archi Protocol Format Helper` (неактивний, застарілий) і ~90 тимчасових `TEMP:` | **не частина ARCHI**; не змінювати без власника. ARCHI = 7 workflow: core, K6sm, RC7H, Morning Brief, Error Alert, LLM Health Check, Sheets Helper (live n8n 12.11.2026) |
 | Supabase | `bxawceksdkqlbkdgjvyz` «matvieiev-bots» | у базі є чужі таблиці (`_bak_*`, `jarvis_*`, `shift_*`, `bot_*`, `archi_bot_semantic_memory`) — не частина ARCHI |
 | Telegram-бот | `@archi_demo_bot` | credential n8n `Telegram account 4` |
 | Credentials n8n (імена) | `Postgres account`, `Telegram account 4`, `Anthropic account`, OpenAI account(s), Google Drive/Sheets/Docs | значення не в репозиторії |
@@ -175,7 +176,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | Бот відкритий для будь-якого користувача Telegram (`SECURITY.md` п. 7) | резолвер `user_access` реалізовано 03.11.2026 (W1.2); у Telegram не прогнано; у `SECURITY.md` статус лишається «не виправлено» до перевірки | рішення D5, п. 30 |
 | Google Sheets `anyone writer` на файлі Кошториса | виводиться з обігу | W2.7 |
 | Нові таблиці/вʼю без RLS | `owner_prefs`, `evm_*` — RLS без політик; інші — без RLS | кожен новий об'єкт — з RLS за можливості (R-11) |
-| Репозиторій | приватний (власник підтвердив) | п. 25, дію в GitHub виконує власник |
+| Репозиторій | **публічний** на 12.11.2026 (GitHub API: `visibility: public`); рішення власника — приватний, не виконано | п. 25, дію в GitHub виконує власник |
 Інші пункти `SECURITY.md` (п. 3 credentials Sheets і Postgres, п. 4 Anthropic API, п. 6 і 7б–12 нові таблиці, вʼю й функції без RLS або з RLS без політик) — у файлі `SECURITY.md`; кожен новий об'єкт БД дописується туди тим самим комітом.
 Правило: **CTO не вмикає RLS і не ротує токен без власника.**
 

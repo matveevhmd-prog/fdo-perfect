@@ -221,7 +221,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
 | Supabase | `bxawceksdkqlbkdgjvyz` |
 | Кошторис DEMO | `1Ok4_U9u8kLZ0GJarPbEk4nQsqKeqdLzNNBONNNDgF7g` — спадковий адаптер, виводиться з обігу (п. 17) |
-| K6sm активна версія | `cf904641-0f46-4725-a0ab-beaef8385cd9` (звірено 01.11.2026) |
+| K6sm активна версія | `23c5765e-0c7b-49fb-9f95-f34893f240f6` (звірено з живим n8n 12.11.2026; до 03.11.2026 — `cf904641`) |
 | Бот | `@archi_demo_bot`; власник `304884647` |
 | Моделі | Claude `claude-sonnet-4-6` (чат); OpenAI `gpt-4o` (WR/Import/Meeting, фото), OpenAI transcribe (голос) |
 

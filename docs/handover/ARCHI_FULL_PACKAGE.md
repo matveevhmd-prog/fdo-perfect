@@ -57,11 +57,11 @@
 
 ---
 
-<!-- SOURCE docs/handover/00_START_HERE.md sha256=caaeebf6c7841728dc15f9e9713147756a6686d8338527f704dcb7e71b83c4fa bytes=13407 -->
+<!-- SOURCE docs/handover/00_START_HERE.md sha256=af404eecbdcab975f41c40f1feda6934ee9bd46c00c685ffccb923c3f28e3fbd bytes=13829 -->
 **Джерело: `docs/handover/00_START_HERE.md` — Навігація, стан, чек-лист передачі**
 
 # ARCHI — пакет передачі розробки IT-компанії
-Версія 1.0 (остаточна) · 05.11.2026 · Зміни пакета — лише через PR з перевіркою `check_handover.py` і CI та новим розділом у `RELEASE_PLAN`. · Репозиторій `matveevhmd-prog/fdo-perfect` (приватний), гілка `main`.
+Версія 1.0 (остаточна) · 05.11.2026 · Зміни пакета — лише через PR з перевіркою `check_handover.py` і CI та новим розділом у `RELEASE_PLAN`. · Репозиторій `matveevhmd-prog/fdo-perfect`, гілка `main`. **Видимість на 12.11.2026 — публічний** (GitHub API); рішення власника — приватний (`CLAUDE.md` п. 25), дію виконує власник.
 Власник продукту — Андрій Матвєєв (COO). Мова документації — українська. Назви показників, вузлів, таблиць, полів і шляхів — без перекладу.
 
 Позначки в усіх документах пакета: **Факт** — перевірено кодом або живим SQL (джерело й дата поруч); **[Припущення]** — логічний висновок без перевірки; **Потребує перевірки** — сумнів; **[Рекомендація]** — пропозиція автора пакета, не рішення власника.
@@ -80,9 +80,9 @@ ARCHI — це **контроль майбутньої рентабельнос�
 
 ## 3. Порядок читання першого дня (для всіх)
 1. Цей файл.
-2. `CLAUDE.md` у корені репозиторію — **закриті рішення власника (п. 1–34)**. Їх не перепитують і не переробляють без власника. Для нового виконавця це найважливіший файл: він пояснює, чому продукт влаштований саме так.
+2. `CLAUDE.md` у корені репозиторію — **закриті рішення власника (п. 1–36)**. Їх не перепитують і не переробляють без власника. Для нового виконавця це найважливіший файл: він пояснює, чому продукт влаштований саме так.
 3. `docs/DECISIONS_REGISTER.md` — реєстр рішень і суперечностей між документами.
-4. `docs/ROADMAP_TO_RELEASE.md` — єдина карта розробки до релізу (потоки W0–W11, критерії R-1…R-14, рішення OD-N).
+4. `docs/ROADMAP_TO_RELEASE.md` — єдина карта розробки до релізу (потоки W0–W12 і WD, критерії R-1…R-15, рішення OD-N).
 5. Документи за роллю (таблиця вище).
 
 ## 4. Пакет документів
@@ -103,11 +103,12 @@ ARCHI — це **контроль майбутньої рентабельнос�
 | `14_THREAT_MODEL.md` | модель загроз STRIDE |
 | `15_USER_STORIES.md` | 55 User Stories з Acceptance Criteria |
 | `16_NFR.md` | нефункціональні вимоги: цілі власника й виміряний стан |
+| `audits/` | незалежні перевірки: `CODE_AUDIT_2026-11-05.md`, `DUE_DILIGENCE_2026-11-12.md` (оцінка постачальника: блокери старту, реєстр прогалин, визначення «100%») |
 
 ### 4.2 Канонічні документи репозиторію (джерела, на які посилається пакет)
 | Файл | Призначення |
 |---|---|
-| `CLAUDE.md` | закриті рішення власника п. 1–34, ритуал сесії |
+| `CLAUDE.md` | закриті рішення власника п. 1–36, ритуал сесії |
 | `docs/ROADMAP_TO_RELEASE.md` | карта, критерії релізу, рішення OD |
 | `docs/ARCHI_TECH_SPEC_v3_1.md` | технічна специфікація v3.1 |
 | `docs/FORMULAS.md` | довідник усіх формул і порогів (єдине джерело визначень) |
@@ -120,7 +121,7 @@ ARCHI — це **контроль майбутньої рентабельнос�
 | `docs/FEATURE_IDEAS.md` | ідеї власника: ARCHI у чаті проєкту, виконавці |
 | `docs/OWNER_MORNING_TEST.md` | тест для власника: 4 дії + 10 питань |
 | `SECURITY.md` | відомі ризики безпеки й прийняті рішення |
-| `docs/RELEASE_PLAN.md` | журнал усіх робіт (540 КБ; читати з кінця) |
+| `docs/RELEASE_PLAN.md` | журнал усіх робіт (590 КБ; читати з кінця) |
 | `docs/CTO_CHECKPOINT_*.md` | аудити коду проти документації |
 | `docs/MORNING_BRIEF_PROMPT.txt` | системний промпт ранкового брифінгу |
 | `workflows/*.json`, `workflows/*.sdk.ts` | експорти n8n (токен замінено на `<TELEGRAM_BOT_TOKEN>`) |
@@ -428,7 +429,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/02_BUSINESS_REQUIREMENTS.md sha256=3b57de5741495e711407e5e4c5b1ed4987b142564b605e8f797c9431817f8096 bytes=29746 -->
+<!-- SOURCE docs/handover/02_BUSINESS_REQUIREMENTS.md sha256=c7b8b0f15ced0b5e8aa2c95c3eb09f825c5ba305bb8ab06a622c3d1d901a647e bytes=30135 -->
 **Джерело: `docs/handover/02_BUSINESS_REQUIREMENTS.md` — Бізнес-вимоги**
 
 # ARCHI — бізнес-вимоги
@@ -452,9 +453,9 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 **Вимірювані цифри ефекту для клієнта (економія годин, зростання маржі) відсутні:** пілотів не було. Не обіцяти числа, поки їх не виміряно.
 
 ## 3. Межі
-**У межах продукту:** контроль прогнозу й рентабельності, щотижневий ритм, аналітика власника, канали входу даних, багатоклієнтність, знання проєкту (план), самонавчання (план).
+**У межах продукту:** контроль прогнозу й рентабельності, щотижневий ритм, аналітика власника, канали входу даних, багатоклієнтність, знання проєкту (план), самонавчання (план), фінансова ліквідність власника (план; потік W12, критерій R-15, `CLAUDE.md` п. 36).
 **Поза межами (свідомо):**
-- Керування ліквідністю, касовий розрив, зарплатний фонд (даних немає).
+- Показ ліквідності (залишок на рахунках, «гроші на ЗП», касовий розрив) у Weekly Render, звіті ПМа, ПМам і виконавцям: ці дані — лише в Owner View і у відповідях власнику (`CLAUDE.md` п. 36). До реалізації W12 відповідь — «даних немає».
 - «Автоматичний захист прибутку».
 - Лінійна екстраполяція темпу проєкту.
 - Заміна систем обліку (IF.TEAM, OneB): ARCHI лише приймає з них дані.
@@ -641,7 +642,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 
 ---
 
-<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=d8e8b061f388c8715841e754260e53d864739e28677d95779d037004f789c927 bytes=36800 -->
+<!-- SOURCE docs/handover/03_TECHNICAL_CTO.md sha256=b9187b2fbccbb3dacd8e6d067bc4a4cefe4cd32175bdf1d6683b291403ffb894 bytes=37694 -->
 **Джерело: `docs/handover/03_TECHNICAL_CTO.md` — Технічний документ для CTO**
 
 # ARCHI — технічний документ для CTO
@@ -651,7 +652,7 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 | Питання | Відповідь |
 |---|---|
 | Що це | Оркестраційний шар над проєктними даними: план + факт + прогноз → метрики, сигнали, відповіді |
-| Де логіка | n8n Cloud: core workflow на 197 вузлів, плюс 3 допоміжні workflow. Обчислення — в SQL (Supabase Postgres) і частково в Code-вузлах n8n |
+| Де логіка | n8n Cloud: core workflow на 197 вузлів, плюс 6 workflow ARCHI (K6sm, RC7H, Morning Brief, Error Alert, LLM Health Check, Sheets Helper). Обчислення — в SQL (Supabase Postgres) і частково в Code-вузлах n8n |
 | Де дані | Supabase проєкт `bxawceksdkqlbkdgjvyz`, схема `public` |
 | Клієнтські канали | Telegram-бот (чат, звіт, імпорт, брифінг), Telegram Mini App (Owner View, Weekly Render), xlsx |
 | LLM | Anthropic `claude-sonnet-4-6` (чат, брифінг), OpenAI `gpt-4o` (звіт, імпорт, зустрічі, фото), OpenAI transcribe (голос) |
@@ -687,13 +688,14 @@ Q1–Q10 (LOCKED): що відбувається; де запалає; чи по
 |---|---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` | хмарний; проєкт власника |
 | Core workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent» | `activeVersionId` `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, 197 вузлів (V10, 11.11.2026, §190; раніше 978db8b8 DR-14; відкат — попередня версія `a4c89c3c`, на 2 вузли менше) (05.11.2026) |
-| Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `cf904641`; експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
-| Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `d86d127a`; експорт `workflows/Archi_Document_Intake_RC7H.json` |
+| Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `23c5765e-0c7b-49fb-9f95-f34893f240f6` (live n8n 12.11.2026; у файлі експорту поле `activeVersionId` лишилось `cf904641`, `versionId` — `23c5765e`); експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
+| Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `6a8d9dbe-e76b-4bb2-81fa-9be6ab687daa` (live n8n 12.11.2026); експорт `workflows/Archi_Document_Intake_RC7H.json` |
 | **Error Alert** | `JZ5htUtbMaWTagoC` «ARCHI: Error Alert» | 2 вузли (`Error Trigger` → `Alert Operator`), опублікований; Error Workflow для core і Morning Brief; надсилає оператору workflow, вузол, помилку (до 300 символів), id виконання |
-| Sheets Helper | `nGcSyWfuMO7vjTn6` | ручний, неактивний, 7 вузлів |
-| **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 11 вузлів, опублікований; `activeVersionId` `cb4b50e8-1acd-457c-a37f-16647d00fcb7` (відкат — `ae7e4e3b-eaa7-4ff6-b108-c6edec0311f4`); код `workflows/Archi_Morning_Brief.sdk.ts` |
+| Sheets Helper | `nGcSyWfuMO7vjTn6` | ручний, неактивний, 7 вузлів; у git не експортовано (W8.3) |
+| **LLM Health Check** | `Sna7JWxq3BpRDJIs` «ARCHI: LLM Health Check» | опублікований 11.11.2026 (§190); щоденна перевірка доступності Anthropic і OpenAI, сповіщення оператору; код `workflows/Archi_LLM_Health_Check.sdk.ts` |
+| **Morning Brief** | `J3Oqcaa2YBEsVSng` «ARCHI: Morning Brief» | 11 вузлів, опублікований; `activeVersionId` `911fa93b-b2df-4af5-89fc-1e7bded18803` (live n8n 12.11.2026, §190; попередня — `cb4b50e8-1acd-457c-a37f-16647d00fcb7`); тригер — кожні 5 хвилин, надсилання за часом з `owner_prefs`; код `workflows/Archi_Morning_Brief.sdk.ts` |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) | чужий проєкт власника |
-| Інші workflow в акаунті | 103 workflow усього (live, 05.11.2026): `Task Dispatcher` (активний), `DS Executor`, `Archi Protocol Format Helper` (неактивний, застарілий) і ~90 тимчасових `TEMP:` | **не частина ARCHI**; не змінювати без власника. ARCHI = 5 workflow: core, K6sm, RC7H, Sheets Helper, Morning Brief |
+| Інші workflow в акаунті | 103 workflow усього (live, 05.11.2026): `Task Dispatcher` (активний), `DS Executor`, `Archi Protocol Format Helper` (неактивний, застарілий) і ~90 тимчасових `TEMP:` | **не частина ARCHI**; не змінювати без власника. ARCHI = 7 workflow: core, K6sm, RC7H, Morning Brief, Error Alert, LLM Health Check, Sheets Helper (live n8n 12.11.2026) |
 | Supabase | `bxawceksdkqlbkdgjvyz` «matvieiev-bots» | у базі є чужі таблиці (`_bak_*`, `jarvis_*`, `shift_*`, `bot_*`, `archi_bot_semantic_memory`) — не частина ARCHI |
 | Telegram-бот | `@archi_demo_bot` | credential n8n `Telegram account 4` |
 | Credentials n8n (імена) | `Postgres account`, `Telegram account 4`, `Anthropic account`, OpenAI account(s), Google Drive/Sheets/Docs | значення не в репозиторії |
@@ -821,7 +823,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | Бот відкритий для будь-якого користувача Telegram (`SECURITY.md` п. 7) | резолвер `user_access` реалізовано 03.11.2026 (W1.2); у Telegram не прогнано; у `SECURITY.md` статус лишається «не виправлено» до перевірки | рішення D5, п. 30 |
 | Google Sheets `anyone writer` на файлі Кошториса | виводиться з обігу | W2.7 |
 | Нові таблиці/вʼю без RLS | `owner_prefs`, `evm_*` — RLS без політик; інші — без RLS | кожен новий об'єкт — з RLS за можливості (R-11) |
-| Репозиторій | приватний (власник підтвердив) | п. 25, дію в GitHub виконує власник |
+| Репозиторій | **публічний** на 12.11.2026 (GitHub API: `visibility: public`); рішення власника — приватний, не виконано | п. 25, дію в GitHub виконує власник |
 Інші пункти `SECURITY.md` (п. 3 credentials Sheets і Postgres, п. 4 Anthropic API, п. 6 і 7б–12 нові таблиці, вʼю й функції без RLS або з RLS без політик) — у файлі `SECURITY.md`; кожен новий об'єкт БД дописується туди тим самим комітом.
 Правило: **CTO не вмикає RLS і не ротує токен без власника.**
 
@@ -985,12 +987,12 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 
 ---
 
-<!-- SOURCE docs/handover/10_DATABASE_SCHEMA.md sha256=4c36681de594da3fff1ee121eb5ad8ace1c173c05338ef2a7e392bc3fb58d06c bytes=51651 -->
+<!-- SOURCE docs/handover/10_DATABASE_SCHEMA.md sha256=906f80d360d3ce8cc9ec7b6f22aa571a3260a8c117bf938c4ae2e1ffa3c093b0 bytes=51861 -->
 **Джерело: `docs/handover/10_DATABASE_SCHEMA.md` — Схема БД (згенеровано зі знімка)**
 
 # ARCHI — схема бази даних (згенеровано)
 
-Згенеровано `scripts/gen_db_schema.py` зі знімка `sql/schema/schema_dump_2026-11-05.json` (живий Supabase `bxawceksdkqlbkdgjvyz`, схема `public`). **Не редагувати вручну:** змінюється знімок → перегенерувати → закомітити разом.
+Згенеровано `scripts/gen_db_schema.py` зі знімка `sql/schema/schema_dump_2026-11-12.json` (живий Supabase `bxawceksdkqlbkdgjvyz`, схема `public`). **Не редагувати вручну:** змінюється знімок → перегенерувати → закомітити разом.
 Перевірка відповідності: `python3 scripts/gen_db_schema.py --check`. Оновлення знімка: `sql/schema/dump_query.sql`.
 Охоплено 19 таблиць і 7 вʼю ARCHI. Чужі таблиці в тій самій базі (`_bak_*`, `jarvis_*`, `shift_*`, `bot_*`, `archi_bot_semantic_memory`) не входять.
 
@@ -1000,7 +1002,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 |---|---|---|---|---|---|---|
 | `companies` | таблиця | 1 | так | 0 | клієнти (тенанти); `DEMO` — демо-компанія | службові |
 | `user_access` | таблиця | 1 | так | 0 | ролі користувачів Telegram у компанії; `operator` ⇔ `company_id IS NULL` | PII: Telegram id |
-| `company_thresholds` | таблиця | 0 | так | 0 | перевизначення порогів методології по компанії | конфігурація |
+| `company_thresholds` | таблиця | 4 | так | 0 | перевизначення порогів методології по компанії | конфігурація |
 | `archi_thresholds` | таблиця | 31 | так | 0 | пороги й план бюро за замовчуванням (31 ключ) | конфігурація |
 | `owner_prefs` | таблиця | 1 | так | 0 | налаштування ранкового брифінгу власника | PII: Telegram id |
 | `project_metrics` | таблиця | 18 | ні | 0 | один рядок на проєкт: план і розрахункові поля | фінансові, комерційна таємниця |
@@ -1014,7 +1016,7 @@ Manual Test → Test Recipient ──────┴─► Load Brief → Build 
 | `meeting_log` | таблиця | 11 | ні | 0 | журнал зустрічей і домовленостей | вільний текст |
 | `kp_log` | таблиця | 11 | ні | 0 | облік комерційних пропозицій | комерційні |
 | `archi_bot_mode_state` | таблиця | 1 | ні | 0 | режим діалогу бота й обраний проєкт; ключ — id чату | службові |
-| `n8n_chat_histories` | таблиця | 118 | ні | 0 | пам'ять LLM-агентів звіту, імпорту, зустрічі | вільний текст, можливі ПІБ |
+| `n8n_chat_histories` | таблиця | 122 | ні | 0 | пам'ять LLM-агентів звіту, імпорту, зустрічі | вільний текст, можливі ПІБ |
 | `evm_packages` | таблиця | 100 | так | 0 | гілка «EVM (класичний)»: базовий план пакетів | фінансові |
 | `evm_package_done` | таблиця | 0 | так | 0 | гілка «EVM (класичний)»: факт виконання пакетів | фінансові |
 | `archi_report_today` | вʼю | — | — | — | вʼю: колонка «Сьогодні» звіту (ETC, рентабельність, ймовірності) | похідні |
@@ -1863,6 +1865,7 @@ erDiagram
 | `archi_morning_brief` | `p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'::text))::date` | `jsonb` | ні |
 | `archi_paid_idx_signal` | `p numeric` | `text` | ні |
 | `archi_paid_idx_signal` | `p_company uuid, p numeric` | `text` | ні |
+| `archi_project_signals` | `p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'::text))::date` | `jsonb` | ні |
 | `archi_ready_gap_signal` | `p_company uuid, p_pp numeric` | `text` | ні |
 | `archi_ready_gap_signal` | `p_pp numeric` | `text` | ні |
 | `archi_recalc` | `p_company uuid, p_project text` | `integer` | ні |
@@ -1878,6 +1881,7 @@ erDiagram
 | `archi_snapshot_metrics` | `p_company uuid, p_project text, p_week date, p_rd jsonb, p_et jsonb` | `TABLE(rent_plan_pct numeric, rent_forecast_pct numeric, eac_hours_pct numeric, cpi numeric, etc_plan_hours numeric, etc_fact_hours numeric, etc_forecast_hours numeric, etc_gap_hours numeric, etc_gap_signal text)` | ні |
 | `archi_snapshot_metrics` | `p_project text, p_week date, p_rd jsonb, p_et jsonb` | `TABLE(rent_plan_pct numeric, rent_forecast_pct numeric, eac_hours_pct numeric, cpi numeric, etc_plan_hours numeric, etc_fact_hours numeric, etc_forecast_hours numeric, etc_gap_hours numeric, etc_gap_signal text)` | ні |
 | `archi_threshold` | `p_company uuid, p_key text` | `numeric` | ні |
+| `archi_threshold_req` | `p_company uuid, p_key text` | `numeric` | ні |
 | `archi_vac_signal` | `p_company uuid, p_gap numeric, p_bac numeric` | `text` | ні |
 | `archi_vac_signal` | `p_gap numeric, p_bac numeric` | `text` | ні |
 | `evm_classic_at` | `p_company uuid, p_project text, p_t date` | `TABLE(company_id uuid, project_id text, as_of date, has_baseline boolean, baseline_no integer, packages integer, bac numeric, pv numeric, ev numeric, ac numeric, cv numeric, sv numeric, cpi numeric, spi numeric, eac numeric, etc numeric, vac numeric, tcpi numeric)` | ні |
@@ -3926,7 +3930,7 @@ WBS = `docs/ROADMAP_TO_RELEASE.md` (з 02.11.2026) — головна карта
 
 ---
 
-<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=74b37b5e4bb51267ef0f19b3b0d78abb7fb9e134de26c2a77329f166ed4cb458 bytes=70600 -->
+<!-- SOURCE docs/ROADMAP_TO_RELEASE.md sha256=1a044aaef6b8956d8ba6d5db29b17f3f39c0c7d263d84d6d89f61c06ae9599a8 bytes=70910 -->
 **Джерело: `docs/ROADMAP_TO_RELEASE.md` — Єдина карта розробки до релізу**
 
 # ARCHI — ROADMAP_TO_RELEASE (WBS, єдина карта)
@@ -4000,7 +4004,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 | W1.3 RLS-політики по компанії | замість вимкнених/«без політик»; `service_role` лише в n8n | ⬜ відкладено рішенням власника 03.11.2026 (OD-4): до заведення першого платного клієнта |
 | W1.4 Секрети й токени на клієнта | окремий бот/токен із сховища секретів; ротація (`SECURITY.md` п. 1, 7); для виконавців — окремий Performer Bot (варіант Б, `CLAUDE.md` п. 23); суперечність про ротацію знято (C-1) | 🟡 OD-5: власник 03.11.2026 приймає ризик; ротація і перенесення токена з вузла `M: Send Project Picker` у credential — **останній крок розробки перед презентацією клієнту** (`CLAUDE.md` п. 25, 26); окремий бот на клієнта — цільова архітектура |
 | W1.5 Параметри методології на клієнта | `archi_thresholds`, `plan_year_*` (річний план бюро) — зараз глобальні | 🟡 кроки 1–3 зроблено 04.11.2026 (`RELEASE_PLAN` §169–§171); лишається динамічний тест перевизначення і екранна перевірка |
-| W1.6 Параметризація SQL | вузли з `{{ }}` (21 вузол, безпечні за CTO 01.11) → єдиний шаблон; DDL на кожне повідомлення прибрати; `company_id` у кожному запиті (перевірка `scripts/check_tenant_filter.py`: база 03.11.2026 — 46 вузлів без `company_id`; `docs/W1_DESIGN.md` §4–§6) | 🟡 `company_id` у всіх запитах (--strict = 0, 03.11.2026); лишились `{{ }}` у частині вузлів, T2–T6 |
+| W1.6 Параметризація SQL | вузли з `{{ }}` (21 вузол, безпечні за CTO 01.11) → єдиний шаблон; DDL на кожне повідомлення прибрати; `company_id` у кожному запиті (перевірка `scripts/check_tenant_filter.py`: база 03.11.2026 — 46 вузлів без `company_id`; `docs/W1_DESIGN.md` §4–§6) | 🟡 `company_id` у всіх запитах до бізнес-таблиць (--strict = 0, 03.11.2026); з 05.11.2026 перевірка охоплює також `archi_bot_mode_state` і `n8n_chat_histories` (ключ — id чату): 16 вузлів core без `company_id` (локальний запуск 12.11.2026; п. 35 — ключі чернеток на паузі); лишились `{{ }}` у частині вузлів, T2–T6 |
 | W1.8 Усі формули, пороги і кольори — лише в SQL (борг A-1, D14, `FORMULAS` §7.2) | перенести з `Build MiniApp Data` (n8n), `AN: Attach Block` і браузера (`Build MiniApp HTML`: різниці, знак, колір) у SQL-вʼю/функції; n8n і Mini App лише відображають; вимога власника 04.11.2026 («серце Archi — формули — в SQL»); масштабується на N клієнтів (пороги з `archi_thresholds` по `company_id`, W1.5) | 🟡 крок 1 виконано 07.11.2026 (SQL `archi_project_signals`, `RELEASE_PLAN` §186); кроки 2–4 — `docs/W1_8_DESIGN.md` §4 |
 | W1.7 Видимість репозиторію | репозиторій публічний (`README.md`) | 🟡 OD-6 закрито 02.11.2026 (варіант А, `CLAUDE.md` п. 25): зробити приватним; змінює власник у GitHub Settings; стан після зміни перевірити |
 
@@ -4586,7 +4590,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 
 ---
 
-<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=6d15818a83667eb531d72536cb3d34caacf3a6571b517f040ee6aceceacf5c43 bytes=43567 -->
+<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=848ae56bf74e6cecaa911eab676129eb0f7e47cd7d19cb9b1d47257c8a069c0c bytes=43617 -->
 **Джерело: `docs/ARCHI_TECH_SPEC_v3_1.md` — Технічна специфікація v3.1**
 
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.1
@@ -4812,7 +4816,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
 | Supabase | `bxawceksdkqlbkdgjvyz` |
 | Кошторис DEMO | `1Ok4_U9u8kLZ0GJarPbEk4nQsqKeqdLzNNBONNNDgF7g` — спадковий адаптер, виводиться з обігу (п. 17) |
-| K6sm активна версія | `cf904641-0f46-4725-a0ab-beaef8385cd9` (звірено 01.11.2026) |
+| K6sm активна версія | `23c5765e-0c7b-49fb-9f95-f34893f240f6` (звірено з живим n8n 12.11.2026; до 03.11.2026 — `cf904641`) |
 | Бот | `@archi_demo_bot`; власник `304884647` |
 | Моделі | Claude `claude-sonnet-4-6` (чат); OpenAI `gpt-4o` (WR/Import/Meeting, фото), OpenAI transcribe (голос) |
 
