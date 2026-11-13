@@ -4586,7 +4586,7 @@ DATA TOTAL    Postgres/Supabase: company_id у кожній таблиці; RLS-
 
 ---
 
-<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=f4b9dedba270ad57f7d6f851e9967de9c218002aecc407dd61aa6015675b3729 bytes=43693 -->
+<!-- SOURCE docs/ARCHI_TECH_SPEC_v3_1.md sha256=06e2cea718d4afa95242de5d80face8c80190f5679673249844253da25489422 bytes=43810 -->
 **Джерело: `docs/ARCHI_TECH_SPEC_v3_1.md` — Технічна специфікація v3.1**
 
 # ARCHI — ТЕХНІЧНА СПЕЦИФІКАЦІЯ v3.1
@@ -4805,7 +4805,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Компонент | ID |
 |---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` |
-| Core workflow | `CKwCsGIwyw9feCY5`, `d97dbabe-a47c-43f7-b832-65ee41820ca3` (13.11.2026, 197 вузлів, B-20 швидкий Щотижневий рендер, §195; раніше `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb` 11.11.2026, V10, §190; раніше `eb57069b-a23e-4879-959f-9c0516c178d9` 08.11.2026 (V5 формат чисел, V9; §191–§192); раніше `978db8b8-1193-4db9-acb7-84cd21d61214` 05.11.2026, DR-14; раніше `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9` 04.11.2026, 191 вузол, W1.5; ще раніше `40abff53` 03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
+| Core workflow | `CKwCsGIwyw9feCY5`, `c9a11286-ba6d-4406-a832-61917a7de21b` (13.11.2026, 197 вузлів, B-17 валідатор відповіді чату, §195; раніше `d97dbabe-a47c-43f7-b832-65ee41820ca3` 13.11.2026, B-20 швидкий Щотижневий рендер; раніше `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb` 11.11.2026, V10, §190; раніше `eb57069b-a23e-4879-959f-9c0516c178d9` 08.11.2026 (V5 формат чисел, V9; §191–§192); раніше `978db8b8-1193-4db9-acb7-84cd21d61214` 05.11.2026, DR-14; раніше `a4c89c3c-3892-40d0-91e6-7e9ba5eb49d9` 04.11.2026, 191 вузол, W1.5; ще раніше `40abff53` 03.11.2026, 179 вузлів; §160; попередня `bc449cbd`, 30.10.2026, §141) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` (JSON не в репо; з 17.10.2026 — 16 нод, гілка `AN:` для вкладок `<id>-АН`, RELEASE_PLAN §64). **29.10.2026:** гілка `AN:` (7 вузлів, збережена 17.10.2026) лишалась неопублікованою (активна була `84a8e8b0` від 11.10.2026); опубліковано `f2eb3887` 29.10.2026 за рішенням власника (§135), відкат — `84a8e8b0`. Перевірка `кошторис DEMO-0X-АН` у Telegram — відкрито | **29.10.2026, §139:** `AN: Read Tab` — `onError: continueRegularOutput` (відсутня вкладка → повідомлення «Вкладку … не знайдено»), активна версія `cf904641`, відкат `f2eb3887`.
 | Document Intake | `RC7HNVlJtuPLtvYV` (JSON не в репо; live 29.10.2026 — 5 нод) |
 | Sheets Helper | `nGcSyWfuMO7vjTn6` (ручний, inactive, 7 нод; правки Кошторису) |
@@ -6758,13 +6758,13 @@ n8n Cloud `osbbcopilot.app.n8n.cloud` (credentials: «Postgres account» `9RgEys
 
 ---
 
-<!-- SOURCE docs/NODE_MAP.md sha256=b6457fa9e50f077612b692a3669f1c370fbdf6867639ab16f93bb072e6e10614 bytes=20002 -->
+<!-- SOURCE docs/NODE_MAP.md sha256=78b10fb710ebf2c1836c1bcb40ba01f15dae0c4b6a434ad41a787002605feef3 bytes=20002 -->
 **Джерело: `docs/NODE_MAP.md` — Карта вузлів core workflow (генерується)**
 
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId d97dbabe-a47c-43f7-b832-65ee41820ca3`, вузлів: 197, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId c9a11286-ba6d-4406-a832-61917a7de21b`, вузлів: 197, груп за префіксом: 11.
 
 ## Типи вузлів
 
