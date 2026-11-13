@@ -5,6 +5,7 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 13.11.2026 (`RELEASE_PLAN` §195):** core `CKwCsGIwyw9feCY5` — `activeVersionId d97dbabe-a47c-43f7-b832-65ee41820ca3`, 197 вузлів (B-20: швидкий Щотижневий рендер); відкат `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`. Беклог і план: `docs/DEMO_BACKLOG_2026-11-13.md`, `docs/DEMO_FIX_PLAN_2026-11-13.md`.
 **Доповнення 11.11.2026 (`RELEASE_PLAN` §190):** core `CKwCsGIwyw9feCY5` — `activeVersionId 4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`, 197 вузлів (V10: onError/повтор/запасні повідомлення, temperature 0.2; відкат `eb57069b-a23e-4879-959f-9c0516c178d9`); Morning Brief `911fa93b-b2df-4af5-89fc-1e7bded18803` (відкат `a3324b54-fd60-4e38-a5b7-60e18f18408d`); новий workflow «ARCHI: LLM Health Check» `Sna7JWxq3BpRDJIs` (щодня 07:30). Рядок core `978db8b8` нижче застарів.
 
 **Доповнення 11.11.2026:** входить у core `4a5df71b`: V5 ( формат чисел Weekly Render і Owner View; V9: 1А 2А 3Б 4Б; відкат `d3fa185e`, до V5 `229f011a`); Supabase — `company_thresholds` для DEMO (план ×0,2, `sql/2026-11-08_v9_demo_plan_scale*.sql`); `CLAUDE.md` п. 36 і потік W12 «Фінансова ліквідність власника» (oneBfinance, касовий розрив, Q4–Q6) — лише зафіксовано на карті (§193), не реалізовано; відкрито: п. 7 V4 (підписи Weekly Render), V3, V6–V8 (акаунт власника).
