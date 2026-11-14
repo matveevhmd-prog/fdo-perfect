@@ -1,9 +1,10 @@
 import { workflow, node, trigger, newCredential, expr } from '@n8n/workflow-sdk';
 
-const everyFiveMinutes = trigger({
+// B-26 (13.11.2026): було кожні 5 хв (288 виконань на добу, вичерпано ліміт n8n Cloud); тепер 1 на добу: 30 8 * * * за Києвом (брифінг о 08:30; вікно [brief_time, +30 хв) у запиті не змінене)
+const everyHalfHour = trigger({
   type: 'n8n-nodes-base.scheduleTrigger',
   version: 1.4,
-  config: { name: 'Every 5 Minutes', parameters: { rule: { interval: [{ field: 'minutes', minutesInterval: 5 }] } }, output: [{}] }
+  config: { name: 'Daily 08:30 Kyiv', parameters: { rule: { interval: [{ field: 'cronExpression', expression: '30 8 * * *' }] } }, output: [{}] }
 });
 
 const manualTest = trigger({
@@ -138,7 +139,7 @@ const markSent = node({
 });
 
 export default workflow('archi-morning-brief', 'ARCHI: Morning Brief')
-  .add(everyFiveMinutes)
+  .add(everyHalfHour)
   .to(findDueOwners)
   .to(loadBrief)
   .to(buildRequest)
