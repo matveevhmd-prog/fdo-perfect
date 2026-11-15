@@ -5,6 +5,7 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 15.11.2026 (`RELEASE_PLAN` §198):** core `CKwCsGIwyw9feCY5` — `activeVersionId 34f82ff5-89dd-4c6f-bd8e-8de89a229cba`, 197 вузлів (П2d: потреба блокера і Impact без прогнозів; відкат `d04ef8a0`).
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §197):** core `CKwCsGIwyw9feCY5` — `activeVersionId d04ef8a0-edf0-4fc7-af08-2471d859a310`, 197 вузлів (П2c: короткий JSON-промпт картки чату; відкат `5b0dd3e2`).
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §196):** core `CKwCsGIwyw9feCY5` — `activeVersionId 5b0dd3e2-3afe-47f0-adee-05299acc3da1`, 197 вузлів (П2b: картка чату від коду; відкат `c9a11286`).
 **Доповнення 13.11.2026 (`RELEASE_PLAN` §195):** core `CKwCsGIwyw9feCY5` — `activeVersionId c9a11286-ba6d-4406-a832-61917a7de21b`, 197 вузлів (B-20: швидкий Щотижневий рендер, `d97dbabe`; B-17: валідатор відповіді чату); відкат `d97dbabe-a47c-43f7-b832-65ee41820ca3`, далі `4a5df71b-ba97-42a8-bbdd-179ce53fdfeb`. Беклог і план: `docs/DEMO_BACKLOG_2026-11-13.md`, `docs/DEMO_FIX_PLAN_2026-11-13.md`.
