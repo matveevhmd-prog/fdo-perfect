@@ -6,7 +6,7 @@ function fPctF(v){ if (v===null||v===undefined||isNaN(v)) return DASH; var x = M
 function fHrs(v){ return (v===null||v===undefined||isNaN(v)) ? DASH : fn1(v) + ' г'; }
 function fHrsSigned(v){ return (v===null||v===undefined||isNaN(v)) ? DASH : (v<0 ? '−' : (v>0 ? '+' : '')) + fn1(Math.abs(v)) + ' г'; }
 const mentionedIds = projects.filter(function(p){ return String(text).toUpperCase().indexOf(String(p.id).toUpperCase()) >= 0; }).map(function(p){ return p.id; });
-const CARD_MODE = (intent === 'q1') || mentionedIds.length > 0;
+const CARD_MODE = (intent === 'q1') || (intent === 'generic' && mentionedIds.length > 0);
 function cardRank(p){ return (p.blocker ? 0 : (sevOrder[p.status] === undefined ? 3 : sevOrder[p.status] + 1)); }
 function cardSort(a, b){
   var d = cardRank(a) - cardRank(b); if (d) return d;

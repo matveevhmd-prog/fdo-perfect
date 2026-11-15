@@ -1,5 +1,5 @@
 // ===== П2б: складання картки з JSON LLM + дані коду; запасний шаблон без LLM =====
-function cardNums(s){ var m = String(s).match(/\d+(?:[  ]\d{3})*(?:[.,]\d+)?/g) || []; return m.map(function(x){ return x.replace(/[  ]/g, '').replace(',', '.'); }); }
+function cardNums(s){ var m = String(s).match(/\d+(?:\s\d{3})*(?:[.,]\d+)?/g) || []; return m.map(function(x){ return x.replace(/\s/g, '').replace(',', '.'); }); }
 function parseCardJson(s){
   var t = String(s).trim().replace(/^```(?:json)?/i, '').replace(/```\s*$/, '').trim();
   var i = t.indexOf('{'), j = t.lastIndexOf('}');
