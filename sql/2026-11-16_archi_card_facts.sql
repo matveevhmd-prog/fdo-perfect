@@ -7,7 +7,7 @@ language sql
 stable
 as $$
 with last_snap as (
-  select distinct on (project_id) project_id, "блокер" as b
+  select distinct on (project_id) project_id, "блокер" as b, nullif(trim(help_needed), '') as help
   from public.wr_weekly_snapshots
   where company_id = p_company
   order by project_id, week_start desc
@@ -17,7 +17,9 @@ base as (
          m.contract_amount,
          case when m.etc_forecast_total_hours is not null then round(m.profit_forecast - m.profit_plan) end as profit_gap,
          (ls.b is not null and coalesce(jsonb_array_length(ls.b->'types'), 0) > 0) as blocked,
-         case when ls.b is not null then ls.b->'types' else '[]'::jsonb end as btypes
+         case when ls.b is not null then ls.b->'types' else '[]'::jsonb end as btypes,
+         ls.help,
+         m.actual_cost - m.money_received as unpaid
   from public.project_metrics m
   left join last_snap ls on ls.project_id = m.project_id
   where m.company_id = p_company and m.contract_type is distinct from 'visit'
@@ -28,10 +30,21 @@ tot as (
          coalesce(sum(profit_gap), 0) as net_gap
   from base
 ),
+rl as (
+  select coalesce((public.archi_rules(p_company)->>'unpaid_yellow')::numeric, 0.1) as unpaid_yellow
+),
 proj as (
+  -- маршрут дії (правило v1, CLAUDE.md п. 32): тип дії і адресат за роллю; перший збіг у порядку пріоритету
   select b.project_id,
          jsonb_build_object('profit_gap', b.profit_gap,
-                            'gap_share_pct', case when b.profit_gap < 0 and t.neg_total > 0 then round(-b.profit_gap / t.neg_total * 100) end) as f
+                            'gap_share_pct', case when b.profit_gap < 0 and t.neg_total > 0 then round(-b.profit_gap / t.neg_total * 100) end,
+                            'route', case
+                               when b.blocked and b.btypes ? 'замовник' then jsonb_build_object('type', 'call', 'to', 'власник', 'basis', 'блокер: очікування замовника')
+                               when b.blocked then jsonb_build_object('type', 'propose', 'to', 'ПМ проєкту', 'basis', 'блокер: бракує людей або грошей')
+                               when b.help is not null then jsonb_build_object('type', 'call', 'to', 'власник', 'basis', 'прохання ПМа до власника')
+                               when b.unpaid > 0 and b.contract_amount > 0 and b.unpaid / b.contract_amount >= (select unpaid_yellow from rl) then jsonb_build_object('type', 'command', 'to', 'Фіндиректор', 'basis', 'виконано і не оплачено')
+                               when b.profit_gap < 0 then jsonb_build_object('type', 'command', 'to', 'ПМ проєкту', 'basis', 'прогноз прибутку нижче плану')
+                             end) as f
   from base b, tot t
 ),
 loss as (

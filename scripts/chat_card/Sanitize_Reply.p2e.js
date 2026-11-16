@@ -52,6 +52,7 @@ function composeCard(cd, rawText){
     var ins = ok(j.insight), imp = ok(j.impact), act = ok(j.action);
     if (imp && !cardNums(imp).some(function(n){ return allowed[n]; })) imp = null;   // П2e: Impact без числа з фактів проєкту — вигадка
     if (!ins) { ins = c.fbInsight; fb = true; }
+    var routed = !!(act && c.route);
     if (!act) { act = c.fbAction; fb = true; }
     out.push(c.icon + ' <b>' + id + '</b>', '', '⏱ <b>Години</b>');
     out = out.concat(c.hours);
@@ -61,7 +62,10 @@ function composeCard(cd, rawText){
     out = out.concat(c.problems);
     out.push('', '💡 <b>Insight:</b> ' + ins);
     if (imp) out.push('⚠️ <b>Impact:</b> ' + imp);
-    out.push('🎯 <b>Action:</b> ' + act, '', '━━━━━━━━━━━━', '');
+    if (routed) {
+      var RL = { command: 'доручення', propose: 'запит варіантів', call: 'дзвінок власника' };
+      out.push('🎯 <b>Action · ' + (RL[c.route.type] || c.route.type) + (c.route.to && c.route.to !== 'власник' ? ' → ' + c.route.to : '') + ':</b>', '«' + act + '»', '', '━━━━━━━━━━━━', '');
+    } else out.push('🎯 <b>Action:</b> ' + act, '', '━━━━━━━━━━━━', '');
   });
   var restKeys = Object.keys(cd.rest);
   if (restKeys.length) { out.push('📌 <b>Не в деталях</b>'); restKeys.forEach(function(k){ out.push('• ' + k + ' ' + cd.rest[k].join(', ')); }); }
