@@ -44,7 +44,7 @@ WITH pm AS (
       OR s.problems ~* '(підрядн|субпідрядн)[^.;\n]{0,80}(не\s+отрима[вл]|не\s+оплач|не\s+віддає|не\s+віддав)'
   UNION ALL
   -- ескалація ПМа: розділ «Допомога» тижневого звіту (ПМ дійшов до меж повноважень і передає питання вище)
-  SELECT s.project_id, 'pm_escalation', 105::numeric,
+  SELECT s.project_id, 'pm_escalation', 125::numeric,
          jsonb_build_object('week_start', s.week_start, 'quote', left(s.help, 240))
     FROM snap s WHERE s.help IS NOT NULL
   UNION ALL
