@@ -5,6 +5,7 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 16.11.2026 (`RELEASE_PLAN` §199):** брифінг `J3Oqcaa2YBEsVSng` — `activeVersionId 9606e98e-a014-4c54-ac8f-8b0808be5059`; Supabase: `archi_morning_brief` + `pm_escalation`, `client_unpaid`. Core `CKwCsGIwyw9feCY5` без змін: `34f82ff5`.
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §198):** core `CKwCsGIwyw9feCY5` — `activeVersionId 34f82ff5-89dd-4c6f-bd8e-8de89a229cba`, 197 вузлів (П2d: потреба блокера і Impact без прогнозів; відкат `d04ef8a0`).
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §197):** core `CKwCsGIwyw9feCY5` — `activeVersionId d04ef8a0-edf0-4fc7-af08-2471d859a310`, 197 вузлів (П2c: короткий JSON-промпт картки чату; відкат `5b0dd3e2`).
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §196):** core `CKwCsGIwyw9feCY5` — `activeVersionId 5b0dd3e2-3afe-47f0-adee-05299acc3da1`, 197 вузлів (П2b: картка чату від коду; відкат `c9a11286`).
