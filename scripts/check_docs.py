@@ -87,7 +87,7 @@ PLANNED = {
     "docs/DEMO_RUNSHEET_2026-11-03.md": "створюється в сесії С2 (START_PROMPT_DEMO_AND_CLOSE)",
     "docs/ARCHI_FEATURES_v1.md": "запланований, не створений (ROADMAP W0.5)",
 }
-JOURNAL = ("docs/RELEASE_PLAN.md", "docs/DOC_AUDIT_", "docs/CTO_CHECKPOINT_")  # журнали: історичні посилання допустимі
+JOURNAL = ("docs/RELEASE_PLAN.md", "docs/DOC_AUDIT_", "docs/CTO_CHECKPOINT_", "docs/handover/ARCHI_FULL_PACKAGE.md")  # журнали й згенерований пакет (джерела перевіряються окремо): історичні посилання допустимі
 md_files = [p for p in ROOT.rglob("*.md") if ".git" not in p.parts and "archive" not in p.parts]
 for p in md_files:
     rel = p.relative_to(ROOT).as_posix()
