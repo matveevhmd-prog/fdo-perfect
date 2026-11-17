@@ -2,7 +2,7 @@
 -- Формули в SQL (CLAUDE.md п. 31); n8n лише передає. Чернетка до застосування: застосовувати лише за «так» власника (apply_migration).
 -- Відкат: drop function public.archi_card_facts(uuid);
 -- 17.11.2026: власне правило route видалено; адреса й тип дії — з archi_morning_brief(...)->'by_project' (рішення власника 16.11.2026: один рушій).
--- Статус: у живій базі функції ще немає (перевірено 17.11.2026, pg_proc); не застосовано; SQL після правки не виконувався.
+-- Статус: застосовано 17.11.2026 (міграція archi_card_facts_single_engine); до того функції в базі не було (pg_proc). Перевірка: route == by_project[].advice по 14 проєктах (live SQL).
 create or replace function public.archi_card_facts(p_company uuid)
 returns jsonb
 language sql

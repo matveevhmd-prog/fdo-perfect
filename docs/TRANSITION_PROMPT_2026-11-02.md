@@ -5,6 +5,8 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 17.11.2026 (`RELEASE_PLAN` §200):** core `CKwCsGIwyw9feCY5` — `activeVersionId d9496182-7b70-4150-8808-1618a53f4e62`, 197 вузлів (П2e; відкат `34f82ff5-89dd-4c6f-bd8e-8de89a229cba`); Supabase: `archi_card_facts` (route з `archi_morning_brief`); таблиця адресатів — `docs/BRIEF_ADDRESSEE_RULES.md` (B-25, B-26); відкрито: тест власника в Telegram, міграція рушія під таблицю, формат брифінгу, Owner View (паралельна сесія).
+
 **Доповнення 16.11.2026 (`RELEASE_PLAN` §199):** брифінг `J3Oqcaa2YBEsVSng` — `activeVersionId 9606e98e-a014-4c54-ac8f-8b0808be5059`; Supabase: `archi_morning_brief` + `pm_escalation`, `client_unpaid`. Core `CKwCsGIwyw9feCY5` без змін: `34f82ff5`.
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §198):** core `CKwCsGIwyw9feCY5` — `activeVersionId 34f82ff5-89dd-4c6f-bd8e-8de89a229cba`, 197 вузлів (П2d: потреба блокера і Impact без прогнозів; відкат `d04ef8a0`).
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §197):** core `CKwCsGIwyw9feCY5` — `activeVersionId d04ef8a0-edf0-4fc7-af08-2471d859a310`, 197 вузлів (П2c: короткий JSON-промпт картки чату; відкат `5b0dd3e2`).
