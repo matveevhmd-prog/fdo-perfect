@@ -1,7 +1,7 @@
 # ARCHI — репозиторій продукту
 
 **Доповнення 11.11.2026 (§190): core `4a5df71b` (197 вузлів; збій LLM → повідомлення ПМу, повтор, temperature 0.2), Morning Brief `911fa93b` (позначка «тексти за шаблонами»), новий workflow LLM Health Check `Sna7JWxq3BpRDJIs` (щодня 07:30). Рахунок Anthropic вичерпано до поповнення власником.
-**Доповнення 17.11.2026 (`RELEASE_PLAN` §200):** core `918ee03b-2f3c-4330-af0e-6938074f1eeb` (197 вузлів; П2e + fix «Б»: модель `claude-haiku-5-5`, розбір обірваного JSON; відкат `d9496182-7b70-4150-8808-1618a53f4e62`); таблиця адресатів порад — `docs/BRIEF_ADDRESSEE_RULES.md`; Telegram-перевірка власника відкрита.
+**Доповнення 17.11.2026 (`RELEASE_PLAN` §200):** core `d9496182-7b70-4150-8808-1618a53f4e62` (197 вузлів; П2e; спроба fix «Б» з моделлю haiku-5-5 (`918ee03b-2f3c-4330-af0e-6938074f1eeb`) відкочена: API 400 «temperature is deprecated for this model»); таблиця адресатів порад — `docs/BRIEF_ADDRESSEE_RULES.md`; Telegram-перевірка власника відкрита.
 
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §198):** core `34f82ff5-89dd-4c6f-bd8e-8de89a229cba` (197 вузлів; П2d: потреба блокера і Impact без прогнозів; відкат `d04ef8a0-edf0-4fc7-af08-2471d859a310`);
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §197):** core `d04ef8a0-edf0-4fc7-af08-2471d859a310` (197 вузлів; П2c: короткий JSON-промпт картки чату; відкат `5b0dd3e2-3afe-47f0-adee-05299acc3da1`);
