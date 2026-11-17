@@ -54,7 +54,7 @@ function composeCard(cd, rawText){
     if (!ins) { ins = c.fbInsight; fb = true; }
     var routed = !!(act && c.route);
     if (!act) { act = c.fbAction; fb = true; }
-    out.push(c.icon + ' <b>' + id + '</b>', '', '⏱ <b>Години</b>');
+    out.push(c.icon + ' <b>' + id + '</b>', 'Дані оновлено ' + (c.updated || '—'), '', '⏱ <b>Години</b>');
     out = out.concat(c.hours);
     out.push('', '💰 <b>Гроші</b>');
     out = out.concat(c.money);

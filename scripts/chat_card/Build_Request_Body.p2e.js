@@ -211,6 +211,7 @@ function buildCard(p){
   return {
     id: p.id,
     icon: p.blocker ? '⛔' : ICON[p.status],
+    updated: p.dataUpdated || DASH,   // дата оновлення даних проєкту (п. 26, LAYOUT_STANDARD п. 8)
     hours: hours, money: money, problems: probs,
     facts: facts,
     fbInsight: topSig ? topSig.t : 'Відхилень від плану за сигналами немає.',

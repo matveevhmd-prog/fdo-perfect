@@ -74,6 +74,8 @@ if (CARD_MODE) {
 
 """
 b = b[:a] + new_block + b[z:]
+# 17.11.2026: дата оновлення даних по кожному проєкту в картці (п. 26, LAYOUT_STANDARD п. 8; власник)
+b = rep(b, "    icon: p.blocker ? '⛔' : ICON[p.status],\n    hours: hours,", "    icon: p.blocker ? '⛔' : ICON[p.status],\n    updated: p.dataUpdated || DASH,   // дата оновлення даних проєкту (п. 26, LAYOUT_STANDARD п. 8)\n    hours: hours,")
 open(os.path.join(here, 'Build_Request_Body.p2e.js'), 'w').write(b)
 
 s = open(os.path.join(here, 'Sanitize_Reply.p2d.js')).read()
@@ -104,5 +106,6 @@ s = rep(s, "try { var o = JSON.parse(t.slice(i, j + 1)); return (o && o.cards &&
 s = rep(s, "    if (!act) { act = c.fbAction; fb = true; }\n", "    var routed = !!(act && c.route);\n    if (!act) { act = c.fbAction; fb = true; }\n")
 s = rep(s, "    out.push('🎯 <b>Action:</b> ' + act, '', '━━━━━━━━━━━━', '');",
 "    if (routed) {\n      var RL = { command: 'доручення', propose: 'запит варіантів', call: 'дзвінок власника' };\n      out.push('🎯 <b>Action · ' + (RL[c.route.type] || c.route.type) + (c.route.to && c.route.to !== 'власник' ? ' → ' + c.route.to : '') + ':</b>', '«' + act + '»', '', '━━━━━━━━━━━━', '');\n    } else out.push('🎯 <b>Action:</b> ' + act, '', '━━━━━━━━━━━━', '');")
+s = rep(s, "    out.push(c.icon + ' <b>' + id + '</b>', '', '⏱ <b>Години</b>');", "    out.push(c.icon + ' <b>' + id + '</b>', 'Дані оновлено ' + (c.updated || '—'), '', '⏱ <b>Години</b>');")
 open(os.path.join(here, 'Sanitize_Reply.p2e.js'), 'w').write(s)
 print('ok', len(b), len(s))

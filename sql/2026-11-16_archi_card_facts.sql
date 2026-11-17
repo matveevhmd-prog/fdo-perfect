@@ -1,6 +1,8 @@
 -- П2e: факти для ШІ-аналітика картки чату (відхилення прибутку, концентрація втрат, блоковані контракти).
 -- Формули в SQL (CLAUDE.md п. 31); n8n лише передає. Чернетка до застосування: застосовувати лише за «так» власника (apply_migration).
 -- Відкат: drop function public.archi_card_facts(uuid);
+-- 17.11.2026: власне правило route видалено; адреса й тип дії — з archi_morning_brief(...)->'by_project' (рішення власника 16.11.2026: один рушій).
+-- Статус: застосовано 17.11.2026 (міграція archi_card_facts_single_engine); до того функції в базі не було (pg_proc). Перевірка: route == by_project[].advice по 14 проєктах (live SQL).
 create or replace function public.archi_card_facts(p_company uuid)
 returns jsonb
 language sql
@@ -33,18 +35,23 @@ tot as (
 rl as (
   select coalesce((public.archi_rules(p_company)->>'unpaid_yellow')::numeric, 0.1) as unpaid_yellow
 ),
+brief as (
+  -- маршрут дії береться з єдиного рушія порад archi_morning_brief (п. 32; DECISIONS_REGISTER B-23): власного правила тут немає
+  select public.archi_morning_brief(p_company) as j
+),
+bp as (
+  select e->>'project_id' as project_id, e->'advice' as advice
+  from brief, jsonb_array_elements(brief.j->'by_project') e
+),
 proj as (
-  -- маршрут дії (правило v1, CLAUDE.md п. 32): тип дії і адресат за роллю; перший збіг у порядку пріоритету
   select b.project_id,
          jsonb_build_object('profit_gap', b.profit_gap,
                             'gap_share_pct', case when b.profit_gap < 0 and t.neg_total > 0 then round(-b.profit_gap / t.neg_total * 100) end,
-                            'route', case
-                               when b.blocked and b.btypes ? 'замовник' then jsonb_build_object('type', 'call', 'to', 'власник', 'basis', 'блокер: очікування замовника')
-                               when b.blocked then jsonb_build_object('type', 'propose', 'to', 'ПМ проєкту', 'basis', 'блокер: бракує людей або грошей')
-                               when b.help is not null then jsonb_build_object('type', 'call', 'to', 'власник', 'basis', 'прохання ПМа до власника')
-                               when b.unpaid > 0 and b.contract_amount > 0 and b.unpaid / b.contract_amount >= (select unpaid_yellow from rl) then jsonb_build_object('type', 'command', 'to', 'Фіндиректор', 'basis', 'виконано і не оплачено')
-                               when b.profit_gap < 0 then jsonb_build_object('type', 'command', 'to', 'ПМ проєкту', 'basis', 'прогноз прибутку нижче плану')
-                             end) as f
+                            'route', (select case when jsonb_typeof(x.advice) = 'object' then jsonb_build_object(
+                                        'type', x.advice->>'action_type',
+                                        'to', case when x.advice->>'to_role' = 'Власник' then 'власник' else x.advice->>'to_role' end,
+                                        'basis', x.advice->>'purpose') end
+                                      from bp x where x.project_id = b.project_id)) as f
   from base b, tot t
 ),
 loss as (
