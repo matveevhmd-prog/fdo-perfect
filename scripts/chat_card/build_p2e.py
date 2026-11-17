@@ -64,20 +64,18 @@ if (CARD_MODE) {
     '1. Числа бери ТІЛЬКИ з фактів вище, записуй у тому самому вигляді (напр. «217 360 грн», «50%»). Не округлюй, не рахуй нових сум, не вживай «тис.» і «млн».' + NL +
     '2. Причинний зв\'язок — лише між наведеними фактами. Якщо даних не вистачає — прямо скажи, чого бракує. Причин, людей, дат, яких немає у фактах, не вигадуй.' + NL +
     '3. Для годин: ETC_план / ETC_факт / ETC_прогноз; слово «залишок» заборонене. Колір і сигнали не перераховуй.' + NL +
-    '4. Стиль: insight і impact до 25 слів; action до 40 слів, без звертання за іменем (імен у даних немає), без нумерації й маркерів усередині полів.' + NL + NL +
+    '4. Стиль: insight і impact до 30 слів; action до 45 слів, без звертання за іменем (імен у даних немає), без нумерації й маркерів усередині полів.' + NL + NL +
     'ФОРМАТ ВІДПОВІДІ — ЛИШЕ JSON, без пояснень і markdown:' + NL +
     '{"portfolio":{"headline":"…","priorities":["…","…"],"pipeline":"…"},"cards":{"<ID проєкту>":{"insight":"…","impact":"…","action":"…"}}}' + NL +
     'Ключі cards — рівно ці проєкти: ' + CARD_DATA.order.join(', ') + '.';
   userText = 'Питання власника: ' + text + NL + NL + 'Відповідь — ЛИШЕ JSON за схемою, без тексту до і після, без markdown.';
-  maxTok = 1800;
+  maxTok = 2400;
 }
 
 """
 b = b[:a] + new_block + b[z:]
 # 17.11.2026: дата оновлення даних по кожному проєкту в картці (п. 26, LAYOUT_STANDARD п. 8; власник)
 b = rep(b, "    icon: p.blocker ? '⛔' : ICON[p.status],\n    hours: hours,", "    icon: p.blocker ? '⛔' : ICON[p.status],\n    updated: p.dataUpdated || DASH,   // дата оновлення даних проєкту (п. 26, LAYOUT_STANDARD п. 8)\n    hours: hours,")
-# 17.11.2026: швидша модель (рішення власника «Б»; Sonnet 4.6 давав 29,6 с і обрізання на max_tokens, виконання 9647)
-b = rep(b, "model: 'claude-sonnet-4-6',", "model: 'claude-haiku-5-5',")
 open(os.path.join(here, 'Build_Request_Body.p2e.js'), 'w').write(b)
 
 s = open(os.path.join(here, 'Sanitize_Reply.p2d.js')).read()
@@ -125,5 +123,8 @@ s = rep(s, "function parseCardJson(s){", r"""function parseLoose(s){
   throw new Error('bad json');
 }
 function parseCardJson(s){""")
+# 17.11.2026 (крок 1): поле до 500 символів (було 400) і причина зупинки моделі в виході вузла для журналу
+s = rep(s, "return bad ? null : v.trim().slice(0, 400); }", "return bad ? null : v.trim().slice(0, 500); }")
+s = rep(s, "return [{ json: { text: t } }];", "return [{ json: { text: t, llm_stop: String(($input.first().json || {}).stop_reason || '') } }];")
 open(os.path.join(here, 'Sanitize_Reply.p2e.js'), 'w').write(s)
 print('ok', len(b), len(s))

@@ -62,7 +62,7 @@ function composeCard(cd, rawText){
   cd.order.forEach(function(id){
     var c = cd.cards[id], j = jc[id] || {}, fb = false;
     var allowed = {}; cardNums(c.facts).forEach(function(n){ allowed[n] = 1; });
-    function ok(v){ if (typeof v !== 'string' || !v.trim()) return null; var bad = cardNums(v).some(function(n){ return !allowed[n]; }); return bad ? null : v.trim().slice(0, 400); }
+    function ok(v){ if (typeof v !== 'string' || !v.trim()) return null; var bad = cardNums(v).some(function(n){ return !allowed[n]; }); return bad ? null : v.trim().slice(0, 500); }
     var ins = ok(j.insight), imp = ok(j.impact), act = ok(j.action);
     if (imp && !cardNums(imp).some(function(n){ return allowed[n]; })) imp = null;   // П2e: Impact без числа з фактів проєкту — вигадка
     if (!ins) { ins = c.fbInsight; fb = true; }
@@ -119,4 +119,4 @@ t = t.replace(/<(\/?)(b|i|u|s|code)>/g, function (m, slash, name) {
   return out + m;
 });
 while (stack.length) t += '</' + stack.pop() + '>';
-return [{ json: { text: t } }];
+return [{ json: { text: t, llm_stop: String(($input.first().json || {}).stop_reason || '') } }];
