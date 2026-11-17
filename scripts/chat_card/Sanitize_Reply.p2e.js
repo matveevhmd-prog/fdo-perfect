@@ -19,11 +19,25 @@ function validateReply(t) {
 // </validate>
 // ===== П2б: складання картки з JSON LLM + дані коду; запасний шаблон без LLM =====
 function cardNums(s){ var m = String(s).match(/\d+(?:\s\d{3})*(?:[.,]\d+)?/g) || []; return m.map(function(x){ return x.replace(/\s/g, '').replace(',', '.'); }); }
+function parseLoose(s){
+  try { return JSON.parse(s); } catch (e) {}
+  var st = [], inS = false, esc = false, cands = [];
+  for (var k = 0; k < s.length; k++) {
+    var ch = s.charAt(k);
+    if (inS) { if (esc) esc = false; else if (ch === '\\') esc = true; else if (ch === '"') inS = false; continue; }
+    if (ch === '"') inS = true;
+    else if (ch === '{') st.push('}');
+    else if (ch === '[') st.push(']');
+    else if (ch === '}' || ch === ']') { st.pop(); cands.push([k, st.slice().reverse().join('')]); }
+  }
+  for (var m = cands.length - 1; m >= 0; m--) { try { return JSON.parse(s.slice(0, cands[m][0] + 1) + cands[m][1]); } catch (e2) {} }
+  throw new Error('bad json');
+}
 function parseCardJson(s){
   var t = String(s).trim().replace(/^```(?:json)?/i, '').replace(/```\s*$/, '').trim();
   var i = t.indexOf('{'), j = t.lastIndexOf('}');
   if (i < 0 || j <= i) return null;
-  try { var o = JSON.parse(t.slice(i, j + 1)); if (!(o && o.cards && typeof o.cards === 'object')) return null; var r = o.cards; Object.defineProperty(r, '__portfolio', { value: (o.portfolio && typeof o.portfolio === 'object') ? o.portfolio : null, enumerable: false }); return r; } catch (e) { return null; }
+  try { var o = parseLoose(t.slice(i, j + 1)); if (!(o && o.cards && typeof o.cards === 'object')) return null; var r = o.cards; Object.defineProperty(r, '__portfolio', { value: (o.portfolio && typeof o.portfolio === 'object') ? o.portfolio : null, enumerable: false }); return r; } catch (e) { return null; }
 }
 function composeCard(cd, rawText){
   var jc = parseCardJson(rawText) || {};

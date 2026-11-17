@@ -317,11 +317,11 @@ if (CARD_MODE) {
     '{"portfolio":{"headline":"…","priorities":["…","…"],"pipeline":"…"},"cards":{"<ID проєкту>":{"insight":"…","impact":"…","action":"…"}}}' + NL +
     'Ключі cards — рівно ці проєкти: ' + CARD_DATA.order.join(', ') + '.';
   userText = 'Питання власника: ' + text + NL + NL + 'Відповідь — ЛИШЕ JSON за схемою, без тексту до і після, без markdown.';
-  maxTok = 1300;
+  maxTok = 1800;
 }
 
 const body = JSON.stringify({
-  model: 'claude-sonnet-4-6',
+  model: 'claude-haiku-5-5',
   max_tokens: maxTok,
   temperature: 0.2,
   system: system,

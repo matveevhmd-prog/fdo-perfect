@@ -69,13 +69,15 @@ if (CARD_MODE) {
     '{"portfolio":{"headline":"…","priorities":["…","…"],"pipeline":"…"},"cards":{"<ID проєкту>":{"insight":"…","impact":"…","action":"…"}}}' + NL +
     'Ключі cards — рівно ці проєкти: ' + CARD_DATA.order.join(', ') + '.';
   userText = 'Питання власника: ' + text + NL + NL + 'Відповідь — ЛИШЕ JSON за схемою, без тексту до і після, без markdown.';
-  maxTok = 1300;
+  maxTok = 1800;
 }
 
 """
 b = b[:a] + new_block + b[z:]
 # 17.11.2026: дата оновлення даних по кожному проєкту в картці (п. 26, LAYOUT_STANDARD п. 8; власник)
 b = rep(b, "    icon: p.blocker ? '⛔' : ICON[p.status],\n    hours: hours,", "    icon: p.blocker ? '⛔' : ICON[p.status],\n    updated: p.dataUpdated || DASH,   // дата оновлення даних проєкту (п. 26, LAYOUT_STANDARD п. 8)\n    hours: hours,")
+# 17.11.2026: швидша модель (рішення власника «Б»; Sonnet 4.6 давав 29,6 с і обрізання на max_tokens, виконання 9647)
+b = rep(b, "model: 'claude-sonnet-4-6',", "model: 'claude-haiku-5-5',")
 open(os.path.join(here, 'Build_Request_Body.p2e.js'), 'w').write(b)
 
 s = open(os.path.join(here, 'Sanitize_Reply.p2d.js')).read()
@@ -102,10 +104,26 @@ s = rep(s, "  out.push('', '━━━━━━━━━━━━', '');\n  cd.or
   cd.order.forEach(function(id){""")
 # 3. parseCardJson: віддавати також portfolio
 s = rep(s, "try { var o = JSON.parse(t.slice(i, j + 1)); return (o && o.cards && typeof o.cards === 'object') ? o.cards : null; } catch (e) { return null; }",
-        "try { var o = JSON.parse(t.slice(i, j + 1)); if (!(o && o.cards && typeof o.cards === 'object')) return null; var r = o.cards; Object.defineProperty(r, '__portfolio', { value: (o.portfolio && typeof o.portfolio === 'object') ? o.portfolio : null, enumerable: false }); return r; } catch (e) { return null; }")
+        "try { var o = parseLoose(t.slice(i, j + 1)); if (!(o && o.cards && typeof o.cards === 'object')) return null; var r = o.cards; Object.defineProperty(r, '__portfolio', { value: (o.portfolio && typeof o.portfolio === 'object') ? o.portfolio : null, enumerable: false }); return r; } catch (e) { return null; }")
 s = rep(s, "    if (!act) { act = c.fbAction; fb = true; }\n", "    var routed = !!(act && c.route);\n    if (!act) { act = c.fbAction; fb = true; }\n")
 s = rep(s, "    out.push('🎯 <b>Action:</b> ' + act, '', '━━━━━━━━━━━━', '');",
 "    if (routed) {\n      var RL = { command: 'доручення', propose: 'запит варіантів', call: 'дзвінок власника' };\n      out.push('🎯 <b>Action · ' + (RL[c.route.type] || c.route.type) + (c.route.to && c.route.to !== 'власник' ? ' → ' + c.route.to : '') + ':</b>', '«' + act + '»', '', '━━━━━━━━━━━━', '');\n    } else out.push('🎯 <b>Action:</b> ' + act, '', '━━━━━━━━━━━━', '');")
 s = rep(s, "    out.push(c.icon + ' <b>' + id + '</b>', '', '⏱ <b>Години</b>');", "    out.push(c.icon + ' <b>' + id + '</b>', 'Дані оновлено ' + (c.updated || '—'), '', '⏱ <b>Години</b>');")
+# 17.11.2026: розбір обірваного JSON (stop_reason max_tokens): повні картки виживають, обірвана відкидається
+s = rep(s, "function parseCardJson(s){", r"""function parseLoose(s){
+  try { return JSON.parse(s); } catch (e) {}
+  var st = [], inS = false, esc = false, cands = [];
+  for (var k = 0; k < s.length; k++) {
+    var ch = s.charAt(k);
+    if (inS) { if (esc) esc = false; else if (ch === '\\') esc = true; else if (ch === '"') inS = false; continue; }
+    if (ch === '"') inS = true;
+    else if (ch === '{') st.push('}');
+    else if (ch === '[') st.push(']');
+    else if (ch === '}' || ch === ']') { st.pop(); cands.push([k, st.slice().reverse().join('')]); }
+  }
+  for (var m = cands.length - 1; m >= 0; m--) { try { return JSON.parse(s.slice(0, cands[m][0] + 1) + cands[m][1]); } catch (e2) {} }
+  throw new Error('bad json');
+}
+function parseCardJson(s){""")
 open(os.path.join(here, 'Sanitize_Reply.p2e.js'), 'w').write(s)
 print('ok', len(b), len(s))
