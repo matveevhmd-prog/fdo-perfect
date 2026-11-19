@@ -21,10 +21,9 @@ function run(ctx){
   var badN = [], totalN = 0;
   cd.order.forEach(function(id){
     var own = {}; nums(cd.cards[id].facts).forEach(function(n){ own[n]=1; });
-    ['insight','impact','action'].forEach(function(f){
-      var v = cards[id] && cards[id][f]; if (!v) return;
-      nums(v).forEach(function(n){ totalN++; if (!own[n]) badN.push(id + '.' + f + ':' + n); });
-    });
+    var cc = cards[id] || {};
+    var fl = [['insight', cc.insight], ['impact', cc.impact]].concat((Array.isArray(cc.actions) ? cc.actions : (cc.action ? [cc.action] : [])).map(function(a, i){ return ['action' + i, a]; }));
+    fl.forEach(function(x){ var v = x[1]; if (!v) return; nums(v).forEach(function(n){ totalN++; if (!own[n]) badN.push(id + '.' + x[0] + ':' + n); }); });
   });
   if (J && J.portfolio) {
     var ptxt = [J.portfolio.headline, J.portfolio.pipeline].concat(J.portfolio.priorities || []).join(' ');
@@ -33,9 +32,10 @@ function run(ctx){
   add('C4','Усі числа відповіді є у фактах (немає вигаданих)', !badN.length, badN.length ? badN.length + ' з ' + totalN + ': ' + badN.slice(0,6).join(', ') : totalN + ' чисел перевірено');
   // довжини
   var longF = [];
-  cd.order.forEach(function(id){ var c = cards[id]||{}; if (wc(c.insight)>30) longF.push(id+'.insight='+wc(c.insight)); if (wc(c.impact)>30) longF.push(id+'.impact='+wc(c.impact)); if (wc(c.action)>45) longF.push(id+'.action='+wc(c.action)); });
+  cd.order.forEach(function(id){ var c = cards[id]||{}; if (wc(c.insight)>30) longF.push(id+'.insight='+wc(c.insight)); if (wc(c.impact)>30) longF.push(id+'.impact='+wc(c.impact)); (Array.isArray(c.actions) ? c.actions : [c.action]).forEach(function(a, i){ if (wc(a)>45) longF.push(id+'.action'+i+'='+wc(a)); }); });
   add('C5','Ліміти довжини: insight/impact ≤30, action ≤45 слів', !longF.length, longF.join(', '));
-  add('C6','Фінальне повідомлення ≤ 3900 символів і не скорочене', final.length <= 3900 && !/відповідь скорочено/.test(final), 'довжина ' + final.length);
+  var cl = ctx.chunks || [final.length];
+  add('C6','Кожне повідомлення ≤ 3900 символів і не скорочене', cl.every(function(n){ return n <= 3900; }) && !/відповідь скорочено/.test(final), 'повідомлень ' + cl.length + ', довжини ' + cl.join('/'));
   add('C7','Немає markdown-залишків і зламаних тегів', !/(\*\*|^#{1,6}\s|```)/m.test(final), '');
   var forb = final.match(/(Залишок_план|Залишок_прогноз|\bCPI\b|\bSPI\b)/g);
   add('C8','Заборонені терміни відсутні (п. 1, п. 14)', !forb, forb ? forb.join(',') : '');
@@ -44,7 +44,7 @@ function run(ctx){
   cd.order.forEach(function(id){ var c = cards[id]||{}; var t = [c.insight,c.impact].join(' '); if (/⛔/.test((cd.cards[id].icon||'') + cd.cards[id].facts) && /(обвал|просад|впав|знизил)[а-яіїєґ]*\s+(рентабельн|маржин)|через\s+зупинк[а-яіїєґ]+[^.]*рентабельн/i.test(t)) stopBad.push(id); });
   add('C9','B-28(3): зупинка не подається як причина падіння рентабельності', !stopBad.length, stopBad.join(', '));
   var resBad = [];
-  cd.order.forEach(function(id){ var c = cards[id]||{}; if (/(людей|архітектор|ресурс)/i.test(c.insight||'') && /Фіндиректор/.test(c.action||'') && !/(ПМ|ГАП|Головн\w+ конструктор)/.test(c.action||'')) resBad.push(id); });
+  cd.order.forEach(function(id){ var c = cards[id]||{}; var at = (Array.isArray(c.actions) ? c.actions : [c.action]).join(' '); var rts = (cd.cards[id].routes || (cd.cards[id].route ? [cd.cards[id].route] : [])); var peopleRoute = rts.some(function(r){ return /ГАП|Головний конструктор/.test(r.to); }); var finOnly = rts.length && rts.every(function(r){ return /Фіндиректор/.test(r.to); }); if (/(людей|архітектор|ресурс)/i.test(c.insight||'') && (finOnly || (/Фіндиректор/.test(at) && !peopleRoute))) resBad.push(id); });
   add('C10','B-28(4): запит на ресурси адресовано ПМ/ГАП/Головному конструктору', !resBad.length, resBad.join(', '));
   var penalty = final.match(/штраф[а-яіїєґ]*[^.\n]{0,30}\d/gi);
   add('C11','Немає вигаданих сум штрафів (даних про штрафи немає)', !penalty, penalty ? penalty.join('|') : '');
@@ -54,11 +54,15 @@ function run(ctx){
   var pl = port.split('\n').filter(function(l){ return /^(🔴|🟡|🟢|⛔|❓)/.test(l); });
   var withNames = pl.filter(function(l){ return /[A-Z0-9]{2,}-\d+|DEMO-\d+/.test(l); });
   add('C13','B-28(1): блок портфеля однотипний, ❓ є, назв проєктів у лічильниках немає', pl.some(function(l){ return /^❓/.test(l); }) && !withNames.length, 'рядків лічильників ' + pl.length + ', з назвами ' + withNames.length + ', ❓: ' + pl.some(function(l){ return /^❓/.test(l); }));
-  var routed = cd.order.filter(function(id){ return cd.cards[id].route; });
-  var routeBad = routed.filter(function(id){ var c = cards[id]||{}; return !c.action; });
-  add('C14','Для кожного проєкту з порадою рушія є Action', !routeBad.length, routeBad.join(', '));
+  var routeBad = [];
+  cd.order.forEach(function(id){
+    var rts = cd.cards[id].routes || (cd.cards[id].route ? [cd.cards[id].route] : []);
+    var c = cards[id] || {}; var acts = Array.isArray(c.actions) ? c.actions : (c.action ? [c.action] : []);
+    if (rts.length && acts.length !== rts.length) routeBad.push(id + ': маршрутів ' + rts.length + ', дій ' + acts.length);
+  });
+  add('C14','Кількість дій = кількості маршрутів рушія (B-28 п. 4)', !routeBad.length, routeBad.join('; '));
   var rej = [];
-  cd.order.forEach(function(id){ ['insight','impact','action'].forEach(function(f){ var v = cards[id] && cards[id][f]; if (v && final.indexOf(String(v).trim().slice(0,500).replace(/&/g,'&amp;')) < 0) rej.push(id+'.'+f); }); });
+  cd.order.forEach(function(id){ var cc = cards[id] || {}; [['insight', cc.insight], ['impact', cc.impact]].concat((Array.isArray(cc.actions) ? cc.actions : (cc.action ? [cc.action] : [])).map(function(a, i){ return ['action' + i, a]; })).forEach(function(x){ var v = x[1]; if (v && final.indexOf(String(v).trim().slice(0,500).replace(/&/g,'&amp;')) < 0) rej.push(id+'.'+x[0]); }); });
   add('C15','Код прийняв усі поля LLM (жодне не замінено шаблоном)', !rej.length, rej.join(', '));
   return res;
 }
