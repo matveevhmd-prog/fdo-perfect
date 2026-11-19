@@ -49,10 +49,11 @@ function composeCard(cd, rawText){
     cd.order.forEach(function(id){ cardNums(cd.cards[id].facts).forEach(function(n){ allowedP[n] = 1; }); });
     var okP = function(v, mx){ if (typeof v !== 'string' || !v.trim()) return null; var bad = cardNums(v).some(function(n){ return !allowedP[n]; }); if (bad) return null; var tv = v.trim(); if (tv.length <= mx) return tv; var cp = tv.slice(0, mx), dot = Math.max(cp.lastIndexOf('. '), cp.lastIndexOf('; ')); return dot > mx * 0.5 ? cp.slice(0, dot + 1) : null; };
     var hd = okP(jp.headline, 320);
-    if (hd) {
-      var pr = (Array.isArray(jp.priorities) ? jp.priorities : []).slice(0, 3).map(function(x){ return okP(x, 300); }).filter(Boolean);
-      var pl = okP(jp.pipeline, 320);
-      out.push('', '🧭 <b>Висновок Archi</b>', hd);
+    var pr = (Array.isArray(jp.priorities) ? jp.priorities : []).slice(0, 3).map(function(x){ return okP(x, 300); }).filter(Boolean);
+    var pl = okP(jp.pipeline, 320);
+    if (hd || pr.length || pl) {
+      out.push('', '🧭 <b>Висновок Archi</b>');
+      if (hd) out.push(hd);
       pr.forEach(function(x, i){ out.push('• ' + (i === 0 ? 'Спершу: ' : '') + x); });
       if (pl) out.push('📈 ' + pl);
     }

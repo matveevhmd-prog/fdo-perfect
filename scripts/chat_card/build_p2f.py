@@ -56,6 +56,24 @@ s = rep(s, "return bad ? null : v.trim().slice(0, mx); };",
 s = rep(s, "var hd = okP(jp.headline, 260);", "var hd = okP(jp.headline, 320);")
 s = rep(s, "okP(x, 240); }).filter(Boolean);", "okP(x, 300); }).filter(Boolean);")
 s = rep(s, "var pl = okP(jp.pipeline, 240);", "var pl = okP(jp.pipeline, 320);")
+
+# --- 19.11.2026 (збій у виконанні 9670): один відхилений headline не повинен прибирати весь блок «Висновок Archi» ---
+s = rep(s, """    var hd = okP(jp.headline, 320);
+    if (hd) {
+      var pr = (Array.isArray(jp.priorities) ? jp.priorities : []).slice(0, 3).map(function(x){ return okP(x, 300); }).filter(Boolean);
+      var pl = okP(jp.pipeline, 320);
+      out.push('', '🧭 <b>Висновок Archi</b>', hd);
+      pr.forEach(function(x, i){ out.push('• ' + (i === 0 ? 'Спершу: ' : '') + x); });
+      if (pl) out.push('📈 ' + pl);
+    }""", """    var hd = okP(jp.headline, 320);
+    var pr = (Array.isArray(jp.priorities) ? jp.priorities : []).slice(0, 3).map(function(x){ return okP(x, 300); }).filter(Boolean);
+    var pl = okP(jp.pipeline, 320);
+    if (hd || pr.length || pl) {
+      out.push('', '🧭 <b>Висновок Archi</b>');
+      if (hd) out.push(hd);
+      pr.forEach(function(x, i){ out.push('• ' + (i === 0 ? 'Спершу: ' : '') + x); });
+      if (pl) out.push('📈 ' + pl);
+    }""")
 old_tail = s[s.index("// обрізати по межі абзацу"):]
 new_tail = r"""// розбити на кілька повідомлень по межі між картками (ліміт Telegram 4096; B-28: дві дії на проєкт збільшують картку)
 var chunks = [t];

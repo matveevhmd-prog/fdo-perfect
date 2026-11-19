@@ -64,6 +64,7 @@ function run(ctx){
   var rej = [];
   cd.order.forEach(function(id){ var cc = cards[id] || {}; [['insight', cc.insight], ['impact', cc.impact]].concat((Array.isArray(cc.actions) ? cc.actions : (cc.action ? [cc.action] : [])).map(function(a, i){ return ['action' + i, a]; })).forEach(function(x){ var v = x[1]; if (v && final.indexOf(String(v).trim().slice(0,500).replace(/&/g,'&amp;')) < 0) rej.push(id+'.'+x[0]); }); });
   add('C15','Код прийняв усі поля LLM (жодне не замінено шаблоном)', !rej.length, rej.join(', '));
+  add('C16','Блок «Висновок Archi» присутній у відповіді (хоча б один валідний елемент портфеля)', /🧭/.test(final), '');
   return res;
 }
 module.exports = { run: run, parseStrict: parseStrict, nums: nums, wc: wc };
