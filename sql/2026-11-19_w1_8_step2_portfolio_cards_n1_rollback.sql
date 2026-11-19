@@ -1,0 +1,1 @@
+-- Відкат Н-1: повернути hero etc до 🟡 при > 0 — перезастосувати CREATE OR REPLACE з попередньої версії файлу (git: коміт «W1.8 крок 2: archi_portfolio_cards»), рядок 'etc': CASE WHEN h.etc_avg > 0 THEN 'yellow' ELSE 'green' END.

@@ -3,7 +3,7 @@
 -- Договори АН (contract_type='visit') виключені — як `AN: Split Stage Rows`.
 -- Форматування текстів і значень (₴, год, %) лишається в n8n; SQL повертає ідентифікатори проєктів і класи кольору.
 -- НЕ входить (крок 2б, відкрито): сигнали таблиці портфеля pfc.fcSig, wp.sig, АН-блок (`AN: Attach Block`).
--- Свідомо перенесено як є (не змінено): hero «Виконано і не оплачено» і «Середній розрив до плану» мають 🟡 при > 0 — див. RELEASE_PLAN, знахідка Н-1 (рішення власника потрібне).
+-- Н-1 (рішення власника 19.11.2026): hero «Середній розрив до плану» (etc) — 🔴 при > 0 (п. 15); hero «Виконано і не оплачено» (volume) лишається 🟡 при > 0 (неоплата — окремі пороги, виняток п. 15).
 -- Пороги — archi_threshold_req (відсутній ключ → помилка). Відкат: sql/2026-11-19_w1_8_step2_portfolio_cards_rollback.sql
 
 CREATE OR REPLACE FUNCTION public.archi_portfolio_cards(p_company uuid, p_asof date DEFAULT ((now() AT TIME ZONE 'Europe/Kyiv'))::date)
@@ -61,7 +61,7 @@ BEGIN
                      WHEN h.tot_pp <> 0 AND (h.tot_pp - h.tot_pf) / h.tot_pp * 100 > t_pr_r THEN 'red'
                      WHEN h.tot_pp <> 0 AND (h.tot_pp - h.tot_pf) / h.tot_pp * 100 > t_pr_y THEN 'yellow' ELSE 'green' END,
       'volume', CASE WHEN h.gap_sum > 0 THEN 'yellow' ELSE 'green' END,
-      'etc',    CASE WHEN h.etc_avg > 0 THEN 'yellow' ELSE 'green' END,
+      'etc',    CASE WHEN h.etc_avg > 0 THEN 'red' ELSE 'green' END,
       'evm',    CASE WHEN round(h.cpi_avg,2) < t_cpi_r THEN 'red' WHEN round(h.cpi_avg,2) < t_cpi_y THEN 'yellow' ELSE 'green' END),
     'hero_values', jsonb_build_object('rent_plan_avg_pct', round(h.avg_rp*100), 'rent_forecast_avg_pct', round(h.avg_rf*100), 'profit_plan', h.tot_pp, 'profit_forecast', h.tot_pf,
                    'volume_gap', h.gap_sum, 'etc_gap_avg', round(h.etc_avg,1), 'cpi_avg', round(h.cpi_avg,2), 'no_forecast', h.n_nofc))
