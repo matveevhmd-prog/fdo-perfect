@@ -1,6 +1,7 @@
 -- П2e: факти для ШІ-аналітика картки чату (відхилення прибутку, концентрація втрат, блоковані контракти).
 -- Формули в SQL (CLAUDE.md п. 31); n8n лише передає. Чернетка до застосування: застосовувати лише за «так» власника (apply_migration).
 -- Відкат: drop function public.archi_card_facts(uuid);
+-- 19.11.2026: додано routes (масив) поряд із route (сумісність із живим кодом до публікації П2f).
 -- 17.11.2026: власне правило route видалено; адреса й тип дії — з archi_morning_brief(...)->'by_project' (рішення власника 16.11.2026: один рушій).
 -- Статус: застосовано 17.11.2026 (міграція archi_card_facts_single_engine); до того функції в базі не було (pg_proc). Перевірка: route == by_project[].advice по 14 проєктах (live SQL).
 create or replace function public.archi_card_facts(p_company uuid)
@@ -40,7 +41,7 @@ brief as (
   select public.archi_morning_brief(p_company) as j
 ),
 bp as (
-  select e->>'project_id' as project_id, e->'advice' as advice
+  select e->>'project_id' as project_id, e->'advice' as advice, e->'advices' as advices
   from brief, jsonb_array_elements(brief.j->'by_project') e
 ),
 proj as (
@@ -51,7 +52,15 @@ proj as (
                                         'type', x.advice->>'action_type',
                                         'to', case when x.advice->>'to_role' = 'Власник' then 'власник' else x.advice->>'to_role' end,
                                         'basis', x.advice->>'purpose') end
-                                      from bp x where x.project_id = b.project_id)) as f
+                                      from bp x where x.project_id = b.project_id),
+                            -- 19.11.2026 (B-28): усі дії події головного сигналу; блокер із кількома причинами → кілька маршрутів
+                            'routes', (select (select jsonb_agg(jsonb_build_object(
+                                        'type', a->>'action_type',
+                                        'to', case when a->>'to_role' = 'Власник' then 'власник' else (select string_agg(r, ', ') from jsonb_array_elements_text(a->'to_roles') r) end,
+                                        'basis', a->>'purpose',
+                                        'reason', a->>'block_type') order by ord)
+                                      from jsonb_array_elements(x.advices) with ordinality t(a, ord))
+                                      from bp x where x.project_id = b.project_id and jsonb_typeof(x.advices) = 'array')) as f
   from base b, tot t
 ),
 loss as (
