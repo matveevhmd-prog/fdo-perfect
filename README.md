@@ -1,7 +1,7 @@
 # ARCHI — репозиторій продукту
 
 **Доповнення 11.11.2026 (§190): core `4a5df71b` (197 вузлів; збій LLM → повідомлення ПМу, повтор, temperature 0.2), Morning Brief `911fa93b` (позначка «тексти за шаблонами»), новий workflow LLM Health Check `Sna7JWxq3BpRDJIs` (щодня 07:30). Рахунок Anthropic вичерпано до поповнення власником.
-**Доповнення 19.11.2026 (`RELEASE_PLAN` §202):** core `3cd872a8-49a4-4a34-be8a-18509fb77e74` (П2f.1: Sanitize без відкидання блоку; попередня `db831301-d3fd-40c2-b49f-035a12c7845c` (197 вузлів; П2f: B-28, кілька дій по маршрутах, розбиття повідомлень; відкат `a42e90b8-3c61-4613-8174-0d77ee720ccd`). Supabase: `archi_morning_brief` з `advices`/`events`. Eval-стенд `scripts/eval/` (W15.1).
+**Доповнення 19.11.2026 (`RELEASE_PLAN` §202):** core `730b080f-3a60-4703-adbc-e5f3b613a79c` (П2f.2: діагностика блоку «Висновок»; попередня `3cd872a8-49a4-4a34-be8a-18509fb77e74` (П2f.1: Sanitize без відкидання блоку; попередня `db831301-d3fd-40c2-b49f-035a12c7845c` (197 вузлів; П2f: B-28, кілька дій по маршрутах, розбиття повідомлень; відкат `a42e90b8-3c61-4613-8174-0d77ee720ccd`). Supabase: `archi_morning_brief` з `advices`/`events`. Eval-стенд `scripts/eval/` (W15.1).
 **Доповнення 17.11.2026 (`RELEASE_PLAN` §200):** core `a42e90b8-3c61-4613-8174-0d77ee720ccd` (197 вузлів; П2e; спроба fix «Б» з моделлю haiku-5-5 (`918ee03b-2f3c-4330-af0e-6938074f1eeb`) відкочена: API 400 «temperature is deprecated for this model»); таблиця адресатів порад — `docs/BRIEF_ADDRESSEE_RULES.md`; Telegram-перевірка власника відкрита.
 
 **Доповнення 15.11.2026 (`RELEASE_PLAN` §198):** core `34f82ff5-89dd-4c6f-bd8e-8de89a229cba` (197 вузлів; П2d: потреба блокера і Impact без прогнозів; відкат `d04ef8a0-edf0-4fc7-af08-2471d859a310`);

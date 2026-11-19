@@ -37,13 +37,15 @@ function parseCardJson(s){
   var t = String(s).trim().replace(/^```(?:json)?/i, '').replace(/```\s*$/, '').trim();
   var i = t.indexOf('{'), j = t.lastIndexOf('}');
   if (i < 0 || j <= i) return null;
-  try { var o = parseLoose(t.slice(i, j + 1)); if (!(o && o.cards && typeof o.cards === 'object')) return null; var r = o.cards; Object.defineProperty(r, '__portfolio', { value: (o.portfolio && typeof o.portfolio === 'object') ? o.portfolio : null, enumerable: false }); return r; } catch (e) { return null; }
+  try { var o = parseLoose(t.slice(i, j + 1)); if (!(o && o.cards && typeof o.cards === 'object')) return null; return { cards: o.cards, portfolio: (o.portfolio && typeof o.portfolio === 'object') ? o.portfolio : null }; } catch (e) { return null; }
 }
+var DBG = {};
 function composeCard(cd, rawText){
-  var jc = parseCardJson(rawText) || {};
+  var pj = parseCardJson(rawText); var jc = pj ? pj.cards : {};
+  DBG.parsed = !!pj; DBG.portfolio = !!(pj && pj.portfolio); DBG.pfacts = typeof cd.pfacts;
   var NLc = String.fromCharCode(10);
   var out = ['Станом на ' + cd.asOf, '', '📊 <b>Портфель:</b> ' + cd.total + ' проєктів', '🔴 ' + (cd.counts.red || 0), '🟡 ' + (cd.counts.yellow || 0), '🟢 ' + (cd.counts.green || 0), '⛔ ' + (cd.counts.blocked || 0), '❓ ' + (cd.noFcN || 0)];
-  var jp = (jc.__portfolio || null);
+  var jp = pj ? pj.portfolio : null;
   if (jp && cd.pfacts) {
     var allowedP = {}; cardNums(cd.pfacts).forEach(function(n){ allowedP[n] = 1; });
     cd.order.forEach(function(id){ cardNums(cd.cards[id].facts).forEach(function(n){ allowedP[n] = 1; }); });
@@ -51,6 +53,7 @@ function composeCard(cd, rawText){
     var hd = okP(jp.headline, 320);
     var pr = (Array.isArray(jp.priorities) ? jp.priorities : []).slice(0, 3).map(function(x){ return okP(x, 300); }).filter(Boolean);
     var pl = okP(jp.pipeline, 320);
+    DBG.hd = !!hd; DBG.pr = pr.length; DBG.pl = !!pl;
     if (hd || pr.length || pl) {
       out.push('', '🧭 <b>Висновок Archi</b>');
       if (hd) out.push(hd);
@@ -141,4 +144,4 @@ function finish(c) {
   while (stack.length) c += '</' + stack.pop() + '>';
   return c;
 }
-return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR }, pairedItem: { item: 0 } }; });
+return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR, dbg: DBG }, pairedItem: { item: 0 } }; });

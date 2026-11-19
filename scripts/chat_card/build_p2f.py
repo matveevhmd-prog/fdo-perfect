@@ -50,6 +50,7 @@ new = """    if (routed) {
 """
 s = s.replace(old, new)
 
+
 # --- 19.11.2026: обрізання без розриву речення і розбиття довгої відповіді на кілька повідомлень Telegram ---
 s = rep(s, "return bad ? null : v.trim().slice(0, mx); };",
  "if (bad) return null; var tv = v.trim(); if (tv.length <= mx) return tv; var cp = tv.slice(0, mx), dot = Math.max(cp.lastIndexOf('. '), cp.lastIndexOf('; ')); return dot > mx * 0.5 ? cp.slice(0, dot + 1) : null; };")
@@ -103,5 +104,13 @@ function finish(c) {
 return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR }, pairedItem: { item: 0 } }; });
 """
 s = s.replace(old_tail, new_tail)
+
+# --- 19.11.2026: блок «Висновок» відсутній у live при наявності в офлайні (виконання 9670, 9674): прибрати приховану властивість __portfolio, додати dbg ---
+s = rep(s, "var r = o.cards; Object.defineProperty(r, '__portfolio', { value: (o.portfolio && typeof o.portfolio === 'object') ? o.portfolio : null, enumerable: false }); return r;", "return { cards: o.cards, portfolio: (o.portfolio && typeof o.portfolio === 'object') ? o.portfolio : null };")
+s = rep(s, "  var jc = parseCardJson(rawText) || {};\n", "  var pj = parseCardJson(rawText); var jc = pj ? pj.cards : {};\n  DBG.parsed = !!pj; DBG.portfolio = !!(pj && pj.portfolio); DBG.pfacts = typeof cd.pfacts;\n")
+s = rep(s, "  var jp = (jc.__portfolio || null);\n", "  var jp = pj ? pj.portfolio : null;\n")
+s = rep(s, "    if (hd || pr.length || pl) {", "    DBG.hd = !!hd; DBG.pr = pr.length; DBG.pl = !!pl;\n    if (hd || pr.length || pl) {")
+s = rep(s, "function composeCard(cd, rawText){", "var DBG = {};\nfunction composeCard(cd, rawText){")
+s = rep(s, "return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR }, pairedItem: { item: 0 } }; });", "return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR, dbg: DBG }, pairedItem: { item: 0 } }; });")
 open(os.path.join(here, 'Sanitize_Reply.p2f.js'), 'w').write(s)
 print('ok', len(b), len(s))
