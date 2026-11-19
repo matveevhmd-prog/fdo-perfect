@@ -6,6 +6,7 @@ function parseStrict(raw){
   var t = String(raw).trim().replace(/^```(?:json)?/i,'').replace(/```\s*$/,'').trim();
   try { return JSON.parse(t); } catch(e){ return null; }
 }
+function normLay(t){ return String(t).replace(/[;:•↳«»—–]/g,' ').replace(/\s+/g,' ').trim(); }   // C15: порівняння тексту моделі незалежно від верстки (рядки, маркери, «;»)
 function run(ctx){
   var res = [], raw = ctx.raw, final = ctx.final, brb = ctx.brb, cd = brb.cardData;
   var J = parseStrict(raw);
@@ -62,8 +63,20 @@ function run(ctx){
   });
   add('C14','Кількість дій = кількості маршрутів рушія (B-28 п. 4)', !routeBad.length, routeBad.join('; '));
   var rej = [];
-  cd.order.forEach(function(id){ var cc = cards[id] || {}; [['insight', cc.insight], ['impact', cc.impact]].concat((Array.isArray(cc.actions) ? cc.actions : (cc.action ? [cc.action] : [])).map(function(a, i){ return ['action' + i, a]; })).forEach(function(x){ var v = x[1]; if (v && final.indexOf(String(v).trim().slice(0,500).replace(/&/g,'&amp;')) < 0) rej.push(id+'.'+x[0]); }); });
+  cd.order.forEach(function(id){ var cc = cards[id] || {}; [['insight', cc.insight], ['impact', cc.impact]].concat((Array.isArray(cc.actions) ? cc.actions : (cc.action ? [cc.action] : [])).map(function(a, i){ return ['action' + i, a]; })).forEach(function(x){ var v = x[1]; if (v && normLay(final).indexOf(normLay(String(v).trim().slice(0,500).replace(/&/g,'&amp;'))) < 0) rej.push(id+'.'+x[0]); }); });
   add('C15','Код прийняв усі поля LLM (жодне не замінено шаблоном)', !rej.length, rej.join(', '));
+  // верстка (п. 4 власника, 19.11.2026): блоки через порожній рядок, один рядок — одна думка, без «;»
+  var fl = String(final).split('\n'), noBlank = [], longL = [], semi = [];
+  fl.forEach(function(l, i){
+    if (/^(💡|⚠️|🎯) <b>/.test(l) && i > 0 && fl[i-1].trim() !== '') noBlank.push(l.slice(0, 40));
+    if (l.length > 160 && !/^«/.test(l)) longL.push(l.slice(0, 40) + '… (' + l.length + ')');
+    if (/; /.test(l) && !/^«/.test(l)) semi.push(l.slice(0, 50));
+  });
+  add('C22','Верстка: перед кожним блоком Insight/Impact/Action порожній рядок', !noBlank.length, noBlank.join(' | '));
+  add('C23','Верстка: жодного рядка понад 160 символів і жодного «;» склеювання (поза готовим текстом у лапках)', !longL.length && !semi.length, longL.concat(semi).join(' | '));
+  var FORBID = /(недозавантаж|перезавантаж|завантажен[аоіи]? (менш|більш)|потужност\S* команд|з вини|вин[аиі] замовник|бездіяльн|недбал|халатн)/i;
+  var fbd = String(final).split('\n').filter(function(l){ return FORBID.test(l); }).map(function(l){ return l.slice(0, 70); });
+  add('C20','Немає висновків про завантаження команди й оцінних слів («з вини», «недозавантажена»…) — п. 10, знахідки 4 і 11', !fbd.length, fbd.join(' | '));
   add('C16','Блок «Висновок Archi» присутній у відповіді (хоча б один валідний елемент портфеля)', /🧭/.test(final), '');
   return res;
 }
