@@ -5,6 +5,8 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 19.11.2026 (`RELEASE_PLAN` §202):** core `CKwCsGIwyw9feCY5` — `activeVersionId db831301-d3fd-40c2-b49f-035a12c7845c`, 197 вузлів (П2f: B-28, кілька дій по маршрутах, розбиття повідомлень; відкат `a42e90b8`). Supabase: `archi_morning_brief` з `advices`/`events`, `archi_card_facts.routes`. Probe `IjaLbSxFozcL5zj7` — не опублікований.
+
 **Доповнення 17.11.2026 (`RELEASE_PLAN` §200):** core `CKwCsGIwyw9feCY5` — `activeVersionId a42e90b8-3c61-4613-8174-0d77ee720ccd`, 197 вузлів (П2e крок 1: Sonnet, 2400 токенів, розбір обірваного JSON; перед тим `d9496182-7b70-4150-8808-1618a53f4e62`; haiku-5-5 `918ee03b-2f3c-4330-af0e-6938074f1eeb` відкочено: 400 temperature; раніше `34f82ff5-89dd-4c6f-bd8e-8de89a229cba`); Supabase: `archi_card_facts` (route з `archi_morning_brief`); таблиця адресатів — `docs/BRIEF_ADDRESSEE_RULES.md` (B-25, B-26); відкрито: тест власника в Telegram, міграція рушія під таблицю, формат брифінгу, Owner View (паралельна сесія).
 
 **Доповнення 16.11.2026 (`RELEASE_PLAN` §199):** брифінг `J3Oqcaa2YBEsVSng` — `activeVersionId 9606e98e-a014-4c54-ac8f-8b0808be5059`; Supabase: `archi_morning_brief` + `pm_escalation`, `client_unpaid`. Core `CKwCsGIwyw9feCY5` без змін: `34f82ff5`.

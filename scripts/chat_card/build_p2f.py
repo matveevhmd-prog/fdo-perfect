@@ -82,7 +82,7 @@ function finish(c) {
   while (stack.length) c += '</' + stack.pop() + '>';
   return c;
 }
-return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR } }; });
+return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR }, pairedItem: { item: 0 } }; });
 """
 s = s.replace(old_tail, new_tail)
 open(os.path.join(here, 'Sanitize_Reply.p2f.js'), 'w').write(s)

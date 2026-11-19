@@ -140,4 +140,4 @@ function finish(c) {
   while (stack.length) c += '</' + stack.pop() + '>';
   return c;
 }
-return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR } }; });
+return chunks.map(function (c) { return { json: { text: finish(c), llm_stop: stopR }, pairedItem: { item: 0 } }; });
