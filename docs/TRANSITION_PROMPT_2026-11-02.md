@@ -5,6 +5,8 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 3 20.11.2026 (`RELEASE_PLAN` §204):** core `CKwCsGIwyw9feCY5` — `activeVersionId 77dd745b-3589-4ac8-a207-3726ce25a98a`, 197 вузлів (П2g: `Sanitize Reply` верстає чат-картку кодом за п. 4; відкат `17c47202-2baf-457e-a201-20b4e7236667`).
+
 **Доповнення 2 19.11.2026 (`RELEASE_PLAN` §203):** core `CKwCsGIwyw9feCY5` — `activeVersionId 17c47202-2baf-457e-a201-20b4e7236667`, 197 вузлів (W1.8 крок 3: `Build MiniApp Data` читає кольори й сигнали з SQL; запити метрик Mini App і чату додають `sig`, `cards`; відкат — `730b080f-3a60-4703-adbc-e5f3b613a79c`). Supabase: `archi_portfolio_cards`; демо-дані: баланс 8/3/3.
 
 **Доповнення 19.11.2026 (`RELEASE_PLAN` §202):** core `CKwCsGIwyw9feCY5` — `activeVersionId 730b080f-3a60-4703-adbc-e5f3b613a79c` (П2f.2: діагностика блоку «Висновок»; попередня `3cd872a8-49a4-4a34-be8a-18509fb77e74` (П2f.1: Sanitize без відкидання блоку; попередня `db831301-d3fd-40c2-b49f-035a12c7845c`, 197 вузлів (П2f: B-28, кілька дій по маршрутах, розбиття повідомлень; відкат `a42e90b8`). Supabase: `archi_morning_brief` з `advices`/`events`, `archi_card_facts.routes`. Probe `IjaLbSxFozcL5zj7` — не опублікований.
