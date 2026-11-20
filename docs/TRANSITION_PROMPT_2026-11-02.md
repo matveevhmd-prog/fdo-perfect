@@ -5,6 +5,8 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 4 20.11.2026 (`RELEASE_PLAN` §204, додаток 3):** core `CKwCsGIwyw9feCY5` — `activeVersionId 8f4a823f-3fd5-491b-a60c-50116b40cfbf`, 197 вузлів (П2h: без дублю Insight, акценти жирним, тези дзвінка; відкат `77dd745b-3589-4ac8-a207-3726ce25a98a`).
+
 **Доповнення 3 20.11.2026 (`RELEASE_PLAN` §204):** core `CKwCsGIwyw9feCY5` — `activeVersionId 77dd745b-3589-4ac8-a207-3726ce25a98a`, 197 вузлів (П2g: `Sanitize Reply` верстає чат-картку кодом за п. 4; відкат `17c47202-2baf-457e-a201-20b4e7236667`).
 
 **Доповнення 2 19.11.2026 (`RELEASE_PLAN` §203):** core `CKwCsGIwyw9feCY5` — `activeVersionId 17c47202-2baf-457e-a201-20b4e7236667`, 197 вузлів (W1.8 крок 3: `Build MiniApp Data` читає кольори й сигнали з SQL; запити метрик Mini App і чату додають `sig`, `cards`; відкат — `730b080f-3a60-4703-adbc-e5f3b613a79c`). Supabase: `archi_portfolio_cards`; демо-дані: баланс 8/3/3.
