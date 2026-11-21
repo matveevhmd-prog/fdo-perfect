@@ -11,6 +11,7 @@
 ## Читати (у цьому порядку)
 1. `CLAUDE.md` (особливо п. 14, 17, 20, 22, 27, 28, 37, 38, 39, 40); `docs/DECISIONS_REGISTER.md`.
 2. **`docs/W2_DESIGN.md`** — дизайн (модель, потоки, міграція M1–M9, тести T1–T7, рішення).
+   **`docs/W2_PLAN_AND_ACCEPTANCE.md`** — план робіт, «блискучий результат», автоперевірки A1–A14, сценарії S1–S9, рубрика приймання (читати перед першим кроком).
 3. `docs/ROADMAP_TO_RELEASE.md` розділ W2 (W2.1–W2.8), W6.1, R-4, R-7; `docs/RELEASE_PLAN.md` §205 (M1 виконано).
 4. Історія Кошториса: `docs/ARCHI_Obraz_Idealnoho_Rezultatu.md` §3, §5, розд. 3 «Кошторис»; `docs/archive/ARCHI_TECH_SPEC_v2_0.md` §4; `docs/PROMPT_COO_ANALYST_DESIGN_2026-11-20.md` §6.1 («чиї гроші»).
 5. `sql/2026-11-21_w2_m1_koshtorys_tables.sql` і `sql/seed/demo_plan_rows_2026-10-31.json` (120 рядків); `SECURITY.md` (нові таблиці).
