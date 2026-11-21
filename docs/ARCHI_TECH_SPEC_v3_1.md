@@ -49,6 +49,7 @@ ARCHI — оркестраційний шар над проєктними дан
                              archi_thresholds (пороги + план бюро), rates           Build Status Text ──► /status
 ```
 
+**Оновлення 21.11.2026:** додано таблиці Кошториса `koshtorys_sections`, `koshtorys_versions`, `koshtorys_rows`, `koshtorys_changes` (W2.1, `RELEASE_PLAN` §205, дизайн `docs/W2_DESIGN.md`); Кошторис — базове джерело плану (п. 40), Sheets виводиться (п. 17).
 **Примітки v3.1.** (1) Кошторис (Sheets) — спадковий адаптер; джерело плану — Supabase (п. 17). (2) Гілка «EVM (класичний)» живе в Data Total окремо: `evm_packages`, `evm_package_done` → `evm_classic_at()` / `evm_classic_today`; екрана ще немає (карта W6.4). (3) Цільова архітектура до релізу (тенант, ролі, адаптери CSV/XLSX/бот, знання проєкту) — `ROADMAP_TO_RELEASE.md` §3.
 
 ### 2.1 Правило єдиного обчислення (інваріант)
