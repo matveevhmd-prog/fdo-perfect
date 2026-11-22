@@ -16,7 +16,7 @@
 ## 1. Продукт і межі обіцянки
 
 ARCHI — оркестраційний шар над проєктними даними архітектурного бюро: план
-(Supabase; Кошторис — спадковий адаптер, `CLAUDE.md` п. 17) + факт (журнали годин і грошей) + прогноз (щотижневий звіт ПМа) →
+(Supabase; Кошторис — артефакт методології: файл у сховищі компанії, `CLAUDE.md` п. 41) + факт (журнали годин і грошей) + прогноз (щотижневий звіт ПМа) →
 метрики, сигнали й відповіді власнику. Три фічі: **Owner View** (Telegram Mini App),
 **Archi Consult** (чат-агент, Q1–Q10 + довільні питання), **Щотижневий ритм**
 (звіт ПМа → Weekly Render → xlsx).
@@ -49,8 +49,8 @@ ARCHI — оркестраційний шар над проєктними дан
                              archi_thresholds (пороги + план бюро), rates           Build Status Text ──► /status
 ```
 
-**Оновлення 21.11.2026:** додано таблиці Кошториса `koshtorys_sections`, `koshtorys_versions`, `koshtorys_rows`, `koshtorys_changes` (W2.1, `RELEASE_PLAN` §205, дизайн `docs/W2_DESIGN.md`); Кошторис — базове джерело плану (п. 40), Sheets виводиться (п. 17).
-**Примітки v3.1.** (1) Кошторис (Sheets) — спадковий адаптер; джерело плану — Supabase (п. 17). (2) Гілка «EVM (класичний)» живе в Data Total окремо: `evm_packages`, `evm_package_done` → `evm_classic_at()` / `evm_classic_today`; екрана ще немає (карта W6.4). (3) Цільова архітектура до релізу (тенант, ролі, адаптери CSV/XLSX/бот, знання проєкту) — `ROADMAP_TO_RELEASE.md` §3.
+**Оновлення 21.11.2026:** додано таблиці Кошториса `koshtorys_sections`, `koshtorys_versions`, `koshtorys_rows`, `koshtorys_changes` (W2.1, `RELEASE_PLAN` §205, дизайн `docs/W2_DESIGN.md`); Кошторис — артефакт методології (п. 41); файл лишається, виводиться лише читання Google-файла як живого джерела розрахунків (п. 17).
+**Примітки v3.1.** (1) Кошторис — артефакт методології (файл Google-таблиця/Excel, завантажується в ARCHI, п. 41); розрахунок, що залежить від факту й прогнозу, і зберігання версій — у Supabase (п. 17). (2) Гілка «EVM (класичний)» живе в Data Total окремо: `evm_packages`, `evm_package_done` → `evm_classic_at()` / `evm_classic_today`; екрана ще немає (карта W6.4). (3) Цільова архітектура до релізу (тенант, ролі, адаптери CSV/XLSX/бот, знання проєкту) — `ROADMAP_TO_RELEASE.md` §3.
 
 ### 2.1 Правило єдиного обчислення (інваріант)
 Кожен показник обчислюється **в одному місці** і показується всюди з нього:
@@ -221,7 +221,7 @@ numeric, note — FORMULAS §6), `payment_schedule` (RLS увімкнено), `r
 | Sheets Helper | `nGcSyWfuMO7vjTn6` (ручний, inactive, 7 нод; правки Кошторису) |
 | Не чіпати | `I3K5tBj0FWF1dbWb` (Representative Bot) |
 | Supabase | `bxawceksdkqlbkdgjvyz` |
-| Кошторис DEMO | `1Ok4_U9u8kLZ0GJarPbEk4nQsqKeqdLzNNBONNNDgF7g` — спадковий адаптер, виводиться з обігу (п. 17) |
+| Кошторис DEMO | `1Ok4_U9u8kLZ0GJarPbEk4nQsqKeqdLzNNBONNNDgF7g` — файл-Кошторис DEMO; читання як живого джерела розрахунків виводиться (п. 17, п. 41) |
 | K6sm активна версія | `cf904641-0f46-4725-a0ab-beaef8385cd9` (звірено 01.11.2026) |
 | Бот | `@archi_demo_bot`; власник `304884647` |
 | Моделі | Claude `claude-sonnet-4-6` (чат); OpenAI `gpt-4o` (WR/Import/Meeting, фото), OpenAI transcribe (голос) |
