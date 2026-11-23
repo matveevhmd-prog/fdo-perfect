@@ -44,3 +44,22 @@
 Офіційні ціни й ліміти n8n (Cloud вищих тарифів, ліцензія Community Edition для комерційного продукту для клієнтів — перевірити умови ліцензії «Sustainable Use»); розбір виконань core по вузлах (які саме дії дають 3 виконання); вартість і вибір сервера; доступність n8n-шаблонів і credential-ів після переносу; чи ОСББ переїжджає разом.
 
 Джерела: Supabase — https://supabase.com/docs/guides/functions/pricing, https://supabase.com/docs/guides/platform/manage-your-usage/edge-function-invocations; n8n — https://n8n.io/plans, https://blog.n8n.io/build-without-limits-everything-you-need-to-know-about-n8ns-new-pricing; вторинні: https://www.activepieces.com/blog/n8n-free-plan-in-2026-community-edition-vs-cloud.md, https://zeabur.com/blogs/n8n-pricing-shift-self-hosting-business-costs-zeabur-guide.
+
+## 6. Рішення власника 23.11.2026 і огляд серверів
+**Рішення (`CLAUDE.md` п. 43):** на етапі розробки не переїжджаємо; перехід на власний сервер — з першим реальним клієнтом (вузол W9.5).
+
+**Ліцензія (документація n8n, Sustainable Use License):** дозволено для внутрішніх бізнес-цілей; заборонено надавати n8n клієнтам для підключення їхніх акаунтів і побудови потоків; обмеження діє, коли комерційна цінність продукту повністю або суттєво походить з функцій n8n; для таких випадків — комерційна угода (n8n Embed). У ARCHI клієнти n8n не бачать, але продукт працює на n8n — **висновок дає n8n (license@n8n.io) і юрист**, не Claude.
+
+**Сервери (джерела — огляди жовтня–листопада 2026, ціни змінюються; підтвердити на сайтах постачальників):**
+| Постачальник | Конфігурація | Ціна на місяць | Плюси | Мінуси |
+|---|---|---|---|---|
+| Hetzner (ЄС: Німеччина, Фінляндія) | 2 vCPU, 4 ГБ (CX23 / CPX22) | ≈ €5,5–6,5 (після підвищення цін 15.06.2026) | найдешевше; ЄС, близько до Supabase (Ірландія) | налаштування вручну; дешеві лінії періодично недоступні до замовлення |
+| Hostinger | KVM 2: 2 vCPU, 8 ГБ | $8,99 вступна, $14,99 після продовження | шаблон n8n | ціна зростає після першого терміну |
+| DigitalOcean | 2 vCPU, 4 ГБ | ≈ $24 | n8n в один клік, добра документація | у 3–4 рази дорожче за Hetzner |
+| Railway | за використання, мінімум $5 | змінна | без адміністрування сервера | непередбачуваний рахунок, малий диск |
+| Sliplane (керований) | 2 ГБ | ≈ €9 | n8n в один клік, менше адміністрування | менше контролю |
+| Elestio (керований n8n) | — | не знайдено | керований n8n | ціну не перевірено |
+**Попередня рекомендація Claude:** Hetzner 2 vCPU / 4 ГБ у ЄС + власна база n8n на Postgres, щоденні копії, моніторинг доступності; або Hostinger KVM 2, якщо потрібен шаблон n8n. Розмір «2 vCPU / 4 ГБ» для старту — з оглядів, під навантаження ARCHI не міряли **[припущення]**. Остаточний вибір — при виконанні W9.5.
+
+Джерела: https://docs.n8n.io/n8n-community-license/sustainable-use-license, https://docs.n8n.io/n8n-community-license/community-license/license-faq, https://blog.n8n.io/announcing-new-sustainable-use-license, https://askgpu.com/self-host-n8n/, https://selfhost.dev/blog/best-n8n-hosting-providers/, https://sliplane.io/blog/what-cloud-provider-should-you-use-for-self-hosted-n8n, https://openhosst.com/blog/best-n8n-hosting, https://blog.thesohailjafri.me/n8n-selfhost-vps-comparison, https://docs.hetzner.com/general/infrastructure-and-availability/price-adjustment/, https://www.bitdoze.com/hetzner-cloud-cost-optimized-plans/.
+
