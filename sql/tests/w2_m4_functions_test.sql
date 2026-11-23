@@ -14,10 +14,10 @@ BEGIN
   res := res || 'A1 перевірка підсумків ok у ' || n || ' з 10; ';
   -- негативи й допуск (DEMO-01)
   SELECT id INTO v1 FROM koshtorys_versions WHERE company_id = c AND project_id = 'DEMO-01' AND version_no = 1;
-  r := koshtorys_preview(c, v1, '{"hours": 593}'::jsonb);            res := res || 'N1 години +1 відхилено: ' || NOT (r ->> 'ok')::boolean || '; ';
-  r := koshtorys_preview(c, v1, '{"cost_internal": 348549.86}'::jsonb); res := res || 'N2 вартість +2 відхилено: ' || NOT (r ->> 'ok')::boolean || '; ';
+  r := koshtorys_preview(c, v1, '{"hours": 593}'::jsonb);            res := res || 'N1 години +1 відхилено: ' || (NOT (r ->> 'ok')::boolean) || '; ';
+  r := koshtorys_preview(c, v1, '{"cost_internal": 348549.86}'::jsonb); res := res || 'N2 вартість +2 відхилено: ' || (NOT (r ->> 'ok')::boolean) || '; ';
   r := koshtorys_preview(c, v1, '{"cost_internal": 348548.36}'::jsonb); res := res || 'N3 вартість +0.5 дозволено: ' || (r ->> 'ok')::boolean || '; ';
-  r := koshtorys_preview(c, v1, '{"hours_by_stage": {"МБР": 41}}'::jsonb); res := res || 'N4 години стадії +1 відхилено: ' || NOT (r ->> 'ok')::boolean || '; ';
+  r := koshtorys_preview(c, v1, '{"hours_by_stage": {"МБР": 41}}'::jsonb); res := res || 'N4 години стадії +1 відхилено: ' || (NOT (r ->> 'ok')::boolean) || '; ';
 
   -- A4 і A6: ідемпотентність та еквівалентність плану; DEMO-01 (збіг рядків 0,00) і DEMO-02 (розбіжність 0,03)
   FOREACH proj IN ARRAY ARRAY['DEMO-01', 'DEMO-02'] LOOP
