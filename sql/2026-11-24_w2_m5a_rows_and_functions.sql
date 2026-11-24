@@ -13,7 +13,7 @@ ALTER TABLE public.koshtorys_rows ALTER COLUMN stage DROP NOT NULL;
 ALTER TABLE public.koshtorys_rows DROP CONSTRAINT IF EXISTS koshtorys_rows_stage_chk;
 ALTER TABLE public.koshtorys_rows ADD CONSTRAINT koshtorys_rows_stage_chk CHECK (stage IS NOT NULL OR kind = 'subcontract');
 
--- 2. Підсумки: стадії або нагляд.
+-- 2. Підсумки: стадії або нагляд. Н-7 (24.11.2026): у M4 години й гроші АН основного проєкту виключались із підсумків, а D-02 і файл (W1, E7) їх включають; у демо АН = 0, помилки не було.
 CREATE OR REPLACE FUNCTION public.koshtorys_totals(p_company uuid, p_version_id bigint) RETURNS jsonb
 LANGUAGE plpgsql STABLE SET search_path = public AS $f$
 DECLARE v koshtorys_versions%ROWTYPE; h numeric; ci numeric; cs numeric; han numeric; stg jsonb;
@@ -35,9 +35,10 @@ BEGIN
       'rate', v.visit_rate_uah_hour, 'profit', profit, 'profit_pct', ppct,
       'rows_hours', trim_scale(rh), 'rows_cost', round(rc, 2));
   END IF;
-  SELECT coalesce(sum(hours) FILTER (WHERE kind='internal' AND stage<>'АН'),0),
-         coalesce(sum(cost_uah) FILTER (WHERE kind='internal' AND stage<>'АН'),0),
-         coalesce(sum(cost_uah) FILTER (WHERE kind='subcontract' AND stage IS DISTINCT FROM 'АН'),0),
+  -- D-02: planned_hours включає години АН; E7 файлу (собівартість) включає стадію АН. Години по 4 стадіях (hours_by_stage) — без АН (D-03).
+  SELECT coalesce(sum(hours) FILTER (WHERE kind='internal'),0),
+         coalesce(sum(cost_uah) FILTER (WHERE kind='internal'),0),
+         coalesce(sum(cost_uah) FILTER (WHERE kind='subcontract'),0),
          coalesce(sum(hours) FILTER (WHERE kind='internal' AND stage='АН'),0)
     INTO h, ci, cs, han FROM koshtorys_rows WHERE version_id = p_version_id;
   SELECT jsonb_object_agg(s, trim_scale(coalesce((SELECT sum(r.hours) FROM koshtorys_rows r
