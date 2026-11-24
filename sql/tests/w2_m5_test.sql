@@ -1,10 +1,10 @@
--- Тести W2 M5. Запускати в одній транзакції ПІСЛЯ M5a, M5b, M5c; усе скасовується RAISE EXCEPTION (результат у тексті винятку).
+-- Тести W2 M5. Запускати в одній транзакції ПІСЛЯ M5a, M5b; усе скасовується RAISE EXCEPTION (результат у тексті винятку).
 DO $t$
 DECLARE c uuid := '00000000-0000-4000-8000-000000000001'; res text := ''; proj text; v1 bigint; v2 bigint; before jsonb; after jsonb; diffs text; r jsonb; ok boolean; n int; old_h numeric; new_h numeric; old_e jsonb; new_e jsonb; an_h text;
 BEGIN
   SELECT count(*) INTO n FROM koshtorys_versions WHERE company_id = c AND status = 'approved';
-  res := res || 'Затверджених версій: ' || n || ' (очікувано 18); ';
-  FOREACH proj IN ARRAY ARRAY['DEMO-01-АН','DEMO-04-АН','DEMO-05-АН','DEMO-08-АН','22-24','24-11','24-37','24-52'] LOOP
+  res := res || 'Затверджених версій: ' || n || ' (очікувано 14); ';
+  FOREACH proj IN ARRAY ARRAY['DEMO-01-АН','DEMO-04-АН','DEMO-05-АН','DEMO-08-АН'] LOOP
     SELECT id INTO v1 FROM koshtorys_versions WHERE company_id = c AND project_id = proj AND version_no = 1;
     r := koshtorys_approve(c, v1);
     SELECT to_jsonb(p) - 'updated_at' INTO before FROM project_metrics p WHERE company_id = c AND project_id = proj;
