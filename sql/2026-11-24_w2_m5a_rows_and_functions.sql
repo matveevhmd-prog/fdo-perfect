@@ -7,6 +7,12 @@ ALTER TABLE public.koshtorys_rows ADD CONSTRAINT koshtorys_rows_kind_chk CHECK (
   (kind = 'internal' AND hours IS NOT NULL AND hours >= 0 AND (posada IS NOT NULL OR rate_uah_hour IS NOT NULL))
   OR (kind = 'subcontract' AND counterparty IS NOT NULL AND hours IS NULL));
 
+-- Субпідряд — лише гроші (Кошторис, інструкція J2: один рядок = або внутрішні години, або субпідряд у грн). Якщо стадія субпідряду невідома
+-- (є лише підсумок проєкту), рядок субпідряду може бути без стадії; рядок команди завжди зі стадією.
+ALTER TABLE public.koshtorys_rows ALTER COLUMN stage DROP NOT NULL;
+ALTER TABLE public.koshtorys_rows DROP CONSTRAINT IF EXISTS koshtorys_rows_stage_chk;
+ALTER TABLE public.koshtorys_rows ADD CONSTRAINT koshtorys_rows_stage_chk CHECK (stage IS NOT NULL OR kind = 'subcontract');
+
 -- 2. Підсумки: стадії або нагляд.
 CREATE OR REPLACE FUNCTION public.koshtorys_totals(p_company uuid, p_version_id bigint) RETURNS jsonb
 LANGUAGE plpgsql STABLE SET search_path = public AS $f$
@@ -31,7 +37,7 @@ BEGIN
   END IF;
   SELECT coalesce(sum(hours) FILTER (WHERE kind='internal' AND stage<>'АН'),0),
          coalesce(sum(cost_uah) FILTER (WHERE kind='internal' AND stage<>'АН'),0),
-         coalesce(sum(cost_uah) FILTER (WHERE kind='subcontract' AND stage<>'АН'),0),
+         coalesce(sum(cost_uah) FILTER (WHERE kind='subcontract' AND stage IS DISTINCT FROM 'АН'),0),
          coalesce(sum(hours) FILTER (WHERE kind='internal' AND stage='АН'),0)
     INTO h, ci, cs, han FROM koshtorys_rows WHERE version_id = p_version_id;
   SELECT jsonb_object_agg(s, trim_scale(coalesce((SELECT sum(r.hours) FROM koshtorys_rows r
@@ -159,12 +165,12 @@ BEGIN
       FROM koshtorys_rows WHERE version_id = p_to GROUP BY 1, 2, 3)
   SELECT coalesce(jsonb_agg(jsonb_build_object(
            'stage', coalesce(tt.stage, fr.stage), 'section', coalesce(tt.section, fr.section), 'who', coalesce(tt.who, fr.who),
-           'change', CASE WHEN fr.stage IS NULL THEN 'added' WHEN tt.stage IS NULL THEN 'removed' ELSE 'changed' END,
+           'change', CASE WHEN fr.who IS NULL THEN 'added' WHEN tt.who IS NULL THEN 'removed' ELSE 'changed' END,
            'hours_from', fr.h, 'hours_to', tt.h, 'cost_from', fr.c, 'cost_to', tt.c)
          ORDER BY coalesce(tt.stage, fr.stage), coalesce(tt.section, fr.section)), '[]'::jsonb)
     INTO lines
-    FROM fr FULL JOIN tt ON tt.stage = fr.stage AND tt.section = fr.section AND tt.who = fr.who
-   WHERE fr.stage IS NULL OR tt.stage IS NULL
+    FROM fr FULL JOIN tt ON tt.stage IS NOT DISTINCT FROM fr.stage AND tt.section = fr.section AND tt.who = fr.who
+   WHERE fr.who IS NULL OR tt.who IS NULL
       OR coalesce(fr.h, 0) <> coalesce(tt.h, 0) OR coalesce(fr.c, 0) <> coalesce(tt.c, 0);
   RETURN jsonb_build_object(
     'project_id', a ->> 'project_id',
