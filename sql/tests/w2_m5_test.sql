@@ -42,6 +42,14 @@ BEGIN
     SELECT company_id, project_id, 2, 'draft', 'change', contract_amount, source, 'тест', 10, 7500, 5, 1104.27 FROM koshtorys_versions WHERE id = v1 RETURNING id INTO v2;
   BEGIN PERFORM koshtorys_approve(c, v2); ok := false; EXCEPTION WHEN others THEN ok := true; END;
   res := res || 'Версія нагляду на проєкті зі стадіями відхилена: ' || ok || '; ';
+  -- регресія M3/M4 (до Н-7: тест Н-7 змінює DEMO-02)
+  n := 0;
+  FOR proj IN SELECT 'DEMO-' || lpad(g::text, 2, '0') FROM generate_series(1, 10) g LOOP
+    r := koshtorys_preview(c, (SELECT id FROM koshtorys_versions WHERE company_id = c AND project_id = proj AND version_no = 1),
+          (SELECT jsonb_build_object('hours', planned_hours, 'cost_internal', cost_plan_team, 'cost_sub', cost_plan_subcontract, 'contract', contract_amount) FROM project_metrics WHERE company_id = c AND project_id = proj));
+    IF (r ->> 'ok')::boolean THEN n := n + 1; END IF;
+  END LOOP;
+  res := res || 'Регресія M4: перевірка підсумків ok у ' || n || ' з 10';
   -- Н-7: години АН основного проєкту входять у planned_hours (D-02), але не в etc_plan_by_stage (D-03)
   SELECT id INTO v1 FROM koshtorys_versions WHERE company_id = c AND project_id = 'DEMO-02' AND version_no = 1;
   SELECT planned_hours, etc_plan_by_stage INTO old_h, old_e FROM project_metrics WHERE company_id = c AND project_id = 'DEMO-02';
@@ -54,13 +62,5 @@ BEGIN
   PERFORM koshtorys_approve(c, v2);
   SELECT planned_hours, etc_plan_by_stage, planned_hours_by_stage -> 'АН' INTO new_h, new_e, an_h FROM project_metrics WHERE company_id = c AND project_id = 'DEMO-02';
   res := res || 'Н-7 години АН: planned_hours ' || old_h || ' -> ' || new_h || ' (очікувано +10), етапи без змін: ' || (old_e = new_e) || ', АН у планах стадій: ' || an_h || '; ';
-  -- перевірка M3 і M4 не зламана: 10 основних проєктів
-  n := 0;
-  FOR proj IN SELECT 'DEMO-' || lpad(g::text, 2, '0') FROM generate_series(1, 10) g LOOP
-    r := koshtorys_preview(c, (SELECT id FROM koshtorys_versions WHERE company_id = c AND project_id = proj AND version_no = 1),
-          (SELECT jsonb_build_object('hours', planned_hours, 'cost_internal', cost_plan_team, 'cost_sub', cost_plan_subcontract, 'contract', contract_amount) FROM project_metrics WHERE company_id = c AND project_id = proj));
-    IF (r ->> 'ok')::boolean THEN n := n + 1; END IF;
-  END LOOP;
-  res := res || 'Регресія M4: перевірка підсумків ok у ' || n || ' з 10';
   RAISE EXCEPTION 'ТЕСТИ M5 (скасовано): %', res;
 END $t$;
