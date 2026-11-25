@@ -3,12 +3,12 @@
   "name": "Archi: Koshtorys Ingest",
   "active": true,
   "isArchived": false,
-  "versionId": "23c5765e-0c7b-49fb-9f95-f34893f240f6",
-  "activeVersionId": "cf904641-0f46-4725-a0ab-beaef8385cd9",
+  "versionId": "1c1264c1-3840-434a-b859-97535eb331dc",
+  "activeVersionId": "1c1264c1-3840-434a-b859-97535eb331dc",
   "triggerCount": 0,
-  "nodeCount": 16,
+  "nodeCount": 14,
   "createdAt": "2026-09-24T06:18:44.804Z",
-  "updatedAt": "2026-11-03T21:08:39.109Z",
+  "updatedAt": "2026-11-25T05:31:26.074Z",
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": true
@@ -73,57 +73,6 @@
         ]
       ]
     },
-    "Parse And Validate": {
-      "main": [
-        [
-          {
-            "node": "Commit?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Commit?": {
-      "main": [
-        [
-          {
-            "node": "Commit Plan",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Preview Result",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Commit Plan": {
-      "main": [
-        [
-          {
-            "node": "Commit Result",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Normalize Input": {
-      "main": [
-        [
-          {
-            "node": "AN: Is Visit Tab?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "AN: Is Visit Tab?": {
       "main": [
         [
@@ -153,40 +102,91 @@
         ]
       ]
     },
-    "AN: Parse Visit": {
+    "Normalize Input": {
       "main": [
         [
           {
-            "node": "AN: Commit?",
+            "node": "Commit Mode?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "AN: Commit?": {
+    "Commit Mode?": {
       "main": [
         [
           {
-            "node": "AN: Commit Visit Plan",
+            "node": "Commit Draft",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "AN: Preview Result",
+            "node": "AN: Is Visit Tab?",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "AN: Commit Visit Plan": {
+    "Commit Draft": {
       "main": [
         [
           {
-            "node": "AN: Commit Result",
+            "node": "Commit Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse And Validate": {
+      "main": [
+        [
+          {
+            "node": "Ingest?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AN: Parse Visit": {
+      "main": [
+        [
+          {
+            "node": "Ingest?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ingest?": {
+      "main": [
+        [
+          {
+            "node": "Ingest Draft",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Preview Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ingest Draft": {
+      "main": [
+        [
+          {
+            "node": "Preview Text",
             "type": "main",
             "index": 0
           }
@@ -245,7 +245,7 @@
       ],
       "parameters": {
         "method": "GET",
-        "url": "={{ 'https://sheets.googleapis.com/v4/spreadsheets/' + $json.spreadsheet_id + '/values:batchGet?ranges=' + encodeURIComponent(\"'\" + String($json.sheet).replace(/'/g, \"''\") + \"'!A1:X27\") + '&ranges=' + encodeURIComponent(\"'Графік_оплат'!A1:N2000\") + '&valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=SERIAL_NUMBER' }}",
+        "url": "={{ 'https://sheets.googleapis.com/v4/spreadsheets/' + $json.spreadsheet_id + '/values:batchGet?ranges=' + encodeURIComponent(\"'\" + String($json.sheet).replace(/'/g, \"''\") + \"'!A1:X300\") + '&ranges=' + encodeURIComponent(\"'Графік_оплат'!A1:N2000\") + '&valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=SERIAL_NUMBER' }}",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "googleSheetsOAuth2Api",
         "options": {}
@@ -270,98 +270,7 @@
       "parameters": {
         "mode": "runOnceForEachItem",
         "language": "javaScript",
-        "jsCode": "const inp = $('Normalize Input').item.json;\nconst esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };\nif ($json.error || !$json.valueRanges) { return { json: { ok: false, project_id: inp.project_id, spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, mode: inp.mode, telegram_user_id: inp.telegram_user_id, checks: [], plan: null, schedule: [], preview_text: '⛔ <b>Не вдалося прочитати Кошторис</b>' + String.fromCharCode(10) + String.fromCharCode(10) + 'Вкладку «' + esc(inp.sheet) + '» не знайдено або немає доступу до файлу.' } }; }\nconst vr = ($json.valueRanges || []);\nconst sheetVals = (vr[0] && vr[0].values) || [];\nconst grafVals = (vr[1] && vr[1].values) || [];\nconst NL = String.fromCharCode(10);\nconst colIdx = function (L) { let n = 0; for (const ch of L) { n = n * 26 + (ch.charCodeAt(0) - 64); } return n - 1; };\nconst cell = function (ref) {\n  const m = ref.match(/^([A-Z]+)([0-9]+)$/);\n  const row = sheetVals[parseInt(m[2], 10) - 1] || [];\n  const v = row[colIdx(m[1])];\n  return (v === undefined || v === '') ? null : v;\n};\nconst num = function (ref) { const v = cell(ref); if (v === null) return null; const n = Number(v); return isNaN(n) ? null : n; };\nconst serialToISO = function (n) { return new Date(Date.UTC(1899, 11, 30) + Math.round(n) * 86400000).toISOString().slice(0, 10); };\nconst tol = function (a, b, t) { return a !== null && b !== null && Math.abs(a - b) <= t; };\nconst sum = function (col, a, b) { let s = 0; for (let r = a; r <= b; r++) { s += num(col + r) || 0; } return s; };\nconst checks = [];\nconst add = function (id, label, ok, type) { checks.push({ id: id, label: label, ok: !!ok, type: type || 'block' }); };\nconst pid = inp.project_id;\nconst stageRows = [['МБР', 13], ['ЕП', 17], ['П', 21], ['Р', 25], ['АН', 27]];\nadd('K1', 'Вкладка належить проекту ' + pid, cell('A1') === pid);\nadd('K2', 'Структура стадій (МБР, ЕП, П, Р, АН) на місці', stageRows.every(function (x) { return cell('A' + x[1]) === x[0] && cell('B' + x[1]) === 'TOTAL'; }));\nconst D7 = num('D7'), E7 = num('E7'), F7 = num('F7'), G7 = num('G7'), H7 = num('H7'), A3 = num('A3'), A5 = num('A5'), W1 = num('W1');\nadd('K3', 'Контракт > 0 і дорівнює сумі стадій', D7 > 0 && tol(D7, sum('D', 2, 6), 1));\nadd('K4', 'Собівартість сходиться (команда + субпідряд)', tol(G7, sum('G', 2, 6), 1) && tol(H7, sum('H', 2, 6), 1) && tol(E7, (G7 || 0) + (H7 || 0), 1));\nadd('K5', 'Прибуток і рентабельність сходяться', tol(F7, (D7 || 0) - (E7 || 0), 1) && D7 > 0 && tol(A3, F7 / D7, 0.0005));\nconst st = {};\nstageRows.forEach(function (x) { st[x[0]] = num('D' + x[1]) || 0; });\nconst stSum = st['МБР'] + st['ЕП'] + st['П'] + st['Р'] + st['АН'];\nadd('K6', 'План годин дорівнює сумі стадій', tol(W1, stSum, 0.5));\nadd('K7', 'Години МБР, ЕП, П, Р більші за 0', st['МБР'] > 0 && st['ЕП'] > 0 && st['П'] > 0 && st['Р'] > 0);\nadd('K8', 'Ставка більша за 0', A5 > 0);\nconst hdr = (grafVals[0] || []).map(function (x) { return String(x === undefined || x === null ? '' : x).trim(); });\nconst ci = function (n) { return hdr.indexOf(n); };\nconst cP = ci('ProjectID'), cS = ci('Стадія'), cD = ci('Дата_план'), cSum = ci('Сума_план'), cPr = ci('Ймовірність_10'), cSt = ci('Статус'), cM = ci('Дедлайн_документації_план'), cN = ci('Ймовірність_видачі_10');\nconst schedule = [];\nlet badRows = 0;\nconst okProb = function (p) { return p === undefined || p === '' || p === null || (typeof p === 'number' && p >= 1 && p <= 10); };\nfor (const row of grafVals.slice(1)) {\n  if (!row || row[cP] !== pid) continue;\n  const stg = row[cS], d = row[cD], p = row[cPr];\n  if (['МБР', 'ЕП', 'П', 'Р', 'АН'].indexOf(stg) < 0 || typeof d !== 'number' || !okProb(p)) { badRows++; continue; }\n  schedule.push({ 'стадія': stg, 'подія': 'акт', 'дата_план': serialToISO(d), 'сума_план': typeof row[cSum] === 'number' ? row[cSum] : null, 'ймовірність_план': typeof p === 'number' ? Math.round(p) : null, 'статус_план': row[cSt] || null });\n  const m = cM >= 0 ? row[cM] : undefined;\n  if (typeof m === 'number') {\n    const n = row[cN];\n    if (!okProb(n)) { badRows++; continue; }\n    schedule.push({ 'стадія': stg, 'подія': 'документація', 'дата_план': serialToISO(m), 'сума_план': null, 'ймовірність_план': typeof n === 'number' ? Math.round(n) : null, 'статус_план': null });\n  }\n}\nconst acts = schedule.filter(function (x) { return x['подія'] === 'акт'; });\nconst docs = schedule.filter(function (x) { return x['подія'] === 'документація'; });\nadd('K9', 'Графік оплат: є акти, дати й ймовірності коректні', cP >= 0 && acts.length > 0 && badRows === 0);\nadd('K10', 'Є дедлайни документації', docs.length > 0, 'warn');\nconst actSum = acts.reduce(function (a, x) { return a + (x['сума_план'] || 0); }, 0);\nadd('K11', 'Сума актів не більша за контракт з ПДВ', actSum <= (D7 || 0) * 1.2 + 1, 'warn');\nconst ok = checks.every(function (c) { return c.ok || c.type === 'warn'; });\nconst today = new Date().toISOString().slice(0, 10);\nconst nextOf = function (arr) { const f = arr.filter(function (x) { return x['дата_план'] >= today; }); f.sort(function (a, b) { return a['дата_план'] < b['дата_план'] ? -1 : 1; }); return f[0] || null; };\nconst na = nextOf(acts), nd = nextOf(docs);\nconst r2 = function (n) { return n === null ? null : Math.round(n * 100) / 100; };\nconst plan = {\n  contract: r2(D7), rent_pct: A3 === null ? null : Math.round(A3 * 1000) / 10, profit: r2(F7), team: r2(G7), sub: r2(H7), bac: r2(E7),\n  hours: W1, stages: st, stages4: { 'МБР': st['МБР'], 'ЕП': st['ЕП'], 'П': st['П'], 'Р': st['Р'] }, rate: A5,\n  next_act_date: na ? na['дата_план'] : '', next_act_p: na && na['ймовірність_план'] !== null ? String(na['ймовірність_план']) : '',\n  next_doc_date: nd ? nd['дата_план'] : '', next_doc_p: nd && nd['ймовірність_план'] !== null ? String(nd['ймовірність_план']) : ''\n};\nconst fmt = function (n) { if (n === null || n === undefined) return '—'; const s = String(Math.round(n)); return s.replace(/[0-9](?=([0-9]{3})+$)/g, '$& '); };\nconst dd = function (iso) { const p = iso.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; };\nconst lines = [];\nlines.push('📐 <b>Кошторис ' + esc(pid) + ' — перегляд</b>');\nlines.push('');\nlines.push('💰 <b>Гроші</b>');\nlines.push('• Контракт (без ПДВ): ' + fmt(D7) + ' грн');\nlines.push('• Рентабельність_план: ' + (plan.rent_pct === null ? '—' : plan.rent_pct + '%'));\nlines.push('');\nlines.push('⏱ <b>Години (план): ' + fmt(W1) + ' год</b>');\nlines.push('• МБР: ' + st['МБР']);\nlines.push('• ЕП: ' + st['ЕП']);\nlines.push('• П: ' + st['П']);\nlines.push('• Р: ' + st['Р']);\nlines.push('• АН: ' + st['АН']);\nlines.push('');\nlines.push('📅 <b>Підписання актів (план)</b>');\nif (acts.length) { acts.forEach(function (a, i) { if (i) lines.push(''); lines.push('<b>Стадія ' + esc(a['стадія']) + '</b>'); lines.push('• Дата акту: ' + dd(a['дата_план'])); lines.push('• Ймовірність підписання: ' + (a['ймовірність_план'] ? a['ймовірність_план'] + ' з 10' : '—')); }); } else { lines.push('• немає'); }\nlines.push('');\nlines.push('📄 <b>Видача документації (план)</b>');\nif (docs.length) { docs.forEach(function (a, i) { if (i) lines.push(''); lines.push('<b>Стадія ' + esc(a['стадія']) + '</b>'); lines.push('• Дедлайн видачі: ' + dd(a['дата_план'])); lines.push('• Ймовірність видачі: ' + (a['ймовірність_план'] ? a['ймовірність_план'] + ' з 10' : '—')); }); } else { lines.push('• немає'); }\nlines.push('');\nlines.push('🔍 <b>Перевірки</b>');\nchecks.forEach(function (c) { lines.push((c.ok ? '✅' : (c.type === 'warn' ? '⚠️' : '❌')) + ' ' + esc(c.label)); });\nlines.push('');\nlines.push(ok ? '🎯 <b>Що зробити:</b> надішліть «затвердити», щоб записати план, або «скасувати».' : '⛔ <b>Запис неможливий:</b> виправте Кошторис і надішліть команду ще раз.');\nreturn { json: { ok: ok, project_id: pid, spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, mode: inp.mode, telegram_user_id: inp.telegram_user_id, checks: checks, plan: plan, schedule: schedule, preview_text: lines.join(NL) } };\n"
-      }
-    },
-    {
-      "id": "4efeaa75-0b0d-481d-8dd0-f1fd34fb5c76",
-      "name": "Commit?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        880,
-        100
-      ],
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "loose"
-          },
-          "conditions": [
-            {
-              "leftValue": "={{ $json.mode }}",
-              "operator": {
-                "type": "string",
-                "operation": "equals"
-              },
-              "rightValue": "commit"
-            },
-            {
-              "leftValue": "={{ $json.ok }}",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        }
-      }
-    },
-    {
-      "id": "b213660c-9e75-4986-89c7-dfec5be336ff",
-      "name": "Commit Plan",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        1100,
-        0
-      ],
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "WITH pm AS (\n  INSERT INTO public.project_metrics (company_id, project_id, contract_amount, profitability_plan_pct, profit_plan, cost_plan_team, cost_plan_subcontract, bac, planned_hours, planned_hours_by_stage, etc_plan_by_stage, real_rate_team_hour, koshtorys_spreadsheet_id, koshtorys_sheet, baseline_at, baseline_by, nearest_act_date, nearest_act_probability, nearest_doc_deadline, doc_issuance_probability, hours_remaining, percent_execution, updated_at)\n  VALUES ($20::uuid, $1, $2::numeric, $3::numeric, $4::numeric, $5::numeric, $6::numeric, $7::numeric, $8::numeric, $9::jsonb, $10::jsonb, $11::numeric, $12, $13, now(), NULLIF($14,'')::bigint, NULLIF($15,'')::date, NULLIF($16,'')::numeric, NULLIF($17,'')::date, NULLIF($18,'')::numeric, $8::numeric, 0, now())\n  ON CONFLICT (company_id, project_id) DO UPDATE SET\n    contract_amount = EXCLUDED.contract_amount, profitability_plan_pct = EXCLUDED.profitability_plan_pct, profit_plan = EXCLUDED.profit_plan,\n    cost_plan_team = EXCLUDED.cost_plan_team, cost_plan_subcontract = EXCLUDED.cost_plan_subcontract, bac = EXCLUDED.bac,\n    planned_hours = EXCLUDED.planned_hours, planned_hours_by_stage = EXCLUDED.planned_hours_by_stage, etc_plan_by_stage = EXCLUDED.etc_plan_by_stage,\n    real_rate_team_hour = EXCLUDED.real_rate_team_hour, koshtorys_spreadsheet_id = EXCLUDED.koshtorys_spreadsheet_id, koshtorys_sheet = EXCLUDED.koshtorys_sheet,\n    baseline_at = now(), baseline_by = EXCLUDED.baseline_by,\n    nearest_act_date = EXCLUDED.nearest_act_date, nearest_act_probability = EXCLUDED.nearest_act_probability,\n    nearest_doc_deadline = EXCLUDED.nearest_doc_deadline, doc_issuance_probability = EXCLUDED.doc_issuance_probability,\n    hours_remaining = EXCLUDED.planned_hours - COALESCE(project_metrics.actual_hours, 0),\n    percent_execution = round(COALESCE(project_metrics.actual_hours, 0) / NULLIF(EXCLUDED.planned_hours, 0) * 100, 1),\n    updated_at = now()\n  RETURNING project_id, planned_hours, percent_execution),\ndel AS (DELETE FROM public.payment_schedule WHERE company_id = $20::uuid AND project_id = $1 RETURNING 1),\nins AS (INSERT INTO public.payment_schedule (company_id, project_id, \"стадія\", \"подія\", \"дата_план\", \"сума_план\", \"ймовірність_план\", \"статус_план\")\n  SELECT $20::uuid, $1, x.\"стадія\", x.\"подія\", x.\"дата_план\"::date, x.\"сума_план\", x.\"ймовірність_план\", x.\"статус_план\"\n  FROM jsonb_to_recordset($19::jsonb) AS x(\"стадія\" text, \"подія\" text, \"дата_план\" text, \"сума_план\" numeric, \"ймовірність_план\" int, \"статус_план\" text)\n  RETURNING 1)\nSELECT (SELECT project_id FROM pm) AS project_id, (SELECT planned_hours FROM pm) AS planned_hours, (SELECT percent_execution FROM pm) AS percent_execution,\n       (SELECT count(*) FROM del) AS deleted, (SELECT count(*) FROM ins) AS inserted;",
-        "options": {
-          "queryReplacement": "={{ [ $json.project_id, String($json.plan.contract), String($json.plan.rent_pct), String($json.plan.profit), String($json.plan.team), String($json.plan.sub), String($json.plan.bac), String($json.plan.hours), JSON.stringify($json.plan.stages), JSON.stringify($json.plan.stages4), String($json.plan.rate), $json.spreadsheet_id, $json.sheet, String($json.telegram_user_id || ''), $json.plan.next_act_date, $json.plan.next_act_p, $json.plan.next_doc_date, $json.plan.next_doc_p, JSON.stringify($json.schedule), String($('Normalize Input').item.json.company_id) ] }}"
-        }
-      },
-      "credentials": {
-        "postgres": {
-          "id": "9RgEysuE2hzWIIQq",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "id": "cb23c42a-309f-4304-afc6-f8b0992f46de",
-      "name": "Commit Result",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1320,
-        0
-      ],
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "language": "javaScript",
-        "jsCode": "const p = $('Parse And Validate').item.json;\nconst r = $json;\nconst NL = String.fromCharCode(10);\nreturn { json: { ok: true, committed: true, project_id: p.project_id, planned_hours: r.planned_hours, schedule_rows: r.inserted, preview_text: '✅ <b>План ' + p.project_id + ' завантажено в Archi</b>' + NL + NL + '⏱ Години (план): ' + p.plan.hours + ' год' + NL + '📅 Рядків графіка: ' + r.inserted + NL + NL + 'ℹ️ Факт і тижневі звіти не змінено.' } };"
-      }
-    },
-    {
-      "id": "47f75622-29b5-4832-b04b-dee902a1c055",
-      "name": "Preview Result",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1100,
-        200
-      ],
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "language": "javaScript",
-        "jsCode": "return { json: $json };"
+        "jsCode": "// Вузол K6sm (W2.7), створено з scripts/koshtorys_parse/parse.js. Не редагувати тут: джерело — parse.js.\nfunction parseStages(sheetVals, grafVals, inp) {\n  var checks = [];\n  var add = function (id, label, ok, type, where) { checks.push({ id: id, label: label, ok: !!ok, type: type || 'block', where: where || '' }); };\n  var colIdx = function (L) { var n = 0; for (var i = 0; i < L.length; i++) { n = n * 26 + (L.charCodeAt(i) - 64); } return n - 1; };\n  var cellAt = function (ref) {\n    var m = ref.match(/^([A-Z]+)([0-9]+)$/);\n    var row = sheetVals[parseInt(m[2], 10) - 1] || [];\n    var v = row[colIdx(m[1])];\n    return (v === undefined || v === '') ? null : v;\n  };\n  var numAt = function (ref) { var v = cellAt(ref); if (v === null) return null; var n = Number(v); return isNaN(n) ? null : n; };\n  var isNum = function (v) { return typeof v === 'number' && !isNaN(v); };\n  var r2 = function (n) { return n === null ? null : Math.round(n * 100) / 100; };\n  var tol = function (a, b, t) { return a !== null && b !== null && Math.abs(a - b) <= t; };\n  var STAGES = ['МБР', 'ЕП', 'П', 'Р', 'АН'];\n  var pid = inp.project_id;\n\n  add('K1', 'Вкладка належить проєкту ' + pid, cellAt('A1') === pid, 'block', 'A1');\n\n  // 1. Блоки стадій за маркером TOTAL (колонка B). Рядки даних — від рядка 10 (заголовки в 9).\n  var rows = [];\n  var errs = [];\n  var blocks = {};\n  var dupStage = false, unknownStage = false;\n  var start = 10;\n  for (var r = 10; r <= sheetVals.length; r++) {\n    var row = sheetVals[r - 1] || [];\n    var B = row[1];\n    if (B === 'TOTAL') {\n      var st = row[0];\n      if (STAGES.indexOf(st) < 0) { unknownStage = true; add('K2a', 'Невідома стадія в рядку TOTAL', false, 'block', 'A' + r); start = r + 1; continue; }\n      if (blocks[st]) { dupStage = true; }\n      var sumD = 0, sumE = 0, sumF = 0, nrows = 0;\n      for (var q = start; q < r; q++) {\n        var rw = sheetVals[q - 1] || [];\n        var sec = rw[1], exe = rw[2], D = rw[3], E = rw[4], F = rw[5];\n        var empty = (sec === undefined || sec === '') && (exe === undefined || exe === '') && (D === undefined || D === '') && (F === undefined || F === '');\n        if (empty) continue;\n        var hasD = isNum(D), hasF = isNum(F) && F > 0;\n        var bad = '';\n        if (hasD && D > 0 && hasF) { bad = 'години в D' + q + ' і субпідряд у F' + q + ' в одному рядку (правило J2)'; }\n        else if (!hasD && !hasF) { bad = 'немає ні годин (D' + q + '), ні суми субпідряду (F' + q + ')'; }\n        else if (hasD && hasF) { bad = 'D' + q + ' = 0 і F' + q + ' > 0 в одному рядку (правило J2)'; }\n        else if (hasF && (exe === undefined || exe === '')) { bad = 'субпідряд без назви підрядника (C' + q + ')'; }\n        if (bad) { errs.push({ row: q, text: 'Рядок ' + q + ': ' + bad }); continue; }\n        rows.push({ stage: st, section: (sec === undefined || sec === '') ? null : String(sec), executor: (exe === undefined || exe === '') ? null : String(exe),\n                    hours: hasD ? D : null, cost: hasD ? (isNum(E) ? E : null) : null, sub: hasD ? null : F, src_row: q });\n        if (hasD && !isNum(E)) { errs.push({ row: q, text: 'Рядок ' + q + ': немає вартості внутрішньої (E' + q + ')' }); }\n        nrows++;\n        sumD += hasD ? D : 0; sumE += isNum(E) && hasD ? E : 0; sumF += hasF ? F : 0;\n      }\n      var tD = isNum(row[3]) ? row[3] : 0, tE = isNum(row[4]) ? row[4] : 0, tF = isNum(row[5]) ? row[5] : 0;\n      blocks[st] = { total_row: r, rows: nrows, hours: tD, sum_hours: sumD, cost: tE, sum_cost: sumE, sub: tF, sum_sub: sumF };\n      start = r + 1;\n    }\n  }\n  add('K2', 'Усі п\\'ять стадій (МБР, ЕП, П, Р, АН) на місці, кожна один раз', STAGES.every(function (s) { return !!blocks[s]; }) && !dupStage && !unknownStage, 'block', 'колонка B: TOTAL');\n  add('K12', 'Кожен рядок — або години команди, або гроші підрядника', errs.length === 0, 'block', errs.slice(0, 3).map(function (e) { return e.text; }).join('; '));\n  var blockOk = true, blockWhere = '';\n  STAGES.forEach(function (s) {\n    var b = blocks[s]; if (!b) return;\n    if (!tol(b.hours, b.sum_hours, 0.01) || !tol(b.cost, b.sum_cost, 1) || !tol(b.sub, b.sum_sub, 1)) {\n      blockOk = false; blockWhere += (blockWhere ? '; ' : '') + 'стадія ' + s + ' (рядок ' + b.total_row + '): рядки ' + r2(b.sum_hours) + ' год / ' + r2(b.sum_cost) + ' / ' + r2(b.sum_sub) + ', TOTAL ' + r2(b.hours) + ' / ' + r2(b.cost) + ' / ' + r2(b.sub);\n    }\n  });\n  add('K13', 'Сума рядків кожної стадії дорівнює її TOTAL', blockOk, 'block', blockWhere);\n  var lastRowNonEmpty = sheetVals.length >= 300 && (sheetVals[299] || []).some(function (x) { return x !== '' && x !== undefined; });\n  add('K14', 'Файл вміщується в діапазон читання (300 рядків)', !lastRowNonEmpty, 'block', 'A1:X300');\n\n  // 2. Шапка: рядки 2–6 стадій, TOTAL рядок 7 (мануал §3).\n  var sumH = function (col, a, b) { var s = 0; for (var i = a; i <= b; i++) { s += numAt(col + i) || 0; } return s; };\n  var D7 = numAt('D7'), E7 = numAt('E7'), F7 = numAt('F7'), G7 = numAt('G7'), H7 = numAt('H7'), A3 = numAt('A3'), A5 = numAt('A5'), W1 = numAt('W1');\n  add('K3', 'Контракт > 0 і дорівнює сумі стадій', D7 > 0 && tol(D7, sumH('D', 2, 6), 1), 'block', 'D7');\n  add('K4', 'Собівартість сходиться (команда + субпідряд)', tol(G7, sumH('G', 2, 6), 1) && tol(H7, sumH('H', 2, 6), 1) && tol(E7, (G7 || 0) + (H7 || 0), 1), 'block', 'E7, G7, H7');\n  add('K5', 'Прибуток і рентабельність сходяться', tol(F7, (D7 || 0) - (E7 || 0), 1) && D7 > 0 && tol(A3, F7 / D7, 0.0005), 'block', 'F7, A3');\n  var hoursStage = {}, hoursAll = 0;\n  STAGES.forEach(function (s) { hoursStage[s] = blocks[s] ? blocks[s].hours : 0; hoursAll += hoursStage[s]; });\n  add('K6', 'План годин (W1) дорівнює сумі стадій', tol(W1, hoursAll, 0.5), 'block', 'W1');\n  add('K7', 'Години МБР, ЕП, П, Р більші за 0', hoursStage['МБР'] > 0 && hoursStage['ЕП'] > 0 && hoursStage['П'] > 0 && hoursStage['Р'] > 0, 'block', 'TOTAL стадій');\n  add('K8', 'Ставка більша за 0', A5 > 0, 'block', 'A5');\n\n  // 3. Графік оплат (без змін відносно K9–K11 старої версії).\n  var hdr = (grafVals[0] || []).map(function (x) { return String(x === undefined || x === null ? '' : x).trim(); });\n  var ci = function (n) { return hdr.indexOf(n); };\n  var cP = ci('ProjectID'), cS = ci('Стадія'), cD = ci('Дата_план'), cSum = ci('Сума_план'), cPr = ci('Ймовірність_10'), cSt = ci('Статус'), cM = ci('Дедлайн_документації_план'), cN = ci('Ймовірність_видачі_10');\n  var schedule = [], badRows = 0;\n  var okProb = function (p) { return p === undefined || p === '' || p === null || (typeof p === 'number' && p >= 1 && p <= 10); };\n  var serialToISO = function (n) { return new Date(Date.UTC(1899, 11, 30) + Math.round(n) * 86400000).toISOString().slice(0, 10); };\n  grafVals.slice(1).forEach(function (rw) {\n    if (!rw || rw[cP] !== pid) return;\n    var stg = rw[cS], d = rw[cD], p = rw[cPr];\n    if (STAGES.indexOf(stg) < 0 || typeof d !== 'number' || !okProb(p)) { badRows++; return; }\n    schedule.push({ 'стадія': stg, 'подія': 'акт', 'дата_план': serialToISO(d), 'сума_план': typeof rw[cSum] === 'number' ? rw[cSum] : null, 'ймовірність_план': typeof p === 'number' ? Math.round(p) : null, 'статус_план': rw[cSt] || null });\n    var m = cM >= 0 ? rw[cM] : undefined;\n    if (typeof m === 'number') {\n      var n = rw[cN];\n      if (!okProb(n)) { badRows++; return; }\n      schedule.push({ 'стадія': stg, 'подія': 'документація', 'дата_план': serialToISO(m), 'сума_план': null, 'ймовірність_план': typeof n === 'number' ? Math.round(n) : null, 'статус_план': null });\n    }\n  });\n  var acts = schedule.filter(function (x) { return x['подія'] === 'акт'; });\n  var docs = schedule.filter(function (x) { return x['подія'] === 'документація'; });\n  add('K9', 'Графік оплат: є акти, дати й ймовірності коректні', cP >= 0 && acts.length > 0 && badRows === 0, 'block', 'аркуш Графік_оплат');\n  add('K10', 'Є дедлайни документації', docs.length > 0, 'warn', '');\n  var actSum = acts.reduce(function (a, x) { return a + (x['сума_план'] || 0); }, 0);\n  add('K11', 'Сума актів не більша за контракт з ПДВ', actSum <= (D7 || 0) * 1.2 + 1, 'warn', '');\n\n  var ok = checks.every(function (c) { return c.ok || c.type === 'warn'; });\n  var stages4 = {}; ['МБР', 'ЕП', 'П', 'Р'].forEach(function (s) { stages4[s] = hoursStage[s]; });\n  var status = cellAt('T2');\n  var payload = {\n    kind: 'stages', spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, status: status, contract: r2(D7), rate: A5,\n    totals: { hours: W1, cost_internal: r2(G7), cost_sub: r2(H7), contract: r2(D7), hours_by_stage: stages4 },\n    rows: rows, schedule: schedule\n  };\n  return { ok: ok, kind: 'stages', checks: checks, errors: errs, payload: payload, view: { contract: D7, rent_pct: A3 === null ? null : Math.round(A3 * 1000) / 10, hours: W1, stages: hoursStage, acts: acts, docs: docs } };\n}\n\n\nvar inp = $('Normalize Input').item.json;\nvar base = { project_id: inp.project_id, company_id: inp.company_id, spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, mode: inp.mode, telegram_user_id: inp.telegram_user_id };\nif ($json.error || !$json.valueRanges) { return { json: Object.assign({}, base, { ok: false, kind: 'stages', read_error: true, checks: [], errors: [], payload: null }) }; }\nvar vr = $json.valueRanges;\nvar res = parseStages((vr[0] && vr[0].values) || [], (vr[1] && vr[1].values) || [], inp);\nreturn { json: Object.assign({}, base, res) };\n"
       }
     },
     {
@@ -428,593 +337,152 @@
         320
       ],
       "parameters": {
-        "jsCode": "const inp = $('Normalize Input').item.json;\nconst NL = String.fromCharCode(10);\nconst esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };\nconst base = { project_id: inp.project_id, spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, mode: inp.mode, telegram_user_id: inp.telegram_user_id, visit: true };\nif ($json.error || !$json.values) { return { json: Object.assign({}, base, { ok: false, checks: [], plan: null, preview_text: '⛔ <b>Не вдалося прочитати договір АН</b>' + NL + NL + 'Вкладку «' + esc(inp.sheet) + '» не знайдено або немає доступу до файлу.' }) }; }\nconst v = $json.values;\nconst cell = function (r, c) { const row = v[r - 1] || []; const x = row[c]; return (x === undefined || x === '') ? null : x; };\nconst n = function (r) { const x = cell(r, 1); if (x === null) return null; const k = Number(x); return isNaN(k) ? null : k; };\nconst tol = function (a, b, t) { return a !== null && b !== null && Math.abs(a - b) <= t; };\nconst pid = inp.project_id;\nconst parent = cell(2, 1);\nconst visits = n(3), price = n(4), hours = n(5), rate = n(6), contract = n(7), hrsPlan = n(8), cost = n(9), profit = n(10), rent = n(11);\nconst checks = [];\nconst add = function (id, label, ok) { checks.push({ id: id, label: label, ok: !!ok, type: 'block' }); };\nadd('A1', 'Вкладка належить договору ' + pid, cell(1, 0) === pid);\nadd('A2', 'Вказано основний проєкт (назва вкладки = проєкт-АН)', parent !== null && pid === String(parent) + '-АН');\nadd('A3', 'Виїздів, ціна, години на виїзд і ставка більші за 0', visits > 0 && price > 0 && hours > 0 && rate > 0);\nadd('A4', 'Контракт дорівнює виїздів × ціна', tol(contract, visits * price, 1));\nadd('A5', 'Години дорівнюють виїздів × години на виїзд', tol(hrsPlan, visits * hours, 0.01));\nadd('A6', 'Собівартість дорівнює години × ставка', tol(cost, hrsPlan * rate, 1));\nadd('A7', 'Прибуток сходиться', tol(profit, (contract || 0) - (cost || 0), 1));\nconst ok = checks.every(function (c) { return c.ok; });\nconst r2 = function (x) { return x === null ? null : Math.round(x * 100) / 100; };\nconst plan = { parent: parent === null ? '' : String(parent), visits: visits, price: price, visit_hours: hours, rate: rate, contract: r2(contract), hours: hrsPlan, bac: r2(cost), profit: r2(profit), rent_pct: rent === null ? null : Math.round(rent * 1000) / 10 };\nconst fmt = function (x) { if (x === null || x === undefined) return '—'; return String(Math.round(x)).replace(/[0-9](?=([0-9]{3})+$)/g, '$& '); };\nconst lines = [];\nlines.push('📐 <b>Договір АН ' + esc(pid) + ' — перегляд</b>');\nlines.push('');\nlines.push('💰 <b>Гроші</b>');\nlines.push('• Контракт (без ПДВ): ' + fmt(contract) + ' грн');\nlines.push('• Ціна виїзду: ' + fmt(price) + ' грн');\nlines.push('• Рентабельність_план: ' + (plan.rent_pct === null ? '—' : plan.rent_pct + '%'));\nlines.push('');\nlines.push('⏱ <b>Години (план): ' + fmt(hrsPlan) + ' год</b>');\nlines.push('• Виїздів: ' + fmt(visits));\nlines.push('• Годин на виїзд: ' + fmt(hours));\nlines.push('');\nlines.push('🔍 <b>Перевірки</b>');\nchecks.forEach(function (c) { lines.push((c.ok ? '✅' : '❌') + ' ' + esc(c.label)); });\nlines.push('');\nlines.push(ok ? '🎯 <b>Що зробити:</b> надішліть «затвердити», щоб записати план, або «скасувати».' : '⛔ <b>Запис неможливий:</b> виправте вкладку і надішліть команду ще раз.');\nreturn { json: Object.assign({}, base, { ok: ok, checks: checks, plan: plan, schedule: [], preview_text: lines.join(NL) }) };",
+        "jsCode": "// Вузол K6sm (W2.7), створено з scripts/koshtorys_parse/parse.js. Не редагувати тут: джерело — parse.js.\nfunction parseVisit(values, inp) {\n  var checks = [];\n  var add = function (id, label, ok, where) { checks.push({ id: id, label: label, ok: !!ok, type: 'block', where: where || '' }); };\n  var cell = function (r, c) { var row = (values || [])[r - 1] || []; var x = row[c]; return (x === undefined || x === '') ? null : x; };\n  var n = function (r) { var x = cell(r, 1); if (x === null) return null; var k = Number(x); return isNaN(k) ? null : k; };\n  var tol = function (a, b, t) { return a !== null && b !== null && Math.abs(a - b) <= t; };\n  var r2 = function (x) { return x === null ? null : Math.round(x * 100) / 100; };\n  var pid = inp.project_id;\n  var parent = cell(2, 1);\n  var visits = n(3), price = n(4), hours = n(5), rate = n(6), contract = n(7), hrsPlan = n(8), cost = n(9), profit = n(10), rent = n(11);\n  add('A1', 'Вкладка належить договору ' + pid, cell(1, 0) === pid, 'A1');\n  add('A2', 'Вказано основний проєкт (назва вкладки = проєкт-АН)', parent !== null && pid === String(parent) + '-АН', 'B2');\n  add('A3', 'Виїздів, ціна, години на виїзд і ставка більші за 0', visits > 0 && price > 0 && hours > 0 && rate > 0, 'B3:B6');\n  add('A4', 'Контракт дорівнює виїздів × ціна', tol(contract, visits * price, 1), 'B7');\n  add('A5', 'Години дорівнюють виїздів × години на виїзд', tol(hrsPlan, visits * hours, 0.01), 'B8');\n  add('A6', 'Собівартість дорівнює години × ставка', tol(cost, hrsPlan * rate, 1), 'B9');\n  add('A7', 'Прибуток сходиться', tol(profit, (contract || 0) - (cost || 0), 1), 'B10');\n  var ok = checks.every(function (c) { return c.ok; });\n  var payload = {\n    kind: 'visit', spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet,\n    totals: { hours: hrsPlan, cost_internal: r2(cost), cost_sub: 0, contract: r2(contract) },\n    visit: { visits: visits, price: price, hours: hours, rate: rate, cost: r2(cost), contract: r2(contract) }\n  };\n  return { ok: ok, kind: 'visit', checks: checks, errors: [], payload: payload, view: { parent: parent, visits: visits, price: price, hours: hours, contract: contract, rent_pct: rent === null ? null : Math.round(rent * 1000) / 10 } };\n}\n\nvar inp = $('Normalize Input').item.json;\nvar base = { project_id: inp.project_id, company_id: inp.company_id, spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, mode: inp.mode, telegram_user_id: inp.telegram_user_id };\nif ($json.error || !$json.values) { return { json: Object.assign({}, base, { ok: false, kind: 'visit', read_error: true, checks: [], errors: [], payload: null }) }; }\nvar res = parseVisit($json.values, inp);\nreturn { json: Object.assign({}, base, res) };\n",
         "language": "javaScript",
         "mode": "runOnceForEachItem"
       }
     },
     {
-      "id": "f2aa9fc0-a7c2-4ef4-ad6b-11e647747405",
-      "name": "AN: Commit?",
+      "name": "Commit Mode?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1100,
-        320
+        440,
+        -120
       ],
       "parameters": {
         "conditions": {
-          "combinator": "and",
-          "conditions": [
-            {
-              "leftValue": "={{ $json.mode }}",
-              "operator": {
-                "operation": "equals",
-                "type": "string"
-              },
-              "rightValue": "commit"
-            },
-            {
-              "leftValue": "={{ $json.ok }}",
-              "operator": {
-                "operation": "true",
-                "singleValue": true,
-                "type": "boolean"
-              }
-            }
-          ],
           "options": {
             "caseSensitive": true,
             "leftValue": "",
             "typeValidation": "loose"
-          }
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.mode }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "commit"
+            }
+          ],
+          "combinator": "and"
         }
-      }
+      },
+      "id": "8c78e772-1c97-4b1e-92cb-5f25a5c4d623"
     },
     {
-      "id": "959e686f-338a-4fde-806a-138d6262a2d4",
-      "name": "AN: Commit Visit Plan",
+      "name": "Commit Draft",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1320,
-        260
+        660,
+        -120
       ],
-      "parameters": {
-        "operation": "executeQuery",
-        "options": {
-          "queryReplacement": "={{ [ $json.project_id, $json.plan.parent, String($json.plan.visits), String($json.plan.price), String($json.plan.visit_hours), String($json.plan.contract), String($json.plan.hours), String($json.plan.bac), String($json.plan.profit), String($json.plan.rent_pct), String($json.plan.rate), $json.spreadsheet_id, $json.sheet, String($json.telegram_user_id || ''), String($('Normalize Input').item.json.company_id) ] }}"
-        },
-        "query": "INSERT INTO public.project_metrics (company_id, project_id, contract_type, parent_project_id, visits_plan, visit_price, visit_hours, contract_amount, planned_hours, bac, cost_plan_team, cost_plan_subcontract, profit_plan, profitability_plan_pct, real_rate_team_hour, koshtorys_spreadsheet_id, koshtorys_sheet, baseline_at, baseline_by, hours_remaining, percent_execution, updated_at)\nSELECT $15::uuid, $1, 'visit', $2, $3::int, $4::numeric, $5::numeric, $6::numeric, $7::numeric, $8::numeric, $8::numeric, 0, $9::numeric, $10::numeric, $11::numeric, $12, $13, now(), NULLIF($14,'')::bigint, $7::numeric, 0, now()\nWHERE EXISTS (SELECT 1 FROM public.project_metrics WHERE company_id = $15::uuid AND project_id = $2)\nON CONFLICT (company_id, project_id) DO UPDATE SET\n  contract_type = 'visit', parent_project_id = EXCLUDED.parent_project_id, visits_plan = EXCLUDED.visits_plan, visit_price = EXCLUDED.visit_price, visit_hours = EXCLUDED.visit_hours,\n  contract_amount = EXCLUDED.contract_amount, planned_hours = EXCLUDED.planned_hours, bac = EXCLUDED.bac, cost_plan_team = EXCLUDED.cost_plan_team, cost_plan_subcontract = 0,\n  profit_plan = EXCLUDED.profit_plan, profitability_plan_pct = EXCLUDED.profitability_plan_pct, real_rate_team_hour = EXCLUDED.real_rate_team_hour,\n  koshtorys_spreadsheet_id = EXCLUDED.koshtorys_spreadsheet_id, koshtorys_sheet = EXCLUDED.koshtorys_sheet, baseline_at = now(), baseline_by = EXCLUDED.baseline_by, updated_at = now()\nRETURNING project_id, visits_plan, contract_amount;"
-      },
+      "onError": "continueRegularOutput",
       "credentials": {
         "postgres": {
           "id": "9RgEysuE2hzWIIQq",
           "name": "Postgres account"
         }
-      }
+      },
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT public.koshtorys_commit_draft($1::uuid, $2, NULLIF($3,'')::bigint) AS r;",
+        "options": {
+          "queryReplacement": "={{ [ String($json.company_id), $json.project_id, String($json.telegram_user_id || '') ] }}"
+        }
+      },
+      "id": "9369e3ae-35d9-434d-8c5e-8976da16a7c3"
     },
     {
-      "id": "fa8e6614-a85b-4ec4-a529-ab0de82419f9",
-      "name": "AN: Commit Result",
+      "name": "Commit Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -120
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "// Вузол K6sm «Commit Result» (W2.7): результат koshtorys_commit_draft.\nvar inp = $('Normalize Input').item.json;\nvar NL = String.fromCharCode(10);\nvar esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };\nvar r = $json.r;\nvar pid = inp.project_id;\nif ($json.error || !r) {\n  var msg = String(($json.error && ($json.error.message || $json.error)) || 'невідома помилка').slice(0, 300);\n  return { json: { ok: false, committed: false, project_id: pid, preview_text: '⛔ <b>План ' + esc(pid) + ' не записано</b>' + NL + NL + esc(msg) } };\n}\nif (r.status === 'no_draft') { return { json: { ok: false, committed: false, project_id: pid, preview_text: '⛔ <b>План ' + esc(pid) + ' не записано</b>' + NL + NL + esc(r.message) } }; }\nif (r.status === 'already_approved') { return { json: { ok: true, committed: false, project_id: pid, preview_text: 'ℹ️ <b>План ' + esc(pid) + ' уже затверджено</b>' } }; }\nvar h = r.plan && r.plan.hours;\nreturn { json: { ok: true, committed: true, project_id: pid, planned_hours: h, version_no: r.version_no, preview_text: '✅ <b>План ' + esc(pid) + ' затверджено, версія ' + esc(r.version_no) + '</b>' + NL + NL + '⏱ Години (план): ' + esc(h) + ' год' + NL + '📅 Рядків графіка: ' + esc(r.schedule_rows) + NL + NL + 'ℹ️ Факт і тижневі звіти не змінено.' } };\n"
+      },
+      "id": "affefc08-6bf0-4b2e-98fc-771b09dde846"
+    },
+    {
+      "name": "Ingest?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.ok }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "94c84fc4-998b-4124-8de0-071a793343a7"
+    },
+    {
+      "name": "Ingest Draft",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1320,
+        120
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "9RgEysuE2hzWIIQq",
+          "name": "Postgres account"
+        }
+      },
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT public.koshtorys_ingest_draft($1::uuid, $2, $3::jsonb, NULLIF($4,'')::bigint) AS r;",
+        "options": {
+          "queryReplacement": "={{ [ String($json.company_id), $json.project_id, JSON.stringify($json.payload), String($json.telegram_user_id || '') ] }}"
+        }
+      },
+      "id": "c9bd5f88-ae8d-41b7-8c8b-1d2a0410090b"
+    },
+    {
+      "name": "Preview Text",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         1540,
-        260
+        200
       ],
       "parameters": {
-        "jsCode": "const p = $('AN: Parse Visit').item.json;\nconst NL = String.fromCharCode(10);\nif (!$json.project_id) { return { json: { ok: false, committed: false, project_id: p.project_id, preview_text: '⛔ <b>Договір ' + p.project_id + ' не записано</b>' + NL + NL + 'Основний проєкт «' + p.plan.parent + '» не знайдено в Archi.' } }; }\nreturn { json: { ok: true, committed: true, project_id: p.project_id, planned_hours: p.plan.hours, preview_text: '✅ <b>Договір АН ' + p.project_id + ' завантажено в Archi</b>' + NL + NL + '⏱ Години (план): ' + p.plan.hours + ' год' + NL + '🚗 Виїздів: ' + p.plan.visits + NL + NL + 'ℹ️ Факт і тижневі звіти не змінено.' } };",
+        "mode": "runOnceForEachItem",
         "language": "javaScript",
-        "mode": "runOnceForEachItem"
-      }
-    },
-    {
-      "id": "09ee7b5f-da78-42f1-88d7-24c2c633c273",
-      "name": "AN: Preview Result",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1320,
-        400
-      ],
-      "parameters": {
-        "jsCode": "return { json: $json };",
-        "language": "javaScript",
-        "mode": "runOnceForEachItem"
-      }
+        "jsCode": "// Вузол K6sm «Preview Text» (W2.7): текст перегляду з результатів розбору файлу й koshtorys_ingest_draft. Без LLM, числа лише з SQL і парсера.\nvar P = null;\ntry { P = $('Parse And Validate').item.json; } catch (e) { P = null; }\nif (!P) { try { P = $('AN: Parse Visit').item.json; } catch (e2) { P = null; } }\nvar R = ($json && $json.r) ? $json.r : null;\nvar NL = String.fromCharCode(10);\nvar esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };\nvar fmt = function (n) { if (n === null || n === undefined) return '—'; var s = String(Math.round(Number(n))); return s.replace(/[0-9](?=([0-9]{3})+$)/g, '$& '); };\nvar dd = function (iso) { var p = String(iso).split('-'); return p[2] + '.' + p[1] + '.' + p[0]; };\nvar sg = function (n) { var x = Math.round(Number(n) * 100) / 100; return (x > 0 ? '+' : '') + String(x).replace('.', ','); };\nif (!P) { return { json: { ok: false, preview_text: '⛔ <b>Кошторис не розібрано</b>' } }; }\nvar pid = P.project_id;\nif (P.read_error) { return { json: { ok: false, project_id: pid, preview_text: '⛔ <b>Не вдалося прочитати Кошторис</b>' + NL + NL + 'Вкладку «' + esc(P.sheet) + '» не знайдено або немає доступу до файлу.' } }; }\nvar L = [];\nvar v = P.view || {};\nL.push('📐 <b>Кошторис ' + esc(pid) + ' — перегляд</b>');\nL.push('');\nL.push('💰 <b>Гроші</b>');\nL.push('• Контракт (без ПДВ): ' + fmt(v.contract) + ' грн');\nL.push('• Рентабельність_план: ' + (v.rent_pct === null || v.rent_pct === undefined ? '—' : v.rent_pct + '%'));\nif (P.kind === 'visit') { L.push('• Ціна виїзду: ' + fmt(v.price) + ' грн'); }\nL.push('');\nif (P.kind === 'stages') {\n  L.push('⏱ <b>Години (план): ' + fmt(v.hours) + ' год</b>');\n  ['МБР', 'ЕП', 'П', 'Р', 'АН'].forEach(function (s) { L.push('• ' + s + ': ' + (v.stages ? v.stages[s] : '—')); });\n} else {\n  L.push('⏱ <b>Години (план): ' + fmt(P.payload ? P.payload.totals.hours : null) + ' год</b>');\n  L.push('• Виїздів: ' + fmt(v.visits));\n  L.push('• Годин на виїзд: ' + fmt(v.hours));\n}\nL.push('');\nvar ok = !!(P.ok && R && R.ok && !R.same_as_current);\nif (R) {\n  L.push('🔄 <b>Що зміниться</b>');\n  if (R.same_as_current) { L.push('• Змін немає: файл збігається з чинною затвердженою версією'); }\n  else if (!R.diff) { L.push('• Це перша версія Кошториса проєкту'); }\n  else {\n    var d = R.diff.delta || {};\n    L.push('• Версія ' + esc(R.diff.from.version_no) + ' → ' + esc(R.diff.to.version_no));\n    L.push('• Контракт: ' + sg(d.contract) + ' грн');\n    L.push('• Години: ' + sg(d.hours));\n    L.push('• Собівартість: ' + sg(d.bac) + ' грн');\n    L.push((Number(d.profit_pct_pp) < 0 ? '🔴 ' : '🟢 ') + 'Рентабельність: ' + sg(d.profit_pct_pp) + ' п.п.');\n    var rows = R.diff.rows || [];\n    rows.slice(0, 5).forEach(function (x) {\n      var hf = x.hours_from, ht = x.hours_to;\n      var what = x.change === 'added' ? 'додано' : (x.change === 'removed' ? 'прибрано' : 'змінено');\n      L.push('• ' + esc(x.stage) + ' · ' + esc(x.section) + ' · ' + esc(x.who) + ': ' + what + (hf !== null || ht !== null ? ' (' + (hf === null ? '—' : hf) + ' → ' + (ht === null ? '—' : ht) + ' год)' : ''));\n    });\n    if (rows.length > 5) { L.push('• … ще рядків: ' + (rows.length - 5)); }\n  }\n  L.push('');\n}\nif (P.kind === 'stages' && v.acts) {\n  L.push('📅 <b>Підписання актів (план)</b>');\n  if (v.acts.length) { v.acts.forEach(function (a, i) { if (i) L.push(''); L.push('<b>Стадія ' + esc(a['стадія']) + '</b>'); L.push('• Дата акту: ' + dd(a['дата_план'])); L.push('• Ймовірність підписання: ' + (a['ймовірність_план'] ? a['ймовірність_план'] + ' з 10' : '—')); }); } else { L.push('• немає'); }\n  L.push('');\n  L.push('📄 <b>Видача документації (план)</b>');\n  if (v.docs.length) { v.docs.forEach(function (a, i) { if (i) L.push(''); L.push('<b>Стадія ' + esc(a['стадія']) + '</b>'); L.push('• Дедлайн видачі: ' + dd(a['дата_план'])); L.push('• Ймовірність видачі: ' + (a['ймовірність_план'] ? a['ймовірність_план'] + ' з 10' : '—')); }); } else { L.push('• немає'); }\n  L.push('');\n}\nL.push('🔍 <b>Перевірки</b>');\n(P.checks || []).forEach(function (c) { L.push((c.ok ? '✅' : (c.type === 'warn' ? '⚠️' : '❌')) + ' ' + esc(c.label) + (!c.ok && c.where ? ' — ' + esc(c.where) : '')); });\nif (R && R.checks) { R.checks.forEach(function (c) { if (!c.ok) { L.push('❌ Підсумок файлу не збігається з рядками: ' + esc(c.name) + ' (файл ' + esc(c.file) + ', рядки ' + esc(c.rows) + ')'); } }); }\nif (R && R.warnings) { R.warnings.forEach(function (w) { if (w.code === 'W-T2' && P.kind === 'visit') return; L.push('⚠️ ' + esc(w.text)); }); }\nL.push('');\nif (R && R.same_as_current) { L.push('🎯 <b>Що зробити:</b> нічого, змін у файлі немає.'); }\nelse if (ok) { L.push('🎯 <b>Що зробити:</b> надішліть «затвердити», щоб записати план, або «скасувати».'); }\nelse { L.push('⛔ <b>Запис неможливий:</b> виправте Кошторис і надішліть команду ще раз.'); }\nreturn { json: { ok: ok, project_id: pid, kind: P.kind, version_id: R ? R.version_id : null, mode: P.mode, preview_text: L.join(NL) } };\n"
+      },
+      "id": "f7d823e8-8547-4467-a132-a54e6baf177f"
     }
   ],
   "nodeGroups": [],
   "activeVersion": {
-    "sameAsDraft": false,
-    "nodes": [
-      {
-        "id": "2248e0b2-6b7c-4934-99ad-972a00973a06",
-        "name": "When Called",
-        "type": "n8n-nodes-base.executeWorkflowTrigger",
-        "typeVersion": 1.2,
-        "position": [
-          0,
-          0
-        ],
-        "parameters": {
-          "inputSource": "passthrough"
-        }
-      },
-      {
-        "id": "e169c1db-076f-44ce-ab44-816d860dc682",
-        "name": "Normalize Input",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          220,
-          100
-        ],
-        "parameters": {
-          "mode": "runOnceForAllItems",
-          "language": "javaScript",
-          "jsCode": "const DEFAULT_DOC = '1Ok4_U9u8kLZ0GJarPbEk4nQsqKeqdLzNNBONNNDgF7g';\nconst TEST_MODE = 'preview';\nconst items = $input.all();\nconst first = items[0] ? items[0].json : {};\nif (!first.project_id) {\n  const out = [];\n  for (let i = 1; i <= 10; i++) {\n    const pid = 'DEMO-' + String(i).padStart(2, '0');\n    out.push({ json: { project_id: pid, spreadsheet_id: DEFAULT_DOC, sheet: pid, mode: TEST_MODE, telegram_user_id: '304884647' }, pairedItem: { item: 0 } });\n  }\n  return out;\n}\nreturn items.map(function (it, idx) {\n  const j = it.json;\n  const pid = String(j.project_id).toUpperCase().trim();\n  return { json: { project_id: pid, spreadsheet_id: j.spreadsheet_id || DEFAULT_DOC, sheet: j.sheet || pid, mode: j.mode === 'commit' ? 'commit' : 'preview', telegram_user_id: String(j.telegram_user_id || '') }, pairedItem: { item: idx } };\n});"
-        }
-      },
-      {
-        "id": "dbfa2e0e-e765-4136-982d-285b10d266a6",
-        "name": "Manual Test",
-        "type": "n8n-nodes-base.manualTrigger",
-        "typeVersion": 1,
-        "position": [
-          0,
-          200
-        ],
-        "parameters": {}
-      },
-      {
-        "id": "b3e7ec53-239e-4863-9966-3060fdbdc69c",
-        "name": "Read Koshtorys",
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.3,
-        "position": [
-          440,
-          100
-        ],
-        "parameters": {
-          "method": "GET",
-          "url": "={{ 'https://sheets.googleapis.com/v4/spreadsheets/' + $json.spreadsheet_id + '/values:batchGet?ranges=' + encodeURIComponent(\"'\" + String($json.sheet).replace(/'/g, \"''\") + \"'!A1:X27\") + '&ranges=' + encodeURIComponent(\"'Графік_оплат'!A1:N2000\") + '&valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=SERIAL_NUMBER' }}",
-          "authentication": "predefinedCredentialType",
-          "nodeCredentialType": "googleSheetsOAuth2Api",
-          "options": {}
-        },
-        "onError": "continueRegularOutput",
-        "credentials": {
-          "googleSheetsOAuth2Api": {
-            "id": "ijBsXae1VQfiWISu",
-            "name": "Google Sheets account"
-          }
-        }
-      },
-      {
-        "id": "8d553b4d-c9f6-4d51-a1b9-11681803783d",
-        "name": "Parse And Validate",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          660,
-          100
-        ],
-        "parameters": {
-          "mode": "runOnceForEachItem",
-          "language": "javaScript",
-          "jsCode": "const inp = $('Normalize Input').item.json;\nconst esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };\nif ($json.error || !$json.valueRanges) { return { json: { ok: false, project_id: inp.project_id, spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, mode: inp.mode, telegram_user_id: inp.telegram_user_id, checks: [], plan: null, schedule: [], preview_text: '⛔ <b>Не вдалося прочитати Кошторис</b>' + String.fromCharCode(10) + String.fromCharCode(10) + 'Вкладку «' + esc(inp.sheet) + '» не знайдено або немає доступу до файлу.' } }; }\nconst vr = ($json.valueRanges || []);\nconst sheetVals = (vr[0] && vr[0].values) || [];\nconst grafVals = (vr[1] && vr[1].values) || [];\nconst NL = String.fromCharCode(10);\nconst colIdx = function (L) { let n = 0; for (const ch of L) { n = n * 26 + (ch.charCodeAt(0) - 64); } return n - 1; };\nconst cell = function (ref) {\n  const m = ref.match(/^([A-Z]+)([0-9]+)$/);\n  const row = sheetVals[parseInt(m[2], 10) - 1] || [];\n  const v = row[colIdx(m[1])];\n  return (v === undefined || v === '') ? null : v;\n};\nconst num = function (ref) { const v = cell(ref); if (v === null) return null; const n = Number(v); return isNaN(n) ? null : n; };\nconst serialToISO = function (n) { return new Date(Date.UTC(1899, 11, 30) + Math.round(n) * 86400000).toISOString().slice(0, 10); };\nconst tol = function (a, b, t) { return a !== null && b !== null && Math.abs(a - b) <= t; };\nconst sum = function (col, a, b) { let s = 0; for (let r = a; r <= b; r++) { s += num(col + r) || 0; } return s; };\nconst checks = [];\nconst add = function (id, label, ok, type) { checks.push({ id: id, label: label, ok: !!ok, type: type || 'block' }); };\nconst pid = inp.project_id;\nconst stageRows = [['МБР', 13], ['ЕП', 17], ['П', 21], ['Р', 25], ['АН', 27]];\nadd('K1', 'Вкладка належить проекту ' + pid, cell('A1') === pid);\nadd('K2', 'Структура стадій (МБР, ЕП, П, Р, АН) на місці', stageRows.every(function (x) { return cell('A' + x[1]) === x[0] && cell('B' + x[1]) === 'TOTAL'; }));\nconst D7 = num('D7'), E7 = num('E7'), F7 = num('F7'), G7 = num('G7'), H7 = num('H7'), A3 = num('A3'), A5 = num('A5'), W1 = num('W1');\nadd('K3', 'Контракт > 0 і дорівнює сумі стадій', D7 > 0 && tol(D7, sum('D', 2, 6), 1));\nadd('K4', 'Собівартість сходиться (команда + субпідряд)', tol(G7, sum('G', 2, 6), 1) && tol(H7, sum('H', 2, 6), 1) && tol(E7, (G7 || 0) + (H7 || 0), 1));\nadd('K5', 'Прибуток і рентабельність сходяться', tol(F7, (D7 || 0) - (E7 || 0), 1) && D7 > 0 && tol(A3, F7 / D7, 0.0005));\nconst st = {};\nstageRows.forEach(function (x) { st[x[0]] = num('D' + x[1]) || 0; });\nconst stSum = st['МБР'] + st['ЕП'] + st['П'] + st['Р'] + st['АН'];\nadd('K6', 'План годин дорівнює сумі стадій', tol(W1, stSum, 0.5));\nadd('K7', 'Години МБР, ЕП, П, Р більші за 0', st['МБР'] > 0 && st['ЕП'] > 0 && st['П'] > 0 && st['Р'] > 0);\nadd('K8', 'Ставка більша за 0', A5 > 0);\nconst hdr = (grafVals[0] || []).map(function (x) { return String(x === undefined || x === null ? '' : x).trim(); });\nconst ci = function (n) { return hdr.indexOf(n); };\nconst cP = ci('ProjectID'), cS = ci('Стадія'), cD = ci('Дата_план'), cSum = ci('Сума_план'), cPr = ci('Ймовірність_10'), cSt = ci('Статус'), cM = ci('Дедлайн_документації_план'), cN = ci('Ймовірність_видачі_10');\nconst schedule = [];\nlet badRows = 0;\nconst okProb = function (p) { return p === undefined || p === '' || p === null || (typeof p === 'number' && p >= 1 && p <= 10); };\nfor (const row of grafVals.slice(1)) {\n  if (!row || row[cP] !== pid) continue;\n  const stg = row[cS], d = row[cD], p = row[cPr];\n  if (['МБР', 'ЕП', 'П', 'Р', 'АН'].indexOf(stg) < 0 || typeof d !== 'number' || !okProb(p)) { badRows++; continue; }\n  schedule.push({ 'стадія': stg, 'подія': 'акт', 'дата_план': serialToISO(d), 'сума_план': typeof row[cSum] === 'number' ? row[cSum] : null, 'ймовірність_план': typeof p === 'number' ? Math.round(p) : null, 'статус_план': row[cSt] || null });\n  const m = cM >= 0 ? row[cM] : undefined;\n  if (typeof m === 'number') {\n    const n = row[cN];\n    if (!okProb(n)) { badRows++; continue; }\n    schedule.push({ 'стадія': stg, 'подія': 'документація', 'дата_план': serialToISO(m), 'сума_план': null, 'ймовірність_план': typeof n === 'number' ? Math.round(n) : null, 'статус_план': null });\n  }\n}\nconst acts = schedule.filter(function (x) { return x['подія'] === 'акт'; });\nconst docs = schedule.filter(function (x) { return x['подія'] === 'документація'; });\nadd('K9', 'Графік оплат: є акти, дати й ймовірності коректні', cP >= 0 && acts.length > 0 && badRows === 0);\nadd('K10', 'Є дедлайни документації', docs.length > 0, 'warn');\nconst actSum = acts.reduce(function (a, x) { return a + (x['сума_план'] || 0); }, 0);\nadd('K11', 'Сума актів не більша за контракт з ПДВ', actSum <= (D7 || 0) * 1.2 + 1, 'warn');\nconst ok = checks.every(function (c) { return c.ok || c.type === 'warn'; });\nconst today = new Date().toISOString().slice(0, 10);\nconst nextOf = function (arr) { const f = arr.filter(function (x) { return x['дата_план'] >= today; }); f.sort(function (a, b) { return a['дата_план'] < b['дата_план'] ? -1 : 1; }); return f[0] || null; };\nconst na = nextOf(acts), nd = nextOf(docs);\nconst r2 = function (n) { return n === null ? null : Math.round(n * 100) / 100; };\nconst plan = {\n  contract: r2(D7), rent_pct: A3 === null ? null : Math.round(A3 * 1000) / 10, profit: r2(F7), team: r2(G7), sub: r2(H7), bac: r2(E7),\n  hours: W1, stages: st, stages4: { 'МБР': st['МБР'], 'ЕП': st['ЕП'], 'П': st['П'], 'Р': st['Р'] }, rate: A5,\n  next_act_date: na ? na['дата_план'] : '', next_act_p: na && na['ймовірність_план'] !== null ? String(na['ймовірність_план']) : '',\n  next_doc_date: nd ? nd['дата_план'] : '', next_doc_p: nd && nd['ймовірність_план'] !== null ? String(nd['ймовірність_план']) : ''\n};\nconst fmt = function (n) { if (n === null || n === undefined) return '—'; const s = String(Math.round(n)); return s.replace(/[0-9](?=([0-9]{3})+$)/g, '$& '); };\nconst dd = function (iso) { const p = iso.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; };\nconst lines = [];\nlines.push('📐 <b>Кошторис ' + esc(pid) + ' — перегляд</b>');\nlines.push('');\nlines.push('💰 <b>Гроші</b>');\nlines.push('• Контракт (без ПДВ): ' + fmt(D7) + ' грн');\nlines.push('• Рентабельність_план: ' + (plan.rent_pct === null ? '—' : plan.rent_pct + '%'));\nlines.push('');\nlines.push('⏱ <b>Години (план): ' + fmt(W1) + ' год</b>');\nlines.push('• МБР: ' + st['МБР']);\nlines.push('• ЕП: ' + st['ЕП']);\nlines.push('• П: ' + st['П']);\nlines.push('• Р: ' + st['Р']);\nlines.push('• АН: ' + st['АН']);\nlines.push('');\nlines.push('📅 <b>Підписання актів (план)</b>');\nif (acts.length) { acts.forEach(function (a, i) { if (i) lines.push(''); lines.push('<b>Стадія ' + esc(a['стадія']) + '</b>'); lines.push('• Дата акту: ' + dd(a['дата_план'])); lines.push('• Ймовірність підписання: ' + (a['ймовірність_план'] ? a['ймовірність_план'] + ' з 10' : '—')); }); } else { lines.push('• немає'); }\nlines.push('');\nlines.push('📄 <b>Видача документації (план)</b>');\nif (docs.length) { docs.forEach(function (a, i) { if (i) lines.push(''); lines.push('<b>Стадія ' + esc(a['стадія']) + '</b>'); lines.push('• Дедлайн видачі: ' + dd(a['дата_план'])); lines.push('• Ймовірність видачі: ' + (a['ймовірність_план'] ? a['ймовірність_план'] + ' з 10' : '—')); }); } else { lines.push('• немає'); }\nlines.push('');\nlines.push('🔍 <b>Перевірки</b>');\nchecks.forEach(function (c) { lines.push((c.ok ? '✅' : (c.type === 'warn' ? '⚠️' : '❌')) + ' ' + esc(c.label)); });\nlines.push('');\nlines.push(ok ? '🎯 <b>Що зробити:</b> надішліть «затвердити», щоб записати план, або «скасувати».' : '⛔ <b>Запис неможливий:</b> виправте Кошторис і надішліть команду ще раз.');\nreturn { json: { ok: ok, project_id: pid, spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, mode: inp.mode, telegram_user_id: inp.telegram_user_id, checks: checks, plan: plan, schedule: schedule, preview_text: lines.join(NL) } };\n"
-        }
-      },
-      {
-        "id": "4efeaa75-0b0d-481d-8dd0-f1fd34fb5c76",
-        "name": "Commit?",
-        "type": "n8n-nodes-base.if",
-        "typeVersion": 2.2,
-        "position": [
-          880,
-          100
-        ],
-        "parameters": {
-          "conditions": {
-            "options": {
-              "caseSensitive": true,
-              "leftValue": "",
-              "typeValidation": "loose"
-            },
-            "conditions": [
-              {
-                "leftValue": "={{ $json.mode }}",
-                "operator": {
-                  "type": "string",
-                  "operation": "equals"
-                },
-                "rightValue": "commit"
-              },
-              {
-                "leftValue": "={{ $json.ok }}",
-                "operator": {
-                  "type": "boolean",
-                  "operation": "true",
-                  "singleValue": true
-                }
-              }
-            ],
-            "combinator": "and"
-          }
-        }
-      },
-      {
-        "id": "b213660c-9e75-4986-89c7-dfec5be336ff",
-        "name": "Commit Plan",
-        "type": "n8n-nodes-base.postgres",
-        "typeVersion": 2.6,
-        "position": [
-          1100,
-          0
-        ],
-        "parameters": {
-          "operation": "executeQuery",
-          "query": "WITH pm AS (\n  INSERT INTO public.project_metrics (project_id, contract_amount, profitability_plan_pct, profit_plan, cost_plan_team, cost_plan_subcontract, bac, planned_hours, planned_hours_by_stage, etc_plan_by_stage, real_rate_team_hour, koshtorys_spreadsheet_id, koshtorys_sheet, baseline_at, baseline_by, nearest_act_date, nearest_act_probability, nearest_doc_deadline, doc_issuance_probability, hours_remaining, percent_execution, updated_at)\n  VALUES ($1, $2::numeric, $3::numeric, $4::numeric, $5::numeric, $6::numeric, $7::numeric, $8::numeric, $9::jsonb, $10::jsonb, $11::numeric, $12, $13, now(), NULLIF($14,'')::bigint, NULLIF($15,'')::date, NULLIF($16,'')::numeric, NULLIF($17,'')::date, NULLIF($18,'')::numeric, $8::numeric, 0, now())\n  ON CONFLICT (project_id) DO UPDATE SET\n    contract_amount = EXCLUDED.contract_amount, profitability_plan_pct = EXCLUDED.profitability_plan_pct, profit_plan = EXCLUDED.profit_plan,\n    cost_plan_team = EXCLUDED.cost_plan_team, cost_plan_subcontract = EXCLUDED.cost_plan_subcontract, bac = EXCLUDED.bac,\n    planned_hours = EXCLUDED.planned_hours, planned_hours_by_stage = EXCLUDED.planned_hours_by_stage, etc_plan_by_stage = EXCLUDED.etc_plan_by_stage,\n    real_rate_team_hour = EXCLUDED.real_rate_team_hour, koshtorys_spreadsheet_id = EXCLUDED.koshtorys_spreadsheet_id, koshtorys_sheet = EXCLUDED.koshtorys_sheet,\n    baseline_at = now(), baseline_by = EXCLUDED.baseline_by,\n    nearest_act_date = EXCLUDED.nearest_act_date, nearest_act_probability = EXCLUDED.nearest_act_probability,\n    nearest_doc_deadline = EXCLUDED.nearest_doc_deadline, doc_issuance_probability = EXCLUDED.doc_issuance_probability,\n    hours_remaining = EXCLUDED.planned_hours - COALESCE(project_metrics.actual_hours, 0),\n    percent_execution = round(COALESCE(project_metrics.actual_hours, 0) / NULLIF(EXCLUDED.planned_hours, 0) * 100, 1),\n    updated_at = now()\n  RETURNING project_id, planned_hours, percent_execution),\ndel AS (DELETE FROM public.payment_schedule WHERE project_id = $1 RETURNING 1),\nins AS (INSERT INTO public.payment_schedule (project_id, \"стадія\", \"подія\", \"дата_план\", \"сума_план\", \"ймовірність_план\", \"статус_план\")\n  SELECT $1, x.\"стадія\", x.\"подія\", x.\"дата_план\"::date, x.\"сума_план\", x.\"ймовірність_план\", x.\"статус_план\"\n  FROM jsonb_to_recordset($19::jsonb) AS x(\"стадія\" text, \"подія\" text, \"дата_план\" text, \"сума_план\" numeric, \"ймовірність_план\" int, \"статус_план\" text)\n  RETURNING 1)\nSELECT (SELECT project_id FROM pm) AS project_id, (SELECT planned_hours FROM pm) AS planned_hours, (SELECT percent_execution FROM pm) AS percent_execution,\n       (SELECT count(*) FROM del) AS deleted, (SELECT count(*) FROM ins) AS inserted;",
-          "options": {
-            "queryReplacement": "={{ [ $json.project_id, String($json.plan.contract), String($json.plan.rent_pct), String($json.plan.profit), String($json.plan.team), String($json.plan.sub), String($json.plan.bac), String($json.plan.hours), JSON.stringify($json.plan.stages), JSON.stringify($json.plan.stages4), String($json.plan.rate), $json.spreadsheet_id, $json.sheet, String($json.telegram_user_id || ''), $json.plan.next_act_date, $json.plan.next_act_p, $json.plan.next_doc_date, $json.plan.next_doc_p, JSON.stringify($json.schedule) ] }}"
-          }
-        },
-        "credentials": {
-          "postgres": {
-            "id": "9RgEysuE2hzWIIQq",
-            "name": "Postgres account"
-          }
-        }
-      },
-      {
-        "id": "cb23c42a-309f-4304-afc6-f8b0992f46de",
-        "name": "Commit Result",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1320,
-          0
-        ],
-        "parameters": {
-          "mode": "runOnceForEachItem",
-          "language": "javaScript",
-          "jsCode": "const p = $('Parse And Validate').item.json;\nconst r = $json;\nconst NL = String.fromCharCode(10);\nreturn { json: { ok: true, committed: true, project_id: p.project_id, planned_hours: r.planned_hours, schedule_rows: r.inserted, preview_text: '✅ <b>План ' + p.project_id + ' завантажено в Archi</b>' + NL + NL + '⏱ Години (план): ' + p.plan.hours + ' год' + NL + '📅 Рядків графіка: ' + r.inserted + NL + NL + 'ℹ️ Факт і тижневі звіти не змінено.' } };"
-        }
-      },
-      {
-        "id": "47f75622-29b5-4832-b04b-dee902a1c055",
-        "name": "Preview Result",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1100,
-          200
-        ],
-        "parameters": {
-          "mode": "runOnceForEachItem",
-          "language": "javaScript",
-          "jsCode": "return { json: $json };"
-        }
-      },
-      {
-        "id": "05dc5864-af1d-4eff-98f3-807634798000",
-        "name": "AN: Is Visit Tab?",
-        "type": "n8n-nodes-base.if",
-        "typeVersion": 2.2,
-        "position": [
-          440,
-          320
-        ],
-        "parameters": {
-          "conditions": {
-            "combinator": "and",
-            "conditions": [
-              {
-                "leftValue": "={{ String($json.project_id).endsWith('-АН') }}",
-                "operator": {
-                  "operation": "true",
-                  "singleValue": true,
-                  "type": "boolean"
-                }
-              }
-            ],
-            "options": {
-              "caseSensitive": true,
-              "leftValue": "",
-              "typeValidation": "loose"
-            }
-          }
-        }
-      },
-      {
-        "id": "80fad67a-eeb1-40d2-8ce2-9740296c9f72",
-        "name": "AN: Read Tab",
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.3,
-        "position": [
-          660,
-          320
-        ],
-        "parameters": {
-          "authentication": "predefinedCredentialType",
-          "method": "GET",
-          "nodeCredentialType": "googleSheetsOAuth2Api",
-          "options": {},
-          "url": "={{ 'https://sheets.googleapis.com/v4/spreadsheets/' + $json.spreadsheet_id + '/values/' + encodeURIComponent(\"'\" + String($json.sheet).replace(/'/g, \"''\") + \"'!A1:B11\") + '?valueRenderOption=UNFORMATTED_VALUE' }}"
-        },
-        "onError": "continueRegularOutput",
-        "credentials": {
-          "googleSheetsOAuth2Api": {
-            "id": "ijBsXae1VQfiWISu",
-            "name": "Google Sheets account"
-          }
-        }
-      },
-      {
-        "id": "55c2d9ae-dc70-40ac-9ee3-9471faf77c2d",
-        "name": "AN: Parse Visit",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          880,
-          320
-        ],
-        "parameters": {
-          "jsCode": "const inp = $('Normalize Input').item.json;\nconst NL = String.fromCharCode(10);\nconst esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };\nconst base = { project_id: inp.project_id, spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, mode: inp.mode, telegram_user_id: inp.telegram_user_id, visit: true };\nif ($json.error || !$json.values) { return { json: Object.assign({}, base, { ok: false, checks: [], plan: null, preview_text: '⛔ <b>Не вдалося прочитати договір АН</b>' + NL + NL + 'Вкладку «' + esc(inp.sheet) + '» не знайдено або немає доступу до файлу.' }) }; }\nconst v = $json.values;\nconst cell = function (r, c) { const row = v[r - 1] || []; const x = row[c]; return (x === undefined || x === '') ? null : x; };\nconst n = function (r) { const x = cell(r, 1); if (x === null) return null; const k = Number(x); return isNaN(k) ? null : k; };\nconst tol = function (a, b, t) { return a !== null && b !== null && Math.abs(a - b) <= t; };\nconst pid = inp.project_id;\nconst parent = cell(2, 1);\nconst visits = n(3), price = n(4), hours = n(5), rate = n(6), contract = n(7), hrsPlan = n(8), cost = n(9), profit = n(10), rent = n(11);\nconst checks = [];\nconst add = function (id, label, ok) { checks.push({ id: id, label: label, ok: !!ok, type: 'block' }); };\nadd('A1', 'Вкладка належить договору ' + pid, cell(1, 0) === pid);\nadd('A2', 'Вказано основний проєкт (назва вкладки = проєкт-АН)', parent !== null && pid === String(parent) + '-АН');\nadd('A3', 'Виїздів, ціна, години на виїзд і ставка більші за 0', visits > 0 && price > 0 && hours > 0 && rate > 0);\nadd('A4', 'Контракт дорівнює виїздів × ціна', tol(contract, visits * price, 1));\nadd('A5', 'Години дорівнюють виїздів × години на виїзд', tol(hrsPlan, visits * hours, 0.01));\nadd('A6', 'Собівартість дорівнює години × ставка', tol(cost, hrsPlan * rate, 1));\nadd('A7', 'Прибуток сходиться', tol(profit, (contract || 0) - (cost || 0), 1));\nconst ok = checks.every(function (c) { return c.ok; });\nconst r2 = function (x) { return x === null ? null : Math.round(x * 100) / 100; };\nconst plan = { parent: parent === null ? '' : String(parent), visits: visits, price: price, visit_hours: hours, rate: rate, contract: r2(contract), hours: hrsPlan, bac: r2(cost), profit: r2(profit), rent_pct: rent === null ? null : Math.round(rent * 1000) / 10 };\nconst fmt = function (x) { if (x === null || x === undefined) return '—'; return String(Math.round(x)).replace(/[0-9](?=([0-9]{3})+$)/g, '$& '); };\nconst lines = [];\nlines.push('📐 <b>Договір АН ' + esc(pid) + ' — перегляд</b>');\nlines.push('');\nlines.push('💰 <b>Гроші</b>');\nlines.push('• Контракт (без ПДВ): ' + fmt(contract) + ' грн');\nlines.push('• Ціна виїзду: ' + fmt(price) + ' грн');\nlines.push('• Рентабельність_план: ' + (plan.rent_pct === null ? '—' : plan.rent_pct + '%'));\nlines.push('');\nlines.push('⏱ <b>Години (план): ' + fmt(hrsPlan) + ' год</b>');\nlines.push('• Виїздів: ' + fmt(visits));\nlines.push('• Годин на виїзд: ' + fmt(hours));\nlines.push('');\nlines.push('🔍 <b>Перевірки</b>');\nchecks.forEach(function (c) { lines.push((c.ok ? '✅' : '❌') + ' ' + esc(c.label)); });\nlines.push('');\nlines.push(ok ? '🎯 <b>Що зробити:</b> надішліть «затвердити», щоб записати план, або «скасувати».' : '⛔ <b>Запис неможливий:</b> виправте вкладку і надішліть команду ще раз.');\nreturn { json: Object.assign({}, base, { ok: ok, checks: checks, plan: plan, schedule: [], preview_text: lines.join(NL) }) };",
-          "language": "javaScript",
-          "mode": "runOnceForEachItem"
-        }
-      },
-      {
-        "id": "f2aa9fc0-a7c2-4ef4-ad6b-11e647747405",
-        "name": "AN: Commit?",
-        "type": "n8n-nodes-base.if",
-        "typeVersion": 2.2,
-        "position": [
-          1100,
-          320
-        ],
-        "parameters": {
-          "conditions": {
-            "combinator": "and",
-            "conditions": [
-              {
-                "leftValue": "={{ $json.mode }}",
-                "operator": {
-                  "operation": "equals",
-                  "type": "string"
-                },
-                "rightValue": "commit"
-              },
-              {
-                "leftValue": "={{ $json.ok }}",
-                "operator": {
-                  "operation": "true",
-                  "singleValue": true,
-                  "type": "boolean"
-                }
-              }
-            ],
-            "options": {
-              "caseSensitive": true,
-              "leftValue": "",
-              "typeValidation": "loose"
-            }
-          }
-        }
-      },
-      {
-        "id": "959e686f-338a-4fde-806a-138d6262a2d4",
-        "name": "AN: Commit Visit Plan",
-        "type": "n8n-nodes-base.postgres",
-        "typeVersion": 2.6,
-        "position": [
-          1320,
-          260
-        ],
-        "parameters": {
-          "operation": "executeQuery",
-          "options": {
-            "queryReplacement": "={{ [ $json.project_id, $json.plan.parent, String($json.plan.visits), String($json.plan.price), String($json.plan.visit_hours), String($json.plan.contract), String($json.plan.hours), String($json.plan.bac), String($json.plan.profit), String($json.plan.rent_pct), String($json.plan.rate), $json.spreadsheet_id, $json.sheet, String($json.telegram_user_id || '') ] }}"
-          },
-          "query": "INSERT INTO public.project_metrics (project_id, contract_type, parent_project_id, visits_plan, visit_price, visit_hours, contract_amount, planned_hours, bac, cost_plan_team, cost_plan_subcontract, profit_plan, profitability_plan_pct, real_rate_team_hour, koshtorys_spreadsheet_id, koshtorys_sheet, baseline_at, baseline_by, hours_remaining, percent_execution, updated_at)\nSELECT $1, 'visit', $2, $3::int, $4::numeric, $5::numeric, $6::numeric, $7::numeric, $8::numeric, $8::numeric, 0, $9::numeric, $10::numeric, $11::numeric, $12, $13, now(), NULLIF($14,'')::bigint, $7::numeric, 0, now()\nWHERE EXISTS (SELECT 1 FROM public.project_metrics WHERE project_id = $2)\nON CONFLICT (project_id) DO UPDATE SET\n  contract_type = 'visit', parent_project_id = EXCLUDED.parent_project_id, visits_plan = EXCLUDED.visits_plan, visit_price = EXCLUDED.visit_price, visit_hours = EXCLUDED.visit_hours,\n  contract_amount = EXCLUDED.contract_amount, planned_hours = EXCLUDED.planned_hours, bac = EXCLUDED.bac, cost_plan_team = EXCLUDED.cost_plan_team, cost_plan_subcontract = 0,\n  profit_plan = EXCLUDED.profit_plan, profitability_plan_pct = EXCLUDED.profitability_plan_pct, real_rate_team_hour = EXCLUDED.real_rate_team_hour,\n  koshtorys_spreadsheet_id = EXCLUDED.koshtorys_spreadsheet_id, koshtorys_sheet = EXCLUDED.koshtorys_sheet, baseline_at = now(), baseline_by = EXCLUDED.baseline_by, updated_at = now()\nRETURNING project_id, visits_plan, contract_amount;"
-        },
-        "credentials": {
-          "postgres": {
-            "id": "9RgEysuE2hzWIIQq",
-            "name": "Postgres account"
-          }
-        }
-      },
-      {
-        "id": "fa8e6614-a85b-4ec4-a529-ab0de82419f9",
-        "name": "AN: Commit Result",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1540,
-          260
-        ],
-        "parameters": {
-          "jsCode": "const p = $('AN: Parse Visit').item.json;\nconst NL = String.fromCharCode(10);\nif (!$json.project_id) { return { json: { ok: false, committed: false, project_id: p.project_id, preview_text: '⛔ <b>Договір ' + p.project_id + ' не записано</b>' + NL + NL + 'Основний проєкт «' + p.plan.parent + '» не знайдено в Archi.' } }; }\nreturn { json: { ok: true, committed: true, project_id: p.project_id, planned_hours: p.plan.hours, preview_text: '✅ <b>Договір АН ' + p.project_id + ' завантажено в Archi</b>' + NL + NL + '⏱ Години (план): ' + p.plan.hours + ' год' + NL + '🚗 Виїздів: ' + p.plan.visits + NL + NL + 'ℹ️ Факт і тижневі звіти не змінено.' } };",
-          "language": "javaScript",
-          "mode": "runOnceForEachItem"
-        }
-      },
-      {
-        "id": "09ee7b5f-da78-42f1-88d7-24c2c633c273",
-        "name": "AN: Preview Result",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1320,
-          400
-        ],
-        "parameters": {
-          "jsCode": "return { json: $json };",
-          "language": "javaScript",
-          "mode": "runOnceForEachItem"
-        }
-      }
-    ],
-    "connections": {
-      "When Called": {
-        "main": [
-          [
-            {
-              "node": "Normalize Input",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Manual Test": {
-        "main": [
-          [
-            {
-              "node": "Normalize Input",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Read Koshtorys": {
-        "main": [
-          [
-            {
-              "node": "Parse And Validate",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Parse And Validate": {
-        "main": [
-          [
-            {
-              "node": "Commit?",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Commit?": {
-        "main": [
-          [
-            {
-              "node": "Commit Plan",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [
-            {
-              "node": "Preview Result",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Commit Plan": {
-        "main": [
-          [
-            {
-              "node": "Commit Result",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Normalize Input": {
-        "main": [
-          [
-            {
-              "node": "AN: Is Visit Tab?",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "AN: Is Visit Tab?": {
-        "main": [
-          [
-            {
-              "node": "AN: Read Tab",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [
-            {
-              "node": "Read Koshtorys",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "AN: Read Tab": {
-        "main": [
-          [
-            {
-              "node": "AN: Parse Visit",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "AN: Parse Visit": {
-        "main": [
-          [
-            {
-              "node": "AN: Commit?",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "AN: Commit?": {
-        "main": [
-          [
-            {
-              "node": "AN: Commit Visit Plan",
-              "type": "main",
-              "index": 0
-            }
-          ],
-          [
-            {
-              "node": "AN: Preview Result",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "AN: Commit Visit Plan": {
-        "main": [
-          [
-            {
-              "node": "AN: Commit Result",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      }
-    },
-    "nodeGroups": []
+    "sameAsDraft": true
   },
   "meta": {
     "aiBuilderAssisted": true,
