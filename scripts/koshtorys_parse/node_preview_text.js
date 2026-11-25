@@ -20,6 +20,21 @@ L.push('• Контракт (без ПДВ): ' + fmt(v.contract) + ' грн');
 L.push('• Рентабельність_план: ' + (v.rent_pct === null || v.rent_pct === undefined ? '—' : v.rent_pct + '%'));
 if (P.kind === 'visit') { L.push('• Ціна виїзду: ' + fmt(v.price) + ' грн'); }
 L.push('');
+if (P.kind === 'stages' && v.stage_money) {
+  L.push('🧱 <b>Вартість по стадіях (без ПДВ)</b>');
+  ['МБР', 'ЕП', 'П', 'Р', 'АН'].forEach(function (st) {
+    var m = v.stage_money[st];
+    if (!m || (!m.price && !m.cost)) { return; }
+    L.push('');
+    L.push('<b>' + st + '</b>');
+    L.push('• Ціна: ' + fmt(m.price) + ' грн');
+    L.push('• Собівартість: ' + fmt(m.cost) + ' грн');
+    L.push('• Прибуток: ' + (Number(m.profit) < 0 ? '🔴 ' : '') + fmt(m.profit) + ' грн');
+    L.push('• Рентабельність: ' + (m.rent_pct === null || m.rent_pct === undefined ? '—' : (Number(m.rent_pct) < 0 ? '🔴 ' : '') + String(m.rent_pct).replace('.', ',') + '%'));
+    L.push('• Години: ' + (v.stages && v.stages[st] !== undefined ? v.stages[st] : '—'));
+  });
+  L.push('');
+}
 if (P.kind === 'stages') {
   L.push('⏱ <b>Години (план): ' + fmt(v.hours) + ' год</b>');
   ['МБР', 'ЕП', 'П', 'Р', 'АН'].forEach(function (s) { L.push('• ' + s + ': ' + (v.stages ? v.stages[s] : '—')); });

@@ -79,6 +79,14 @@ function parseStages(sheetVals, grafVals, inp) {
   add('K6', 'План годин (W1) дорівнює сумі стадій', tol(W1, hoursAll, 0.5), 'block', 'W1');
   add('K7', 'Години МБР, ЕП, П, Р більші за 0', hoursStage['МБР'] > 0 && hoursStage['ЕП'] > 0 && hoursStage['П'] > 0 && hoursStage['Р'] > 0, 'block', 'TOTAL стадій');
   add('K8', 'Ставка більша за 0', A5 > 0, 'block', 'A5');
+  // Вартість по стадіях: шапка, рядки 2–6 = МБР, ЕП, П, Р, АН; D ціна без ПДВ, E собівартість, F прибуток (мануал §3).
+  var stageMoney = {}, orderOk = true;
+  STAGES.forEach(function (s, i) {
+    var r = 2 + i, d = numAt('D' + r), e = numAt('E' + r), f = numAt('F' + r), lab = cellAt('B' + r);
+    if (lab === null || String(lab).indexOf(s) < 0) { orderOk = false; }
+    stageMoney[s] = { price: d === null ? null : r2(d), cost: e === null ? null : r2(e), profit: f === null ? null : r2(f), rent_pct: (d > 0 && f !== null) ? Math.round(f / d * 1000) / 10 : null };
+  });
+  add('K15', 'Шапка: рядки стадій 2–6 йдуть у порядку МБР, ЕП, П, Р, АН', orderOk, 'warn', 'B2:B6');
 
   // 3. Графік оплат (без змін відносно K9–K11 старої версії).
   var hdr = (grafVals[0] || []).map(function (x) { return String(x === undefined || x === null ? '' : x).trim(); });
@@ -111,10 +119,10 @@ function parseStages(sheetVals, grafVals, inp) {
   var status = cellAt('T2');
   var payload = {
     kind: 'stages', spreadsheet_id: inp.spreadsheet_id, sheet: inp.sheet, status: status, contract: r2(D7), rate: A5,
-    totals: { hours: W1, cost_internal: r2(G7), cost_sub: r2(H7), contract: r2(D7), hours_by_stage: stages4 },
+    totals: { hours: W1, cost_internal: r2(G7), cost_sub: r2(H7), contract: r2(D7), hours_by_stage: stages4, stage_money: stageMoney },
     rows: rows, schedule: schedule
   };
-  return { ok: ok, kind: 'stages', checks: checks, errors: errs, payload: payload, view: { contract: D7, rent_pct: A3 === null ? null : Math.round(A3 * 1000) / 10, hours: W1, stages: hoursStage, acts: acts, docs: docs } };
+  return { ok: ok, kind: 'stages', checks: checks, errors: errs, payload: payload, view: { contract: D7, rent_pct: A3 === null ? null : Math.round(A3 * 1000) / 10, hours: W1, stages: hoursStage, stage_money: stageMoney, acts: acts, docs: docs } };
 }
 
 
