@@ -5,6 +5,8 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 6 25.11.2026 (`RELEASE_PLAN` §218):** Supabase — функція `archi_morning_brief` змінена (Н-2, Н-3, Н-5); схема таблиць без змін; core `CKwCsGIwyw9feCY5` без змін.
+
 **Доповнення 5 21.11.2026 (`RELEASE_PLAN` §205):** схема Supabase: додано 4 таблиці `koshtorys_*` (W2.1 / M1, RLS без політик, порожні); core `CKwCsGIwyw9feCY5` без змін — `activeVersionId 8f4a823f-3fd5-491b-a60c-50116b40cfbf`, 197 вузлів. W2 — перший вузол критичного шляху (`CLAUDE.md` п. 40).
 
 **Доповнення 4 20.11.2026 (`RELEASE_PLAN` §204, додаток 3):** core `CKwCsGIwyw9feCY5` — `activeVersionId 8f4a823f-3fd5-491b-a60c-50116b40cfbf`, 197 вузлів (П2h: без дублю Insight, акценти жирним, тези дзвінка; відкат `77dd745b-3589-4ac8-a207-3726ce25a98a`).

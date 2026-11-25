@@ -1,5 +1,7 @@
 # ARCHI — репозиторій продукту
 
+**Доповнення 25.11.2026 (`RELEASE_PLAN` §218):** Supabase — `archi_morning_brief`: незданий звіт за минулий тиждень, усі прострочені акти (за `money_log`), «не потрібно» не є ескалацією; відкат `sql/2026-11-24_archi_morning_brief_n2n3n5_rollback.sql`. n8n без змін.
+
 **Доповнення 11.11.2026 (§190): core `4a5df71b` (197 вузлів; збій LLM → повідомлення ПМу, повтор, temperature 0.2), Morning Brief `911fa93b` (позначка «тексти за шаблонами»), новий workflow LLM Health Check `Sna7JWxq3BpRDJIs` (щодня 07:30). Рахунок Anthropic вичерпано до поповнення власником.
 **Доповнення 4 20.11.2026 (`RELEASE_PLAN` §204, додаток 3):** core `8f4a823f-3fd5-491b-a60c-50116b40cfbf` (П2h; відкат `77dd745b-3589-4ac8-a207-3726ce25a98a`).
 
