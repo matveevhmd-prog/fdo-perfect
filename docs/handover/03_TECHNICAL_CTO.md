@@ -40,7 +40,7 @@
 | Компонент | Ідентифікатор | Примітка |
 |---|---|---|
 | n8n | `osbbcopilot.app.n8n.cloud` | хмарний; проєкт власника |
-| Core workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent» | `activeVersionId` `e1176fb0-c3f8-499d-82bd-fac02c2a8c98`, 199 вузлів (W2.3, 25.11.2026, §222; раніше 4a5df71b, V10, 11.11.2026, §190; раніше 978db8b8 DR-14; відкат — попередня версія `a4c89c3c`, на 2 вузли менше) (05.11.2026) |
+| Core workflow | `CKwCsGIwyw9feCY5` «DEMO Archi Agent» | `activeVersionId` `1e4459ea-caca-4bdf-83f2-e2cd3a8cbaa5` (W6.5a нічна тема, 26.11.2026, §223; попередня `e1176fb0-c3f8-499d-82bd-fac02c2a8c98`, 199 вузлів (W2.3, 25.11.2026, §222; раніше 4a5df71b, V10, 11.11.2026, §190; раніше 978db8b8 DR-14; відкат — попередня версія `a4c89c3c`, на 2 вузли менше) (05.11.2026) |
 | Koshtorys Ingest | `K6smBd5xWZLWx9rr` | 16 вузлів, активна `cf904641`; експорт `workflows/Archi_Koshtorys_Ingest_K6sm.json`; спадковий адаптер |
 | Document Intake | `RC7HNVlJtuPLtvYV` | 5 вузлів, `d86d127a`; експорт `workflows/Archi_Document_Intake_RC7H.json` |
 | **Error Alert** | `JZ5htUtbMaWTagoC` «ARCHI: Error Alert» | 2 вузли (`Error Trigger` → `Alert Operator`), опублікований; Error Workflow для core і Morning Brief; надсилає оператору workflow, вузол, помилку (до 300 символів), id виконання |

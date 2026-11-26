@@ -5,7 +5,7 @@
 
 ## 1. Живий стан (02.11.2026)
 
-**Доповнення 9 25.11.2026 (`RELEASE_PLAN` §222):** core `CKwCsGIwyw9feCY5` — `activeVersionId e1176fb0-c3f8-499d-82bd-fac02c2a8c98` (відкат `8f4a823f-3fd5-491b-a60c-50116b40cfbf`), 199 вузлів; вкладка «Кошторис» в Owner View; Supabase: функція `koshtorys_tab_data` (міграції `w2_m7`, `w2_m7b`, `w2_m7c`).
+**Доповнення 9 25.11.2026 (`RELEASE_PLAN` §222):** core `CKwCsGIwyw9feCY5` — `activeVersionId 1e4459ea-caca-4bdf-83f2-e2cd3a8cbaa5` (W6.5a нічна тема, 26.11.2026, §223; попередня `e1176fb0-c3f8-499d-82bd-fac02c2a8c98` (відкат `8f4a823f-3fd5-491b-a60c-50116b40cfbf`), 199 вузлів; вкладка «Кошторис» в Owner View; Supabase: функція `koshtorys_tab_data` (міграції `w2_m7`, `w2_m7b`, `w2_m7c`).
 
 **Доповнення 8 25.11.2026 (`RELEASE_PLAN` §221):** Supabase — 4 проєкти (22-24, 24-11, 24-37, 24-52) у компанії `ARCHIVE`; у DEMO 14 рядків `project_metrics` (10 зі стадіями + 4 АН); core без змін.
 

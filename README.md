@@ -2,7 +2,7 @@
 
 **Доповнення 25.11.2026 (`RELEASE_PLAN` §221):** Supabase — проєкти 22-24, 24-11, 24-37, 24-52 перенесено в компанію `ARCHIVE` (п. 49); відкат `sql/2026-11-25_archive_4_projects_p49_rollback.sql`. n8n без змін.
 
-**Доповнення 25.11.2026 (`RELEASE_PLAN` §222):** core `e1176fb0-c3f8-499d-82bd-fac02c2a8c98` (199 вузлів; вкладка «Кошторис» в Owner View; відкат `8f4a823f-3fd5-491b-a60c-50116b40cfbf`); Supabase — функція `koshtorys_tab_data`.
+**Доповнення 25.11.2026 (`RELEASE_PLAN` §222):** core `1e4459ea-caca-4bdf-83f2-e2cd3a8cbaa5` (W6.5a нічна тема, 26.11.2026, §223; попередня `e1176fb0-c3f8-499d-82bd-fac02c2a8c98` (199 вузлів; вкладка «Кошторис» в Owner View; відкат `8f4a823f-3fd5-491b-a60c-50116b40cfbf`); Supabase — функція `koshtorys_tab_data`.
 
 **Доповнення 25.11.2026 (`RELEASE_PLAN` §218):** Supabase — `archi_morning_brief`: незданий звіт за минулий тиждень, усі прострочені акти (за `money_log`), «не потрібно» не є ескалацією; відкат `sql/2026-11-24_archi_morning_brief_n2n3n5_rollback.sql`. n8n без змін.
 
