@@ -7562,7 +7562,7 @@ release-плані).
 
 ---
 
-<!-- SOURCE docs/README.md sha256=c635bc52d9b16c46fa2dfdd7810bdb39df0f10618ed0caffafdfa1088d5202da bytes=17982 -->
+<!-- SOURCE docs/README.md sha256=76fdf9388b96135baadd5628cb03d4b95f738a3827da170c80c19b3185fcb99a bytes=18178 -->
 **Джерело: `docs/README.md` — Індекс документації**
 
 # ARCHI — індекс документів
@@ -7614,6 +7614,7 @@ release-плані).
 |---|---|---|
 | `RELEASE_PLAN.md` | журнал робіт (додається лише в кінець, читати з кінця) | кожна сесія |
 | `CTO_CHECKPOINT_PROMPT.md` | процедура аудиту коду проти документації | зміна процедури |
+| `CTO_CHECKPOINT_27.11.2026.md` | звіт checkpoint W0.3 після W2/W6.5a/WD.12 (повний прохід, лише читання; P0 0 · P1 2 · P2 10) | наступний checkpoint |
 | `CTO_CHECKPOINT_19.11.2026.md` | звіт checkpoint після П2f (звужений обсяг, 10 знахідок) | наступний checkpoint |
 | `START_PROMPT_PHASE3.md` | стартовий промпт сесії «Фаза 3: промпти ШІ, брифінг» | після закриття Фази 3 |
 | `ANALYSIS_BRIEFING_PROMPT_V3_2026-11-19.md` | SWOT пропозиції промпту брифінгу v3 (PDF власника) і порівняння з рішеннями | рішення власника по варіантах А/Б |
