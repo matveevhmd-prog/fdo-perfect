@@ -8,6 +8,15 @@ const node = wf.nodes.find(function (n) { return n.name === 'WR: Parse Agent Out
 if (!node) { console.error('FAIL: вузол WR: Parse Agent Output не знайдено'); process.exit(2); }
 const CODE = node.parameters.jsCode;
 
+// Дата тесту зафіксована (як і $now нижче): код вузла порівнює прогнозні дати з «сьогодні» через new Date(),
+// а фікстури мають дати 06.11 і 20.11.2026 — без фіксації тест червонів би щодня після 20.11.2026.
+const RealDate = Date;
+const PINNED_MS = new RealDate('2026-10-26T12:00:00Z').getTime();
+global.Date = class extends RealDate {
+  constructor(...a) { if (a.length === 0) { super(PINNED_MS); } else { super(...a); } }
+  static now() { return PINNED_MS; }
+};
+
 const PLAN = { 'МБР': 100, 'ЕП': 210, 'П': 337, 'Р': 486 };             // ETC_план по стадіях (макет)
 const HOURS = { 'МБР': 100, 'ЕП': 247, 'П': 257, 'Р': 41 };              // actual_hours_live: дає розбіжність < 20 п.п. у сценарії «Фінал»
 const SD = {}; Object.keys(HOURS).forEach(function (k) { SD[k] = { actual_hours_live: HOURS[k] }; });

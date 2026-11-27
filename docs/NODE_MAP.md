@@ -1,15 +1,15 @@
 # ARCHI — карта вузлів core workflow (згенеровано)
 
 > **Не редагувати руками.** Джерело — `workflows/DEMO_Archi_Agent_Core.json`; генератор — `scripts/gen_node_map.py` (`CLAUDE.md` п. 14, рішення 6).
-> Workflow `CKwCsGIwyw9feCY5`, `versionId 8f4a823f-3fd5-491b-a60c-50116b40cfbf`, вузлів: 197, груп за префіксом: 11.
+> Workflow `CKwCsGIwyw9feCY5`, `versionId 1e4459ea-caca-4bdf-83f2-e2cd3a8cbaa5`, вузлів: 199, груп за префіксом: 11.
 
 ## Типи вузлів
 
 | Тип | Кількість |
 |---|---|
-| `postgres` | 51 |
+| `postgres` | 52 |
 | `telegram` | 43 |
-| `code` | 40 |
+| `code` | 41 |
 | `if` | 24 |
 | `respondToWebhook` | 8 |
 | `webhook` | 5 |
@@ -30,7 +30,7 @@
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
-| AN: Attach Block | `code` | Build MiniApp Data | Is Chat Request? |
+| AN: Attach Block | `code` | Build MiniApp Data | Attach Koshtorys Block |
 | AN: Patch HTML | `code` | Build MiniApp HTML | Respond MiniApp HTML |
 | AN: Split Stage Rows | `code` | Fetch Project Metrics (Chat), Fetch Project Metrics (MiniApp) | Build MiniApp Data |
 
@@ -214,11 +214,12 @@
 | Xlsx: Is Valid InitData | `if` | Xlsx: Validate InitData | [0] Resolve Company (Xlsx), [1] Respond Xlsx Unauthorized |
 | Xlsx: Validate InitData | `code` | Xlsx Export Webhook | Xlsx: Is Valid InitData |
 
-## (без префікса) (59)
+## (без префікса) (61)
 
 | Вузол | Тип | Звідки | Куди |
 |---|---|---|---|
 | Attach Company (Telegram) | `code` | Has Access (Telegram) | WR: Ensure Mode Table, Doc Intake: Is Set Command?, Doc Intake: Is Contract Content?, KP Log: Is Count Command? |
+| Attach Koshtorys Block | `code` | AN: Attach Block | Is Chat Request? |
 | Attach Meeting Log | `code` | Fetch Meeting Log (Chat) | Build Request Body |
 | Build MiniApp Data | `code` | AN: Split Stage Rows | AN: Attach Block |
 | Build MiniApp HTML | `code` | MiniApp Page Webhook | AN: Patch HTML |
@@ -230,17 +231,18 @@
 | Fetch All Project Metrics | `postgres` | Has Access (Weekly Render) | Fetch Weekly Snapshots For Grid |
 | Fetch All Weekly Snapshots | `postgres` | Has Access (Xlsx) | Xlsx: Build Rows |
 | Fetch KP Log Sum (Chat) | `postgres` | Is Owner View Request? | Fetch Project Metrics (Chat) |
-| Fetch KP Log Sum (MiniApp) | `postgres` | Has Access (Owner View) | Fetch Project Metrics (MiniApp) |
+| Fetch KP Log Sum (MiniApp) | `postgres` | Has Access (Owner View) | Fetch Koshtorys Tab (MiniApp) |
+| Fetch Koshtorys Tab (MiniApp) | `postgres` | Fetch KP Log Sum (MiniApp) | Fetch Project Metrics (MiniApp) |
 | Fetch Meeting Log (Chat) | `postgres` | Is Chat Request? | Attach Meeting Log |
 | Fetch Project Metrics (Chat) | `postgres` | Fetch KP Log Sum (Chat) | AN: Split Stage Rows |
-| Fetch Project Metrics (MiniApp) | `postgres` | Fetch KP Log Sum (MiniApp) | AN: Split Stage Rows |
+| Fetch Project Metrics (MiniApp) | `postgres` | Fetch Koshtorys Tab (MiniApp) | AN: Split Stage Rows |
 | Fetch Status Metrics | `postgres` | Is Status Command? | Build Status Text |
 | Fetch Weekly Snapshots For Grid | `postgres` | Fetch All Project Metrics | Build Weekly Render Data |
 | Has Access (Owner View) | `if` | Resolve Company (Owner View) | [0] Fetch KP Log Sum (MiniApp), [1] Respond Unauthorized |
 | Has Access (Telegram) | `if` | Resolve Company (Telegram) | [0] Attach Company (Telegram), [1] Send Access Denied |
 | Has Access (Weekly Render) | `if` | Resolve Company (Weekly Render) | [0] Fetch All Project Metrics, [1] Respond Weekly Render Unauthorized |
 | Has Access (Xlsx) | `if` | Resolve Company (Xlsx) | [0] Fetch All Weekly Snapshots, [1] Respond Xlsx Unauthorized |
-| Is Chat Request? | `if` | AN: Attach Block | [0] Fetch Meeting Log (Chat), [1] Respond MiniApp Data |
+| Is Chat Request? | `if` | Attach Koshtorys Block | [0] Fetch Meeting Log (Chat), [1] Respond MiniApp Data |
 | Is Fixed Question? | `if` | Sanitize Reply | [0] Send Reply (Questions), [1] Send Reply |
 | Is Owner View Request? | `if` | Is Questions Menu? | [0] Send MiniApp Open Button, [1] Fetch KP Log Sum (Chat) |
 | Is Parallel Cmd? | `if` | WR: Determine Route | [1] WR: Is WR Flow? |

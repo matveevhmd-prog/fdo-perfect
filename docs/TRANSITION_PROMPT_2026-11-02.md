@@ -5,6 +5,15 @@
 
 ## 1. Живий стан (02.11.2026)
 
+**Доповнення 9 25.11.2026 (`RELEASE_PLAN` §222):** core `CKwCsGIwyw9feCY5` — `activeVersionId 1e4459ea-caca-4bdf-83f2-e2cd3a8cbaa5` (W6.5a нічна тема, 26.11.2026, §223; попередня `e1176fb0-c3f8-499d-82bd-fac02c2a8c98` (відкат `8f4a823f-3fd5-491b-a60c-50116b40cfbf`), 199 вузлів; вкладка «Кошторис» в Owner View; Supabase: функція `koshtorys_tab_data` (міграції `w2_m7`, `w2_m7b`, `w2_m7c`).
+
+**Доповнення 8 25.11.2026 (`RELEASE_PLAN` §221):** Supabase — 4 проєкти (22-24, 24-11, 24-37, 24-52) у компанії `ARCHIVE`; у DEMO 14 рядків `project_metrics` (10 зі стадіями + 4 АН); core без змін.
+
+**Доповнення 6 25.11.2026 (`RELEASE_PLAN` §218):** Supabase — функція `archi_morning_brief` змінена (Н-2, Н-3, Н-5); схема таблиць без змін; core `CKwCsGIwyw9feCY5` без змін.
+**Доповнення 8 25.11.2026 (`RELEASE_PLAN` §220):** n8n K6sm `K6smBd5xWZLWx9rr` — `activeVersionId af02b90d-fcf2-49df-9599-615375afe4eb` (відкат `1c1264c1-3840-434a-b859-97535eb331dc`), 14 вузлів; перегляд Кошториса показує вартість, собівартість і прибуток по стадіях; core без змін (`8f4a823f`, 197 вузлів).
+
+**Доповнення 7 25.11.2026 (`RELEASE_PLAN` §216, §217, §219):** Supabase: функції Кошториса M5a (нагляд, Н-7), M6 (`koshtorys_ingest_draft`, `koshtorys_commit_draft`, п'ять колонок знімка файлу в `koshtorys_versions`); n8n K6sm `K6smBd5xWZLWx9rr` — `activeVersionId 1c1264c1-3840-434a-b859-97535eb331dc`, 14 вузлів (відкат `23c5765e-0c7b-49fb-9f95-f34893f240f6`); core `CKwCsGIwyw9feCY5` без змін (`8f4a823f`, 197 вузлів).
+
 **Доповнення 5 21.11.2026 (`RELEASE_PLAN` §205):** схема Supabase: додано 4 таблиці `koshtorys_*` (W2.1 / M1, RLS без політик, порожні); core `CKwCsGIwyw9feCY5` без змін — `activeVersionId 8f4a823f-3fd5-491b-a60c-50116b40cfbf`, 197 вузлів. W2 — перший вузол критичного шляху (`CLAUDE.md` п. 40).
 
 **Доповнення 4 20.11.2026 (`RELEASE_PLAN` §204, додаток 3):** core `CKwCsGIwyw9feCY5` — `activeVersionId 8f4a823f-3fd5-491b-a60c-50116b40cfbf`, 197 вузлів (П2h: без дублю Insight, акценти жирним, тези дзвінка; відкат `77dd745b-3589-4ac8-a207-3726ce25a98a`).
