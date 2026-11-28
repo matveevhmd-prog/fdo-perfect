@@ -1,0 +1,56 @@
+# CTO Checkpoint — 27.11.2026 (W0.3, повний прохід; режим «лише читання»)
+Живий activeVersionId: `1e4459ea-caca-4bdf-83f2-e2cd3a8cbaa5` (199 вузлів, `updatedAt` 25.11.2026 22:31 UTC, 7 тригерів) | Репо `workflows/DEMO_Archi_Agent_Core.json`: той самий versionId, 199 вузлів | Збіг: так (`parameters` усіх 199 вузлів після заміни токена; `connections`; різниці в наборі вузлів 0)
+Підсумок: P0 0 · P1 2 (обидві відкриті з 19.11) · P2 10 · Інваріанти: A-1 ✅, A-2 ❌ (резервні значення), A-3 ✅, A-4 ✅, A-5 частково
+Джерела: n8n — `get_workflow_details` (файл у scratchpad), `search_workflows`, `search_workflow_executions`; Supabase `bxawceksdkqlbkdgjvyz` — `execute_sql` (лише SELECT / `pg_get_functiondef`), live 27.11.2026. Нічого в живих системах не змінено.
+
+## Знахідки
+| # | Пр. | Тип | Де | Еталон | Факт (доказ) | Рекомендація | Рішення від |
+|---|---|---|---|---|---|---|---|
+| 1 | P1 | SEC | `Build Request Body`, рядки `l4c`, `pmAsk`, `pmProb`, `probs` | знахідка 1 від 19.11; OWASP «prompt injection» | Відкрита. Тексти ПМа (`p.wr.problems`, `p.wr.help`, `blocker.need`) вставляються в промпт зрізом `.slice(0,300/400)`; слова `untrusted` у вузлі 0 | `<untrusted_data>` + виніс у user-повідомлення; замір у стенді (C17) | власник (Фаза 3) |
+| 2 | P1 | TXT | `Sanitize Reply`, `cardNums` | знахідка 2 від 19.11; `CLAUDE.md` п. 9 | Відкрита. `cardNums` — `match(/\d+…/g)`, перевірка за наявністю числа серед фактів без одиниці й знаку (рядок 23, 79–81) | Типізовані числа (значення + одиниця + знак) | власник (Фаза 3) |
+| 3 | P2 | ARCH | `Build MiniApp Data` (18 викликів `rule()`), `AN: Attach Block` (2) | TECH_SPEC §2 A-2: резервне значення в коді = значення в БД | Факт (код проти `archi_thresholds`, 31 ключ): 20 розбіжностей резервів. Приклади: `cpi_red` 0,85 проти 1; `cpi_yellow` 0,95 проти 1; `etc_red` 0,10 проти 0; `etc_yellow` 0,05 проти 0; `idx_red` 0,7 і `idx_yellow` 0,9 проти 1; `profit_red_pct` 10 і `profit_yellow_pct` 5 проти 0; `rent_drop_pp(_red)` 5/10 проти 0; `slip_red_days` 14 проти 0; `plan_year_*` (5 ключів) 0 проти 47 250 000 / 9 450 000 / 84 000 / 70 / 25. Вплив латентний: спрацьовує лише якщо `archi_rules` не поверне ключ; тоді повертаються пороги до рішень п. 15 (29–30.10.2026), а `plan_year_*` = 0 | Оновити резерви до значень БД (зміна n8n, вузол >30 КБ — правило 15а); до цього — ризик | Claude після «так» власника |
+| 4 | P2 | DATA | компанія `ARCHIVE` (`…00a1`): 22-24, 24-11, 24-37, 24-52; таблиця `rates` | `FORMULAS` F-02, D-06; `RELEASE_PLAN` §221 | Факт (C-3): у DEMO `ac_indep = ac_db` 14 з 14, `cf_indep = cf_db` 14 з 14. У ARCHIVE `ac_indep ≠ ac_db` у 4 з 4: +3 234 / +96 / +20 / −412 грн (22-24 / 24-11 / 24-37 / 24-52). Причина: `rates` має рядки лише для DEMO (7), а `archi_recalc_stages` джойнить `r.company_id = t.company_id`. Збережені `actual_cost` збігаються з розрахунком зі ставками DEMO (live SQL), тобто це значення до переносу. Перший перерахунок ARCHIVE змінить `actual_cost` і прогноз | Рішення: скопіювати `rates` для ARCHIVE чи прийняти зміну при першому перерахунку (проєкти не в DEMO-портфелі) | власник |
+| 5 | P2 | TXT | `WR: Determine Route` (`FIXED_Q`), кнопки `Send Questions Menu` | `CLAUDE.md` п. 36: Q4–Q6 «зафіксовано назавжди, не видаляти й не перейменовувати» | Живий текст кнопок: «Чи є гроші на зарплату?» / «Чи є небезпека касового розриву?» / «На який час у команди є робота?». Текст п. 36: «Чи вистачить грошей на ЗП?» / «Чи є ризик касового розриву?» / «На скільки часу в команди є робота?». Суть та сама, формулювання різні. Чи власник погодив живі формулювання — не знайдено (`grep`: «Чи є гроші на зарплату» лише в `docs/archive/archi_bot_gpt_analysis.md`) | Узгодити: або оновити п. 36, або кнопки | власник |
+| 6 | P2 | DOC | БД `archi_morning_brief_pre_b28(uuid,date)` | знахідка 6 від 19.11; `RELEASE_PLAN` §202 | Копія старого рушія лишається в `public` (список функцій, live) | Видалити після «так» | власник |
+| 7 | P2 | TXT | `Sanitize Reply` (`dbg: DBG` у виході) | знахідка 3 від 19.11 (прибрати `dbg` після двох стабільних тестів) | `dbg` усе ще повертається в `json` | Прибрати разом з наступною публікацією вузла | Claude |
+| 8 | P2 | ARCH | `Build MiniApp Data`, `AN: Attach Block` | `FORMULAS` §7.2, борг A-1; п. 35 (пауза W1.8) | Пороги й агрегати портфеля рахує JS (18 + 2 викликів `rule()`); `Build MiniApp HTML` і `Build Request Body`: 0 викликів — як очікується | Відомий борг W1.8 | — |
+| 9 | P2 | ARCH | активні workflow на інстансі, правило 14 | `CLAUDE.md` правило 14; `RELEASE_PLAN` §195 | Активні: core (7 тригерів), K6sm (0), RC7H (0), Morning Brief (1), LLM Health Check (1), Error Alert (0), «My workflow 2» (ОСББ, 1), «Archi Representative Telegram Bot» (1), «Task Dispatcher» (1), **«ABMK COO Agent» (3 тригери, активний, оновлений 24.08.2026)** — у checkpoint 19.11 не згаданий. Виконань ABMK з 01.11.2026: 0 (`search_workflow_executions`). Core: 31 виконання 25–26.11 (вебхуки). Morning Brief: 1 запуск на добу, останній 27.11.2026 06:30 UTC, `success`. Чи ABMK є в реєстрі §195 — не звірено | Звірити з §195; за потреби деактивувати (за «так») | Claude / власник |
+| 10 | P2 | DATA | `wr_weekly_snapshots` | `CLAUDE.md` п. 26 | Свіжість (live, 27.11): 10 проєктів — останній знімок 26.10 (32 дні), 3 (DEMO-02, DEMO-05, 24-11) — 09.11 (18 днів); 24-37 — знімків немає. Дата оновлення видна на екрані (п. 26) | Без дій | — |
+| 11 | P2 | SEM | `Sanitize Reply` (`FORBID`), `Build Request Body` | знахідка 11 від 19.11; `CLAUDE.md` п. 10; `FORMULAS` P-02 | Частково закрита: `FORBID` у `Sanitize Reply` тепер містить `недозавантаж`, `перезавантаж`. Промпт `Build Request Body` слова «недозавантаж» не містить; чи правило Q6 («потужність невідома») у промпті — не перевірено; тест C21 не виконувався | Підтвердити тестом у стенді | Claude |
+
+## Перевірено й відповідає (з доказом)
+• Репо = живий n8n: versionId `1e4459ea…`, 199 вузлів, `parameters` і `connections` збігаються (Python, токен замінено).
+• A-1: `rule(`/пороги лише в `Build MiniApp Data` і `AN: Attach Block`; `Build MiniApp HTML`, `Build Request Body` — 0.
+• A-2 (ключі): усі 23 ключі, що читає код, є в БД; в БД не читає `rule()` 8 ключів (`profit_yellow_share`, `plan_avg_project_hours`, `readiness_gap_pp`, `plan_fx_uah_usd`, `demo_asof`, `plan_exec_red`, `plan_exec_yellow`, `wr_ready_gap_pp`); з них `plan_exec_*`, `readiness_gap_pp`, `wr_ready_gap_pp` читають SQL-функції чи `WR: Parse Agent Output` (grep SQL і вузлів), `plan_avg_project_hours`, `demo_asof`, `plan_fx_uah_usd` — не читає ніхто (grep 0).
+• W1.5 живий: `archi_threshold(company, key)` = `company_thresholds` → `archi_thresholds`; `archi_thresholds` має колонки `key, value, note` (без `company_id`).
+• A-3: тригери `archi_recalc_money`, `_schedule`, `_plan`, `_time`, `_wr` на `money_log`, `payment_schedule`, `project_metrics`, `time_log`, `wr_weekly_snapshots` (live SQL).
+• A-4: мертвий вузол один — `WR: Schedule Reminder (Fri 10:00)` (відомий D1); вузли без входу, не тригери: 4 під-вузли моделі/пам'яті (`WR: OpenAI Chat Model`, три `…Postgres Chat Memory`) — підключені як ai_* залежності.
+• F-check: `archi_recalc_stages(uuid,text)` звірено рядок за рядком з `FORMULAS` §2: F-01, F-02, F-03 (`hours_remaining`), F-04…F-07, F-08, F-09, F-11…F-20, F-28 — відповідає (умова 4 стадій, `статус='confirmed'`, план 0 → готовність 100 / ETC 0, план не підставляється). `archi_recalc(uuid,text)` = stages + visit.
+• C-3 (live SQL, 18 рядків `project_metrics`): DEMO 14 з 14 збіг `ac` і `cf`; ARCHIVE — див. знахідку 4.
+• Токен: літерал в 1 вузлі (`M: Send Project Picker`) — як у `SECURITY.md`; у репо збігів 0.
+• Allowlist `304884647`: у вузлах 0 (доступ через `user_access`, 1 рядок).
+• RLS: 28 таблиць без RLS — як у `SECURITY.md` і п. 28; п'ять таблиць `koshtorys_*` — RLS увімкнено.
+• Credentials (правило 11): Postgres — `Postgres account`; Telegram — `Telegram account 4`; Anthropic — `Anthropic account` (`U5Ts0Bmqulc3foVf`).
+• `koshtorys_tab_data(…, p_role)`: приймає лише `owner`, `pm`, `operator`, інша роль — відмова (fail closed). Рольового розрізу «виконавець без грошей» (п. 39) ще немає — W1.2 під паузою (п. 35).
+• Маршрутизація (крок 5): усі літеральні підписи кнопок з вузлів `Send …` і `K: Send …` (меню, питання, клавіатура звіту, «Затвердити») потрапляють у `isWrCommand` / `OWNER_CMD` / `FIXED_Q` (прогін регулярних виразів вузла в Node); у чат-LLM жодна. Два підписи «Відкрити Owner View / Щотижневий рендер» — кнопки-посилання, текст не надсилають. Паралельні команди (`кп …`, `договір <id>`) відсікаються `isParallelCmd`.
+• Контури (крок 3, вибірково за підписами): «CPI»/«EVM» як підпис на екрані — 0 у `Build MiniApp HTML`, `Build Status Text`, `Build Weekly Render HTML/Data`, `WR: Render Report`, `Xlsx: Build Rows`; у `Build Request Body` лише забороняюча інструкція «НЕ називай їх CPI чи EVM»; у `Build MiniApp Data` — коментар (рядок 66) і назви змінних. Гроші в `Build Weekly Render HTML`: 0 збігів «грн» (п. 7).
+• «Залишок» (крок 4): лише в забороняючій інструкції `Build Request Body` і в назвах колонок БД (`залишок_прогноз_по_стадіях`).
+• `scripts/check_report_form.py`: розбіжностей 0.
+• Репо: `check_docs.py` 0 помилок / 0 попереджень; `check_handover.py` PASS 15 · FAIL 0; `gen_wbs.py --check` збігається; `origin/main` не пішов уперед.
+
+## Не вдалося перевірити (чесно)
+• S-check (S-01…S-15): звірено лише константи порогів і резерви (знахідка 3); умови кожного сигналу в коді рядок за рядком — не звірено.
+• P-check (P-01…P-10, плитки V-01…V-05) і R-check (R-01…R-05 у `WR: Build WR Prompt`, `WR: Parse Agent Output`): не виконано; тести `WR: Parse Agent Output` — лише факт, що CI зелений за комітом `8368a8e` (не перезапускались).
+• Таблиця «показник × 6 контурів» (крок 3) — лише підписи й лічильники згадок, не джерело поля й база по кожному показнику.
+• A-5: 7 вузлів з двома гілками на одному виході виписано (напр. `WR: Parse Agent Output` → `WR: Is Final?` + `WR: Inbox Consume`; `Build Request Body` → `Send Thinking Ack` + `Call Anthropic`); чи читає хтось з першої гілки `$('<вузол другої>')` (клас D2) — не перевірено.
+• Живі виконання чату й екрану: replay Owner View (`scripts/replay/`) не запускався; вкладка «Кошторис» і нічна тема на екрані не бачились; подвійної відповіді Doc Intake / KP Log за виконаннями не перевірено.
+• Код брифінгу `J3Oqcaa2YBEsVSng` і промпт чату повністю не читались (знахідка 4 від 19.11 — вигадані строки й причини — не перевірялась).
+• K1–K11 у `K6smBd5xWZLWx9rr` (версія `af02b90d`) і суми `koshtorys_*` (26 версій; `project_documents` 0, `contract_addenda` 0) — не звірялись.
+• `RELEASE_PLAN` і `README` на відповідність живій версії — прочитано лише рядок W0.3 карти й заголовки §220–§225; `TECH_SPEC` §3/§5/§6/§11 — не звірялись.
+
+## Зміни відносно попереднього checkpoint (19.11.2026)
+• Живий workflow: `730b080f` → … → `1e4459ea`; вузлів 197 → 199.
+• Закрито: нічого з P1 (1, 2 лишились). Частково: 11 (`FORBID`).
+• Нові: 3 (резерви порогів), 4 (ставки ARCHIVE), 5 (формулювання Q4–Q6), 9 (ABMK COO Agent).
+• Без змін: 6, 7, 8, 10; RLS/токен/allowlist — як у `SECURITY.md`; C-3 для DEMO збігається (було 17 проєктів у одній компанії, тепер 14 DEMO + 4 ARCHIVE).
+• Контекст завдання («56 проєктів») — це `plan_year_projects` (14 → 56, §225; п. 44), у `project_metrics` live 18 рядків.
